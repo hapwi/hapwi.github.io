@@ -4,7 +4,7 @@
 
     if (new Date() >= new Date("Thu Jul 28 2022 9:00")) {
   
-      document.getElementById("link92").innerHTML += " <a href='../subs.html' class='menu__link r-link'>Submissions</a>";
+      document.getElementById("link92").innerHTML += " <a href='../subs.html' class='menu__link r-link'>Entries</a>";
   
     } else {
   
