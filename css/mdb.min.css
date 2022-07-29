@@ -402,9 +402,6 @@ td:first-child {
   position: -webkit-sticky;
   position: sticky;
   background-color: white;
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
   left: 0px;
 }
 
