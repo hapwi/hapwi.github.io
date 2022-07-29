@@ -35,5 +35,4 @@
     location.href = 'http://www.golf.contact/beback.html';
   } 
 
-
 }
