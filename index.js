@@ -31,7 +31,7 @@
 {
 
   {
-    if (new Date() >= new Date("07/29/22 9:00")) {
+    if (new Date() >= new Date("07/28/22 9:00")) {
 
       location.href = 'http://golfpooll.herokuapp.com';
 
