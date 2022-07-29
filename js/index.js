@@ -31,8 +31,10 @@
 
 
 {
-  if (new Date() >= new Date("08/01/22 9:00")) {
-    location.href = 'http://golfpooll.herokuapp.com/beback.html';
+  if (new Date() >= new Date("07/01/22 9:00")) {
+    location.href = 'http://www.golf.contact/beback.html';
+  } else{
+    location.href = 'http://www.golf.contact/';
   }
 
 
