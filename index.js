@@ -2,13 +2,13 @@
 {
 
 
-  if (new Date() >= new Date("Thu Jul 28 2022 9:00")) {
+  if (new Date() >= new Date("Thu Jul 30 2022 9:00")) {
 
-    document.getElementById("link").innerHTML += "<a href='../subs.html' class=menu__link r-link'>Submissions</a>";
+    document.getElementById("link92").innerHTML += " <a href='../subs.html' class='menu__link r-link'>Submissions</a>";
 
   } else {
 
-    document.getElementById("link").innerHTML += "Submissions (Locked)";
+    document.getElementById("link92").innerHTML += "Submissions (Locked)";
   }
 }
 
@@ -16,11 +16,11 @@
 {
   if (new Date() >= new Date("Thu Jul 28 2022 9:00")) {
 
-    document.getElementById("time").innerHTML += "Form (Locked)";
+    document.getElementById("time92").innerHTML += "Form (Locked)";
 
   } else {
 
-    document.getElementById("link").innerHTML += "<a href='../subs.html' class=menu__link r-link'>Form</a>";
+    document.getElementById("time92").innerHTML += " <a href='../form.html' class='menu__link r-link'>Form</a>";
   }
 }
 
