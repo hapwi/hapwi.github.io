@@ -54,6 +54,7 @@ body {
   padding: 20px 10px;
   text-align: center;
   position: fixed;
+  width: 100vw;
 }
 
 .header a {
