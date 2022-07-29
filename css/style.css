@@ -50,11 +50,11 @@ body {
 /* start of header format */
 .header {
   overflow: hidden;
-  background-color: #ffffff;
   padding: 20px 10px;
   text-align: center;
   position: fixed;
   width: 100vw;
+  z-index: 1;
   
 }
 

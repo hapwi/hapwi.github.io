@@ -386,7 +386,7 @@ thead,
 tr {
   border: 0 solid;
   border-color: inherit;
-
+  overflow-y: scroll;
   border-bottom-width: 0px;
 }
 
@@ -400,9 +400,13 @@ tr {
 td:first-child {
   color: green;
   position: -webkit-sticky;
-  position: sticky;
+  white-space: nowrap;
+  overflow-wrap: inherit;
   background-color: white;
   left: 0px;
+  border-radius: 25px;
+  
+  
 }
 
 label {
