@@ -1,1 +1,1 @@
-<?php include_once("/the pool/index.html"); ?>
+<?php include_once("../the pool/index.html"); ?>
