@@ -55,6 +55,7 @@ body {
   text-align: center;
   position: fixed;
   width: 100vw;
+  
 }
 
 .header a {
@@ -97,6 +98,7 @@ body {
   .header-right {
     float: none;
   }
+
 }
 
 /* end of header format */
