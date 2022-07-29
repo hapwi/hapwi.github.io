@@ -2,7 +2,7 @@
 {
 
 
-    if (new Date() >= new Date("Thu Jul 28 2022 9:00")) {
+    if (new Date() >= new Date("Thu Jul 30 2022 9:00")) {
   
       document.getElementById("link92").innerHTML += " <a href='../the pool/subs.html' class='menu__link r-link'>Submissions</a>";
   
@@ -14,7 +14,7 @@
   
   // lock form when tournament starts
   {
-    if (new Date() >= new Date("Thu Jul 30 2022 9:00")) {
+    if (new Date() >= new Date("Thu Jul 28 2022 9:00")) {
   
       document.getElementById("time92").innerHTML += "Form (Locked)";
   
