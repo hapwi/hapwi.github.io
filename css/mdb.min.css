@@ -89,16 +89,7 @@
   margin-right: auto;
 }
 
-.tr {
-  border-radius: 25px;
-  margin: 25px 0;
-  font-size: 0.9em;
-  font-family: sans-serif;
-  min-width: 75%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  margin-left: auto;
-margin-right: auto;
-}
+
 
         
 
@@ -394,7 +385,13 @@ th,
 thead,
 tr {
   border: 0 solid;
-  border-color: inherit
+  border-color: inherit;
+  
+  border-bottom-width: 0px;
+}
+#table tr:last-child td{
+  border-bottom:0;
+  border-radius: 25px;
 }
 
 label {
@@ -2108,7 +2105,8 @@ progress {
 }
 
 .table-borderless>:not(caption)>*>* {
-  border-bottom-width: 0
+  border-bottom-width: 0;
+  
 }
 
 .table-borderless>:not(:first-child) {
