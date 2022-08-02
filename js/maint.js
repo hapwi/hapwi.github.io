@@ -5,7 +5,7 @@
 
 
 {
-    if (new Date() >= new Date("08/11/22 9:00")) {
+    if (new Date() >= new Date("08/01/22 9:00")) {
       location.href = 'http://www.golf.contact/beback.html';
     } 
   
