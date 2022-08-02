@@ -14,7 +14,7 @@
 
 // lock form when tournament starts
 {
-  if (new Date() >= new Date("Thu Jul 28 2022 9:00")) {
+  if (new Date() >= new Date("Aug 28 2022 9:00")) {
 
     document.getElementById("time92").innerHTML += "Form (Locked)";
 
