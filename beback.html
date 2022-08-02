@@ -4,38 +4,38 @@
 <style>
   :root {
     /* start of clamp for typography */
-    --step--2: clamp(0.78rem, calc(0.74rem + 0.21vw), 1.40rem);
-  --step--1: clamp(0.94rem, calc(0.88rem + 0.28vw), 1.75rem);
-  --step-0: clamp(1.13rem, calc(1.05rem + 0.36vw), 2.19rem);
-  --step-1: clamp(1.35rem, calc(1.26rem + 0.47vw), 2.73rem);
-  --step-2: clamp(1.62rem, calc(1.50rem + 0.61vw), 3.42rem);
-  --step-3: clamp(1.94rem, calc(1.78rem + 0.80vw), 4.27rem);
-  --step-4: clamp(2.33rem, calc(2.13rem + 1.03vw), 5.34rem);
-  --step-5: clamp(2.80rem, calc(2.53rem + 1.33vw), 6.68rem);
+    --step--2: clamp(1.09rem, calc(1.06rem + 0.11vw), 1.40rem);
+    --step--1: clamp(1.30rem, calc(1.27rem + 0.15vw), 1.75rem);
+    --step-0: clamp(1.56rem, calc(1.52rem + 0.21vw), 2.19rem);
+    --step-1: clamp(1.88rem, calc(1.82rem + 0.29vw), 2.73rem);
+    --step-2: clamp(2.25rem, calc(2.17rem + 0.40vw), 3.42rem);
+    --step-3: clamp(2.70rem, calc(2.59rem + 0.54vw), 4.27rem);
+    --step-4: clamp(3.24rem, calc(3.10rem + 0.72vw), 5.34rem);
+    --step-5: clamp(3.89rem, calc(3.70rem + 0.95vw), 6.68rem);
 
     /* start of  clamp for space*/
-    --space-3xs: clamp(0.31rem, calc(0.31rem + 0.02vw), 0.38rem);
-  --space-2xs: clamp(0.69rem, calc(0.68rem + 0.02vw), 0.75rem);
-  --space-xs: clamp(1.00rem, calc(0.99rem + 0.04vw), 1.13rem);
-  --space-s: clamp(1.31rem, calc(1.30rem + 0.06vw), 1.50rem);
-  --space-m: clamp(2.00rem, calc(1.98rem + 0.09vw), 2.25rem);
-  --space-l: clamp(2.63rem, calc(2.60rem + 0.13vw), 3.00rem);
-  --space-xl: clamp(3.94rem, calc(3.90rem + 0.19vw), 4.50rem);
-  --space-2xl: clamp(5.25rem, calc(5.20rem + 0.26vw), 6.00rem);
-  --space-3xl: clamp(7.88rem, calc(7.80rem + 0.38vw), 9.00rem);
+    --space-3xs: clamp(0.38rem, calc(0.36rem + 0.06vw), 0.56rem);
+  --space-2xs: clamp(0.81rem, calc(0.79rem + 0.11vw), 1.13rem);
+  --space-xs: clamp(1.19rem, calc(1.16rem + 0.15vw), 1.63rem);
+  --space-s: clamp(1.56rem, calc(1.52rem + 0.21vw), 2.19rem);
+  --space-m: clamp(2.38rem, calc(2.31rem + 0.32vw), 3.31rem);
+  --space-l: clamp(3.13rem, calc(3.04rem + 0.43vw), 4.38rem);
+  --space-xl: clamp(4.69rem, calc(4.56rem + 0.64vw), 6.56rem);
+  --space-2xl: clamp(6.25rem, calc(6.08rem + 0.85vw), 8.75rem);
+  --space-3xl: clamp(9.38rem, calc(9.12rem + 1.28vw), 13.13rem);
 
   /* One-up pairs */
-  --space-3xs-2xs: clamp(0.31rem, calc(0.28rem + 0.15vw), 0.75rem);
-  --space-2xs-xs: clamp(0.69rem, calc(0.66rem + 0.15vw), 1.13rem);
-  --space-xs-s: clamp(1.00rem, calc(0.97rem + 0.17vw), 1.50rem);
-  --space-s-m: clamp(1.31rem, calc(1.25rem + 0.32vw), 2.25rem);
-  --space-m-l: clamp(2.00rem, calc(1.93rem + 0.34vw), 3.00rem);
-  --space-l-xl: clamp(2.63rem, calc(2.50rem + 0.64vw), 4.50rem);
-  --space-xl-2xl: clamp(3.94rem, calc(3.80rem + 0.71vw), 6.00rem);
-  --space-2xl-3xl: clamp(5.25rem, calc(4.99rem + 1.28vw), 9.00rem);
+  --space-3xs-2xs: clamp(0.38rem, calc(0.32rem + 0.26vw), 1.13rem);
+  --space-2xs-xs: clamp(0.81rem, calc(0.76rem + 0.28vw), 1.63rem);
+  --space-xs-s: clamp(1.19rem, calc(1.12rem + 0.34vw), 2.19rem);
+  --space-s-m: clamp(1.56rem, calc(1.44rem + 0.60vw), 3.31rem);
+  --space-m-l: clamp(2.38rem, calc(2.24rem + 0.68vw), 4.38rem);
+  --space-l-xl: clamp(3.13rem, calc(2.89rem + 1.18vw), 6.56rem);
+  --space-xl-2xl: clamp(4.69rem, calc(4.41rem + 1.39vw), 8.75rem);
+  --space-2xl-3xl: clamp(6.25rem, calc(5.78rem + 2.35vw), 13.13rem);
 
   /* Custom pairs */
-  --space-s-l: clamp(1.31rem, calc(1.20rem + 0.58vw), 3.00rem);
+  --space-s-l: clamp(1.56rem, calc(1.37rem + 0.96vw), 4.38rem);
   }
 
   html,
@@ -67,6 +67,7 @@
     font-size: var(--step-0);
     text-align: center;
   }
+
   p {
     font-size: var(--step-0);
     text-align: center;
@@ -100,7 +101,7 @@
 
   article {
     display: block;
-    width: 700px;
+    width: 100vw;
     padding: 50px;
     margin: 0 auto;
     /*  background-color: yellow; */
@@ -150,36 +151,35 @@
     <h4 id="demo"></h4>
 
   </div>
-  <script>
-    // Set the date we're counting down to
-    var countDownDate = new Date("Aug 18, 2022 00:0:00").getTime();
-
-    // Update the count down every 1 second
-    var x = setInterval(function () {
-
-      // Get today's date and time
-      var now = new Date().getTime();
-
-      // Find the distance between now and the count down date
-      var distance = countDownDate - now;
-
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Output the result in an element with id="demo"
-      document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-        + minutes + "m " + seconds + "s ";
-
-      // If the count down is over, write some text 
-      if (distance < 0) {
-        clearInterval(x);
-        document.getElementById("demo").innerHTML = "EXPIRED";
-      }
-    }, 1000);
-  </script>
-
-
 </article>
+
+<script>
+  // Set the date we're counting down to
+  var countDownDate = new Date("Aug 18, 2022 00:0:00").getTime();
+
+  // Update the count down every 1 second
+  var x = setInterval(function () {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+
+    // If the count down is over, write some text 
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+  }, 1000);
+</script>
