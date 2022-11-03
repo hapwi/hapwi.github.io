@@ -2,7 +2,7 @@
 {
 
 
-  if (new Date() >= new Date("10/28/22 9:00")) {
+  if (new Date() >= new Date("11/10/22 9:00")) {
 
     document.getElementById("link92").innerHTML += " <a href='../subs.html' class='menu__link r-link'>Entries</a>";
 
