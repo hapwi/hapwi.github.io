@@ -89,10 +89,6 @@
   margin-right: auto;
 }
 
-
-
-
-
 @media(prefers-reduced-motion:no-preference) {
   :root {
     scroll-behavior: smooth
@@ -2088,6 +2084,7 @@ progress {
   vertical-align: top;
   border-color: #e0e0e0
 }
+
 this allows white space behind first col
 .table>:not(caption)>*>* {
   /*background-color: var(--mdb-table-bg);  */
