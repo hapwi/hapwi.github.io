@@ -132,9 +132,12 @@ button[aria-selected="true"]#profile {
   width: 100%;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 600px) {
   .tabs button {
-    width: 75%;
+    width: 95%;
+  }
+  button span {
+    font-size: 0.75rem;
   }
 }
 
