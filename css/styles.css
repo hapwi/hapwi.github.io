@@ -131,11 +131,11 @@ button[aria-selected="true"]#profile {
   width: 100%;
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .tabs button {
     width: 50%;
   }
-}
+} */
 
 .tabs div[role="tablist"] {
   width: 50%;
