@@ -91,8 +91,8 @@ button svg path {
 }
 
 button[aria-selected="true"]#home {
-  background: var(--color1-light);
-  color: var(--color1);
+  background: var(--color1);
+  color: var(--color5);
 }
 
 button[aria-selected="true"]#likes {
@@ -101,13 +101,13 @@ button[aria-selected="true"]#likes {
 }
 
 button[aria-selected="true"]#search {
-  background: var(--color3-light);
-  color: var(--color3);
+  background: var(--color1);
+  color: var(--color5);
 }
 
 button[aria-selected="true"]#profile {
-  background: var(--color4-light);
-  color: var(--color4);
+  background: var(--color1);
+  color: var(--color5);
 }
 
 .credits {
@@ -166,4 +166,8 @@ iframe {
   height: 100vh;
   width: 100vw;
   display: none;
+}
+
+.header {
+  background-color: var(--color1-light);
 }
