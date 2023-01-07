@@ -394,7 +394,7 @@ tr {
 }
 
 td:first-child {
-  color: green;
+  color: black;
   position: -webkit-sticky;
   white-space: nowrap;
   overflow-wrap: inherit;
