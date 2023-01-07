@@ -137,7 +137,7 @@ button[aria-selected="true"]#profile {
     width: 95%;
   }
   button span {
-    font-size: 0.75rem;
+    display: none;
   }
 }
 
