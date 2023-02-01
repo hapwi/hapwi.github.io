@@ -186,7 +186,7 @@ iframe {
 .header {
   background-color: var(--color1-light);
 }
-
+/* table styles start here */
 /* Add some spacing around the table */
 .table {
   margin: 100px auto; /* 20px top and bottom, center horizontally */

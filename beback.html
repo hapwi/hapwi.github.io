@@ -1,17 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <title>Site Maintenance</title>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
+  rel="stylesheet"
+/>
 <style>
   :root {
     /* start of clamp for typography */
-    --step--2: clamp(1.09rem, calc(1.06rem + 0.11vw), 1.40rem);
-    --step--1: clamp(1.30rem, calc(1.27rem + 0.15vw), 1.75rem);
+    --step--2: clamp(1.09rem, calc(1.06rem + 0.11vw), 1.4rem);
+    --step--1: clamp(1.3rem, calc(1.27rem + 0.15vw), 1.75rem);
     --step-0: clamp(1.56rem, calc(1.52rem + 0.21vw), 2.19rem);
     --step-1: clamp(1.88rem, calc(1.82rem + 0.29vw), 2.73rem);
-    --step-2: clamp(2.25rem, calc(2.17rem + 0.40vw), 3.42rem);
-    --step-3: clamp(2.70rem, calc(2.59rem + 0.54vw), 4.27rem);
-    --step-4: clamp(3.24rem, calc(3.10rem + 0.72vw), 5.34rem);
-    --step-5: clamp(3.89rem, calc(3.70rem + 0.95vw), 6.68rem);
+    --step-2: clamp(2.25rem, calc(2.17rem + 0.4vw), 3.42rem);
+    --step-3: clamp(2.7rem, calc(2.59rem + 0.54vw), 4.27rem);
+    --step-4: clamp(3.24rem, calc(3.1rem + 0.72vw), 5.34rem);
+    --step-5: clamp(3.89rem, calc(3.7rem + 0.95vw), 6.68rem);
 
     /* start of  clamp for space*/
     --space-3xs: clamp(0.38rem, calc(0.36rem + 0.06vw), 0.56rem);
@@ -28,7 +31,7 @@
     --space-3xs-2xs: clamp(0.38rem, calc(0.32rem + 0.26vw), 1.13rem);
     --space-2xs-xs: clamp(0.81rem, calc(0.76rem + 0.28vw), 1.63rem);
     --space-xs-s: clamp(1.19rem, calc(1.12rem + 0.34vw), 2.19rem);
-    --space-s-m: clamp(1.56rem, calc(1.44rem + 0.60vw), 3.31rem);
+    --space-s-m: clamp(1.56rem, calc(1.44rem + 0.6vw), 3.31rem);
     --space-m-l: clamp(2.38rem, calc(2.24rem + 0.68vw), 4.38rem);
     --space-l-xl: clamp(3.13rem, calc(2.89rem + 1.18vw), 6.56rem);
     --space-xl-2xl: clamp(4.69rem, calc(4.41rem + 1.39vw), 8.75rem);
@@ -136,35 +139,39 @@
     <title>Asset 3</title>
     <g id="Layer_2" data-name="Layer 2">
       <g id="Capa_1" data-name="Capa 1">
-        <path class="cls-1"
-          d="M101.12,0A101.12,101.12,0,1,0,202.24,101.12,101.12,101.12,0,0,0,101.12,0ZM159,148.76H43.28a11.57,11.57,0,0,1-10-17.34L91.09,31.16a11.57,11.57,0,0,1,20.06,0L169,131.43a11.57,11.57,0,0,1-10,17.34Z" />
-        <path class="cls-1"
-          d="M101.12,36.93h0L43.27,137.21H159L101.13,36.94Zm0,88.7a7.71,7.71,0,1,1,7.71-7.71A7.71,7.71,0,0,1,101.12,125.63Zm7.71-50.13a7.56,7.56,0,0,1-.11,1.3l-3.8,22.49a3.86,3.86,0,0,1-7.61,0l-3.8-22.49a8,8,0,0,1-.11-1.3,7.71,7.71,0,1,1,15.43,0Z" />
+        <path
+          class="cls-1"
+          d="M101.12,0A101.12,101.12,0,1,0,202.24,101.12,101.12,101.12,0,0,0,101.12,0ZM159,148.76H43.28a11.57,11.57,0,0,1-10-17.34L91.09,31.16a11.57,11.57,0,0,1,20.06,0L169,131.43a11.57,11.57,0,0,1-10,17.34Z"
+        />
+        <path
+          class="cls-1"
+          d="M101.12,36.93h0L43.27,137.21H159L101.13,36.94Zm0,88.7a7.71,7.71,0,1,1,7.71-7.71A7.71,7.71,0,0,1,101.12,125.63Zm7.71-50.13a7.56,7.56,0,0,1-.11,1.3l-3.8,22.49a3.86,3.86,0,0,1-7.61,0l-3.8-22.49a8,8,0,0,1-.11-1.3,7.71,7.71,0,1,1,15.43,0Z"
+        />
       </g>
     </g>
   </svg>
   <h1>We&rsquo;ll be back soon!</h1>
   <div>
-    <p>Sorry for the inconvenience. We&rsquo;re performing some maintenance at the moment and preparing for the next
-      tournament.</p>
+    <p>
+      Sorry for the inconvenience. We&rsquo;re performing some maintenance at
+      the moment and preparing for the next tournament.
+    </p>
   </div>
   <div>
-  <br>
-  <h4>Time until next tournament:</h4>
-</div>
+    <br />
+    <h4>Time until next tournament:</h4>
+  </div>
   <div>
     <h4 id="demo"></h4>
-
   </div>
 </article>
 
 <script>
   // Set the date we're counting down to
-  var countDownDate = new Date("Sept, 3 2022 00:0:00").getTime();
+  var countDownDate = new Date("Feb, 9 2023 00:0:00").getTime();
 
   // Update the count down every 1 second
   var x = setInterval(function () {
-
     // Get today's date and time
     var now = new Date().getTime();
 
@@ -173,15 +180,17 @@
 
     // Time calculations for days, hours, minutes and seconds
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     // Output the result in an element with id="demo"
-    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
+    document.getElementById("demo").innerHTML =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
-    // If the count down is over, write some text 
+    // If the count down is over, write some text
     if (distance < 0) {
       clearInterval(x);
       document.getElementById("demo").innerHTML = "EXPIRED";
