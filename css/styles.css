@@ -167,6 +167,7 @@ button[aria-selected="true"]#profile {
 
 #iframe2 {
   display: none;
+  padding-bottom: 50px;
 }
 
 #iframe3 {
