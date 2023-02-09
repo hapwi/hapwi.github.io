@@ -89,25 +89,25 @@ button[aria-selected="true"] span {
 button svg path {
   stroke: currentColor;
 }
-
+/* bottom four colors change the bottom nav bar colors ... original colors are var(--color1) for background and var(--color5) for color */
 button[aria-selected="true"]#home {
-  background: var(--color1);
-  color: var(--color5);
+  background: rgb(5, 101, 5);
+  color: rgb(228, 228, 77);
 }
 
 button[aria-selected="true"]#likes {
-  background: var(--color1);
-  color: var(--color5);
+  background: rgb(5, 101, 5);
+  color: rgb(228, 228, 77);
 }
 
 button[aria-selected="true"]#search {
-  background: var(--color1);
-  color: var(--color5);
+  background: rgb(5, 101, 5);
+  color: rgb(228, 228, 77);
 }
 
 button[aria-selected="true"]#profile {
-  background: var(--color1);
-  color: var(--color5);
+  background: rgb(5, 101, 5);
+  color: rgb(228, 228, 77);
 }
 
 .credits {
@@ -141,9 +141,10 @@ button[aria-selected="true"]#profile {
   }
 }
 
+/* original is ackground-color: var(--color1-light); */
 .tabs div[role="tablist"] {
   width: 50%;
-  background-color: var(--color1-light);
+  background-color: rgb(94, 151, 94);
   height: 1em;
 }
 
@@ -154,6 +155,7 @@ button[aria-selected="true"]#profile {
 /* .tabs div[role="tablist"] {
 } */
 
+/* original is ackground-color: var(--color1-light); */
 .tabs {
   padding: 2rem;
   box-shadow: 0 1.7px 2.1px -10px rgba(0, 0, 0, 0.019),
@@ -161,7 +163,7 @@ button[aria-selected="true"]#profile {
     0 8.9px 10.6px -10px rgba(0, 0, 0, 0.033),
     0 18.3px 21.9px -10px rgba(0, 0, 0, 0.041),
     0 50px 60px -10px rgba(0, 0, 0, 0.06);
-  background-color: var(--color1-light);
+  background-color: rgb(94, 151, 94);
   width: 100%;
 }
 
@@ -184,8 +186,9 @@ iframe {
   width: 100vw;
 }
 
+/* original is ackground-color: var(--color1-light); */
 .header {
-  background-color: var(--color1-light);
+  background-color: rgb(94, 151, 94);
 }
 /* table styles start here */
 /* Add some spacing around the table */
