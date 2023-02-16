@@ -58,12 +58,12 @@ body {
   position: fixed;
   width: 100vw;
   z-index: 1;
-  background-color: rgb(94, 151, 94);
+  background-color: black;
 }
 /* original is #5b37b7 */
 .header a {
   float: center;
-  color: rgb(228, 228, 77);
+  color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;

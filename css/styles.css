@@ -57,7 +57,7 @@ button {
   border: 0;
   border-radius: 5px;
   background: transparent;
-  color: var(--dark);
+  color: white;
   padding: 15px 33px;
   font-size: 2rem;
   border-radius: 10rem;
@@ -91,23 +91,23 @@ button svg path {
 }
 /* bottom four colors change the bottom nav bar colors ... original colors are var(--color1) for background and var(--color5) for color */
 button[aria-selected="true"]#home {
-  background: rgb(5, 101, 5);
-  color: rgb(228, 228, 77);
+  background: white;
+  color: black;
 }
 
 button[aria-selected="true"]#likes {
-  background: rgb(5, 101, 5);
-  color: rgb(228, 228, 77);
+  background: white;
+  color: black;
 }
 
 button[aria-selected="true"]#search {
-  background: rgb(5, 101, 5);
-  color: rgb(228, 228, 77);
+  background: white;
+  color: black;
 }
 
 button[aria-selected="true"]#profile {
-  background: rgb(5, 101, 5);
-  color: rgb(228, 228, 77);
+  background: white;
+  color: black;
 }
 
 .credits {
@@ -144,7 +144,7 @@ button[aria-selected="true"]#profile {
 /* original is ackground-color: var(--color1-light); */
 .tabs div[role="tablist"] {
   width: 50%;
-  background-color: rgb(94, 151, 94);
+  background-color: black;
   height: 1em;
 }
 
@@ -163,7 +163,7 @@ button[aria-selected="true"]#profile {
     0 8.9px 10.6px -10px rgba(0, 0, 0, 0.033),
     0 18.3px 21.9px -10px rgba(0, 0, 0, 0.041),
     0 50px 60px -10px rgba(0, 0, 0, 0.06);
-  background-color: rgb(94, 151, 94);
+  background-color: black;
   width: 100%;
 }
 
@@ -188,7 +188,7 @@ iframe {
 
 /* original is ackground-color: var(--color1-light); */
 .header {
-  background-color: rgb(94, 151, 94);
+  background-color: black;
 }
 /* table styles start here */
 /* Add some spacing around the table */
