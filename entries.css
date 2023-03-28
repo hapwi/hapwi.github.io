@@ -13,7 +13,6 @@ body, ul {
     padding: 16px;
     box-sizing: border-box;
     min-height: calc(100vh - 60px); /* Subtract the height of the navigation bar */
-    width: 50%;
     margin: 0 auto;
     
   }
@@ -177,6 +176,7 @@ overflow-y: auto;
       -ms-border-radius: 10px;
       -o-border-radius: 10px;
       margin-bottom: 50px;
+    margin: 0 auto;
 }
 
   
@@ -198,10 +198,59 @@ overflow-y: auto;
       display: block;
       width: fit-content;
     }
+    #player-picks {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        box-sizing: border-box;
+        z-index: 1000;
+    }
+    
+    #player-picks h2 {
+    color: #fff;
+    margin-bottom: 16px;
+    }
+    
+    #close-picks {
+    background-color: #ff4757;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    }
+    
+    #close-picks:hover {
+    background-color: #6a6a6a;
+    }
+    
+    #picks-content {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    max-width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
+    }
+
+    .player-details-btn {
+        display: block;
+        margin-top: 5px;
+      }
   
     #close-picks:hover {
       background-color: #e84139;
     }
+
     .data-table th,
     .data-table td {
       display: block;
@@ -252,6 +301,7 @@ overflow-y: auto;
       float: left;
       font-weight: bold;
     }
+
   }
   
   
