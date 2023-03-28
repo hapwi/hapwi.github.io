@@ -1,13 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Sheets Viewer</title>
-  <link rel="stylesheet" href="entries.css">
   <link rel="shortcut icon" href="195540.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+    crossorigin="anonymous">
+
   <!-- Add your CSS file link here -->
 </head>
+<style>
+  /* Reset some default styles */
+  body,
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  /* Container for the Google Sheets data */
+  #content {
+    padding: 16px;
+    box-sizing: border-box;
+    min-height: calc(100vh - 60px);
+    /* Subtract the height of the navigation bar */
+  }
+
+
+
+
+  /* Navigation bar styles */
+  #bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    /* Change this from 'space-around' to 'center' */
+    align-items: center;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  #bottom-nav ul {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: space-around;
+    /* Add this line */
+    padding: 0 20px;
+    /* Add this line to add some padding on the left and right */
+  }
+
+  #bottom-nav li {
+    text-align: center;
+  }
+
+  #bottom-nav a {
+    display: block;
+    padding: 8px;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #bottom-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+
+  /* Table styles */
+  .data-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+
+    overflow: hidden;
+    margin-bottom: 50px;
+  }
+
+  .data-table th:last-child {
+    text-align: left;
+  }
+
+
+
+  .data-table th,
+  .data-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .data-table thead {
+    background-color: #454444;
+    color: #fff;
+  }
+
+  .data-table thead th {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .data-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .data-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+  }
+
+  .data-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+  }
+
+  /* Responsive table */
+  @media screen and (max-width: 600px) {
+  /* Navigation bar styles */
+  #bottom-nav {
+    height: 80px;
+  }
+
+  #bottom-nav ul {
+    flex-direction: column;
+  }
+
+  #bottom-nav li {
+    margin-bottom: 5px;
+  }
+
+  #bottom-nav a {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .nav-text {
+    display: none;
+  }
+
+  /* Table styles */
+  .data-table {
+    border: 0;
+    font-size: 12px;
+    width: 100%;
+    height: 25%;
+  }
+}
+
+</style>
+
 <body>
   <!-- Add your content here -->
   <main id="content">
@@ -16,10 +163,30 @@
 
   <nav id="bottom-nav">
     <ul>
-      <li><a href="index.html" id="menu-item-1">Leaderboard</a></li>
-      <li><a href="players.html" id="menu-item-2">Players</a></li>
-      <!-- <li><a href="entries.html" id="menu-item-3">Entries</a></li> -->
-      <li><a href="form.html" id="menu-item-4">Form</a></li>
+      <li>
+        <a href="index.html" id="menu-item-1">
+          <i class="fas fa-trophy fa-bounce"></i>
+          <span class="nav-text">Leaderboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="players.html" id="menu-item-2">
+          <i class="fas fa-user"></i>
+          <span class="nav-text">Players</span>
+        </a>
+      </li>
+      <li>
+        <a href="entries.html" id="menu-item-2">
+          <i class="fa-solid fa-list"></i>
+          <span class="nav-text">Entries</span>
+        </a>
+      </li>
+      <li>
+        <a href="form.html" id="menu-item-4">
+          <i class="fas fa-file-alt"></i>
+          <span class="nav-text">Form</span>
+        </a>
+      </li>
     </ul>
   </nav>
 
@@ -28,122 +195,126 @@
     <button id="close-picks">Close</button>
     <div id="picks-content"></div>
   </div>
-  
+
 
   <!-- <script src="scripts.js"></script> -->
 
 </body>
 
 
-<script>// Replace with your API key and spreadsheet ID
-    const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
-const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
+<script>
+  // Replace with your API key and spreadsheet ID
+  const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
+  const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
 
-// Function to fetch Google Sheets data
-async function fetchGoogleSheetsData() {
-  try {
-    const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:K?key=${apiKey}`);
-    const data = await response.json();
+  // Function to fetch Google Sheets data
+  async function fetchGoogleSheetsData() {
+    try {
+      const response = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:K?key=${apiKey}`);
+      const data = await response.json();
 
-    // Check if there's an error in the response
-    if (data.error) {
-      throw new Error(data.error.message);
-    }
-
-    displayTable(data);
-  } catch (error) {
-    console.error('Error fetching Google Sheets data:', error);
-  }
-}
-
-// Function to display data in a table format
-function displayTable(data) {
-  const { values } = data;
-
-  if (!values || values.length === 0) {
-    console.log('No data found in the Google Sheet.');
-    return;
-  }
-
-  const table = document.createElement('table');
-  table.classList.add('data-table');
-
-  // Create table header
-  const thead = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-
-  values[0].forEach((header) => {
-    const th = document.createElement('th');
-    th.textContent = header;
-    headerRow.appendChild(th);
-  });
-
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
-
-  // Create table body
-  const tbody = document.createElement('tbody');
-
-  values.slice(1).forEach((row) => {
-    const tableRow = document.createElement('tr');
-
-    row.forEach((cell, index) => {
-      const td = document.createElement('td');
-      if (index === 0) {
-        td.innerHTML = `<span class="player-name">${cell}</span>`;
-      } else {
-        td.textContent = cell;
+      // Check if there's an error in the response
+      if (data.error) {
+        throw new Error(data.error.message);
       }
-      tableRow.appendChild(td);
-    });
 
-    tbody.appendChild(tableRow);
-  });
+      displayTable(data);
+    } catch (error) {
+      console.error('Error fetching Google Sheets data:', error);
+    }
+  }
 
-  table.appendChild(tbody);
+  // Function to display data in a table format
+  function displayTable(data) {
+    const {
+      values
+    } = data;
 
-  // Add table to the content container
-  document.getElementById('content').appendChild(table);
-
-  // Add click event listeners to player names
-  const playerNames = document.querySelectorAll('.player-name');
-  playerNames.forEach((name) => {
-    name.addEventListener('click', () => {
-      fetchPlayerPicks(name.textContent);
-    });
-  });
-}
-
-// Function to fetch player picks
-async function fetchPlayerPicks(playerName) {
-  try {
-    const response = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/entries!A1:Z?key=${apiKey}`
-    );
-    const data = await response.json();
-
-    if (data.error) {
-      throw new Error(data.error.message);
+    if (!values || values.length === 0) {
+      console.log('No data found in the Google Sheet.');
+      return;
     }
 
-    displayPlayerPicks(data, playerName);
-  } catch (error) {
-    console.error('Error fetching player picks:', error);
+    const table = document.createElement('table');
+    table.classList.add('data-table');
+
+    // Create table header
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    values[0].forEach((header) => {
+      const th = document.createElement('th');
+      th.textContent = header;
+      headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Create table body
+    const tbody = document.createElement('tbody');
+
+    values.slice(1).forEach((row) => {
+      const tableRow = document.createElement('tr');
+
+      row.forEach((cell, index) => {
+        const td = document.createElement('td');
+        if (index === 0) {
+          td.innerHTML = `<span class="player-name">${cell}</span>`;
+        } else {
+          td.textContent = cell;
+        }
+        tableRow.appendChild(td);
+      });
+
+      tbody.appendChild(tableRow);
+    });
+
+    table.appendChild(tbody);
+
+    // Add table to the content container
+    document.getElementById('content').appendChild(table);
+
+    // Add click event listeners to player names
+    const playerNames = document.querySelectorAll('.player-name');
+    playerNames.forEach((name) => {
+      name.addEventListener('click', () => {
+        fetchPlayerPicks(name.textContent);
+      });
+    });
   }
-}
 
-// Function to display player picks
-function displayPlayerPicks(data, playerName) {
-  const picksContent = document.getElementById('picks-content');
-  picksContent.innerHTML = ''; // Clear previous content
+  // Function to fetch player picks
+  async function fetchPlayerPicks(playerName) {
+    try {
+      const response = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/entries!A1:Z?key=${apiKey}`
+      );
+      const data = await response.json();
 
-  // Filter the picks for the selected player
-  const picks = data.values.filter((row) => row[0] === playerName);
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
 
-  // Create a new table and display the filtered picks
-  const table = document.createElement('table');
-  table.classList.add('data-table');
-  table.innerHTML = `<thead>
+      displayPlayerPicks(data, playerName);
+    } catch (error) {
+      console.error('Error fetching player picks:', error);
+    }
+  }
+
+  // Function to display player picks
+  function displayPlayerPicks(data, playerName) {
+    const picksContent = document.getElementById('picks-content');
+    picksContent.innerHTML = ''; // Clear previous content
+
+    // Filter the picks for the selected player
+    const picks = data.values.filter((row) => row[0] === playerName);
+
+    // Create a new table and display the filtered picks
+    const table = document.createElement('table');
+    table.classList.add('data-table');
+    table.innerHTML = `<thead>
       <tr>
         <th>Pick</th>
         <th>Selection</th>
@@ -162,18 +333,17 @@ function displayPlayerPicks(data, playerName) {
         .join('')}
     </tbody>
   `;
-picksContent.appendChild(table);
-document.getElementById('player-picks').style.display = 'block';
-}
+    picksContent.appendChild(table);
+    document.getElementById('player-picks').style.display = 'block';
+  }
 
-// Close player picks div
-document.getElementById('close-picks').addEventListener('click', () => {
-document.getElementById('player-picks').style.display = 'none';
-});
+  // Close player picks div
+  document.getElementById('close-picks').addEventListener('click', () => {
+    document.getElementById('player-picks').style.display = 'none';
+  });
 
-// Fetch the data and display it on the page
-fetchGoogleSheetsData();
-   
+  // Fetch the data and display it on the page
+  fetchGoogleSheetsData();
+</script>
 
-    </script>
 </html>
