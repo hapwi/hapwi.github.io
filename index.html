@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="195540.png" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" crossorigin="anonymous">
+
   <title>Golf Pool</title>
   <link rel="stylesheet" href="entries.css">
   <!-- Add your CSS file link here -->
@@ -15,12 +17,26 @@
     <table id="main-table" class="data-table"></table>
   </main>
 
-  <nav id="bottom-nav">
+  <<nav id="bottom-nav">
     <ul>
-      <li><a href="index.html" id="menu-item-1">Leaderboard</a></li>
-      <li><a href="players.html" id="menu-item-2">Players</a></li>
-      <!-- <li><a href="entries.html" id="menu-item-3">Entries</a></li> -->
-      <li><a href="form.html" id="menu-item-4">Form</a></li>
+      <li>
+        <a href="index.html" id="menu-item-1">
+          <i class="fas fa-trophy"></i>
+          <span class="nav-text">Leaderboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="players.html" id="menu-item-2">
+          <i class="fas fa-user"></i>
+          <span class="nav-text">Players</span>
+        </a>
+      </li>
+      <li>
+        <a href="form.html" id="menu-item-4">
+          <i class="fas fa-file-alt"></i>
+          <span class="nav-text">Form</span>
+        </a>
+      </li>
     </ul>
   </nav>
 
@@ -30,6 +46,13 @@
     <div id="picks-content"></div>
     <button id="close-picks">Close</button>
   </div>
+
+  <td>
+    <div class="table-cell-container">
+      <!-- Your other table cell content goes here -->
+      <button class="player-details-btn">Details</button>
+    </div>
+  </td>
 
   <script>
     const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
@@ -83,7 +106,7 @@
       const td = document.createElement('td');
       if (index === 0) {
         td.innerHTML = `
-          <span class="player-name">${cell}</span>
+        <span class="player-name">${cell}</span>
           <button class="player-details-btn">Picks</button>
         `;
       } else {

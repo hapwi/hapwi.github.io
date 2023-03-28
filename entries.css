@@ -61,15 +61,25 @@ body, ul {
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   }
   
+  #bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #222;
+    display: flex;
+    justify-content: center; /* Change this from 'space-around' to 'center' */
+    align-items: center;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
   #bottom-nav ul {
     display: flex;
     list-style: none;
     width: 100%;
-    justify-content: space-around;
-  }
-  
-  #bottom-nav li {
-    text-align: center;
+    justify-content: space-around; /* Add this line */
+    padding: 0 20px; /* Add this line to add some padding on the left and right */
   }
   
   #bottom-nav a {
@@ -336,6 +346,14 @@ overflow-y: auto;
     .golfers-list li {
       margin-bottom: 4px;
     }
+     /* Add these styles to your existing CSS */
+.nav-text {
+  display: none; /* Display the text by default */
+}
+
+#bottom-nav a {
+  padding: 8px 12px; /* Adjust the padding to better fit the icons */
+}
 
 
   }
@@ -353,3 +371,16 @@ overflow-y: auto;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
   }
+
+  .table-cell-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .player-details-btn {
+    margin-left: 8px;
+  }
+  
+ 
+

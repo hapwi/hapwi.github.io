@@ -79,7 +79,7 @@ overflow-y: auto;
     height: 60px;
     background-color: #222;
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Change this from 'space-around' to 'center' */
     align-items: center;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
   }
@@ -88,7 +88,8 @@ overflow-y: auto;
     display: flex;
     list-style: none;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-around; /* Add this line */
+    padding: 0 20px; /* Add this line to add some padding on the left and right */
   }
   
   #bottom-nav li {
@@ -197,7 +198,13 @@ overflow-y: auto;
       margin-bottom: 50px;
       width: 100%;
 }
-  
+.nav-text {
+  display: none; /* Display the text by default */
+}
+
+#bottom-nav a {
+  padding: 8px 12px; /* Adjust the padding to better fit the icons */
+}
     .data-table thead {
       display: none;
     }
