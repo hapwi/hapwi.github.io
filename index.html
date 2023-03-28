@@ -142,47 +142,25 @@ function displayPlayerPicks(data, playerName) {
 
   const picks = data.values.filter((row) => row[0] === playerName);
 
-  console.log('Total picks:', data.values.length); // Add this line to log the total number of picks in the data
-  console.log('Picks for player:', playerName, picks); // Update this line to log the picks found for the player
+  console.log('Total picks:', data.values.length);
+  console.log('Picks for player:', playerName, picks);
 
+  const list = document.createElement('ul');
+  list.classList.add('golfers-list');
 
-  const table = document.createElement('table');
-  table.classList.add('data-table', 'responsive-table');
-  table.innerHTML = `<thead>
-      <tr>
-        <th>Golfer 1</th>
-        <th>Golfer 2</th>
-        <th>Golfer 3</th>
-        <th>Golfer 4</th>
-        <th>Golfer 5</th>
-        <th>Golfer 6</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${picks
-        .map(
-          (pick) => `
-        <tr class="pick1">
-          <td data-label="Golfer 1:">${pick[1]}</td>
-          <td data-label="Golfer 2:">${pick[2]}</td>
-          <td data-label="Golfer 3:">${pick[3]}</td>
-          <td data-label="Golfer 4:">${pick[4]}</td>
-          <td data-label="Golfer 5:">${pick[5]}</td>
-          <td data-label="Golfer 6:">${pick[6]}</td>
+  picks.forEach((pick) => {
+    for (let i = 1; i <= 6; i++) {
+      const listItem = document.createElement('li');
+      listItem.textContent = pick[i];
+      list.appendChild(listItem);
+    }
+  });
 
-         
-
-        
-
-        </tr>
-      `
-        )
-        .join('')}
-    </tbody>
-  `;
-  picksContent.appendChild(table);
+  picksContent.appendChild(list);
   document.getElementById('player-picks').style.display = 'block';
 }
+
+
 
 document.getElementById('close-picks').addEventListener('click', () => {
   document.getElementById('player-picks').style.display = 'none';

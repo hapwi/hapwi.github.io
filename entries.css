@@ -17,6 +17,16 @@ body, ul {
     
   }
 
+  .golfers-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .golfers-list li {
+    margin-bottom: 4px;
+  }
+
   #close-picks {
       background-color: #ff4757;
       border: none;
@@ -316,6 +326,15 @@ overflow-y: auto;
       content: attr(data-label);
       float: left;
       font-weight: bold;
+    }
+
+    .golfers-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .golfers-list li {
+      margin-bottom: 4px;
     }
 
 
