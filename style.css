@@ -1,0 +1,213 @@
+/* Reset some default styles */
+body, ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  
+  /* Container for the Google Sheets data */
+  #content {
+    padding: 16px;
+    box-sizing: border-box;
+    min-height: calc(100vh - 60px); /* Subtract the height of the navigation bar */
+  }
+
+  iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  /* Navigation bar styles */
+  #bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #222;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  #bottom-nav ul {
+    display: flex;
+    list-style: none;
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  #bottom-nav li {
+    text-align: center;
+  }
+  
+  #bottom-nav a {
+    display: block;
+    padding: 8px;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  #bottom-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  #close-picks {
+    background-color: #ff4757;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: block;
+    width: fit-content;
+  }
+
+  #close-picks:hover {
+    background-color: #e84139;
+  }
+  
+  
+  /* Table styles */
+/* Table styles */
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 50px;
+  }
+
+  .data-table th:last-child{
+    text-align: right;
+  }
+  .data-table tr{
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+  
+  .data-table th,
+  .data-table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .data-table thead {
+    background-color: #4a4a4a;
+    color: #fff;
+  }
+  
+  .data-table thead th {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .data-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .data-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+  }
+  
+  .data-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+  }
+  
+  /* Responsive table */
+@media screen and (max-width: 600px) {
+    .data-table {
+      border: 0;
+      font-size: 12px;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+      margin-bottom: 50px;
+}
+  
+    .data-table thead {
+      display: none;
+    }
+
+    .data-table tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Horizontally center the td elements */
+        align-items: center; /* Vertically center the td elements */
+        height: 60px; /* Increase the height of the tr elements */
+        margin-bottom: 10px;
+      background-color: rgb(131, 131, 131);
+      margin-bottom: 10px;
+      }
+    
+      .data-table td {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Vertically center the content */
+        justify-content: center; /* Horizontally center the content */
+        width: calc(50%); /* Subtract 8px to account for the margin */
+        
+        position: relative;
+        box-sizing: border-box; /* Include padding and border in the width calculation */
+        border: none;
+        text-align: left;
+      }
+
+      
+      
+    
+
+      .mobile-header {
+        display: block;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+  
+  
+    }
+    .data-table td:first-child {
+        font-weight: bold; /* Bold the first item */
+      }
+
+      .data-table tr:first-child{
+        text-align: right;
+      }
+    
+      .data-table td:not(:last-child) {
+        text-align: left;
+      }
+
+      .data-table td:last-child {
+        text-align: right;
+        
+
+      }
+
+  
+    .data-table td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+    }
+  
+  
+  
