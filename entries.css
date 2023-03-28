@@ -2,6 +2,7 @@
 body, ul {
     margin: 0;
     padding: 0;
+    
   }
   
   body {
@@ -67,7 +68,7 @@ body, ul {
     left: 0;
     right: 0;
     height: 60px;
-    background-color: #222;
+    background-color: #006B54;
     display: flex;
     justify-content: center; /* Change this from 'space-around' to 'center' */
     align-items: center;
@@ -85,7 +86,7 @@ body, ul {
   #bottom-nav a {
     display: block;
     padding: 8px;
-    color: #fff;
+    color: #ca9800;
     text-decoration: none;
   }
   
@@ -155,7 +156,7 @@ overflow-y: auto;
   }
   .data-table th,
   .data-table td {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 12px;
     text-align: left;
   }
@@ -164,7 +165,7 @@ overflow-y: auto;
     text-align: right;}
   
   .data-table thead {
-    background-color: #4a4a4a;
+    background-color: #006B54;
     color: #fff;
   }
   
@@ -174,7 +175,7 @@ overflow-y: auto;
   }
   
   .data-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #adadad;
   }
   
   .data-table tbody tr:last-child td:first-child {
@@ -300,7 +301,6 @@ overflow-y: auto;
       justify-content: space-between;
       margin-bottom: 10px;
       align-items: center;
-      /* background-color: green; */
       border-radius: 20px;
       -webkit-border-radius: 20px;
       -moz-border-radius: 20px;
@@ -359,7 +359,7 @@ overflow-y: auto;
   }
   
   .player-details-btn{
-    background-color: #3646f7;
+    background-color: #ca9800;
     color: #fff;
     border: none;
     border-radius: 10px;
