@@ -225,11 +225,15 @@ overflow-y: auto;
     background-color: #ff4757;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     padding: 8px 16px;
     margin-bottom: 16px;
     cursor: pointer;
-    }
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
     
     #close-picks:hover {
     background-color: #6a6a6a;
@@ -242,6 +246,7 @@ overflow-y: auto;
     max-width: 90%;
     max-height: 80%;
     overflow-y: auto;
+    display: block;
     }
 
     .player-details-btn {
@@ -270,9 +275,18 @@ overflow-y: auto;
     }
   
     .data-table tr {
-      display: block;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       margin-bottom: 10px;
-    }
+      align-items: center;
+      /* background-color: green; */
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -ms-border-radius: 20px;
+      -o-border-radius: 20px;
+}
   
     .data-table td {
       display: block;
@@ -292,7 +306,7 @@ overflow-y: auto;
       }
 
       .data-table td:last-child {
-        border-bottom: 1px solid #ccc;
+
         text-align: left;
 
       }
@@ -304,6 +318,19 @@ overflow-y: auto;
       font-weight: bold;
     }
 
+
   }
   
-  
+  .player-details-btn{
+    background-color: #3646f7;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }

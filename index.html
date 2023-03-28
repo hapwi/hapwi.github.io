@@ -12,6 +12,7 @@
   <!-- Add your content here -->
   <main id="content">
     <!-- We will add the table for Google Sheets data here -->
+    <table id="main-table" class="data-table"></table>
   </main>
 
   <nav id="bottom-nav">
@@ -155,21 +156,22 @@ function displayPlayerPicks(data, playerName) {
         <th>Golfer 4</th>
         <th>Golfer 5</th>
         <th>Golfer 6</th>
-        <th>Tie Breaker</th>
       </tr>
     </thead>
     <tbody>
       ${picks
         .map(
           (pick) => `
-        <tr>
-          <td>${pick[1]}</td>
-          <td>${pick[2]}</td>
-          <td>${pick[3]}</td>
-            <td>${pick[4]}</td>
-            <td>${pick[5]}</td>
-            <td>${pick[6]}</td>
-            <td>${pick[7]}</td>
+        <tr class="pick1">
+          <td data-label="Golfer 1:">${pick[1]}</td>
+          <td data-label="Golfer 2:">${pick[2]}</td>
+          <td data-label="Golfer 3:">${pick[3]}</td>
+          <td data-label="Golfer 4:">${pick[4]}</td>
+          <td data-label="Golfer 5:">${pick[5]}</td>
+          <td data-label="Golfer 6:">${pick[6]}</td>
+
+         
+
         
 
         </tr>
