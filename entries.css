@@ -323,8 +323,11 @@ overflow-y: auto;
   
     .data-table td {
       display: block;
-      text-align: left; /* Change text alignment to left */
+      
       border: none;
+      text-align: center;
+  vertical-align: middle;
+
     }
     .data-table td:first-child {
         font-weight: bold; /* Bold the first item */
@@ -337,6 +340,16 @@ overflow-y: auto;
       .data-table tr:first-child{
         text-align: left;
       }
+
+  
+  .data-table td.button-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  .data-table tr td:nth-child(3) {
+  margin-left: -150px;
+}
     
       .data-table td:not(:last-child) {
         text-align: left;
@@ -345,6 +358,7 @@ overflow-y: auto;
       .data-table td:last-child {
 
         text-align: left;
+        margin-right: 10px;
 
       }
 
