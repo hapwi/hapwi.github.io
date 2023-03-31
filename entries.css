@@ -167,6 +167,8 @@ overflow-y: auto;
   }
 
 
+
+
     /* Additional CSS for centering player-name class */
 .data-table td:first-child {
   display: flex;
@@ -198,7 +200,35 @@ overflow-y: auto;
   .data-table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
   }
-  
+
+ 
+/* Set the table row as a grid container */
+.data-table tr {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 30px;
+}
+
+/* Set the width of the 2nd and 3rd td elements */
+.data-table tr td:nth-child(2),
+.data-table tr td:nth-child(3) {
+  width: 50%;
+}
+
+/* Set the position of the 2nd and 3rd td elements */
+.data-table tr td:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  margin-right: 15px;
+}
+
+.data-table tr td:nth-child(3) {
+  grid-column: 3;
+  grid-row: 1;
+  margin-left: -75px;
+}
+
+
   /* Responsive table */
 @media screen and (max-width: 600px) {
     .data-table {
@@ -322,7 +352,10 @@ overflow-y: auto;
 }
   
     .data-table td {
-      display: block;
+      display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
       
       border: none;
       text-align: center;
@@ -347,10 +380,32 @@ overflow-y: auto;
   justify-content: center;
   align-items: center;
 }
-  .data-table tr td:nth-child(3) {
-  margin-left: -150px;
+/* add code here */
+    /* Set the table row as a grid container */
+.data-table tr {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 35px;
 }
-    
+
+/* Set the width of the 2nd and 3rd td elements */
+.data-table tr td:nth-child(2),
+.data-table tr td:nth-child(3) {
+  width: 50%;
+}
+
+/* Set the position of the 2nd and 3rd td elements */
+.data-table tr td:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.data-table tr td:nth-child(3) {
+  grid-column: 3;
+  grid-row: 1;
+  margin-left: -50px;
+}
+
       .data-table td:not(:last-child) {
         text-align: left;
       }
