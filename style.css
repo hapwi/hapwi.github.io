@@ -170,11 +170,12 @@ overflow-y: auto;
   }
   
   .data-table tbody tr:nth-child(even) {
-    background-color: #fff;
+    background-color: #006B54;
+    color: #fff;
   }
   .data-table tbody tr:nth-child(odd) {
-    background-color: #006B54;
-    color: white;
+    background-color: #fff;
+    color: black;
   }
   .data-table tbody tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
@@ -294,18 +295,27 @@ overflow-y: auto;
       }
     
       .data-table td {
-        display: flex;
-        flex-direction: row;
-        align-items: center; /* Vertically center the content */
-        justify-content: center; /* Horizontally center the content */
-        width: calc(50%); /* Subtract 8px to account for the margin */
-        
-        position: relative;
-        box-sizing: border-box; /* Include padding and border in the width calculation */
-        border: none;
-        text-align: left;
-      }
+      display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+      
+      border: none;
+      text-align: center;
+  vertical-align: middle;
 
+    }
+
+
+  .data-table tr td:nth-child(2) {
+  text-align: right;
+  margin-right: 15px;
+}
+
+    .data-table tr td:nth-child(1) {
+  text-align: left;
+  margin-left: 15px;
+}
       
       
     
@@ -320,6 +330,7 @@ overflow-y: auto;
     }
     .data-table td:first-child {
         font-weight: bold; /* Bold the first item */
+      
       }
 
       .data-table tr:first-child{

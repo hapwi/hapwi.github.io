@@ -174,7 +174,8 @@ overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
   
@@ -364,10 +365,12 @@ align-items: center;
 
     }
     .data-table td:first-child {
-        font-weight: bold; /* Bold the first item */
         display: flex;
-        flex-direction: row;
-        justify-content: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Change this from 'center' to 'flex-start' */
+  text-align: left; /* Add this */
+  margin-left: 15px;
        
       }
 
