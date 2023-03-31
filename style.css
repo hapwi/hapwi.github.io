@@ -172,7 +172,10 @@ overflow-y: auto;
   .data-table tbody tr:nth-child(even) {
     background-color: #fff;
   }
-  
+  .data-table tbody tr:nth-child(odd) {
+    background-color: #006B54;
+    color: white;
+  }
   .data-table tbody tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
   }

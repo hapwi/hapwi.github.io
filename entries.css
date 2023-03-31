@@ -189,7 +189,8 @@ overflow-y: auto;
   }
   
   .data-table tbody tr:nth-child(even) {
-    background-color: #adadad;
+    background-color: #006B54;
+    color: white;
   }
   
   .data-table tbody tr:last-child td:first-child {
