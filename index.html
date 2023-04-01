@@ -11,7 +11,7 @@
   <title>Golf Pool</title>
   <link rel="stylesheet" href="entries.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="maint.js"></script>
+  <!--   <script src="maint.js"></script> -->
   <script>
     function displayPopup() {
       var screenWidth = window.innerWidth;
@@ -185,7 +185,8 @@
     async function fetchPlayerPicks(playerName) {
       try {
         const response = await fetch(
-          `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId2}/values/Sheet1!A:K?key=${apiKey}`
+          //comment line below before tournament begins so button cannot be pressed
+          // `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId2}/values/Sheet1!A:K?key=${apiKey}`
         );
 
         console.log('Fetch response:', response);
