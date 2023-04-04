@@ -1,9 +1,11 @@
-hidden=[".config"]
+
 
 # hosting is currently hardcoded for this language
 # [hosting]
 # route = "/"
 # directory= "/"
+
+run = "python3 app.py"
 
 [nix]
 channel = "stable-22_11"
