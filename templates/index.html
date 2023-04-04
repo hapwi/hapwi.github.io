@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/entries.css') }}">
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="maint.js"></script>
   <script src="{{ url_for('static', filename='js/maint.js') }}"></script>
 
   <script>
@@ -93,9 +92,10 @@
 
   <script>
     const apiKey = '{{ APIKEY }}';
-    const spreadsheetId = '{{ LEADAPI }}'; 
-    const spreadsheetId2 = '{{ ENTRIESAPI }}';
-    const spreadsheetId3 = '{{ PLAYERAPI }}';
+const spreadsheetId = '{{ PLAYERAPI }}'; 
+const spreadsheetId2 = '{{ LEADAPI }}';
+const spreadsheetId3 = '{{ ENTRIESAPI }}';
+
 
 
     async function fetchGoogleSheetsData() {

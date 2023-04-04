@@ -1,5 +1,8 @@
 from flask import Flask, render_template
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -11,44 +14,33 @@ app.config['ENTRIESAPI'] = os.environ.get('ENTRIESAPI')
 
 @app.route('/')
 def home():
-  api_key = app.config['APIKEY']
-  player_api_key = app.config['PLAYERAPI']
-  lead_api_key = app.config['LEADAPI']
-  entries_api_key = app.config['ENTRIESAPI']
-  return render_template('index.html',
-                         page_title="Leaderboard",
-                         APIKEY=api_key,
-                         PLAYERAPI=player_api_key,
-                         LEADAPI=lead_api_key,
-                         ENTRIESAPI=entries_api_key)
+    return render_template('index.html',
+                           page_title="Leaderboard",
+                           APIKEY=os.environ.get('apiKey'),
+                           PLAYERAPI=os.environ.get('spreadsheetId'),
+                           LEADAPI=os.environ.get('spreadsheetId2'),
+                           ENTRIESAPI=os.environ.get('spreadsheetId3'))
+
 
 
 @app.route('/players')
 def players():
-  api_key = app.config['APIKEY']
-  player_api_key = app.config['PLAYERAPI']
-  lead_api_key = app.config['LEADAPI']
-  entries_api_key = app.config['ENTRIESAPI']
-  return render_template('players.html',
-                         page_title="Players",
-                         APIKEY=api_key,
-                         PLAYERAPI=player_api_key,
-                         LEADAPI=lead_api_key,
-                         ENTRIESAPI=entries_api_key)
+    return render_template('players.html',
+                           page_title="Players",
+                           APIKEY=os.environ.get('apiKey'),
+                           PLAYERAPI=os.environ.get('spreadsheetId'),
+                           LEADAPI=os.environ.get('spreadsheetId2'),
+                           ENTRIESAPI=os.environ.get('spreadsheetId3'))
 
 
 @app.route('/entries')
 def entries():
-  api_key = app.config['APIKEY']
-  player_api_key = app.config['PLAYERAPI']
-  lead_api_key = app.config['LEADAPI']
-  entries_api_key = app.config['ENTRIESAPI']
-  return render_template('entries.html',
-                         page_title="Entries",
-                         APIKEY=api_key,
-                         PLAYERAPI=player_api_key,
-                         LEADAPI=lead_api_key,
-                         ENTRIESAPI=entries_api_key)
+    return render_template('entries.html',
+                           page_title="Entries",
+                           APIKEY=os.environ.get('apiKey'),
+                           PLAYERAPI=os.environ.get('spreadsheetId'),
+                           LEADAPI=os.environ.get('spreadsheetId2'),
+                           ENTRIESAPI=os.environ.get('spreadsheetId3'))
 
 
 @app.route('/form')
