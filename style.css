@@ -345,6 +345,7 @@ align-items: center;
 
       .data-table td:last-child {
         text-align: right;
+        padding-right: 15px;
         
 
       }
