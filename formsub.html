@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="195540.png" type="image/x-icon" />
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,57 +10,19 @@
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <head>
+    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    </head>
+    
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <title>Form</title>
+    <title>Pool Form</title>
 </head>
-<style>
-  .pt-custom {
-      padding-top: 6rem !important; /* Adjust as needed */
-      padding-bottom: 1rem !important; /* Adjust as needed */
-  }
-</style>
-<include virtual="header.html">
-  
-
-<body id="form">
-
-    <script>
-        // Include your header.html file
-        $("body").prepend('<div id="header-placeholder"></div>');
-        $("#header-placeholder").load("header.html", function () {
-            setPageTitle();
-        });
-
-        function setPageTitle() {
-            var pageTitle;
-            var bodyId = $('body').attr('id');
-
-            switch (bodyId) {
-                case "form":
-                    pageTitle = "Form";
-                    break;
-                case "about-page":
-                    pageTitle = "About";
-                    break;
-                // Add more cases for other pages
-                default:
-                    pageTitle = "Unknown";
-            }
-
-            var logo = document.querySelector(".logo");
-            logo.textContent = pageTitle;
-        }
-    </script>
-
-    <div class="container text-center pt-custom">
-        <h2 class="mb-3">Rules</h2>
+<body>
+    <div class="container text-center pt-5">
+        <h2 class="mb-4">Rules</h2>
         <p>$30 entry fee. WINNER TAKE ALL</p>
         <p>Pick 6 golfers competing in the tournament. Your top 5 golfers will count. That means your worst golfer's score at the end of Sunday will be dropped.</p>
         <p>You are allowed to only take 2 golfers in the Vegas Top 10 odds favorites to win the tournament (LIST BELOW).</p>
@@ -79,8 +37,6 @@
         <p>Feel free to forward to friends or family that may be interested!</p>
         <p>Cheers and good luck!</p>
         <p class="font-weight-bold">** IF PAYMENT IS NOT RECEIVED BY FIRST TEE TIME YOU WILL BE DISQUALIFIED **</p>
-        <h2 class="mb-3">Vegas Top 10</h2>
-    <img src="/top10/theopen2023.png" class="img-fluid mx-auto d-block" alt="Vegas Top 10"> <!-- Replace 'your-image-source.jpg' with the actual source of your image -->
     </div>
     
     <div class="container py-5">
@@ -132,97 +88,46 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
-        <!-- Modal -->
-<div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="modalNotificationLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalNotificationLabel">Notification</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="modalBody">
-        <!-- Content will be injected here -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-        <div id="output" class="pt-custom"></div>
+        <div id="output" class="mt-5"></div>
     </div>
 
     <!-- JavaScript -->
     <script>
-      var form = document.getElementById('myForm');
-  
-      form.onsubmit = function (e) {
-          e.preventDefault();
-          
-          // Show the modal and display the message
-          $('#modalNotification').modal('show');
-          document.getElementById('modalBody').innerHTML = "Submitting, please wait...";
-          
-          var data = new FormData(form);
-          fetch('https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec', {
-              method: 'POST',
-              body: data
-          }).then(function (response) {
-              if (response.ok) {
-                  return response.json();
-              } else {
-                  throw new Error('Error: ' + response.statusText);
-              }
-          }).then(function (responseJson) {
-              var rowNumber = parseInt(responseJson.row) - 1;
-              document.getElementById('modalBody').innerHTML = "Success, submission ID: " + rowNumber;
-              form.reset(); // clear form
-          }).catch(function (error) {
-              document.getElementById('modalBody').innerHTML = error;
-          });
-      }
-  </script>
-  
-
-    <nav id="bottom-nav">
-        <ul>
-            <li>
-                <a href="index.html" id="menu-item-1">
-                    <i class="fas fa-trophy fa-bounce"></i>
-                    <span class="nav-text">Leaderboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="players.html" id="menu-item-2">
-                    <i class="fas fa-user"></i>
-                    <span class="nav-text">Players</span>
-                </a>
-            </li>
-            <!-- <li>
-                <a href="entries.html" id="menu-item-2">
-                    <i class="fa-solid fa-list"></i>
-                    <span class="nav-text">Entries</span>
-                </a>
-            </li> -->
-            <li>
-                <a href="form.html" id="menu-item-4">
-                    <i class="fas fa-file-alt"></i>
-                    <span class="nav-text">Form</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        var form = document.getElementById('myForm');
+        var output = document.getElementById('output');
+        
+        form.onsubmit = function (e) {
+            e.preventDefault();
+            
+            output.innerHTML = "Submitting, please wait...";
+            
+            var data = new FormData(form);
+            fetch('https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec', {
+                method: 'POST',
+                body: data
+            }).then(function (response) {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Error: ' + response.statusText);
+                }
+            }).then(function (responseJson) {
+                var rowNumber = parseInt(responseJson.row) - 1;
+                output.innerHTML = "Success, submission ID: " + rowNumber;
+                form.reset(); // clear form
+            }).catch(function (error) {
+                output.innerHTML = error;
+            });
+        }
+    </script>
+    
+    
+    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 </body>
-
 </html>
