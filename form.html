@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="195540.png" type="image/x-icon" />
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <title>Form</title>
-</head>
-<style>
-  .pt-custom {
-      padding-top: 6rem !important; /* Adjust as needed */
-      padding-bottom: 1rem !important; /* Adjust as needed */
-  }
-</style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Form</title>
+    
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+            crossorigin="anonymous">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="style.css">
+    
+        <!-- jQuery and jQuery UI -->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+        <!-- Select2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    
+        <!-- Custom CSS -->
+        <style>
+            .pt-custom {
+                padding-top: 6rem !important; /* Adjust as needed */
+                padding-bottom: 1rem !important; /* Adjust as needed */
+            }
+        </style>
+    </head>
 <include virtual="header.html">
   
 
@@ -102,193 +100,33 @@
             <!-- Input fields for golfers -->
             <div class="form-group">
                 <label for="golfer1">Golfer 1</label>
-                <select name="golfer1" class="form-control select2" id="golfer1" required>
-                    <option value="">Select a golfer</option>
-                    <option value="Matthew Jordan">Matthew Jordan</option>
-<option value="Richie Ramsay">Richie Ramsay</option>
-<option value="Branden Grace">Branden Grace</option>
-<option value="Jazz Janewattananond">Jazz Janewattananond</option>
-<option value="Lucas Herbert">Lucas Herbert</option>
-<option value="Ryan Fox">Ryan Fox</option>
-<option value="Graeme Robertson">Graeme Robertson</option>
-<option value="Byeong Hun An">Byeong Hun An</option>
-<option value="Russell Henley">Russell Henley</option>
-<option value="Charl Schwartzel">Charl Schwartzel</option>
-<option value="Rikuya Hoshino">Rikuya Hoshino</option>
-<option value="Alex Maguire (a)">Alex Maguire (a)</option>
-<option value="Adrian Meronk">Adrian Meronk</option>
-<option value="Hiroshi Iwata">Hiroshi Iwata</option>
-<option value="Pablo Larrazabal">Pablo Larrazabal</option>
-<option value="Connor Syme">Connor Syme</option>
-<option value="Jose Luis Ballester Barrio (a)">Jose Luis Ballester Barrio (a)</option>
-<option value="Patrick Reed">Patrick Reed</option>
-<option value="Victor Perez">Victor Perez</option>
-<option value="Darren Clarke">Darren Clarke</option>
-<option value="Thomas Pieters">Thomas Pieters</option>
-<option value="Christo Lamprecht (a)">Christo Lamprecht (a)</option>
-<option value="Louis Oosthuizen">Louis Oosthuizen</option>
-<option value="Joost Luiten">Joost Luiten</option>
-<option value="J.T. Poston">J.T. Poston</option>
-<option value="Stewart Cink">Stewart Cink</option>
-<option value="Trey Mullinax">Trey Mullinax</option>
-<option value="Harris English">Harris English</option>
-<option value="Andrew Putnam">Andrew Putnam</option>
-<option value="Henrik Stenson">Henrik Stenson</option>
-<option value="Scott Stallings">Scott Stallings</option>
-<option value="Thorbjørn Olesen">Thorbjørn Olesen</option>
-<option value="Jordan Smith">Jordan Smith</option>
-<option value="Kurt Kitayama">Kurt Kitayama</option>
-<option value="Ernie Els">Ernie Els</option>
-<option value="Takumi Kanaya">Takumi Kanaya</option>
-<option value="Chris Kirk">Chris Kirk</option>
-<option value="Sepp Straka">Sepp Straka</option>
-<option value="Sam Burns">Sam Burns</option>
-<option value="Jason Day">Jason Day</option>
-<option value="Jordan Spieth">Jordan Spieth</option>
-<option value="Matt Fitzpatrick">Matt Fitzpatrick</option>
-<option value="Padraig Harrington">Padraig Harrington</option>
-<option value="Séamus Power">Séamus Power</option>
-<option value="Talor Gooch">Talor Gooch</option>
-<option value="Davis Riley">Davis Riley</option>
-<option value="Taiga Semikawa">Taiga Semikawa</option>
-<option value="K.H. Lee">K.H. Lee</option>
-<option value="Hideki Matsuyama">Hideki Matsuyama</option>
-<option value="Patrick Cantlay">Patrick Cantlay</option>
-<option value="Brooks Koepka">Brooks Koepka</option>
-<option value="Adam Scott">Adam Scott</option>
-<option value="Tommy Fleetwood">Tommy Fleetwood</option>
-<option value="Scottie Scheffler">Scottie Scheffler</option>
-<option value="Xander Schauffele">Xander Schauffele</option>
-<option value="Wyndham Clark">Wyndham Clark</option>
-<option value="Cameron Smith">Cameron Smith</option>
-<option value="Robert MacIntyre">Robert MacIntyre</option>
-<option value="Rickie Fowler">Rickie Fowler</option>
-<option value="Shane Lowry">Shane Lowry</option>
-<option value="Bryson DeChambeau">Bryson DeChambeau</option>
-<option value="Cameron Young">Cameron Young</option>
-<option value="Si Woo Kim">Si Woo Kim</option>
-<option value="Nicolai Højgaard">Nicolai Højgaard</option>
-<option value="Kazuki Yasumori">Kazuki Yasumori</option>
-<option value="Bio Kim">Bio Kim</option>
-<option value="Haydn Barron">Haydn Barron</option>
-<option value="Dan Bradbury">Dan Bradbury</option>
-<option value="Oliver Farr">Oliver Farr</option>
-<option value="Martin Rohwer">Martin Rohwer</option>
-<option value="Marcel Siem">Marcel Siem</option>
-<option value="Tiger Christensen (a)">Tiger Christensen (a)</option>
-<option value="Richard Bland">Richard Bland</option>
-<option value="Lee Hodges">Lee Hodges</option>
-<option value="Antoine Rozner">Antoine Rozner</option>
-<option value="Yannik Paul">Yannik Paul</option>
-<option value="Sami Välimäki">Sami Välimäki</option>
-<option value="Laurie Canter">Laurie Canter</option>
-<option value="Rasmus Højgaard">Rasmus Højgaard</option>
-<option value="Alex Fitzpatrick">Alex Fitzpatrick</option>
-<option value="Matthew Southgate">Matthew Southgate</option>
-<option value="Daniel Hillier">Daniel Hillier</option>
-<option value="Kyungnam Kang">Kyungnam Kang</option>
-<option value="Kensei Hirata">Kensei Hirata</option>
-<option value="Kazuki Higa">Kazuki Higa</option>
-<option value="Michael Kim">Michael Kim</option>
-<option value="Callum Shinkwin">Callum Shinkwin</option>
-<option value="Taichi Kho">Taichi Kho</option>
-<option value="Kyle Barker">Kyle Barker</option>
-<option value="Zack Fischer">Zack Fischer</option>
-<option value="Romain Langasque">Romain Langasque</option>
-<option value="Travis Smyth">Travis Smyth</option>
-<option value="Brendon Todd">Brendon Todd</option>
-<option value="Gary Woodland">Gary Woodland</option>
-<option value="Adrian Otaegui">Adrian Otaegui</option>
-<option value="Alexander Björk">Alexander Björk</option>
-<option value="Min Woo Lee">Min Woo Lee</option>
-<option value="Harrison Crowe (a)">Harrison Crowe (a)</option>
-<option value="Christiaan Bezuidenhout">Christiaan Bezuidenhout</option>
-<option value="Billy Horschel">Billy Horschel</option>
-<option value="Alex Noren">Alex Noren</option>
-<option value="Corey Conners">Corey Conners</option>
-<option value="Tom Kim">Tom Kim</option>
-<option value="Tom Hoge">Tom Hoge</option>
-<option value="Abraham Ancer">Abraham Ancer</option>
-<option value="Matt Wallace">Matt Wallace</option>
-<option value="David Micheluzzi">David Micheluzzi</option>
-<option value="Zach J. Johnson">Zach J. Johnson</option>
-<option value="Sahith Theegala">Sahith Theegala</option>
-<option value="Dustin Johnson">Dustin Johnson</option>
-<option value="Emiliano Grillo">Emiliano Grillo</option>
-<option value="Denny McCarthy">Denny McCarthy</option>
-<option value="Francesco Molinari">Francesco Molinari</option>
-<option value="Mateo Fernandez de Oliveira (a)">Mateo Fernandez de Oliveira (a)</option>
-<option value="Brian Harman">Brian Harman</option>
-<option value="Thomas Detry">Thomas Detry</option>
-<option value="Thriston Lawrence">Thriston Lawrence</option>
-<option value="Taylor Moore">Taylor Moore</option>
-<option value="Danny Willett">Danny Willett</option>
-<option value="John Daly">John Daly</option>
-<option value="Ben Griffin">Ben Griffin</option>
-<option value="David Lingmerth">David Lingmerth</option>
-<option value="Ockie Strydom">Ockie Strydom</option>
-<option value="Ewen Ferguson">Ewen Ferguson</option>
-<option value="Adri Arnaus">Adri Arnaus</option>
-<option value="Keita Nakajima">Keita Nakajima</option>
-<option value="Joaquin Niemann">Joaquin Niemann</option>
-<option value="Sungjae Im">Sungjae Im</option>
-<option value="Keegan Bradley">Keegan Bradley</option>
-<option value="Tony Finau">Tony Finau</option>
-<option value="Viktor Hovland">Viktor Hovland</option>
-<option value="Justin Thomas">Justin Thomas</option>
-<option value="Rory McIlroy">Rory McIlroy</option>
-<option value="Justin Rose">Justin Rose</option>
-<option value="Jon Rahm">Jon Rahm</option>
-<option value="Collin Morikawa">Collin Morikawa</option>
-<option value="Tyrrell Hatton">Tyrrell Hatton</option>
-<option value="Max Homa">Max Homa</option>
-<option value="Adam Schenk">Adam Schenk</option>
-<option value="Phil Mickelson">Phil Mickelson</option>
-<option value="Nick Taylor">Nick Taylor</option>
-<option value="Alejandro Cañizares">Alejandro Cañizares</option>
-<option value="Marc Warren">Marc Warren</option>
-<option value="Nacho Elvira">Nacho Elvira</option>
-<option value="Oliver Wilson">Oliver Wilson</option>
-<option value="Connor Mckinney">Connor Mckinney</option>
-<option value="Guido Migliozzi">Guido Migliozzi</option>
-<option value="Gunner Wiebe">Gunner Wiebe</option>
-<option value="Kalle Samooja">Kalle Samooja</option>
-<option value="Shubhankar Sharma">Shubhankar Sharma</option>
-<option value="Brandon Robinson Thompson">Brandon Robinson Thompson</option>
-<option value="Jorge Campillo">Jorge Campillo</option>
-<option value="Michael Stewart">Michael Stewart</option>
-<option value="Hurly Long">Hurly Long</option>
-<option value="Marco Penge">Marco Penge</option>
-<option value="Seungsu Han">Seungsu Han</option>
-
-                </select>
+                <input name="golfer1" type="text" class="form-control golfer" id="golfer1" placeholder="Enter Golfer 1" required>
             </div>
-            
             <div class="form-group">
                 <label for="golfer2">Golfer 2</label>
-                <input name="golfer2" type="text" class="form-control" id="golfer2" placeholder="Enter Golfer 2" required>
+                <input name="golfer2" type="text" class="form-control golfer" id="golfer2" placeholder="Enter Golfer 2" required>
             </div>
             <div class="form-group">
                 <label for="golfer3">Golfer 3</label>
-                <input name="golfer3" type="text" class="form-control" id="golfer3" placeholder="Enter Golfer 3" required>
+                <input name="golfer3" type="text" class="form-control golfer" id="golfer3" placeholder="Enter Golfer 3" required>
             </div>
             <div class="form-group">
                 <label for="golfer4">Golfer 4</label>
-                <input name="golfer4" type="text" class="form-control" id="golfer4" placeholder="Enter Golfer 4" required>
+                <input name="golfer4" type="text" class="form-control golfer" id="golfer4" placeholder="Enter Golfer 4" required>
             </div>
             <div class="form-group">
                 <label for="golfer5">Golfer 5</label>
-                <input name="golfer5" type="text" class="form-control" id="golfer5" placeholder="Enter Golfer 5" required>
+                <input name="golfer5" type="text" class="form-control golfer" id="golfer5" placeholder="Enter Golfer 5" required>
             </div>
             <div class="form-group">
                 <label for="golfer6">Golfer 6</label>
-                <input name="golfer6" type="text" class="form-control" id="golfer6" placeholder="Enter Golfer 6" required>
+                <input name="golfer6" type="text" class="form-control golfer" id="golfer6" placeholder="Enter Golfer 6" required>
             </div>
-            <!-- Input field for tie breaker -->
             <div class="form-group">
                 <label for="tiebreaker">Tie Breaker (Score)</label>
                 <input name="tiebreaker" type="number" class="form-control" id="tiebreaker" placeholder="Enter Tie Breaker Score" required>
             </div>
+            
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
 
@@ -316,36 +154,50 @@
         <div id="output" class="pt-custom"></div>
     </div>
 
-    <!-- JavaScript -->
+    <!-- Your form submission script here -->
     <script>
-      var form = document.getElementById('myForm');
-  
-      form.onsubmit = function (e) {
-          e.preventDefault();
-          
-          // Show the modal and display the message
-          $('#modalNotification').modal('show');
-          document.getElementById('modalBody').innerHTML = "Submitting, please wait...";
-          
-          var data = new FormData(form);
-          fetch('https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec', {
-              method: 'POST',
-              body: data
-          }).then(function (response) {
-              if (response.ok) {
-                  return response.json();
-              } else {
-                  throw new Error('Error: ' + response.statusText);
-              }
-          }).then(function (responseJson) {
-              var rowNumber = parseInt(responseJson.row) - 1;
-              document.getElementById('modalBody').innerHTML = "Success, submission ID: " + rowNumber;
-              form.reset(); // clear form
-          }).catch(function (error) {
-              document.getElementById('modalBody').innerHTML = error;
-          });
-      }
-  </script>
+        $(document).ready(function () {
+            var form = $('#myForm');
+
+            form.on('submit', function (e) {
+                e.preventDefault();
+
+                $('#modalNotification').modal('show');
+                $('#modalBody').html('Submitting, please wait...');
+
+                var data = new FormData(form[0]);
+
+                fetch('https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec', {
+                    method: 'POST',
+                    body: data
+                }).then(function (response) {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Error: ' + response.statusText);
+                    }
+                }).then(function (responseJson) {
+                    var rowNumber = parseInt(responseJson.row) - 1;
+                    $('#modalBody').html('Success, submission ID: ' + rowNumber);
+                    form[0].reset(); // clear form
+                }).catch(function (error) {
+                    $('#modalBody').html(error);
+                });
+            });
+        });
+    </script>
+
+     <!-- Autocomplete script -->
+     <script>
+        $(document).ready(function() {
+            var availableGolfers = ["Richie Ramsay", "Matthew Jordan", "Ryan Fox", "Pablo Larrazabal", "Lucas Herbert", "Hiroshi Iwata", "Branden Grace", "Graeme Robertson", "Jazz Janewattananond", "Rikuya Hoshino", "Alex Maguire (a)", "Adrian Meronk", "Russell Henley", "Byeong Hun An", "Charl Schwartzel", "Connor Syme", "Jose Luis Ballester Barrio (a)", "Patrick Reed", "Victor Perez", "Darren Clarke", "Thomas Pieters", "Christo Lamprecht (a)", "Louis Oosthuizen", "Joost Luiten", "J.T. Poston", "Stewart Cink", "Trey Mullinax", "Harris English", "Andrew Putnam", "Henrik Stenson", "Scott Stallings", "Thorbjørn Olesen", "Jordan Smith", "Kurt Kitayama", "Ernie Els", "Takumi Kanaya", "Chris Kirk", "Sepp Straka", "Sam Burns", "Jason Day", "Jordan Spieth", "Matt Fitzpatrick", "Padraig Harrington", "Séamus Power", "Talor Gooch", "Davis Riley", "Taiga Semikawa", "K.H. Lee", "Hideki Matsuyama", "Patrick Cantlay", "Brooks Koepka", "Adam Scott", "Tommy Fleetwood", "Scottie Scheffler", "Xander Schauffele", "Wyndham Clark", "Cameron Smith", "Robert MacIntyre", "Rickie Fowler", "Shane Lowry", "Bryson DeChambeau", "Cameron Young", "Si Woo Kim", "Nicolai Højgaard", "Kazuki Yasumori", "Bio Kim", "Haydn Barron", "Dan Bradbury", "Oliver Farr", "Martin Rohwer", "Marcel Siem", "Tiger Christensen (a)", "Richard Bland", "Lee Hodges", "Antoine Rozner", "Yannik Paul", "Sami Välimäki", "Laurie Canter", "Rasmus Højgaard", "Alex Fitzpatrick", "Matthew Southgate", "Daniel Hillier", "Kyungnam Kang", "Kensei Hirata", "Kazuki Higa", "Michael Kim", "Callum Shinkwin", "Taichi Kho", "Kyle Barker", "Zack Fischer", "Romain Langasque", "Travis Smyth", "Brendon Todd", "Gary Woodland", "Adrian Otaegui", "Alexander Björk", "Min Woo Lee", "Harrison Crowe (a)", "Christiaan Bezuidenhout", "Billy Horschel", "Alex Noren", "Corey Conners", "Tom Kim", "Tom Hoge", "Abraham Ancer", "Matt Wallace", "David Micheluzzi", "Zach J. Johnson", "Sahith Theegala", "Dustin Johnson", "Emiliano Grillo", "Denny McCarthy", "Francesco Molinari", "Mateo Fernandez de Oliveira (a)", "Brian Harman", "Thomas Detry", "Thriston Lawrence", "Taylor Moore", "Danny Willett", "John Daly", "Ben Griffin", "David Lingmerth", "Ockie Strydom", "Ewen Ferguson", "Adri Arnaus", "Keita Nakajima", "Joaquin Niemann", "Sungjae Im", "Keegan Bradley", "Tony Finau", "Viktor Hovland", "Justin Thomas", "Rory McIlroy", "Justin Rose", "Jon Rahm", "Collin Morikawa", "Tyrrell Hatton", "Max Homa", "Adam Schenk", "Phil Mickelson", "Nick Taylor", "Alejandro Cañizares", "Marc Warren", "Nacho Elvira", "Oliver Wilson", "Connor Mckinney", "Guido Migliozzi", "Gunner Wiebe", "Kalle Samooja", "Shubhankar Sharma", "Brandon Robinson Thompson", "Jorge Campillo", "Michael Stewart", "Hurly Long", "Marco Penge", "Seungsu Han"];
+
+
+            $(".golfer").autocomplete({
+                source: availableGolfers
+            });
+        });
+    </script>
   
 
     <nav id="bottom-nav">
@@ -379,7 +231,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
@@ -407,12 +259,9 @@
             containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
         }
       </script>
-      <script>
-        $(document).ready(function() {
-            $('.select2').select2();
-        });
-        </script>
-        
+
+    
+      
       
 
 </body>
