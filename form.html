@@ -223,6 +223,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <script>
+        // Set the deadline date and time
+        var deadline = new Date("07/19/23 10:35 PM MST"); // Change to your deadline
+      
+        // Get the current date and time
+        var now = new Date();
+      
+        // Compare the deadline with the current time
+        if (now.getTime() > deadline.getTime()) {
+            // If the current time is after the deadline,
+            // hide the form and display a message
+            document.getElementById('myForm').style.display = 'none';
+            
+            // Create a new div for the message
+            var messageDiv = document.createElement('div');
+            messageDiv.innerHTML = '<p class="alert alert-danger">Sorry, submissions are now closed.</p>';
+            
+            // Get the container div
+            var containerDiv = document.querySelector('.container');
+            
+            // Insert the message at the top of the container
+            containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
+        }
+      </script>
+      
+      
+
 </body>
 
 </html>
