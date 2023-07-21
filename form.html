@@ -1,269 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Form</title>
-    
-        <!-- Bootstrap CSS -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
-            crossorigin="anonymous">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="style.css">
-    
-        <!-- jQuery and jQuery UI -->
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
-        <!-- Select2 JS -->
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    
-        <!-- Custom CSS -->
-        <style>
-            .pt-custom {
-                padding-top: 6rem !important; /* Adjust as needed */
-                padding-bottom: 1rem !important; /* Adjust as needed */
-            }
-        </style>
-    </head>
-<include virtual="header.html">
-  
 
-<body id="form">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
 
-    <script>
-        // Include your header.html file
-        $("body").prepend('<div id="header-placeholder"></div>');
-        $("#header-placeholder").load("header.html", function () {
-            setPageTitle();
-        });
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="style.css">
 
-        function setPageTitle() {
-            var pageTitle;
-            var bodyId = $('body').attr('id');
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-            switch (bodyId) {
-                case "form":
-                    pageTitle = "Form";
-                    break;
-                case "about-page":
-                    pageTitle = "About";
-                    break;
-                // Add more cases for other pages
-                default:
-                    pageTitle = "Unknown";
-            }
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-            var logo = document.querySelector(".logo");
-            logo.textContent = pageTitle;
+    <!-- Custom CSS -->
+    <style>
+        .pt-custom {
+            padding-top: 6rem !important;
+            /* Adjust as needed */
+            padding-bottom: 1rem !important;
+            /* Adjust as needed */
         }
-    </script>
 
-    <div class="container text-center pt-custom">
-        <h2 class="mb-3">Rules</h2>
-        <p>$30 entry fee. WINNER TAKE ALL</p>
-        <p>Pick 6 golfers competing in the tournament. Your top 5 golfers will count. That means your worst golfer's score at the end of Sunday will be dropped.</p>
-        <p>You are allowed to only take 2 golfers in the Vegas Top 10 odds favorites to win the tournament (LIST BELOW).</p>
-        <p>The pool runs similar to the game of golf. Your 6 golfer's scores after their rounds will be added up. The lower the better.</p>
-        <p class="font-weight-bold">If one of your selected golfers does not make the cut, he will be scored an 80 on Saturday and Sunday.</p>
-        <p class="font-weight-bold">If one of your selected golfers withdraws, he will be scored an 80 for all four rounds.</p>
-        <p class="font-weight-bold">If one of your selected golfers is disqualified, he will be scored an 80 for all four rounds.</p>
-        <p>Along with your golfers I will need a tie breaker. The tie breaker is your prediction of what the champions final score to par will be. Example: Scottie Scheffler won last year's Masters shooting -10, meaning a -10 on the total tournament would have been the right tie breaker.</p>
-        <p class="font-weight-bold">Venmo is the preferred payment method (@pblang). Easy collect, easy send off.</p>
-        <p>Leaderboard will update automatically.</p>
-        <p>Submissions will be accepted all the way up to the first tee time on Thursday which is typically at 8:00 am.</p>
-        <p>Feel free to forward to friends or family that may be interested!</p>
-        <p>Cheers and good luck!</p>
-        <p class="font-weight-bold">** IF PAYMENT IS NOT RECEIVED BY FIRST TEE TIME YOU WILL BE DISQUALIFIED **</p>
-        <h2 class="mb-3">Vegas Top 10</h2>
-    <img src="/top10/theopen2023.png" class="img-fluid mx-auto d-block" alt="Vegas Top 10"> <!-- Replace 'your-image-source.jpg' with the actual source of your image -->
-    </div>
-    
-    <div class="container py-1">
-        <h1 class="mb-5 text-center"></h1>
+        header {
+            position: fixed;
+            z-index: 1000;
+        }
 
-        <form id="myForm">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input name="email" type="email" class="form-control" id="email" placeholder="Enter email" required>
-            </div>
-            <div class="form-group">
-                <label for="venmo">Venmo</label>
-                <input name="venmo" type="text" class="form-control" id="venmo" placeholder="Enter venmo" required>
-            </div>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input name="name" type="text" class="form-control" id="name" placeholder="Enter name" required>
-            </div>
-            <!-- Input fields for golfers -->
-            <div class="form-group">
-                <label for="golfer1">Golfer 1</label>
-                <input name="golfer1" type="text" class="form-control golfer" id="golfer1" placeholder="Enter Golfer 1" required>
-            </div>
-            <div class="form-group">
-                <label for="golfer2">Golfer 2</label>
-                <input name="golfer2" type="text" class="form-control golfer" id="golfer2" placeholder="Enter Golfer 2" required>
-            </div>
-            <div class="form-group">
-                <label for="golfer3">Golfer 3</label>
-                <input name="golfer3" type="text" class="form-control golfer" id="golfer3" placeholder="Enter Golfer 3" required>
-            </div>
-            <div class="form-group">
-                <label for="golfer4">Golfer 4</label>
-                <input name="golfer4" type="text" class="form-control golfer" id="golfer4" placeholder="Enter Golfer 4" required>
-            </div>
-            <div class="form-group">
-                <label for="golfer5">Golfer 5</label>
-                <input name="golfer5" type="text" class="form-control golfer" id="golfer5" placeholder="Enter Golfer 5" required>
-            </div>
-            <div class="form-group">
-                <label for="golfer6">Golfer 6</label>
-                <input name="golfer6" type="text" class="form-control golfer" id="golfer6" placeholder="Enter Golfer 6" required>
-            </div>
-            <div class="form-group">
-                <label for="tiebreaker">Tie Breaker (Score)</label>
-                <input name="tiebreaker" type="number" class="form-control" id="tiebreaker" placeholder="Enter Tie Breaker Score" required>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        button[type="submit"] {
+            background-color: #006B54;
+            /* replace #yourcolor with your desired color */
+            color: white;
+            border-color: #006B54;
+        }
 
-        <!-- Modal -->
-<div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="modalNotificationLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalNotificationLabel">Notification</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="modalBody">
-        <!-- Content will be injected here -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+        /* this changes the text color, adjust as needed */
+    </style>
+</head>
+<include virtual="header.html">
 
 
-        <div id="output" class="pt-custom"></div>
-    </div>
+    <body id="form">
 
-    <!-- Your form submission script here -->
-    <script>
-        $(document).ready(function () {
-            var form = $('#myForm');
+        <script>
+            // Include your header.html file
+            $("body").prepend('<div id="header-placeholder"></div>');
+            $("#header-placeholder").load("header.html", function () {
+                setPageTitle();
+            });
 
-            form.on('submit', function (e) {
-                e.preventDefault();
+            function setPageTitle() {
+                var pageTitle;
+                var bodyId = $('body').attr('id');
 
-                $('#modalNotification').modal('show');
-                $('#modalBody').html('Submitting, please wait...');
+                switch (bodyId) {
+                    case "form":
+                        pageTitle = "Form";
+                        break;
+                    case "about-page":
+                        pageTitle = "About";
+                        break;
+                        // Add more cases for other pages
+                    default:
+                        pageTitle = "Unknown";
+                }
 
-                var data = new FormData(form[0]);
+                var logo = document.querySelector(".logo");
+                logo.textContent = pageTitle;
+            }
+        </script>
+        <div class="container text-center pt-custom">
+            <div class="card">
+                <div class="card-body bg-light rounded">
 
-                fetch('https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec', {
-                    method: 'POST',
-                    body: data
-                }).then(function (response) {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Error: ' + response.statusText);
-                    }
-                }).then(function (responseJson) {
-                    var rowNumber = parseInt(responseJson.row) - 1;
-                    $('#modalBody').html('Success, submission ID: ' + rowNumber);
-                    form[0].reset(); // clear form
-                }).catch(function (error) {
-                    $('#modalBody').html(error);
+                    <h1 class="mb-3">Rules</h1>
+                    <p>$30 entry fee. WINNER TAKE ALL</p>
+                    <p>Pick 6 golfers competing in the tournament. Your top 5 golfers will count. That means your worst
+                        golfer's score at the end of Sunday will be dropped.</p>
+                    <p>You are allowed to only take 2 golfers in the Vegas Top 10 odds favorites to win the tournament
+                        (LIST BELOW).</p>
+                    <p>The pool runs similar to the game of golf. Your 6 golfer's scores after their rounds will be
+                        added up. The lower the better.</p>
+                    <p class="font-weight-bold">If one of your selected golfers does not make the cut, he will be scored
+                        an 80 on Saturday and Sunday.</p>
+                    <p class="font-weight-bold">If one of your selected golfers withdraws, he will be scored an 80 for
+                        all four rounds.</p>
+                    <p class="font-weight-bold">If one of your selected golfers is disqualified, he will be scored an 80
+                        for all four rounds.</p>
+                    <p>Along with your golfers I will need a tie breaker. The tie breaker is your prediction of what the
+                        champions final score to par will be. Example: Scottie Scheffler won last year's Masters
+                        shooting -10, meaning a -10 on the total tournament would have been the right tie breaker.</p>
+                    <p class="font-weight-bold">Venmo is the preferred payment method (@pblang). Easy collect, easy send
+                        off.</p>
+                    <p>Leaderboard will update automatically.</p>
+                    <p>Submissions will be accepted all the way up to the first tee time on Thursday which is typically
+                        at 8:00 am.</p>
+                    <p>Feel free to forward to friends or family that may be interested!</p>
+                    <p>Cheers and good luck!</p>
+                    <p class="font-weight-bold">** IF PAYMENT IS NOT RECEIVED BY FIRST TEE TIME YOU WILL BE DISQUALIFIED
+                        **</p>
+
+
+                    <!-- <h2 class="mb-3">Vegas Top 10</h2> -->
+                    <!-- <img src="/top10/theopen2023.png" class="img-fluid mx-auto d-block" alt="Vegas Top 10">  -->
+                    <h1 class="mb-3">Vegas Top 10</h1>
+                    <table class="table table-active table-striped table-dark">
+                        <thead>
+                            <tr>
+                                <th>Golfer</th>
+                                <th>Draftkings Odds</th>
+                            </tr>
+                        </thead>
+                        <!-- change tbody from gpt -->
+                        <tbody>
+                            <tr>
+                                <td>Rory McIlroy</td>
+                                <td>+800</td>
+                            </tr>
+                            <tr>
+                                <td>Scottie Scheffler</td>
+                                <td>+900</td>
+                            </tr>
+                            <tr>
+                                <td>Jon Rahm</td>
+                                <td>+1000</td>
+                            </tr>
+                            <tr>
+                                <td>Cameron Smith</td>
+                                <td>+1200</td>
+                            </tr>
+                            <tr>
+                                <td>Brooks Koepka</td>
+                                <td>+1300</td>
+                            </tr>
+                            <tr>
+                                <td>Viktor Hovland</td>
+                                <td>+1400</td>
+                            </tr>
+                            <tr>
+                                <td>Patrick Cantlay</td>
+                                <td>+1500</td>
+                            </tr>
+                            <tr>
+                                <td>Xander Schauffele</td>
+                                <td>+1600</td>
+                            </tr>
+                            <tr>
+                                <td>Tyrrell Hatton</td>
+                                <td>+1700</td>
+                            </tr>
+                            <tr>
+                                <td>Rickie Fowler</td>
+                                <td>+1800</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        </div>
+        </div>
+
+        <div class="container py-1">
+            <h1 class="mb-5 text-center"></h1>
+
+            <div class="card">
+                <div class="card-body bg-light rounded">
+                    <form id="myForm">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input name="email" type="email" class="form-control" id="email" placeholder="Enter email"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="venmo">Venmo</label>
+                            <input name="venmo" type="text" class="form-control" id="venmo" placeholder="Enter venmo"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input name="name" type="text" class="form-control" id="name" placeholder="Enter name"
+                                required>
+                        </div>
+                        <!-- Input fields for golfers -->
+                        <div class="form-group">
+                            <label for="golfer1">Golfer 1</label>
+                            <input name="golfer1" type="text" class="form-control golfer" id="golfer1"
+                                placeholder="Enter Golfer 1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="golfer2">Golfer 2</label>
+                            <input name="golfer2" type="text" class="form-control golfer" id="golfer2"
+                                placeholder="Enter Golfer 2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="golfer3">Golfer 3</label>
+                            <input name="golfer3" type="text" class="form-control golfer" id="golfer3"
+                                placeholder="Enter Golfer 3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="golfer4">Golfer 4</label>
+                            <input name="golfer4" type="text" class="form-control golfer" id="golfer4"
+                                placeholder="Enter Golfer 4" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="golfer5">Golfer 5</label>
+                            <input name="golfer5" type="text" class="form-control golfer" id="golfer5"
+                                placeholder="Enter Golfer 5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="golfer6">Golfer 6</label>
+                            <input name="golfer6" type="text" class="form-control golfer" id="golfer6"
+                                placeholder="Enter Golfer 6" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tiebreaker">Tie Breaker (Score)</label>
+                            <input name="tiebreaker" type="number" class="form-control" id="tiebreaker"
+                                placeholder="Enter Tie Breaker Score" required>
+                        </div>
+                        <!-- update under this -->
+                        <script>
+                            $(document).ready(function () {
+                                var topGolfers = [
+                                    "Rory McIlroy",
+                                    "Scottie Scheffler",
+                                    "Jon Rahm",
+                                    "Cameron Smith",
+                                    "Brooks Koepka",
+                                    "Viktor Hovland",
+                                    "Patrick Cantlay",
+                                    "Xander Schauffele",
+                                    "Tyrrell Hatton",
+                                    "Rickie Fowler"
+                                ];
+
+                                var form = $('#myForm');
+
+                                form.on('submit', function (e) {
+                                    e
+                                        .preventDefault(); // prevent the form from being submitted immediately
+
+                                    var selectedGolfers = $('.golfer').map(function () {
+                                        return $(this).val();
+                                    }).get();
+
+                                    var topGolfersCount = 0;
+                                    for (var i = 0; i < selectedGolfers.length; i++) {
+                                        if (topGolfers.includes(selectedGolfers[i])) {
+                                            topGolfersCount++;
+                                        }
+                                    }
+
+                                    if (topGolfersCount > 2) {
+                                        alert('You can only select 2 golfers from the Vegas Top 10.');
+                                        return; // stop the function here if the selection is invalid
+                                    }
+
+                                    // If the selection is valid, send the form data to the Google script
+                                    $('#modalNotification').modal('show');
+                                    $('#modalBody').html('Submitting, please wait...');
+
+                                    var data = new FormData(form[0]);
+
+                                    fetch('https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec', {
+                                        method: 'POST',
+                                        body: data
+                                    }).then(function (response) {
+                                        if (response.ok) {
+                                            return response.json();
+                                        } else {
+                                            throw new Error('Error: ' + response.statusText);
+                                        }
+                                    }).then(function (responseJson) {
+                                        var rowNumber = parseInt(responseJson.row) - 1;
+                                        $('#modalBody').html('Success, submission ID: ' +
+                                            rowNumber);
+                                        form[0].reset(); // clear form
+                                    }).catch(function (error) {
+                                        $('#modalBody').html(error);
+                                    });
+                                });
+                            });
+                        </script>
+
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog"
+                aria-labelledby="modalNotificationLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalNotificationLabel">Notification</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="modalBody">
+                            <!-- Content will be injected here -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="output" class="pt-custom"></div>
+        </div>
+
+
+        <!-- Autocomplete script -->
+        <script>
+            $(document).ready(function () {
+                var availableGolfers = ["Richie Ramsay", "Matthew Jordan", "Ryan Fox", "Pablo Larrazabal",
+                    "Lucas Herbert", "Hiroshi Iwata", "Branden Grace", "Graeme Robertson",
+                    "Jazz Janewattananond", "Rikuya Hoshino", "Alex Maguire (a)", "Adrian Meronk",
+                    "Russell Henley", "Byeong Hun An", "Charl Schwartzel", "Connor Syme",
+                    "Jose Luis Ballester Barrio (a)", "Patrick Reed", "Victor Perez", "Darren Clarke",
+                    "Thomas Pieters", "Christo Lamprecht (a)", "Louis Oosthuizen", "Joost Luiten",
+                    "J.T. Poston", "Stewart Cink", "Trey Mullinax", "Harris English", "Andrew Putnam",
+                    "Henrik Stenson", "Scott Stallings", "Thorbjørn Olesen", "Jordan Smith",
+                    "Kurt Kitayama", "Ernie Els", "Takumi Kanaya", "Chris Kirk", "Sepp Straka", "Sam Burns",
+                    "Jason Day", "Jordan Spieth", "Matt Fitzpatrick", "Padraig Harrington", "Séamus Power",
+                    "Talor Gooch", "Davis Riley", "Taiga Semikawa", "K.H. Lee", "Hideki Matsuyama",
+                    "Patrick Cantlay", "Brooks Koepka", "Adam Scott", "Tommy Fleetwood",
+                    "Scottie Scheffler", "Xander Schauffele", "Wyndham Clark", "Cameron Smith",
+                    "Robert MacIntyre", "Rickie Fowler", "Shane Lowry", "Bryson DeChambeau",
+                    "Cameron Young", "Si Woo Kim", "Nicolai Højgaard", "Kazuki Yasumori", "Bio Kim",
+                    "Haydn Barron", "Dan Bradbury", "Oliver Farr", "Martin Rohwer", "Marcel Siem",
+                    "Tiger Christensen (a)", "Richard Bland", "Lee Hodges", "Antoine Rozner", "Yannik Paul",
+                    "Sami Välimäki", "Laurie Canter", "Rasmus Højgaard", "Alex Fitzpatrick",
+                    "Matthew Southgate", "Daniel Hillier", "Kyungnam Kang", "Kensei Hirata", "Kazuki Higa",
+                    "Michael Kim", "Callum Shinkwin", "Taichi Kho", "Kyle Barker", "Zack Fischer",
+                    "Romain Langasque", "Travis Smyth", "Brendon Todd", "Gary Woodland", "Adrian Otaegui",
+                    "Alexander Björk", "Min Woo Lee", "Harrison Crowe (a)", "Christiaan Bezuidenhout",
+                    "Billy Horschel", "Alex Noren", "Corey Conners", "Tom Kim", "Tom Hoge", "Abraham Ancer",
+                    "Matt Wallace", "David Micheluzzi", "Zach J. Johnson", "Sahith Theegala",
+                    "Dustin Johnson", "Emiliano Grillo", "Denny McCarthy", "Francesco Molinari",
+                    "Mateo Fernandez de Oliveira (a)", "Brian Harman", "Thomas Detry", "Thriston Lawrence",
+                    "Taylor Moore", "Danny Willett", "John Daly", "Ben Griffin", "David Lingmerth",
+                    "Ockie Strydom", "Ewen Ferguson", "Adri Arnaus", "Keita Nakajima", "Joaquin Niemann",
+                    "Sungjae Im", "Keegan Bradley", "Tony Finau", "Viktor Hovland", "Justin Thomas",
+                    "Rory McIlroy", "Justin Rose", "Jon Rahm", "Collin Morikawa", "Tyrrell Hatton",
+                    "Max Homa", "Adam Schenk", "Phil Mickelson", "Nick Taylor", "Alejandro Cañizares",
+                    "Marc Warren", "Nacho Elvira", "Oliver Wilson", "Connor Mckinney", "Guido Migliozzi",
+                    "Gunner Wiebe", "Kalle Samooja", "Shubhankar Sharma", "Brandon Robinson Thompson",
+                    "Jorge Campillo", "Michael Stewart", "Hurly Long", "Marco Penge", "Seungsu Han"
+                ];
+
+
+                $(".golfer").autocomplete({
+                    source: availableGolfers
                 });
             });
-        });
-    </script>
-
-     <!-- Autocomplete script -->
-     <script>
-        $(document).ready(function() {
-            var availableGolfers = ["Richie Ramsay", "Matthew Jordan", "Ryan Fox", "Pablo Larrazabal", "Lucas Herbert", "Hiroshi Iwata", "Branden Grace", "Graeme Robertson", "Jazz Janewattananond", "Rikuya Hoshino", "Alex Maguire (a)", "Adrian Meronk", "Russell Henley", "Byeong Hun An", "Charl Schwartzel", "Connor Syme", "Jose Luis Ballester Barrio (a)", "Patrick Reed", "Victor Perez", "Darren Clarke", "Thomas Pieters", "Christo Lamprecht (a)", "Louis Oosthuizen", "Joost Luiten", "J.T. Poston", "Stewart Cink", "Trey Mullinax", "Harris English", "Andrew Putnam", "Henrik Stenson", "Scott Stallings", "Thorbjørn Olesen", "Jordan Smith", "Kurt Kitayama", "Ernie Els", "Takumi Kanaya", "Chris Kirk", "Sepp Straka", "Sam Burns", "Jason Day", "Jordan Spieth", "Matt Fitzpatrick", "Padraig Harrington", "Séamus Power", "Talor Gooch", "Davis Riley", "Taiga Semikawa", "K.H. Lee", "Hideki Matsuyama", "Patrick Cantlay", "Brooks Koepka", "Adam Scott", "Tommy Fleetwood", "Scottie Scheffler", "Xander Schauffele", "Wyndham Clark", "Cameron Smith", "Robert MacIntyre", "Rickie Fowler", "Shane Lowry", "Bryson DeChambeau", "Cameron Young", "Si Woo Kim", "Nicolai Højgaard", "Kazuki Yasumori", "Bio Kim", "Haydn Barron", "Dan Bradbury", "Oliver Farr", "Martin Rohwer", "Marcel Siem", "Tiger Christensen (a)", "Richard Bland", "Lee Hodges", "Antoine Rozner", "Yannik Paul", "Sami Välimäki", "Laurie Canter", "Rasmus Højgaard", "Alex Fitzpatrick", "Matthew Southgate", "Daniel Hillier", "Kyungnam Kang", "Kensei Hirata", "Kazuki Higa", "Michael Kim", "Callum Shinkwin", "Taichi Kho", "Kyle Barker", "Zack Fischer", "Romain Langasque", "Travis Smyth", "Brendon Todd", "Gary Woodland", "Adrian Otaegui", "Alexander Björk", "Min Woo Lee", "Harrison Crowe (a)", "Christiaan Bezuidenhout", "Billy Horschel", "Alex Noren", "Corey Conners", "Tom Kim", "Tom Hoge", "Abraham Ancer", "Matt Wallace", "David Micheluzzi", "Zach J. Johnson", "Sahith Theegala", "Dustin Johnson", "Emiliano Grillo", "Denny McCarthy", "Francesco Molinari", "Mateo Fernandez de Oliveira (a)", "Brian Harman", "Thomas Detry", "Thriston Lawrence", "Taylor Moore", "Danny Willett", "John Daly", "Ben Griffin", "David Lingmerth", "Ockie Strydom", "Ewen Ferguson", "Adri Arnaus", "Keita Nakajima", "Joaquin Niemann", "Sungjae Im", "Keegan Bradley", "Tony Finau", "Viktor Hovland", "Justin Thomas", "Rory McIlroy", "Justin Rose", "Jon Rahm", "Collin Morikawa", "Tyrrell Hatton", "Max Homa", "Adam Schenk", "Phil Mickelson", "Nick Taylor", "Alejandro Cañizares", "Marc Warren", "Nacho Elvira", "Oliver Wilson", "Connor Mckinney", "Guido Migliozzi", "Gunner Wiebe", "Kalle Samooja", "Shubhankar Sharma", "Brandon Robinson Thompson", "Jorge Campillo", "Michael Stewart", "Hurly Long", "Marco Penge", "Seungsu Han"];
+        </script>
 
 
-            $(".golfer").autocomplete({
-                source: availableGolfers
-            });
-        });
-    </script>
-  
+        <nav id="bottom-nav">
+            <ul>
+                <li>
+                    <a href="index.html" id="menu-item-1">
+                        <i class="fas fa-trophy fa-bounce"></i>
+                        <span class="nav-text">Leaderboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="players.html" id="menu-item-2">
+                        <i class="fas fa-user"></i>
+                        <span class="nav-text">Players</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="entries.html" id="menu-item-2">
+                        <i class="fa-solid fa-list"></i>
+                        <span class="nav-text">Entries</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" id="menu-item-4">
+                        <i class="fas fa-file-alt"></i>
+                        <span class="nav-text">Form</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-    <nav id="bottom-nav">
-        <ul>
-            <li>
-                <a href="index.html" id="menu-item-1">
-                    <i class="fas fa-trophy fa-bounce"></i>
-                    <span class="nav-text">Leaderboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="players.html" id="menu-item-2">
-                    <i class="fas fa-user"></i>
-                    <span class="nav-text">Players</span>
-                </a>
-            </li>
-            <li>
-                <a href="entries.html" id="menu-item-2">
-                    <i class="fa-solid fa-list"></i>
-                    <span class="nav-text">Entries</span>
-                </a>
-            </li>
-            <li>
-                <a href="form.html" id="menu-item-4">
-                    <i class="fas fa-file-alt"></i>
-                    <span class="nav-text">Form</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script>
+            // Set the deadline date and time
+            var deadline = new Date("07/21/23 10:35 PM MST"); // Change to your deadline
 
-    <script>
-        // Set the deadline date and time
-        var deadline = new Date("07/19/23 10:35 PM MST"); // Change to your deadline
-      
-        // Get the current date and time
-        var now = new Date();
-      
-        // Compare the deadline with the current time
-        if (now.getTime() > deadline.getTime()) {
-            // If the current time is after the deadline,
-            // hide the form and display a message
-            document.getElementById('myForm').style.display = 'none';
-            
-            // Create a new div for the message
-            var messageDiv = document.createElement('div');
-            messageDiv.innerHTML = '<p class="alert alert-danger">Sorry, submissions are now closed.</p>';
-            
-            // Get the container div
-            var containerDiv = document.querySelector('.container');
-            
-            // Insert the message at the top of the container
-            containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
-        }
-      </script>
+            // Get the current date and time
+            var now = new Date();
 
-    
-      
-      
+            // Compare the deadline with the current time
+            if (now.getTime() > deadline.getTime()) {
+                // If the current time is after the deadline,
+                // hide the form and display a message
+                document.getElementById('myForm').style.display = 'none';
 
-</body>
+                // Create a new div for the message
+                var messageDiv = document.createElement('div');
+                messageDiv.innerHTML = '<p class="alert alert-danger">Sorry, submissions are now closed.</p>';
+
+                // Get the container div
+                var containerDiv = document.querySelector('.container');
+
+                // Insert the message at the top of the container
+                containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
+            }
+        </script>
+    </body>
 
 </html>
