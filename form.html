@@ -37,7 +37,6 @@
 
         button[type="submit"] {
             background-color: #006B54;
-            /* replace #yourcolor with your desired color */
             color: white;
             border-color: #006B54;
         }
@@ -83,6 +82,9 @@
 
                     <h1 class="mb-3">Rules</h1>
                     <p>$30 entry fee. WINNER TAKE ALL</p>
+                    <p class="font-weight-bold">Winner will be paid on the Monday <i
+                            class="mdi mdi-tournament:">after</i> the tournament by<i class="mdi mdi-tournament:">3 PM
+                            EST</i></p>
                     <p>Pick 6 golfers competing in the tournament. Your top 5 golfers will count. That means your worst
                         golfer's score at the end of Sunday will be dropped.</p>
                     <p>You are allowed to only take 2 golfers in the Vegas Top 10 odds favorites to win the tournament
@@ -179,7 +181,7 @@
         <div class="container py-1">
             <h1 class="mb-5 text-center"></h1>
 
-            <div class="card">
+            <div class="card" id="card2">
                 <div class="card-body bg-light rounded">
                     <form id="myForm">
                         <div class="form-group">
@@ -378,6 +380,7 @@
 
 
         <nav id="bottom-nav">
+            <!-- botttom nav -->
             <ul>
                 <li>
                     <a href="index.html" id="menu-item-1">
@@ -414,7 +417,7 @@
 
         <script>
             // Set the deadline date and time
-            var deadline = new Date("07/21/23 10:35 PM MST"); // Change to your deadline
+            var deadline = new Date("07/29/23 10:35 PM MST"); // Change to your deadline
 
             // Get the current date and time
             var now = new Date();
@@ -424,6 +427,7 @@
                 // If the current time is after the deadline,
                 // hide the form and display a message
                 document.getElementById('myForm').style.display = 'none';
+                document.getElementById('card2').style.display = 'none';
 
                 // Create a new div for the message
                 var messageDiv = document.createElement('div');
