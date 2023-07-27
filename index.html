@@ -44,36 +44,17 @@
       background-color: #006B54;
     }
 
-    button.picks-button {
-      background-color: #ca9800 !important;
-      border-color: #ca9800 !important;
 
-    }
 
-    button.custom-button {
-      padding: .375rem .75rem;
-      font-size: .9rem;
-
-      background-color: #ca9800;
-      border-color: #ca9800;
-      color: white;
-      text-decoration: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      border-radius: 20px;
-      /* Make state transitions animate smoothly */
-    }
 
     button.custom-button:hover {
       background-color: #a87e00;
-      /* Darken the button a bit when hovered */
       border-color: #a87e00;
-      /* Darken the button a bit when hovered */
     }
+
+
+
+
 
 
     #main-table.table td:first-child {
@@ -169,33 +150,29 @@
     }
 
 
-
-
-
-
-
-
-
-    /* #bottom-nav a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    } */
-
     @media (max-width: 576px) {}
 
+
+
     button.custom-button {
-      padding: .375rem .75rem;
-      font-size: .9rem;
-      line-height: 1.6;
-      background-color: #ca9800;
-      border-color: #ca9800;
-      color: white;
-      text-decoration: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+      padding: .375rem .75rem !important;
+      font-size: .9rem !important;
+      line-height: 1.6 !important;
+      background-color: #ca9800 !important;
+      border-color: #ca9800 !important;
+      color: white !important;
+      text-decoration: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      appearance: none !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      border-radius: 20px !important;
+      box-shadow: none !important;
+    }
+
+    button.custom-button:hover {
+      background-color: #a87e00 !important;
     }
   </style>
 </head>
@@ -380,8 +357,7 @@
             const buttonDiv = document.createElement('div');
             const button = document.createElement('button');
             button.textContent = 'Picks';
-            button.classList.add('mr-2', 'custom-button',
-              'custom-button'); // Add margin to the right of the button
+            button.classList.add('custom-button'); // Add margin to the right of the button
             button.addEventListener('click', (event) => {
               console.log(
                 'Picks button clicked!'); // This will log to the console when the button is clicked.
