@@ -37,14 +37,7 @@
       min-height: calc(100vh - 120px);
     }
 
-    /* .btn {
-      padding: .375rem .75rem;
-      font-size: .9rem;
-      line-height: 1.6;
-      background-color: #ca9800;
-      border-color: #ca9800;
-      border-radius: 50px
-    } */
+    /*  */
 
     #main-table.table-striped>tbody>tr:nth-child(odd)>td,
     #main-table.table-striped>tbody>tr:nth-child(odd)>th {
@@ -149,66 +142,39 @@
       text-decoration: none;
     }
 
-    .btn {
-      padding: .375rem .75rem;
-      font-size: .9rem;
-      line-height: 1.6;
-      background-color: #ca9800;
-      border-color: #ca9800;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-    }
+    
 
-    button.btn {
-      padding: .375rem .75rem;
-      font-size: .9rem;
-      line-height: 1.6;
-      background-color: #ca9800;
-      border-color: #ca9800;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      color: white;
-      /* Add this to make sure the text color is white */
-      text-decoration: none;
-      /* Add this to remove any underline */
-    }
+    
 
-    button.btn:visited {
-      background-color: #ca9800;
-      border-color: #ca9800;
-      color: white;
-    }
+    
 
-    button.custom-button {
-      padding: .375rem .75rem;
-      font-size: .9rem;
-      line-height: 1.6;
-      background-color: #ca9800;
-      border-color: #ca9800;
-      color: white;
-      text-decoration: none;
-    }
+    
 
     /* #bottom-nav a:hover {
       background-color: rgba(255, 255, 255, 0.1);
     } */
 
     @media (max-width: 576px) {
-      .btn {
-        padding: .25rem .5rem;
-        font-size: .875rem;
-        line-height: 1.5;
-      }
+      
     }
-  </style>
+  
+button.custom-button {
+  padding: .375rem .75rem;
+  font-size: .9rem;
+  line-height: 1.6;
+  background-color: #ca9800;
+  border-color: #ca9800;
+  color: white;
+  text-decoration: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+</style>
 </head>
 
 <body id="leaderboard">
@@ -391,7 +357,7 @@
             const buttonDiv = document.createElement('div');
             const button = document.createElement('button');
             button.textContent = 'Picks';
-            button.classList.add('btn', 'btn-primary', 'mr-2',
+            button.classList.add('mr-2', 'custom-button',
               'custom-button'); // Add margin to the right of the button
             button.addEventListener('click', (event) => {
               console.log(
