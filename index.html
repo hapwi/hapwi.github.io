@@ -47,8 +47,34 @@
     button.picks-button {
       background-color: #ca9800 !important;
       border-color: #ca9800 !important;
-      color: white !important;
+
     }
+
+    button.custom-button {
+      padding: .375rem .75rem;
+      font-size: .9rem;
+
+      background-color: #ca9800;
+      border-color: #ca9800;
+      color: white;
+      text-decoration: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      border-radius: 20px;
+      /* Make state transitions animate smoothly */
+    }
+
+    button.custom-button:hover {
+      background-color: #a87e00;
+      /* Darken the button a bit when hovered */
+      border-color: #a87e00;
+      /* Darken the button a bit when hovered */
+    }
+
 
     #main-table.table td:first-child {
       border-top-left-radius: 50px !important;
@@ -142,39 +168,36 @@
       text-decoration: none;
     }
 
-    
 
-    
 
-    
 
-    
+
+
+
+
 
     /* #bottom-nav a:hover {
       background-color: rgba(255, 255, 255, 0.1);
     } */
 
-    @media (max-width: 576px) {
-      
-    }
-  
-button.custom-button {
-  padding: .375rem .75rem;
-  font-size: .9rem;
-  line-height: 1.6;
-  background-color: #ca9800;
-  border-color: #ca9800;
-  color: white;
-  text-decoration: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
+    @media (max-width: 576px) {}
 
-</style>
+    button.custom-button {
+      padding: .375rem .75rem;
+      font-size: .9rem;
+      line-height: 1.6;
+      background-color: #ca9800;
+      border-color: #ca9800;
+      color: white;
+      text-decoration: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body id="leaderboard">
