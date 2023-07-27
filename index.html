@@ -37,14 +37,14 @@
       min-height: calc(100vh - 120px);
     }
 
-    .btn {
+    /* .btn {
       padding: .375rem .75rem;
       font-size: .9rem;
       line-height: 1.6;
       background-color: #ca9800;
       border-color: #ca9800;
       border-radius: 50px
-    }
+    } */
 
     #main-table.table-striped>tbody>tr:nth-child(odd)>td,
     #main-table.table-striped>tbody>tr:nth-child(odd)>th {
@@ -141,6 +141,21 @@
       padding: 8px;
       color: #ca9800;
       text-decoration: none;
+    }
+
+    .btn {
+      padding: .375rem .75rem;
+      font-size: .9rem;
+      line-height: 1.6;
+      background-color: #ca9800;
+      border-color: #ca9800;
+      border-radius: 50px;
+      overflow: hidden;
+      /* Add this line */
+      white-space: nowrap;
+      /* Add this line */
+      text-overflow: ellipsis;
+      /* Add this line */
     }
 
     /* #bottom-nav a:hover {
@@ -338,8 +353,11 @@
             const button = document.createElement('button');
             button.textContent = 'Picks';
             button.classList.add('btn', 'btn-primary', 'mr-2'); // Add margin to the right of the button
-            button.addEventListener('click', (event) => showPlayerPicks(event,
-              playerName)); // Pass the player's name as an argument
+            button.addEventListener('click', (event) => {
+              console.log(
+                'Picks button clicked!'); // This will log to the console when the button is clicked.
+              showPlayerPicks(event, playerName); // Pass the player's name as an argument
+            });
             buttonDiv.appendChild(button);
 
             td.classList.add('d-flex', 'justify-content-end',
