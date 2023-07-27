@@ -51,6 +51,10 @@
       background-color: #006B54;
     }
 
+    #main-table .btn {
+      background-color: red;
+    }
+
     #main-table.table td:first-child {
       border-top-left-radius: 50px !important;
       border-bottom-left-radius: 50px !important;
@@ -179,6 +183,16 @@
       background-color: #ca9800;
       border-color: #ca9800;
       color: white;
+    }
+
+    button.custom-button {
+      padding: .375rem .75rem;
+      font-size: .9rem;
+      line-height: 1.6;
+      background-color: #ca9800;
+      border-color: #ca9800;
+      color: white;
+      text-decoration: none;
     }
 
     /* #bottom-nav a:hover {
@@ -375,7 +389,8 @@
             const buttonDiv = document.createElement('div');
             const button = document.createElement('button');
             button.textContent = 'Picks';
-            button.classList.add('btn', 'btn-primary', 'mr-2'); // Add margin to the right of the button
+            button.classList.add('btn', 'btn-primary', 'mr-2',
+              'custom-button'); // Add margin to the right of the button
             button.addEventListener('click', (event) => {
               console.log(
                 'Picks button clicked!'); // This will log to the console when the button is clicked.
