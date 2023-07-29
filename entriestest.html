@@ -13,6 +13,28 @@
         .collapse-row.closed {
             display: none;
         }
+
+        .arrow {
+            transition: transform 0.3s ease-in-out;
+            float: right;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #000;
+        }
+
+        .arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .collapse-cell {
+            overflow-x: auto;
+        }
+
+        .inner-table {
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -64,38 +86,37 @@
                 const mainRow = document.createElement('tr');
                 const nameCell = document.createElement('td');
                 nameCell.textContent = row[0];
+                const arrow = document.createElement('div');
+                arrow.classList.add('arrow');
+                nameCell.appendChild(arrow);
                 mainRow.appendChild(nameCell);
 
                 // Create the collapsible row with the rest of the data
                 const collapseRow = document.createElement('tr');
                 collapseRow.classList.add('collapse-row', 'closed');
                 const collapseCell = document.createElement('td');
+                collapseCell.classList.add('collapse-cell');
                 const collapseTable = document.createElement('table');
-                collapseCell.appendChild(collapseTable);
+                collapseTable.classList.add('inner-table');
 
-                for (let i = 1; i < row.length; i += 2) {
-                    const collapseTableRow = document.createElement('tr');
-                    const cell1 = document.createElement('td');
-                    const cell2 = document.createElement('td');
+                const headerRow = document.createElement('tr');
+                const dataRow = document.createElement('tr');
 
-                    cell1.textContent = data.values[0][i] || '';
-                    cell2.textContent = row[i] || '';
-                    collapseTableRow.appendChild(cell1);
-                    collapseTableRow.appendChild(cell2);
+                for (let i = 1; i < row.length; i++) {
+                    const headerCell = document.createElement('td');
+                    const dataCell = document.createElement('td');
 
-                    if (i + 1 < row.length) {
-                        const cell3 = document.createElement('td');
-                        const cell4 = document.createElement('td');
+                    headerCell.textContent = data.values[0][i] || '';
+                    dataCell.textContent = row[i] || '';
+                    headerCell.classList.add('text-center');
+                    dataCell.classList.add('text-center');
 
-                        cell3.textContent = data.values[0][i + 1] || '';
-                        cell4.textContent = row[i + 1] || '';
-                        collapseTableRow.appendChild(cell3);
-                        collapseTableRow.appendChild(cell4);
-                    }
-
-                    collapseTable.appendChild(collapseTableRow);
+                    headerRow.appendChild(headerCell);
+                    dataRow.appendChild(dataCell);
                 }
-
+                collapseTable.appendChild(headerRow);
+                collapseTable.appendChild(dataRow);
+                collapseCell.appendChild(collapseTable);
                 collapseRow.appendChild(collapseCell);
                 table.appendChild(mainRow);
                 table.appendChild(collapseRow);
@@ -103,6 +124,7 @@
                 // Add a click listener to the main row to toggle the display of the collapsible row
                 mainRow.addEventListener('click', () => {
                     collapseRow.classList.toggle('closed');
+                    arrow.classList.toggle('rotated');
                 });
             });
         }
