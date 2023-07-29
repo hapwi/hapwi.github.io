@@ -37,7 +37,6 @@
       min-height: calc(100vh - 120px);
     }
 
-    /*  */
 
     #main-table.table-striped>tbody>tr:nth-child(odd)>td,
     #main-table.table-striped>tbody>tr:nth-child(odd)>th {
@@ -448,14 +447,15 @@
 
       const picksTable = document.getElementById('picks-table');
       picksTable.innerHTML = '';
-
+      //test
       const thead = document.createElement('thead');
       const headerRow = document.createElement('tr');
       const th1 = document.createElement('th');
       th1.textContent = 'Golfer';
+      th1.style.textAlign = 'center';
       const th2 = document.createElement('th');
       th2.textContent = 'Score';
-      th2.style.textAlign = 'right';
+      th2.style.textAlign = 'center';
       headerRow.appendChild(th1);
       headerRow.appendChild(th2);
       thead.appendChild(headerRow);
@@ -468,10 +468,11 @@
 
         const tableRow = document.createElement('tr');
         const td1 = document.createElement('td');
+        td1.style.textAlign = 'center';
         td1.textContent = golferName;
         const td2 = document.createElement('td');
         td2.textContent = score;
-        td2.style.textAlign = 'right';
+        td2.style.textAlign = 'center';
         tableRow.appendChild(td1);
         tableRow.appendChild(td2);
         tbody.appendChild(tableRow);
