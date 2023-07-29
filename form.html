@@ -193,8 +193,13 @@
                         </div>
                         <div class="form-group">
                             <label for="venmo">Venmo</label>
-                            <input name="venmo" type="text" class="form-control" id="venmo" placeholder="Enter venmo"
-                                required>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="venmo-addon">@</span>
+                                </div>
+                                <input name="venmo" type="text" class="form-control" id="venmo" placeholder=Username
+                                    aria-describedby="venmo-addon" required>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -234,7 +239,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tiebreaker">Tie Breaker (Score)</label>
-                            <input name="tiebreaker" type="tel" min="-100" class="form-control" id="tiebreaker"
+                            <input name="tiebreaker" type="number" class="form-control" id="tiebreaker"
                                 placeholder="Enter Tie Breaker Score" required>
                         </div>
                         <!-- update under this -->
