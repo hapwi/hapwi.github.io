@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Entries from Google Sheets</title>
+
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .collapse-row.closed {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mt-5 mb-5">Entries</h1>
+                <table class="table table-striped" id="entries-table">
+                    <!-- Table rows will be injected here by JavaScript -->
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
+        const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
+
+        // Function to fetch Google Sheets data
+        async function fetchGoogleSheetsData() {
+            try {
+                const response = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:K?key=${apiKey}`
+                );
+                const data = await response.json();
+
+                // Check if there's an error in the response
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+
+                displayTable(data);
+            } catch (error) {
+                console.error('Error fetching Google Sheets data:', error);
+            }
+        }
+
+        function displayTable(data) {
+            const table = document.getElementById('entries-table');
+
+            // Iterate over each row of data
+            data.values.slice(1).forEach((row, index) => {
+                // Create the main row with the name
+                const mainRow = document.createElement('tr');
+                const nameCell = document.createElement('td');
+                nameCell.textContent = row[0];
+                mainRow.appendChild(nameCell);
+
+                // Create the collapsible row with the rest of the data
+                const collapseRow = document.createElement('tr');
+                collapseRow.classList.add('collapse-row', 'closed');
+                const collapseCell = document.createElement('td');
+                const collapseTable = document.createElement('table');
+                collapseCell.appendChild(collapseTable);
+
+                for (let i = 1; i < row.length; i += 2) {
+                    const collapseTableRow = document.createElement('tr');
+                    const cell1 = document.createElement('td');
+                    const cell2 = document.createElement('td');
+
+                    cell1.textContent = data.values[0][i] || '';
+                    cell2.textContent = row[i] || '';
+                    collapseTableRow.appendChild(cell1);
+                    collapseTableRow.appendChild(cell2);
+
+                    if (i + 1 < row.length) {
+                        const cell3 = document.createElement('td');
+                        const cell4 = document.createElement('td');
+
+                        cell3.textContent = data.values[0][i + 1] || '';
+                        cell4.textContent = row[i + 1] || '';
+                        collapseTableRow.appendChild(cell3);
+                        collapseTableRow.appendChild(cell4);
+                    }
+
+                    collapseTable.appendChild(collapseTableRow);
+                }
+
+                collapseRow.appendChild(collapseCell);
+                table.appendChild(mainRow);
+                table.appendChild(collapseRow);
+
+                // Add a click listener to the main row to toggle the display of the collapsible row
+                mainRow.addEventListener('click', () => {
+                    collapseRow.classList.toggle('closed');
+                });
+            });
+        }
+
+        // Fetch the data when the page loads
+        window.onload = fetchGoogleSheetsData;
+    </script>
+</body>
+
+</html>
