@@ -56,7 +56,6 @@
 
 
 
-
     #main-table.table td:first-child {
       border-top-left-radius: 50px !important;
       border-bottom-left-radius: 50px !important;
@@ -91,9 +90,9 @@
     }
 
     #picksModal .modal-footer .btn-secondary {
-      background-color: red;
+      background-color: #ca9800;
       /* Replace with your desired color */
-      border-color: red;
+      border-color: #ca9800;
       /* Replace with your desired color */
     }
 
@@ -173,6 +172,7 @@
       overflow: hidden !important;
       border-radius: 20px !important;
       box-shadow: none !important;
+      border-style: solid !important;
     }
 
     button.custom-button:hover {
@@ -455,6 +455,7 @@
       th1.textContent = 'Golfer';
       const th2 = document.createElement('th');
       th2.textContent = 'Score';
+      th2.style.textAlign = 'right';
       headerRow.appendChild(th1);
       headerRow.appendChild(th2);
       thead.appendChild(headerRow);
@@ -470,6 +471,7 @@
         td1.textContent = golferName;
         const td2 = document.createElement('td');
         td2.textContent = score;
+        td2.style.textAlign = 'right';
         tableRow.appendChild(td1);
         tableRow.appendChild(td2);
         tbody.appendChild(tableRow);
