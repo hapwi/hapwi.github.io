@@ -40,7 +40,7 @@
 
     #main-table.table-striped>tbody>tr:nth-child(odd)>td,
     #main-table.table-striped>tbody>tr:nth-child(odd)>th {
-      background-color: #006B54;
+      background-color: #003e7e;
     }
 
     /* 
@@ -50,16 +50,6 @@
 hover button color
 #a87e00
 */
-
-
-    button.custom-button:hover {
-      background-color: #a87e00;
-      border-color: #a87e00;
-    }
-
-
-
-
 
     #main-table.table td:first-child {
       border-top-left-radius: 50px !important;
@@ -95,9 +85,9 @@ hover button color
     }
 
     #picksModal .modal-footer .btn-secondary {
-      background-color: #ca9800;
+      background-color: #ee3a43;
       /* Replace with your desired color */
-      border-color: #ca9800;
+      border-color: #ee3a43;
       /* Replace with your desired color */
     }
 
@@ -130,45 +120,7 @@ hover button color
       /* Adjust this value according to the height of your header + desired padding */
     }
 
-    /* Navigation bar styles */
-    #bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background-color: #006B54;
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
-      /* Vertically align icons between middle and top */
-      padding-top: 8px;
-      /* Add top padding to adjust icon position */
-      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-      z-index: 9999;
-    }
 
-    #bottom-nav ul {
-      display: flex;
-      list-style: none;
-      width: 100%;
-      justify-content: space-around;
-      padding: 0 20px;
-      margin-top: 3px;
-      /* Add this line to create space between <nav> and <ul> */
-      background-color: #006B54;
-    }
-
-    #bottom-nav li {
-      text-align: center;
-    }
-
-    #bottom-nav a {
-      display: block;
-      padding: 8px;
-      color: #ca9800;
-      text-decoration: none;
-    }
 
 
     @media (max-width: 576px) {}
@@ -179,8 +131,8 @@ hover button color
       padding: .375rem .75rem !important;
       font-size: .9rem !important;
       line-height: 1.6 !important;
-      background-color: #ca9800 !important;
-      border-color: #ca9800 !important;
+      background-color: #ee3a43 !important;
+      border-color: #ee3a43 !important;
       color: white !important;
       text-decoration: none !important;
       -webkit-appearance: none !important;
@@ -194,7 +146,7 @@ hover button color
     }
 
     button.custom-button:hover {
-      background-color: #a87e00 !important;
+      background-color: #923434 !important;
     }
   </style>
 </head>
@@ -206,6 +158,10 @@ hover button color
     $("#header-placeholder").load("header.html", function () {
       setPageTitle();
     });
+
+    // Include your bottom-nav.html file
+    $("body").prepend('<div id="bottom-nav-placeholder"></div>');
+    $("#bottom-nav-placeholder").load("bottom-nav.html");
 
     function setPageTitle() {
       var pageTitle;
@@ -243,34 +199,10 @@ hover button color
   </main>
 
 
-  <nav id="bottom-nav">
-    <ul>
-      <li>
-        <a href="index.html" id="menu-item-1">
-          <i class="fas fa-trophy fa-bounce"></i>
-          <span class="nav-text"></span>
-        </a>
-      </li>
-      <li>
-        <a href="players.html" id="menu-item-2">
-          <i class="fas fa-user"></i>
-          <span class="nav-text"></span>
-        </a>
-      </li>
-      <li>
-        <a href="entries.html" id="menu-item-3">
-          <i class="fa-solid fa-list"></i>
-          <span class="nav-text"></span>
-        </a>
-      </li>
-      <li>
-        <a href="form.html" id="menu-item-4">
-          <i class="fas fa-file-alt"></i>
-          <span class="nav-text"></span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <div id="bottom-nav-placeholder"></div>
+
+
+
 
   <div id="player-picks" style="display:none;">
     <h2>Player Picks</h2>
