@@ -166,6 +166,7 @@ iframe {
   /* border: 1px solid #ccc; */
   padding: 12px;
   text-align: left;
+  font-size: 15px;
 }
 
 .data-table thead {
