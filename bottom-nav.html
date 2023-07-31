@@ -6,13 +6,13 @@
                 <span class="nav-text"></span>
             </a>
         </li>
-        <li>
+        <li id="players-link" style="display: none;">
             <a href="players.html" id="menu-item-2">
                 <i class="fas fa-user"></i>
                 <span class="nav-text"></span>
             </a>
         </li>
-        <li>
+        <li id="entries-link" style="display: none;">
             <a href="entries.html" id="menu-item-3">
                 <i class="fa-solid fa-list"></i>
                 <span class="nav-text"></span>
@@ -68,3 +68,17 @@
         text-decoration: none;
     }
 </style>
+
+<script>
+    // Set the date and time when the links should become visible
+    const desiredDate = new Date("August 24, 2023 8:00 AM MST");
+
+    // Get the current date and time
+    const now = new Date();
+
+    // If the current date and time is after the desired date and time, make the links visible
+    if (now >= desiredDate) {
+        document.getElementById("players-link").style.display = "block";
+        document.getElementById("entries-link").style.display = "block";
+    }
+</script>

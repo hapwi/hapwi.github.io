@@ -377,9 +377,19 @@ hover button color
       }
     }
 
-
+    /* comment out function below before tournament starts so the picks button does not work */
 
     function displayPlayerPicks(data1, golferScores, playerName) {
+      // Set the date and time when the function should start working
+      const desiredDate = new Date("August 24, 2023 8:00 AM MST"); // Adjust this to your desired date and time
+
+      // Get the current date and time
+      const now = new Date();
+
+      // If the current date and time is before the desired date and time, return early
+      if (now < desiredDate) {
+        return;
+      }
       const {
         values: values1
       } = data1;
