@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
         crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- ? link form styles -->
+    <link rel="stylesheet" href="form.css">
 
     <!-- jQuery and jQuery UI -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -23,35 +24,11 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
-    <!-- Custom CSS -->
-    <style>
-        .pt-custom {
-            padding-top: 5rem !important;
-            /* Adjust as needed */
-            /* padding-bottom: 1rem !important; */
-            /* Adjust as needed */
-        }
-
-        header {
-            position: fixed;
-            z-index: 1000;
-        }
-
-        button[type="submit"] {
-            background-color: #ee3a43;
-            color: white;
-            border-color: #ee3a43;
-        }
-
-        #bottom-nav {
-            z-index: 1000;
-        }
-    </style>
 </head>
-<!-- <include virtual="header.html"> -->
 
 
 <body id="form">
+    <!-- ! below script adds header and footer to page -->
     <script>
         // Include your header.html file
         $("body").prepend('<div id="header-placeholder"></div>');
@@ -83,7 +60,6 @@
             logo.textContent = pageTitle;
         }
     </script>
-
     <div class="container text-center pt-custom">
         <div class="card">
             <div class="card-body bg-light rounded">
@@ -129,7 +105,13 @@
                             <th>Draftkings Odds</th>
                         </tr>
                     </thead>
-                    <!-- change tbody from gpt -->
+                    <!-- //! change tbody from gpt -->
+                    <!-- //! change tbody from gpt -->
+                    <!-- //! change tbody from gpt -->
+                    <!-- //! change tbody from gpt -->
+                    <!-- ! use chat gpt to update. file: Pool Google Formulas -->
+
+
                     <tbody>
                         <tr>
                             <td>Rory McIlroy</td>
@@ -182,8 +164,6 @@
 
         </div>
 
-    </div>
-    </div>
     </div>
 
     <div class="container py-1">
@@ -247,7 +227,9 @@
                         <input name="tiebreaker" type="number" class="form-control" id="tiebreaker"
                             placeholder="Enter Tie Breaker Score" required>
                     </div>
-                    <!-- update under this -->
+
+                    <!-- //! update under this -->
+                    <!-- ! use chat gpt file: Pool Google Formulas -->
                     <script>
                         $(document).ready(function () {
                             var topGolfers = [
@@ -262,6 +244,7 @@
                                 "Tyrrell Hatton",
                                 "Rickie Fowler"
                             ];
+                            // todo: list above needs to be changed every tournament
 
                             var form = $('#myForm');
 
@@ -272,6 +255,8 @@
                                 var selectedGolfers = $('.golfer').map(function () {
                                     return $(this).val();
                                 }).get();
+
+                                /*  */
 
                                 var topGolfersCount = 0;
                                 for (var i = 0; i < selectedGolfers.length; i++) {
@@ -344,7 +329,11 @@
     </div>
 
 
-    <!-- Autocomplete script -->
+    <!-- //! Autocomplete script -->
+    <!-- //! Autocomplete script -->
+    <!-- //! Autocomplete script -->
+    <!-- //! Autocomplete script -->
+    <!-- ! must be updated using chat gpt file Golfers for Form -->
     <script>
         $(document).ready(function () {
             var availableGolfers = ["Richie Ramsay", "Matthew Jordan", "Ryan Fox", "Pablo Larrazabal",
@@ -399,8 +388,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <!-- ! set time and date for when picks need to be submitted by -->
+    <!-- ! sorry picks are now closed after date anmd time -->
     <script>
         // Set the deadline date and time
+
         var deadline = new Date("08/24/23 08:35 AM MST"); // Change to your deadline
 
         // Get the current date and time

@@ -1,0 +1,21 @@
+.pt-custom {
+    padding-top: 5rem !important;
+    /* Adjust as needed */
+    /* padding-bottom: 1rem !important; */
+    /* Adjust as needed */
+}
+
+header {
+    position: fixed;
+    z-index: 1000;
+}
+
+button[type="submit"] {
+    background-color: #ee3a43;
+    color: white;
+    border-color: #ee3a43;
+}
+
+#bottom-nav {
+    z-index: 1000;
+}
