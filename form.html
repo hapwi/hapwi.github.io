@@ -15,7 +15,7 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- ? link form styles -->
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="styles/form.css">
 
     <!-- jQuery and jQuery UI -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -29,37 +29,7 @@
 
 <body id="form">
     <!-- ! below script adds header and footer to page -->
-    <script>
-        // Include your header.html file
-        $("body").prepend('<div id="header-placeholder"></div>');
-        $("#header-placeholder").load("header.html", function () {
-            setPageTitle();
-        });
-
-        // Include your bottom-nav.html file
-        $("body").prepend('<div id="bottom-nav-placeholder"></div>');
-        $("#bottom-nav-placeholder").load("bottom-nav.html");
-
-        function setPageTitle() {
-            var pageTitle;
-            var bodyId = $('body').attr('id');
-
-            switch (bodyId) {
-                case "form":
-                    pageTitle = "Form";
-                    break;
-                case "about-page":
-                    pageTitle = "About";
-                    break;
-                    // Add more cases for other pages
-                default:
-                    pageTitle = "Unknown";
-            }
-
-            var logo = document.querySelector(".logo");
-            logo.textContent = pageTitle;
-        }
-    </script>
+    <script src="js/header-footer.js"></script>
     <div class="container text-center pt-custom">
         <div class="card">
             <div class="card-body bg-light rounded">
@@ -378,9 +348,6 @@
             });
         });
     </script>
-
-
-    <div id="bottom-nav-placeholder"></div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

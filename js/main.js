@@ -156,10 +156,10 @@ async function showPlayerPicks(event, playerName) {
 }
 
 // //comment out function below before tournament starts so the picks button does not work 
-//  function to display the player's picks inside the picks button
+//! function to display the player's picks inside the picks button
 function displayPlayerPicks(data1, golferScores, playerName) {
     //! Set the date and time when the button should start working
-    const desiredDate = new Date("August 24, 2023 8:00 AM MST"); // Adjust this to your desired date and time
+    const desiredDate = new Date("August 24, 2023 8:00 AM MST"); //? Adjust this to your desired date and time
 
     // Get the current date and time
     const now = new Date();
