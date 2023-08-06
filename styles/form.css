@@ -15,7 +15,3 @@ button[type="submit"] {
     color: white;
     border-color: #ee3a43;
 }
-
-#bottom-nav {
-    z-index: 1000;
-}

@@ -13,7 +13,7 @@
 
   <title>Golf Pool</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="maint.js"></script>
+  <script src="js/maint.js"></script>
 
   <!-- ! main styles -->
   <style>
@@ -155,37 +155,8 @@ hover button color
 </head>
 
 <body id="leaderboard">
-  <!-- ! below script adds header and footer to page -->
-  <script>
-    // Include your header.html file
-    $("body").prepend('<div id="header-placeholder"></div>');
-    $("#header-placeholder").load("header.html", function () {
-      setPageTitle();
-    });
-
-    // Include your bottom-nav.html file
-    $("body").prepend('<div id="bottom-nav-placeholder"></div>');
-    $("#bottom-nav-placeholder").load("bottom-nav.html");
-
-    function setPageTitle() {
-      var pageTitle;
-      var bodyId = $('body').attr('id');
-
-      switch (bodyId) {
-        case "leaderboard":
-          pageTitle = "Leaderboard";
-          break;
-        case "about-page":
-          pageTitle = "About";
-          break;
-        default:
-          pageTitle = "Unknown";
-      }
-
-      var logo = document.querySelector(".logo");
-      logo.textContent = pageTitle;
-    }
-  </script>
+  <!-- ! below adds header and footer to page -->
+  <script src="js/header-footer.js"></script>
 
   <main id="content" class="d-flex justify-content-center">
     <div class="container">
@@ -203,11 +174,6 @@ hover button color
   </main>
 
 
-  <div id="bottom-nav-placeholder"></div>
-
-
-
-
   <div id="player-picks" style="display:none;">
     <h2>Player Picks</h2>
     <div id="picks-content"></div>
@@ -218,7 +184,7 @@ hover button color
   <!-- Add Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- ! below file is where all the data is coming from -->
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
   <div class="modal fade" id="picksModal" tabindex="-1" role="dialog" aria-labelledby="picksModalLabel"
     aria-hidden="true">
     <div class="modal-dialog mx-auto" role="document">

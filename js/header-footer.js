@@ -16,6 +16,15 @@
          case "form":
              pageTitle = "Form";
              break;
+         case "leaderboard":
+             pageTitle = "Leaderboard";
+             break;
+         case "players":
+             pageTitle = "Players";
+             break;
+         case "entries":
+             pageTitle = "Entries";
+             break;
          case "about-page":
              pageTitle = "About";
              break;
