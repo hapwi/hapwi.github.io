@@ -85,13 +85,152 @@
         #myForm {
             margin-top: 2rem;
         }
+
+        /* Navigation bar styles */
+        #bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #003e7e;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            /* Vertically align icons between middle and top */
+            padding-top: 8px;
+            /* Add top padding to adjust icon position */
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        #bottom-nav ul {
+            display: flex;
+            list-style: none;
+            width: 100%;
+            justify-content: space-around;
+            padding: 0 20px;
+            margin-top: 3px;
+            /* Add this line to create space between <nav> and <ul> */
+            background-color: #003e7e;
+        }
+
+        #bottom-nav li {
+            text-align: center;
+        }
+
+        #bottom-nav a {
+            display: block;
+            padding: 8px;
+            color: white;
+            text-decoration: none;
+        }
+
+        header {
+            background-color: #003e7e;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* needed to position the child #countdown-timer absolutely */
+            width: 100%;
+            height: 100%;
+        }
+
+        #countdown-timer {
+            font-size: 18px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            /* shift up by half of its own height to center */
+        }
+
+        .card {
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            margin: auto;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+
+        #content {
+            padding-top: 80px;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            header {
+                height: 50px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 
 <body id="form">
+    <header>
+        <div class="header-container">
+            <a class="logo" href="#">Logo</a>
+            <div id="countdown-timer"></div>
+            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106);">Golf Pool</a>
 
-    <!-- ! below script adds header and footer to page -->
-    <script src="/pickem/js/PEheader-footer.js"></script>
+        </div>
+    </header>
+    <nav id="bottom-nav">
+        <ul>
+
+            <li>
+                <a href="week1.html" id="menu-item-4">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-text"></span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="menu-item-1">
+                    <i class="fa-solid fa-list"></i>
+                    <span class="nav-text"></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
     <div class="container text-center pt-custom">
         <div class="card">
             <div class="card-body bg-light rounded">

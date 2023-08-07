@@ -5,18 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weekly Content</title>
-    <!-- Include Bootstrap CSS for styling (optional) -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        rel="stylesheet" />
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <!-- ? link form styles -->
+    <link href="../styles/form.css" rel="stylesheet" />
+    <!-- jQuery and jQuery UI -->
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <script src="js/PEheader-footer.js"></script>
 
 
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+
             margin: 0;
             background-color: #f0f0f0;
         }
@@ -33,17 +42,159 @@
         .coming-soon-card {
             max-width: 400px;
         }
+
+        .cell-container {
+            display: flex;
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+        }
+
+        /* Navigation bar styles */
+        #bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #003e7e;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            /* Vertically align icons between middle and top */
+            padding-top: 8px;
+            /* Add top padding to adjust icon position */
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        #bottom-nav ul {
+            display: flex;
+            list-style: none;
+            width: 100%;
+            justify-content: space-around;
+            padding: 0 20px;
+            margin-top: 3px;
+            /* Add this line to create space between <nav> and <ul> */
+            background-color: #003e7e;
+        }
+
+        #bottom-nav li {
+            text-align: center;
+        }
+
+        #bottom-nav a {
+            display: block;
+            padding: 8px;
+            color: white;
+            text-decoration: none;
+        }
+
+        header {
+            background-color: #003e7e;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* needed to position the child #countdown-timer absolutely */
+            width: 100%;
+            height: 100%;
+        }
+
+        #countdown-timer {
+            font-size: 18px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            /* shift up by half of its own height to center */
+        }
+
+        .card {
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            margin: auto;
+        }
+
+
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+
+        #content {
+            padding-top: 80px;
+        }
+
+        .main-content {
+            /* New class for centering main content */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            header {
+                height: 50px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
     </style>
 
 </head>
 
 <body id="form">
-    <div class="container" id="myContainer">
-        <div class="card coming-soon-card text-center">
-            <div class="card-body">
-                <h5 class="card-title">Coming Soon</h5>
-                <p class="card-text">This functionality is coming soon. Stay tuned!</p>
-            </div>
+    <header>
+        <div class="header-container">
+            <a class="logo" href="#">Logo</a>
+            <div id="countdown-timer"></div>
+            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106);">Golf Pool</a>
+
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="container" id="myContainer">
+            <!-- <div class="card coming-soon-card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Coming Soon</h5>
+                    <p class="card-text">This functionality is coming soon. Stay tuned!</p>
+                </div>
+            </div> -->
         </div>
     </div>
 
@@ -141,7 +292,7 @@
         if (currentWeek === 0) {
             // document.getElementById('myContainer').style.display = 'none';
             var messageDiv = document.createElement('div');
-            // messageDiv.innerHTML = '<p class="alert alert-danger">Sorry, submissions are now closed.</p>';
+            messageDiv.innerHTML = '<p class="alert alert-danger">Sorry, submissions are now closed.</p>';
             var containerDiv = document.querySelector('.container');
             containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
         } else {

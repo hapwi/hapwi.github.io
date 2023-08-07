@@ -57,17 +57,3 @@
         text-decoration: none;
     }
 </style>
-
-<script>
-    // Set the date and time when the links should become visible
-    const desiredDate = new Date("August 5, 2023 8:00 AM MST");
-
-    // Get the current date and time
-    const now = new Date();
-
-    // If the current date and time is after the desired date and time, make the links visible
-    if (now >= desiredDate) {
-        document.getElementById("players-link").style.display = "block";
-        document.getElementById("entries-link").style.display = "block";
-    }
-</script>
