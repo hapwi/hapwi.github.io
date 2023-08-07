@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!-- header below -->
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="195540.png" rel="shortcut icon" type="image/x-icon" />
+    <title>NFL Weekly Pick'em Week 9</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        rel="stylesheet" />
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <!-- ? link form styles -->
+    <link href="../styles/form.css" rel="stylesheet" />
+    <!-- jQuery and jQuery UI -->
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <style>
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        form {
+            margin-bottom: 60px;
+        }
+
+        .team-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table td {
+            width: 50%;
+            border-right: 1px solid #dee2e6;
+            /* Line separating the columns */
+        }
+
+        table td:last-child {
+            border-right: none;
+        }
+
+        .selected {
+            background-color: #8ecc9c;
+            color: #000000;
+        }
+
+        .card2 {
+            color: #000000;
+            text-align: left;
+        }
+
+        .container {
+            margin-bottom: 70px;
+        }
+
+        .hidden-radio {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .pt-custom {
+            padding-top: 5rem !important;
+            /* Adjust as needed */
+            /* padding-bottom: 1rem !important; */
+            /* Adjust as needed */
+        }
+
+        #myForm {
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body id="form">
+
+    <!-- ! below script adds header and footer to page -->
+    <script src="/pickem/js/PEheader-footer.js"></script>
+    <div class="container text-center pt-custom">
+        <div class="card">
+            <div class="card-body bg-light rounded">
+                <h1 class="mb-3">NFL Weekly Pick'em Week 9</h1>
+                <p>Select the winning team for each matchup.</p>
+            </div>
+        </div>
+        <form class="card card-body bg-light rounded" id="myForm">
+            <div class="card2">
+
+                <div class="form-group">
+                    <label for="venmo">Venmo</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="venmo-addon">@</span>
+                        </div>
+                        <input name="venmo" type="text" class="form-control" id="venmo" placeholder=Username
+                            aria-describedby="venmo-addon" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="Enter email"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Enter name" required>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table class="table table-striped table-bordered w-100">
+                    <tr>
+                        <th scope="col">Team 1</th>
+                        <th scope="col">Team 2</th>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick1]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick1" type="radio" value="Detroit Lions"
+                                    required="">Detroit
+                                Lions</input></label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick1]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick1" type="radio" value="Kansas City Chiefs"
+                                    required="">Kansas
+                                City Chiefs</input></label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick2]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick2" type="radio" value="Carolina Panthers"
+                                    required="">Carolina
+                                Panthers</input></label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick2]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick2" type="radio" value="Atlanta Falcons"
+                                    required="" />Atlanta
+                                Falcons</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick3]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick3" type="radio" value="Tampa Bay Buccaneers"
+                                    required="" />Tampa
+                                Bay Buccaneers</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick3]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick3" type="radio" value="Minnesota Vikings"
+                                    required="" />Minnesota
+                                Vikings</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick4]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick4" type="radio" value="Cincinnati Bengals"
+                                    required="" />Cincinnati Bengals</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick4]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick4" type="radio" value="Cleveland Browns"
+                                    required="" />Cleveland
+                                Browns</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick5]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick5" type="radio" value="Jacksonville Jaguars"
+                                    required="" />Jacksonville Jaguars</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick5]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick5" type="radio" value="Indianapolis Colts"
+                                    required="" />Indianapolis Colts</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick6]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick6" type="radio" value="San Francisco 49ers"
+                                    required="" />San
+                                Francisco 49ers</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick6]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick6" type="radio" value="Pittsburgh Steelers"
+                                    required="" />Pittsburgh Steelers</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick7]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick7" type="radio" value="Tennessee Titans"
+                                    required="" />Tennessee
+                                Titans</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick7]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick7" type="radio" value="New Orleans Saints"
+                                    required="" />New
+                                Orleans Saints</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick8]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick8" type="radio" value="Arizona Cardinals"
+                                    required="" />Arizona
+                                Cardinals</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick8]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick8" type="radio" value="Washington Commanders"
+                                    required="" />Washington Commanders</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick9]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick9" type="radio" value="Houston Texans"
+                                    required="" />Houston
+                                Texans</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick9]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick9" type="radio" value="Baltimore Ravens"
+                                    required="" />Baltimore
+                                Ravens</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick10]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick10" type="radio" value="Philadelphia Eagles"
+                                    required="" />Philadelphia Eagles</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick10]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick10" type="radio" value="New England Patriots"
+                                    required="" />New
+                                England Patriots</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick11]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick11" type="radio" value="Las Vegas Raiders"
+                                    required="" />Las
+                                Vegas Raiders</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick11]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick11" type="radio" value="Denver Broncos"
+                                    required="" />Denver
+                                Broncos</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick12]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick12" type="radio" value="Miami Dolphins"
+                                    required="" />Miami
+                                Dolphins</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick12]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick12" type="radio" value="Los Angeles Chargers"
+                                    required="" />Los
+                                Angeles Chargers</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick13]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick13" type="radio" value="Los Angeles Rams"
+                                    required="" />Los
+                                Angeles Rams</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick13]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick13" type="radio" value="Seattle Seahawks"
+                                    required="" />Seattle
+                                Seahawks</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick14]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick14" type="radio" value="Green Bay Packers"
+                                    required="" />Green
+                                Bay Packers</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick14]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick14" type="radio" value="Chicago Bears"
+                                    required="" />Chicago
+                                Bears</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick15]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick15" type="radio" value="Dallas Cowboys"
+                                    required="" />Dallas
+                                Cowboys</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick15]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick15" type="radio" value="New York Giants"
+                                    required="" />New York
+                                Giants</label></td>
+                    </tr>
+                    <tr>
+                        <td onclick="document.querySelectorAll('input[name=pick16]')[0].click();"><label><input
+                                    class="hidden-radio" name="pick16" type="radio" value="Buffalo Bills"
+                                    required="" />Buffalo
+                                Bills</label></td>
+                        <td onclick="document.querySelectorAll('input[name=pick16]')[1].click();"><label><input
+                                    class="hidden-radio" name="pick16" type="radio" value="New York Jets"
+                                    required="" />New York
+                                Jets</label></td>
+                    </tr>
+
+                </table>
+                <div class="card2">
+                    <div class="form-group">
+                        <label for="tiebreaker">Tie Breaker (Score)</label>
+                        <input name="tiebreaker" class="form-control" id="tiebreaker"
+                            placeholder="Enter Tie Breaker (ex. 21-14)" required>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class_="d-flex justify-content-center"></div>
+            <button class="btn btn-primary" type="submit">Submit Picks</button>
+        </form>
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- ! set time and date for when picks need to be submitted by -->
+    <!-- ! sorry picks are now closed after date anmd time -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cells = document.querySelectorAll("table tbody td");
+            cells.forEach(cell => {
+                cell.addEventListener("click", function () {
+                    // Remove any existing highlight from cells in the same row
+                    cell.parentElement.querySelectorAll('td').forEach(c => c.classList.remove(
+                        "selected"));
+                    // Highlight the clicked cell
+                    cell.classList.add("selected");
+                });
+            });
+
+            function validateForm() {
+                // Iterate through each group of radio buttons (each game)
+                for (let i = 1; i <= 16; i++) {
+                    const radios = document.getElementsByName('pick' + i);
+                    let isChecked = false;
+
+                    // Check if at least one radio button is selected in the group
+                    for (const radio of radios) {
+                        if (radio.checked) {
+                            isChecked = true;
+                            break;
+                        }
+                    }
+
+                    // If no radio button is selected, show an alert and prevent form submission
+                    if (!isChecked) {
+                        alert('Please make a selection for game ' + i);
+                        return false;
+                    }
+                }
+
+                // If all validations pass, allow form submission
+                return true;
+            }
+
+            // Event listener for form submission
+            const myForm = document.getElementById("myForm");
+            myForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                if (validateForm()) {
+                    // Define the FormData object here
+                    var data = new FormData(myForm);
+
+                    // If the selection is valid, send the form data to the Google script
+                    $('#modalNotification').modal('show');
+                    $('#modalBody').html('Submitting, please wait...');
+
+                    fetch('https://script.google.com/macros/s/AKfycbwAEzif1ujE2_91yZFGnhgUpaRAF4RoHwS0AlRprY-2wjhnXNe-8QIRYUf2w7Q8HLsjCA/exec', {
+                        method: 'POST',
+                        body: data
+                    }).then(function (response) {
+                        return response.json(); // Make sure to handle the response correctly
+                    }).then(function (responseJson) {
+                        var rowNumber = parseInt(responseJson.row) - 1;
+                        $('#modalBody').html('Success, submission ID: ' + rowNumber);
+                        myForm.reset(); // clear form
+                        // Get the modal close button by its class and change its background color
+                        document.querySelector(".modal-content .btn-secondary").style
+                            .backgroundColor = "red"; // Change to your desired color
+                        // Clear highlight from all cells
+                        cells.forEach(c => c.classList.remove("selected"));
+                    }).catch(function (error) {
+                        // Handle error
+                    });
+                }
+            });
+
+            // Set the deadline date and time
+            var deadline = new Date("08/25/23 08:35 AM MST"); // Change to your deadline
+
+            // Get the current date and time
+            var now = new Date();
+
+            // Compare the deadline with the current time
+            if (now.getTime() > deadline.getTime()) {
+                // If the current time is after the deadline,
+                // hide the form and display a message
+                document.getElementById('myForm').style.display = 'none';
+
+                // Create a new div for the message
+                var messageDiv = document.createElement('div');
+                messageDiv.innerHTML = '<p class="alert alert-danger">Sorry, submissions are now closed.</p>';
+
+                // Get the container div
+                var containerDiv = document.querySelector('.container');
+
+                // Insert the message at the top of the container
+                containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
+            }
+        });
+    </script>
+
+
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() ==
+                            "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (
+                                new Date()
+                                .valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        } else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+        // ]]>
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="modalNotificationLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNotificationLabel">Notification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Content will be injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="output" class="pt-custom"></div>
+
+
+</body>
+
+</html>
