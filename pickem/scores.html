@@ -21,6 +21,7 @@
 
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="js/PEheader-footer.js"></script>
     <style>
         body {
             margin: 0;
@@ -38,12 +39,12 @@
         .card {
             margin: 20px;
             border-radius: 15px;
-            border: 3px solid #007bff;
+            border: 3px solid #003e7e;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         }
 
         .card-header {
-            background-color: #007bff;
+            background-color: #003e7e;
             color: white;
             font-weight: bold;
             font-size: 1.2em;
@@ -52,8 +53,10 @@
         .card-body {
             padding: 20px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            /* Stacks children vertically */
             align-items: center;
+            /* Center-aligns horizontally */
             background-color: #f0f0f0;
         }
 
@@ -62,15 +65,22 @@
             align-items: center;
             font-weight: bold;
             font-size: 1.2em;
+            width: 100%;
+            justify-content: space-between;
+            /* Distributes teams on opposite ends */
         }
 
         .score {
             font-size: 1.5em;
             color: #333;
+            text-align: center;
+            /* Center-aligns text */
+            margin: 10px 0;
+            /* Adds some space above and below */
         }
 
         .winner {
-            color: #007bff;
+            color: #003e7e;
             font-weight: bold;
             text-align: center;
         }
@@ -174,7 +184,7 @@
         }
 
         .overall-card {
-            border: 3px solid #007bff;
+            border: 3px solid #003e7e;
             border-radius: 15px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
             padding: 20px;
@@ -208,13 +218,23 @@
             transform: translateY(-50%);
             /* shift up by half of its own height to center */
         }
+
+        @media (max-width: 768px) {
+            header {
+                height: 50px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 
 <body id="scores">
     <header>
         <div class="header-container">
-            <a class="logo">Week 1</a>
+            <a class="logo">Scores</a>
             <div id="countdown-timer"></div>
             <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106);">Golf Pool</a>
 
@@ -273,18 +293,21 @@
                 rows.slice(1).forEach(row => {
                     const [homeTeam, awayTeam, score, winner] = row;
                     const card = `
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">${homeTeam} vs ${awayTeam}</div>
-                    <div class="card-body">
-                        <div class="team">${homeTeam}</div>
-                        <div class="score">${score}</div>
-                        <div class="team">${awayTeam}</div>
-                    </div>
-                    <div class="card-footer winner">Winner: ${winner}</div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">${homeTeam} vs ${awayTeam}</div>
+            <div class="card-body">
+                <div class="team">
+                    <span>${homeTeam}</span>
+                    <span>${awayTeam}</span>
                 </div>
+                <div class="score">${score}</div>
             </div>
-        `;
+            <div class="card-footer winner">Winner: ${winner}</div>
+        </div>
+    </div>
+`;
+
 
                     scoresBody += card; // Append each card to the scoresbody div
                 });
