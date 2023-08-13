@@ -17,8 +17,8 @@
          case "form":
              pageTitle = "Pick'em Form";
              break;
-         case "picks":
-             pageTitle = "Picks";
+         case "scores":
+             pageTitle = "Scores";
              break;
          case "players":
              pageTitle = "Players";
