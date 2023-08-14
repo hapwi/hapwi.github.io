@@ -260,6 +260,10 @@
                                     var rowNumber = parseInt(responseJson.row) - 1;
                                     $('#modalBody').html('Success, submission ID: ' +
                                         rowNumber);
+                                    // Get the modal close button by its class and change its background color
+                                    document.querySelector(".modal-content .btn-secondary")
+                                        .style
+                                        .backgroundColor = "red";
                                     form[0].reset(); // clear form
                                 }).catch(function (error) {
                                     $('#modalBody').html(error);
