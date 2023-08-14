@@ -24,6 +24,10 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </head>
 
 
@@ -214,20 +218,15 @@
                                 "Tyrrell Hatton",
                                 "Rickie Fowler"
                             ];
-                            // todo: list above needs to be changed every tournament
 
                             var form = $('#myForm');
 
                             form.on('submit', function (e) {
-                                e
-
-                                    .preventDefault(); // prevent the form from being submitted immediately
+                                e.preventDefault();
 
                                 var selectedGolfers = $('.golfer').map(function () {
                                     return $(this).val();
                                 }).get();
-
-                                /*  */
 
                                 var topGolfersCount = 0;
                                 for (var i = 0; i < selectedGolfers.length; i++) {
@@ -237,37 +236,58 @@
                                 }
 
                                 if (topGolfersCount > 2) {
-                                    alert('You can only select 2 golfers from the Vegas Top 10.');
-                                    return; // stop the function here if the selection is invalid
+                                    Swal.fire('Error!',
+                                        'You can only select 2 golfers from the Vegas Top 10.',
+                                        'error');
+                                    return;
                                 }
 
-                                // If the selection is valid, send the form data to the Google script
-                                $('#modalNotification').modal('show');
-                                $('#modalBody').html('Submitting, please wait...');
+                                // Show loading alert
+                                Swal.fire({
+                                    title: 'Submitting your picks...',
+                                    text: 'Please wait while we process your submission.',
+                                    showConfirmButton: false,
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false,
+                                    allowEnterKey: false,
+                                    onBeforeOpen: function () {
+                                        Swal.showLoading();
+                                    }
+                                });
 
                                 var data = new FormData(form[0]);
 
                                 fetch('https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec', {
-                                    method: 'POST',
-                                    body: data
-                                }).then(function (response) {
-                                    if (response.ok) {
-                                        return response.json();
-                                    } else {
-                                        throw new Error('Error: ' + response.statusText);
-                                    }
-                                }).then(function (responseJson) {
-                                    var rowNumber = parseInt(responseJson.row) - 1;
-                                    $('#modalBody').html('Success, submission ID: ' +
-                                        rowNumber);
-                                    // Get the modal close button by its class and change its background color
-                                    document.querySelector(".modal-content .btn-secondary")
-                                        .style
-                                        .backgroundColor = "red";
-                                    form[0].reset(); // clear form
-                                }).catch(function (error) {
-                                    $('#modalBody').html(error);
-                                });
+                                        method: 'POST',
+                                        body: data
+                                    })
+                                    .then(function (response) {
+                                        if (response.ok) {
+                                            return response.json();
+                                        } else {
+                                            throw new Error('Error: ' + response.statusText);
+                                        }
+                                    })
+                                    .then(function (responseJson) {
+                                        // Close the loading alert
+                                        Swal.close();
+
+                                        // Show success message
+                                        var rowNumber = parseInt(responseJson.row) - 1;
+                                        Swal.fire('Success!', 'Submission ID: ' + rowNumber,
+                                            'success');
+
+                                        form[0].reset(); // clear form
+                                    })
+                                    .catch(function (error) {
+                                        // Close the loading alert
+                                        Swal.close();
+
+                                        // Show error message
+                                        Swal.fire('Oops!',
+                                            'Something went wrong. Please try again later.',
+                                            'error');
+                                    });
                             });
                         });
                     </script>
@@ -277,28 +297,6 @@
                 </form>
             </div>
         </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog"
-            aria-labelledby="modalNotificationLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalNotificationLabel">Notification</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" id="modalBody">
-                        <!-- Content will be injected here -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <div id="output" class="pt-custom"></div>
     </div>
