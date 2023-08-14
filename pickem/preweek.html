@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!-- header below -->
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="195540.png" rel="shortcut icon" type="image/x-icon" />
+    <title>NFL Weekly Pick'em</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        rel="stylesheet" />
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <!-- ? link form styles -->
+    <link href="../styles/form.css" rel="stylesheet" />
+    <!-- jQuery and jQuery UI -->
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #countdown {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        .form-container {
+            padding-top: 100px;
+            padding-bottom: 80px;
+            /* Adjust this value to move the form down as needed */
+        }
+
+        header {
+            background-color: #003e7e;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* needed to position the child #countdown-timer absolutely */
+            width: 100%;
+            height: 100%;
+        }
+
+        #countdown-timer {
+            font-size: 18px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            /* shift up by half of its own height to center */
+        }
+
+        .card {
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            margin: auto;
+        }
+
+
+        #content {
+            padding-top: 80px;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            header {
+                height: 50px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body id="form">
+
+    <header>
+        <div class="header-container">
+            <a class="logo">Pick'em Sign Up</a>
+            <div id="countdown-timer"></div>
+            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106);">Golf Pool</a>
+
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="container form-container" id="myContainer">
+            <div class="card card-body bg-light rounded mb-4">
+                <!-- ! Added margin-bottom (mb-4) for spacing -->
+                <h4 class="text-center">How it works</h4>
+                <p class="text-center">$180 entry fee, payable to <strong>(@pblang)</strong>
+                    on Venmo.</p>
+                <p><strong>Registration:</strong> Upon successful registration, participants will receive an email by
+                    <strong>09/04/2023</strong> containing a unique username and password. These credentials will be
+                    required for
+                    submitting picks each week and are implemented to prevent unauthorized entries after week 1.</p>
+                <p><strong>Weekly Competitions:</strong> Each week, participants' picks will be evaluated to determine
+                    the number of correct choices. The weekly winner will receive $5 for each entry in the contest. For
+                    instance, if 10 participants are in the contest, the weekly winner will be awarded $50.</p>
+                <p><strong>Season Championship:</strong> At the conclusion of the 18-week season, the cumulative wins
+                    will be tallied. The individual with the highest total wins across the season will be awarded the
+                    remaining buy-in fees. As an example, if the contest has 10 participants, resulting in a total
+                    buy-in of $1800, and the weekly prize is $50 ($50 x 18 = $900), the season champion will receive the
+                    balance of $900.</p>
+
+
+
+            </div>
+            <!-- New Sign Up Form -->
+            <div class="card card-body bg-light rounded">
+                <h3 class="text-center">Form</h3>
+                <p id="countdown"></p>
+
+                <form id="signUpForm">
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address"
+                            required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ! scripts -->
+    <script>
+        document.getElementById('signUpForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Show the loading modal
+            Swal.fire({
+                title: 'Submitting your information...',
+                text: 'Please wait while we process your submission.',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                onBeforeOpen: function () {
+                    Swal.showLoading();
+                }
+            });
+
+            // Extract form data
+            var data = new FormData(e.target);
+
+            // Send data to Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbwy5nMW2KzUEuJOtfjh7DjfA-lExOvrWGrEa3EY6jO_ScJP7XCLRSdUsUPXF5yKE-Ntnw/exec', {
+                    method: 'POST',
+                    body: data
+                })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (responseJson) {
+                    // Close the loading modal
+                    Swal.close();
+
+                    // Show success message
+                    var rowNumber = parseInt(responseJson.row) - 1;
+                    Swal.fire('Success!', 'Your submission ID: ' + rowNumber +
+                        '<br><strong>You will receive your username and password shortly.</strong>',
+                        'success');
+
+                    // Clear form and other UI changes
+                    e.target.reset();
+                })
+                .catch(function (error) {
+                    // Close the loading modal
+                    Swal.close();
+
+                    // Show error message
+                    Swal.fire('Oops!', 'Something went wrong. Please try again later.', 'error');
+                });
+        });
+
+        // ! Countdown Timer
+
+        // Set the target date and time
+        var targetDate = new Date("09/04/23 8:30 AM MST");
+
+        // Update the countdown timer every second
+        var countdownInterval = setInterval(function () {
+            // Calculate the remaining time
+            var now = new Date().getTime();
+            var distance = targetDate - now;
+
+            // Calculate days, hours, minutes, and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the countdown timer
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+
+            // If the countdown is finished, show a message
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+
+
+
+</body>
+
+</html>

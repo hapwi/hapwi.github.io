@@ -23,6 +23,10 @@
 
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <style>
         .table-wrapper {
             overflow-x: auto;
@@ -219,7 +223,7 @@
                 </a>
             </li>
             <li>
-                <a href="scores.html" id="menu-item-1">
+                <a href="nfltotals.html" id="menu-item-1">
                     <i class="fa-solid fa-list"></i>
                     <span class="nav-text"></span>
                 </a>
@@ -254,14 +258,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">Username</label>
-                    <input name="name" type="text" class="form-control" id="username" placeholder="Enter username"
+                    <label for="username">Username</label>
+                    <input name="username" type="text" class="form-control" id="username" placeholder="Enter username"
                         required>
                 </div>
                 <div class="form-group">
-                    <label for="name">Password</label>
-                    <input name="name" type="password" class="form-control" id="password" placeholder="Enter password"
-                        required>
+                    <label for="password">Password</label>
+                    <input name="password" type="password" class="form-control" id="password"
+                        placeholder="Enter password" required>
                 </div>
             </div>
             <div class="table-wrapper">
@@ -428,9 +432,9 @@
                 </table>
                 <div class="card2">
                     <div class="form-group">
-                        <label for="tiebreaker">Tie Breaker (Score)</label>
-                        <input name="tiebreaker" class="form-control" id="tiebreaker"
-                            placeholder="Enter Tie Breaker (ex. 21-14)" required>
+                        <label for="tiebreaker">Tie Breaker:</label>
+                        <input name="tiebreaker" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control"
+                            id="tiebreaker" placeholder="Total score of the Monday Night game (ex. 28)" required>
                     </div>
                 </div>
             </div>
@@ -451,76 +455,98 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Highlight selected table cells
             const cells = document.querySelectorAll("table tbody td");
             cells.forEach(cell => {
                 cell.addEventListener("click", function () {
-                    // Remove any existing highlight from cells in the same row
                     cell.parentElement.querySelectorAll('td').forEach(c => c.classList.remove(
                         "selected"));
-                    // Highlight the clicked cell
                     cell.classList.add("selected");
                 });
             });
 
+            // Validate radio button selections
             function validateForm() {
-                // Iterate through each group of radio buttons (each game)
                 for (let i = 1; i <= 16; i++) {
                     const radios = document.getElementsByName('pick' + i);
-                    let isChecked = false;
-
-                    // Check if at least one radio button is selected in the group
-                    for (const radio of radios) {
-                        if (radio.checked) {
-                            isChecked = true;
-                            break;
-                        }
-                    }
-
-                    // If no radio button is selected, show an alert and prevent form submission
-                    if (!isChecked) {
+                    if (!Array.from(radios).some(radio => radio.checked)) {
                         alert('Please make a selection for game ' + i);
                         return false;
                     }
                 }
-
-                // If all validations pass, allow form submission
                 return true;
             }
 
-            // Event listener for form submission
-            const myForm = document.getElementById("myForm");
-            myForm.addEventListener("submit", function (event) {
+            // Validate username and password
+            function validateCredentials() {
+                const validCredentials = {
+                    "user1": "pass1",
+                    "user2": "pass2",
+                    "user3": "pass3"
+                };
+                const enteredUsername = document.getElementById('username').value;
+                const enteredPassword = document.getElementById('password').value;
+                return validCredentials[enteredUsername] === enteredPassword;
+            }
+
+            document.getElementById('myForm').addEventListener('submit', function (event) {
                 event.preventDefault();
+
+                if (!validateCredentials()) {
+                    Swal.fire('Error!', 'Username and password are not correct.', 'error');
+                    return;
+                }
+
                 if (validateForm()) {
-                    // Define the FormData object here
-                    var data = new FormData(myForm);
+                    // Define the FormData object
+                    var data = new FormData(event.target);
 
-                    // If the selection is valid, send the form data to the Google script
-                    $('#modalNotification').modal('show');
-                    $('#modalBody').html('Submitting, please wait...');
-
-                    fetch('https://script.google.com/macros/s/AKfycbwAEzif1ujE2_91yZFGnhgUpaRAF4RoHwS0AlRprY-2wjhnXNe-8QIRYUf2w7Q8HLsjCA/exec', {
-                        method: 'POST',
-                        body: data
-                    }).then(function (response) {
-                        return response.json(); // Make sure to handle the response correctly
-                    }).then(function (responseJson) {
-                        var rowNumber = parseInt(responseJson.row) - 1;
-                        $('#modalBody').html('Success, submission ID: ' + rowNumber);
-                        myForm.reset(); // clear form
-                        // Get the modal close button by its class and change its background color
-                        document.querySelector(".modal-content .btn-secondary").style
-                            .backgroundColor = "red"; // Change to your desired color
-                        // Clear highlight from all cells
-                        cells.forEach(c => c.classList.remove("selected"));
-                    }).catch(function (error) {
-                        // Handle error
+                    // Show loading alert
+                    Swal.fire({
+                        title: 'Submitting your picks...',
+                        text: 'Please wait while we process your submission.',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        onBeforeOpen: function () {
+                            Swal.showLoading();
+                        }
                     });
+
+                    // Submit data to Google Sheets
+                    fetch('https://script.google.com/macros/s/AKfycbwAEzif1ujE2_91yZFGnhgUpaRAF4RoHwS0AlRprY-2wjhnXNe-8QIRYUf2w7Q8HLsjCA/exec', {
+                            method: 'POST',
+                            body: data
+                        })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (responseJson) {
+                            // Close the loading alert
+                            Swal.close();
+
+                            // Show success message
+                            var rowNumber = parseInt(responseJson.row) - 1;
+                            Swal.fire('Success!', 'Submission ID: ' + rowNumber);
+
+                            // Clear form and other UI changes
+                            event.target.reset();
+                            // Add any other UI changes as needed (e.g., clear highlights)
+                        })
+                        .catch(function (error) {
+                            // Close the loading alert
+                            Swal.close();
+
+                            // Show error message
+                            Swal.fire('Oops!', 'Something went wrong. Please try again later.',
+                                'error');
+                        });
                 }
             });
-
         });
     </script>
+
 
 
     <!-- Code injected by live-server -->
@@ -563,27 +589,6 @@
         }
         // ]]>
     </script>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="modalNotificationLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalNotificationLabel">Notification</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="modalBody">
-                    <!-- Content will be injected here -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="output" class="pt-custom"></div>
 
 
