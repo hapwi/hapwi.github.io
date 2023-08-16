@@ -8,6 +8,7 @@
 
   <title>Maintenance</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 
 
@@ -68,6 +69,33 @@
       color: #ffffff;
       text-decoration: none;
     }
+
+    .rotate {
+      display: inline-block;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .responsive-icon {
+      font-size: 5vw;
+      /* Adjust the size as needed. This means the icon will be 5% of the viewport width. */
+    }
+
+    /* Optional: Add a media query if you want to adjust the size on smaller or larger screens. */
+    @media (max-width: 600px) {
+      .responsive-icon {
+        font-size: 8vw;
+      }
+    }
   </style>
   <!-- ! end main styles -->
   <!--  -->
@@ -76,7 +104,7 @@
 
 <body>
   <div class="container">
-    <div class="maintenance-symbol">&#128736;</div>
+    <i class="fas fa-cog fa-3x rotate"></i>
     <h1>Under Maintenance</h1>
     <p>We're currently making improvements. Please check back later.</p>
     <a href="./pickem/peindex.html">NFL Pick'em</a>
