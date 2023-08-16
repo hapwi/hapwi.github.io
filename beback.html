@@ -67,6 +67,19 @@
 
     a {
       color: #007BFF;
+      text-decoration: none;
+      font-weight: 300;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border: 1px solid #007BFF;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+
+    a:hover {
+      background: #007BFF;
+      color: #ffffff;
+      text-decoration: none;
     }
 
     /* Dark Mode styles */
@@ -74,6 +87,13 @@
       background-color: #121212;
       color: #eeeeee;
     }
+
+    .dark-mode a:hover {
+      background: #007BFF;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
 
     body.dark-mode .container {
       background-color: #242424;
@@ -107,6 +127,8 @@
     <i class="fas fa-cog fa-3x rotate"></i>
     <h1>Under Maintenance</h1>
     <p>We're currently making improvements. Please check back later.</p>
+    <br>
+    <br>
     <a href="./pickem/peindex.html">NFL Pick'em</a>
   </div>
 
