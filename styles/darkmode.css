@@ -1,0 +1,52 @@
+/* Default light mode */
+body {
+    transition: background-color 0.3s;
+    background-color: white;
+    color: black;
+}
+
+.container {
+    transition: background-color 0.3s, color 0.3s;
+    background: #ffffff;
+}
+
+h1,
+p,
+a {
+    transition: color 0.3s;
+}
+
+a {
+    color: #007BFF;
+}
+
+/* Dark Mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #eeeeee;
+}
+
+body.dark-mode .container {
+    background-color: #242424;
+    color: #eeeeee;
+}
+
+body.dark-mode a {
+    color: #007BFF;
+}
+
+/* Toggle Button styles */
+#toggleDarkMode {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+body.dark-mode #toggleDarkMode {
+    color: #eee;
+}
