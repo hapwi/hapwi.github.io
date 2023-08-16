@@ -8,6 +8,23 @@
 header {
     position: fixed;
     z-index: 1000;
+    top: 0;
+    /* Position at the top */
+    left: 0;
+    /* Position at the left edge */
+    width: 100%;
+    /* Take the full width of the viewport */
+}
+
+footer {
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    /* Position at the bottom */
+    left: 0;
+    /* Position at the left edge */
+    width: 100%;
+    /* Take the full width of the viewport */
 }
 
 #countdown-timer {
