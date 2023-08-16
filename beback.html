@@ -34,6 +34,31 @@
       background: #ffffff;
     }
 
+    .rotate {
+      display: inline-block;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .responsive-icon {
+      font-size: 5vw;
+    }
+
+    @media (max-width: 600px) {
+      .responsive-icon {
+        font-size: 8vw;
+      }
+    }
+
     h1,
     p,
     a {
