@@ -456,13 +456,18 @@
                         } else {
                             // Otherwise, select it
                             inputElement.checked = true;
+
+                            // Remove "selected" class from all cells in the row
                             cell.parentElement.querySelectorAll('td').forEach(c => c.classList
                                 .remove("selected"));
+
+                            // Add "selected" class to the clicked cell
                             cell.classList.add("selected");
                         }
                     }
                 });
             });
+
 
             // Validate radio button selections
             function validateForm() {
