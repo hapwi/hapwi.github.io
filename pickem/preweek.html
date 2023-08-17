@@ -16,6 +16,7 @@
     <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
     <!-- ? link form styles -->
     <link href="../styles/form.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/main.css">
     <!-- jQuery and jQuery UI -->
     <!-- jQuery and jQuery UI -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -28,7 +29,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
+    <!-- !main styles -->
     <style>
         body {
             margin: 0;
@@ -48,7 +49,7 @@
         }
 
         header {
-            background-color: #003e7e;
+            background-color: var(--blue);
             color: white;
             display: flex;
             justify-content: center;
@@ -85,6 +86,7 @@
             top: 50%;
             right: 10px;
             transform: translateY(-50%);
+            text-decoration: none;
             /* shift up by half of its own height to center */
         }
 
@@ -105,6 +107,21 @@
             padding-top: 80px;
         }
 
+        .btn-primary {
+            background-color: var(--red);
+            border-color: var(--red);
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: var(--red-hover);
+            /* Replace with your desired hover color */
+            border-color: var(--red-hover);
+            /* Adjust the border color on hover if necessary */
+            color: #ffffff;
+            /* Adjust the text color on hover if necessary */
+        }
+
         /* Media queries for responsive design */
         @media (max-width: 768px) {
             header {
@@ -116,6 +133,7 @@
             }
         }
     </style>
+    <!-- !end main styles -->
 </head>
 
 <body id="form">
@@ -124,7 +142,7 @@
         <div class="header-container">
             <a class="logo">Pick'em Sign Up</a>
             <div id="countdown-timer"></div>
-            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106);">Golf Pool</a>
+            <a id="countdown-timer" href="../index.html" style="color: var(--red);">Golf Pool</a>
         </div>
     </header>
     <div class="main-content">
@@ -190,7 +208,17 @@
 
     <!-- ! scripts -->
     <script>
+        // Declare the isExpired variable at the top of your script
+        var isExpired = false;
+
         document.getElementById('signUpForm').addEventListener('submit', function (e) {
+            // Check if submissions are closed
+            if (isExpired) {
+                e.preventDefault();
+                Swal.fire('Sorry!', 'We are no longer accepting submissions.', 'info');
+                return;
+            }
+
             e.preventDefault();
 
             // Show the loading modal
@@ -239,8 +267,7 @@
                 });
         });
 
-        // ! Countdown Timer
-
+        // Countdown Timer
         // Set the target date and time
         var targetDate = new Date("09/04/23 8:30 AM MST");
 
@@ -263,7 +290,8 @@
             // If the countdown is finished, show a message
             if (distance < 0) {
                 clearInterval(countdownInterval);
-                document.getElementById("countdown").innerHTML = "EXPIRED";
+                document.getElementById("countdown").innerHTML = "";
+                isExpired = true; // Set the flag to true
             }
         }, 1000);
     </script>

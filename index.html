@@ -11,6 +11,9 @@
   <!-- ?darkmode -->
   <link rel="stylesheet" href="styles/darkmode.css">
 
+  <!-- ? root styles -->
+  <link rel="stylesheet" href="./styles/main.css">
+
   <!-- Add Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -46,7 +49,7 @@
 
     #main-table.table-striped>tbody>tr:nth-child(odd)>td,
     #main-table.table-striped>tbody>tr:nth-child(odd)>th {
-      background-color: #003e7e;
+      background-color: var(--blue);
     }
 
     /* 
@@ -91,9 +94,9 @@ hover button color
     }
 
     #picksModal .modal-footer .btn-secondary {
-      background-color: #ee3a43;
+      background-color: var(--red);
       /* Replace with your desired color */
-      border-color: #ee3a43;
+      border-color: var(--red);
       /* Replace with your desired color */
     }
 
@@ -137,8 +140,8 @@ hover button color
       padding: .375rem .75rem !important;
       font-size: .9rem !important;
       line-height: 1.6 !important;
-      background-color: #ee3a43 !important;
-      border-color: #ee3a43 !important;
+      background-color: var(--red) !important;
+      border-color: var(--red) !important;
       color: white !important;
       text-decoration: none !important;
       -webkit-appearance: none !important;
@@ -152,7 +155,8 @@ hover button color
     }
 
     button.custom-button:hover {
-      background-color: #923434 !important;
+      background-color: var(--red-hover) !important;
+      border-color: var(--red-hover) !important;
     }
   </style>
 </head>

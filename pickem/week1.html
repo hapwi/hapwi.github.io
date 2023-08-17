@@ -17,6 +17,7 @@
 
     <!-- ? link form styles -->
     <link href="../styles/form.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/main.css">
     <!-- jQuery and jQuery UI -->
     <!-- jQuery and jQuery UI -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -98,7 +99,7 @@
             left: 0;
             right: 0;
             height: 60px;
-            background-color: #003e7e;
+            background-color: var(--blue);
             display: flex;
             justify-content: space-around;
             align-items: flex-start;
@@ -117,7 +118,7 @@
             padding: 0 20px;
             margin-top: 3px;
             /* Add this line to create space between <nav> and <ul> */
-            background-color: #003e7e;
+            background-color: var(--blue);
         }
 
         #bottom-nav li {
@@ -132,7 +133,7 @@
         }
 
         header {
-            background-color: #003e7e;
+            background-color: var(--blue);
             color: white;
             display: flex;
             justify-content: center;
@@ -184,10 +185,6 @@
             margin: auto;
         }
 
-
-
-
-
         #content {
             padding-top: 80px;
         }
@@ -210,7 +207,8 @@
         <div class="header-container">
             <a class="logo">Week 1</a>
             <div id="countdown-timer"></div>
-            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106);">Golf Pool</a>
+            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106); text-decoration: none;">Golf
+                Pool</a>
 
         </div>
     </header>
@@ -390,11 +388,18 @@
                 cell.addEventListener("click", function (event) {
                     const inputElement = event.target.querySelector("input");
                     if (inputElement) {
-                        inputElement.click();
+                        if (inputElement.checked) {
+                            // If the radio button is already selected, unselect it
+                            inputElement.checked = false;
+                            cell.classList.remove("selected");
+                        } else {
+                            // Otherwise, select it
+                            inputElement.checked = true;
+                            cell.parentElement.querySelectorAll('td').forEach(c => c.classList
+                                .remove("selected"));
+                            cell.classList.add("selected");
+                        }
                     }
-                    cell.parentElement.querySelectorAll('td').forEach(c => c.classList.remove(
-                        "selected"));
-                    cell.classList.add("selected");
                 });
             });
 
@@ -414,7 +419,7 @@
             // Validate username and password
             function validateCredentials() {
                 const validCredentials = {
-                    "pblang": "697593",
+                    "pblang": "123",
                     "user2": "694937",
                     "user3": "389228",
                     "user4": "582943",

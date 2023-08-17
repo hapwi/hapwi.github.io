@@ -1,3 +1,12 @@
+:root {
+    --masters-green: #006B54;
+    --masters-gold: #ca9800;
+    --masters-gold-hover: #a87e00;
+    --blue: #003e7e;
+    --red: #ee3a43;
+    --red-hover: #923434;
+}
+
 .pt-custom {
     padding-top: 5rem !important;
     /* Adjust as needed */
@@ -38,7 +47,7 @@ footer {
 }
 
 button[type="submit"] {
-    background-color: #ee3a43;
+    background-color: var(--red);
     color: white;
-    border-color: #ee3a43;
+    border-color: var(--red);
 }
