@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<!-- header below -->
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="pickem.png" rel="shortcut icon" type="image/x-icon" />
+    <title>NFL Weekly Pick'em</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        rel="stylesheet" />
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    <!-- ? link form styles -->
+    <link href="../styles/form.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles/main.css">
+    <!-- jQuery and jQuery UI -->
+    <!-- jQuery and jQuery UI -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css">
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js">
+    </script>
+
+
+    <style>
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        form {
+            margin-bottom: 60px;
+        }
+
+        .team-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table td {
+            width: 50%;
+            border-right: 1px solid #dee2e6;
+            /* Line separating the columns */
+        }
+
+        table td:last-child {
+            border-right: none;
+        }
+
+        .selected {
+            background-color: #8ecc9c;
+            color: #000000;
+        }
+
+        .card2 {
+            color: #000000;
+            text-align: left;
+        }
+
+        .container {
+            margin-bottom: 70px;
+        }
+
+        .hidden-radio {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .pt-custom {
+            padding-top: 5rem !important;
+            /* Adjust as needed */
+            /* padding-bottom: 1rem !important; */
+            /* Adjust as needed */
+        }
+
+        #myForm {
+            margin-top: 2rem;
+        }
+
+        /* Navigation bar styles */
+        #bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: var(--blue);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            /* Vertically align icons between middle and top */
+            padding-top: 8px;
+            /* Add top padding to adjust icon position */
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+        }
+
+        #bottom-nav ul {
+            display: flex;
+            list-style: none;
+            width: 100%;
+            justify-content: space-around;
+            padding: 0 20px;
+            margin-top: 3px;
+            /* Add this line to create space between <nav> and <ul> */
+            background-color: var(--blue);
+        }
+
+        #bottom-nav li {
+            text-align: center;
+        }
+
+        #bottom-nav a {
+            display: block;
+            padding: 8px;
+            color: white;
+            text-decoration: none;
+        }
+
+        header {
+            background-color: var(--blue);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            /* needed to position the child #countdown-timer absolutely */
+            width: 100%;
+            height: 100%;
+        }
+
+        #countdown-timer {
+            font-size: 18px;
+            color: white;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            /* shift up by half of its own height to center */
+        }
+
+        .card {
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 24px;
+            text-decoration: none;
+            color: #fff;
+            display: block;
+            margin: auto;
+        }
+
+        #content {
+            padding-top: 80px;
+        }
+
+        /* Media queries for responsive design */
+        @media (max-width: 768px) {
+            header {
+                height: 50px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body id="form">
+    <header>
+        <div class="header-container">
+            <a class="logo">Week 1</a>
+            <div id="countdown-timer"></div>
+            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106); text-decoration: none;">Golf
+                Pool</a>
+
+        </div>
+    </header>
+    <nav id="bottom-nav">
+        <ul>
+
+            <li>
+                <a href="#" id="menu-item-4">
+                    <i class="fas fa-file-alt"></i>
+                    <span class="nav-text"></span>
+                </a>
+            </li>
+            <li>
+                <a href="nfltotals.html" id="menu-item-1">
+                    <i class="fa-solid fa-list"></i>
+                    <span class="nav-text"></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container text-center pt-custom">
+        <div class="card">
+            <div class="card-body bg-light rounded">
+                <h1 class="mb-3">NFL Weekly Pick'em</h1>
+                <p>Select the winning team for each matchup.</p>
+            </div>
+        </div>
+        <form class="card card-body bg-light rounded" id="myForm">
+            <div class="card2">
+
+
+            </div>
+            <div class="table-wrapper">
+                <table id="nflTable" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th scope="col">AWAY</th>
+                            <th scope="col">HOME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick1" type="radio" value="Detroit Lions"
+                                        required="">Detroit Lions</label></td>
+                            <td><label><input class="hidden-radio" name="pick1" type="radio" value="Kansas City Chiefs"
+                                        required="">Kansas City Chiefs</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick2" type="radio" value="Carolina Panthers"
+                                        required="">Carolina Panthers</label></td>
+                            <td><label><input class="hidden-radio" name="pick2" type="radio" value="Atlanta Falcons"
+                                        required="">Atlanta Falcons</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick3" type="radio"
+                                        value="Tampa Bay Buccaneers" required="">Tampa Bay Buccaneers</label></td>
+                            <td><label><input class="hidden-radio" name="pick3" type="radio" value="Minnesota Vikings"
+                                        required="">Minnesota Vikings</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick4" type="radio" value="Cincinnati Bengals"
+                                        required="">Cincinnati Bengals</label></td>
+                            <td><label><input class="hidden-radio" name="pick4" type="radio" value="Cleveland Browns"
+                                        required="">Cleveland Browns</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick5" type="radio"
+                                        value="Jacksonville Jaguars" required="">Jacksonville Jaguars</label></td>
+                            <td><label><input class="hidden-radio" name="pick5" type="radio" value="Indianapolis Colts"
+                                        required="">Indianapolis Colts</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick6" type="radio" value="San Francisco 49ers"
+                                        required="">San Francisco 49ers</label></td>
+                            <td><label><input class="hidden-radio" name="pick6" type="radio" value="Pittsburgh Steelers"
+                                        required="">Pittsburgh Steelers</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick7" type="radio" value="Tennessee Titans"
+                                        required="">Tennessee Titans</label></td>
+                            <td><label><input class="hidden-radio" name="pick7" type="radio" value="New Orleans Saints"
+                                        required="">New Orleans Saints</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick8" type="radio" value="Arizona Cardinals"
+                                        required="">Arizona Cardinals</label></td>
+                            <td><label><input class="hidden-radio" name="pick8" type="radio"
+                                        value="Washington Commanders" required="">Washington Commanders</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick9" type="radio" value="Houston Texans"
+                                        required="">Houston Texans</label></td>
+                            <td><label><input class="hidden-radio" name="pick9" type="radio" value="Baltimore Ravens"
+                                        required="">Baltimore Ravens</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick10" type="radio"
+                                        value="Philadelphia Eagles" required="">Philadelphia Eagles</label></td>
+                            <td><label><input class="hidden-radio" name="pick10" type="radio"
+                                        value="New England Patriots" required="">New England Patriots</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick11" type="radio" value="Las Vegas Raiders"
+                                        required="">Las Vegas Raiders</label></td>
+                            <td><label><input class="hidden-radio" name="pick11" type="radio" value="Denver Broncos"
+                                        required="">Denver Broncos</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick12" type="radio" value="Miami Dolphins"
+                                        required="">Miami Dolphins</label></td>
+                            <td><label><input class="hidden-radio" name="pick12" type="radio"
+                                        value="Los Angeles Chargers" required="">Los Angeles Chargers</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick13" type="radio" value="Los Angeles Rams"
+                                        required="">Los Angeles Rams</label></td>
+                            <td><label><input class="hidden-radio" name="pick13" type="radio" value="Seattle Seahawks"
+                                        required="">Seattle Seahawks</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick14" type="radio" value="Green Bay Packers"
+                                        required="">Green Bay Packers</label></td>
+                            <td><label><input class="hidden-radio" name="pick14" type="radio" value="Chicago Bears"
+                                        required="">Chicago Bears</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick15" type="radio" value="Dallas Cowboys"
+                                        required="">Dallas Cowboys</label></td>
+                            <td><label><input class="hidden-radio" name="pick15" type="radio" value="New York Giants"
+                                        required="">New York Giants</label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick16" type="radio" value="Buffalo Bills"
+                                        required="">Buffalo Bills</label></td>
+                            <td><label><input class="hidden-radio" name="pick16" type="radio" value="New York Jets"
+                                        required="">New York Jets</label></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="card2">
+                    <div class="form-group">
+                        <label for="tiebreaker">Tie Breaker: Monday Night game total (ex. 28)</label>
+                        <input name="tiebreaker" type="number" pattern="[0-9]*" inputmode="numeric" class="form-control"
+                            id="tiebreaker" placeholder="Monday Night game total (ex. 28)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input name="username" type="text" class="form-control" id="username"
+                            placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input name="password" type="password" class="form-control" id="password"
+                            placeholder="Enter password" required>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class_="d-flex justify-content-center"></div>
+            <button class="btn btn-primary" type="submit">Submit Picks</button>
+        </form>
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- ! set time and date for when picks need to be submitted by -->
+    <!-- ! sorry picks are now closed after date anmd time -->
+
+    <script>
+        $(document).ready(function () {
+            $('#nflTable').DataTable({
+                searching: false,
+                lengthChange: false,
+                paging: false,
+                info: false,
+                ordering: false,
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Highlight selected table cells
+            const cells = document.querySelectorAll("table tbody td");
+            cells.forEach(cell => {
+                cell.addEventListener("click", function (event) {
+                    const inputElement = event.target.querySelector("input");
+                    if (inputElement) {
+                        if (inputElement.checked) {
+                            // If the radio button is already selected, unselect it
+                            inputElement.checked = false;
+                            cell.classList.remove("selected");
+                        } else {
+                            // Otherwise, select it
+                            inputElement.checked = true;
+                            cell.parentElement.querySelectorAll('td').forEach(c => c.classList
+                                .remove("selected"));
+                            cell.classList.add("selected");
+                        }
+                    }
+                });
+            });
+
+            // Validate radio button selections
+            function validateForm() {
+                for (let i = 1; i <= 16; i++) {
+                    const radios = document.querySelectorAll(`input[name=pick${i}]`);
+                    if (!Array.from(radios).some(radio => radio.checked)) {
+                        Swal.fire('Please make a selection!', `Please make a selection for game ${i}`,
+                            'warning');
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            // Validate username and password
+            function validateCredentials() {
+                const validCredentials = {
+                    "pblang": "123",
+                    "user2": "694937",
+                    "user3": "389228",
+                    "user4": "582943",
+                    "user5": "176839",
+                    "user6": "284915",
+                    "user7": "493726",
+                    "user8": "759384",
+                    "user9": "861472",
+                    "user10": "952638"
+                };
+                const enteredUsername = document.getElementById('username').value;
+                const enteredPassword = document.getElementById('password').value;
+                return validCredentials[enteredUsername] === enteredPassword;
+            }
+
+            document.getElementById('myForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                if (!validateCredentials()) {
+                    Swal.fire('Error!', 'Username and password are not correct.', 'error');
+                    return;
+                }
+
+                if (validateForm()) {
+                    // Define the FormData object
+                    var data = new FormData(event.target);
+
+                    // Show loading alert
+                    Swal.fire({
+                        title: 'Submitting your picks...',
+                        text: 'Please wait while we process your submission.',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        willOpen: function () {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Submit data to Google Sheets
+                    fetch('https://script.google.com/macros/s/AKfycbwAEzif1ujE2_91yZFGnhgUpaRAF4RoHwS0AlRprY-2wjhnXNe-8QIRYUf2w7Q8HLsjCA/exec', {
+                            method: 'POST',
+                            body: data
+                        })
+                        .then(function (response) {
+                            return response.json();
+                        })
+                        .then(function (responseJson) {
+                            // Close the loading alert
+                            Swal.close();
+
+                            // Show success message
+                            var rowNumber = parseInt(responseJson.row) - 1;
+                            Swal.fire('Success!', 'Submission ID: ' + rowNumber);
+
+                            // Clear form and other UI changes
+                            event.target.reset();
+                            cells.forEach(cell => cell.classList.remove("selected"));
+                        })
+                        .catch(function (error) {
+                            // Close the loading alert
+                            Swal.close();
+
+                            // Show error message
+                            Swal.fire('Oops!', 'Something went wrong. Please try again later.',
+                                'error');
+                        });
+                }
+            });
+        });
+    </script>
+
+
+
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() ==
+                            "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (
+                                new Date()
+                                .valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        } else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+        // ]]>
+    </script>
+    <div id="output" class="pt-custom"></div>
+
+
+</body>
+
+</html>
