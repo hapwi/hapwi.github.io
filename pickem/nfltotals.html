@@ -277,6 +277,7 @@
             color: #333;
             cursor: pointer;
             transition: border-color 0.3s;
+            background: #f9f9f9 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAKklEQVQoU2P8//8/AyWYYdQAo0B1gBiMBrABTHMTCAGMxJkYAxhZijUAm/wPAHX6DfRSTI8dAAAAAElFTkSuQmCC') no-repeat 95% 50%;
         }
 
         #weekDropdown:hover {
@@ -499,6 +500,11 @@
                     paging: false,
                     info: false,
                     ordering: false,
+                    columnDefs: [{
+                        targets: 0, // Hide the first column
+                        visible: false,
+                        searchable: true
+                    }],
                     drawCallback: function () {
                         var table = $('#picksTable').DataTable();
                         if (table.search() !== "") {
