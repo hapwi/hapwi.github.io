@@ -282,6 +282,10 @@
         #weekDropdown:hover {
             border-color: #999;
         }
+
+        #picksTable tbody tr.matching-pick {
+            background-color: lightgreen;
+        }
     </style>
 </head>
 
@@ -488,6 +492,7 @@
 
             document.getElementById('weekDropdown').value = currentWeek;
 
+            // Dropdown change event
             document.getElementById('weekDropdown').addEventListener('change', function () {
                 currentWeek = this.value;
                 fetchPicksData(currentWeek);
@@ -529,38 +534,82 @@
             }
         }
 
+        function highlightMatchingPicks() {
+            const picksTable = document.getElementById('picksTable');
+            const rows = picksTable.querySelectorAll('tbody tr');
+            const weekWinners = winners[currentWeek] || [];
+
+            console.log("Current Week:", currentWeek); // Log the current week
+            console.log("Week's Winners:", weekWinners); // Log the winners for the week
+
+            rows.forEach(row => {
+                const pickCell = row.querySelector('td:nth-child(2)');
+                const pick = pickCell.textContent.trim();
+
+                console.log('Checking Pick:', pick); // Log the pick being checked
+
+                if (weekWinners.excludes(pick)) {
+                    console.log('Highlighting Pick:', pick); // Log when a match is found
+                    row.classList.add('matching-pick');
+                }
+            });
+        }
+
         function displayPicksTable(rows) {
             const picksTbody = document.getElementById('picks');
             picksTbody.innerHTML = ''; // Clear the previous data
+            const weekWinners = winners[currentWeek] || []; // get winners for the selected week
 
             rows.slice(1).forEach(row => {
                 const username = row[0];
                 const picks = row.slice(1);
-                const tableRow = `
-            <tr>
-                <td>${username}</td>
-                <td>${picks.join("<br>")}</td>
-            </tr>
-        `;
 
-                picksTbody.innerHTML += tableRow;
+                // Loop through each pick and create a new row
+                picks.forEach(pick => {
+                    let isMatchingPick = weekWinners.includes(
+                        pick); // Check if pick matches the winners
+                    const tableRow = `
+                <tr class="${isMatchingPick ? 'matching-pick' : ''}">
+                    <td>${username}</td>
+                    <td>${pick}</td>
+                </tr>
+            `;
 
+                    picksTbody.innerHTML += tableRow;
+                });
             });
 
             // If the table is already initialized, destroy it
             if ($.fn.dataTable.isDataTable('#picksTable')) {
                 $('#picksTable').DataTable().destroy();
             }
-
+            highlightMatchingPicks();
             initDataTable();
         }
 
+        function highlightMatchingPicks() {
+            const picksTable = document.getElementById('picksTable');
+            const rows = picksTable.querySelectorAll('tbody tr');
+            const weekWinners = winners[currentWeek] || [];
+
+            console.log("Current Week:", currentWeek); // Log the current week
+            console.log("Week's Winners:", weekWinners); // Log the winners for the week
+
+            rows.forEach(row => {
+                const pickCell = row.querySelector('td:nth-child(2)');
+                const pick = pickCell.textContent.trim();
+
+                console.log('Checking Pick:', pick); // Log the pick being checked
+
+                if (weekWinners.includes(pick)) {
+                    console.log('Highlighting Pick:', pick); // Log when a match is found
+                    row.classList.add('matching-pick');
+                }
+            });
+        }
 
         fetchPicksData();
     </script>
-
-
-
 
     <script>
         // Define the deadlines for each week
