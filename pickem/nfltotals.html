@@ -355,6 +355,14 @@
 
 
     <script>
+        const winners = {
+            "1": ["Carolina Panthers", "Buffalo Bills"], // Week 1
+            "2": ["New England Patriots", "Detroit Lions"], // Week 2
+        };
+        // log winners object
+        console.log('winners:', winners);
+
+
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo';
         let currentWeek = "1"; // Default week
@@ -365,6 +373,8 @@
                     `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/nfl-totals!A1:B1000?key=${apiKey}`
                 );
                 const data = await response.json();
+                console.log('Totals Data (nfl-totals):', data);
+
 
                 if (data.error) {
                     throw new Error(data.error.message);
@@ -417,6 +427,8 @@
                     `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/pemw${week}!A1:Q50?key=${apiKey}`
                 );
                 const data = await response.json();
+                console.log(`Picks Data (pemw${week}):`, data);
+
 
                 if (data.error) {
                     throw new Error(data.error.message);
@@ -523,15 +535,16 @@
 
             rows.slice(1).forEach(row => {
                 const username = row[0];
-                const picks = row.slice(1).join("<br>");
+                const picks = row.slice(1);
                 const tableRow = `
             <tr>
                 <td>${username}</td>
-                <td>${picks}</td>
+                <td>${picks.join("<br>")}</td>
             </tr>
         `;
 
                 picksTbody.innerHTML += tableRow;
+
             });
 
             // If the table is already initialized, destroy it
