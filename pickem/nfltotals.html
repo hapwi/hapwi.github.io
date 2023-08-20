@@ -503,6 +503,38 @@
 
         let picksTable;
 
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                // Use the value of the search box
+                let searchTerm = $('.dataTables_filter input').val();
+
+                // Check if the search term matches the first column (username) exactly
+                if (searchTerm === data[0]) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            // Add a click event listener to each row of the nflTable
+            $('#nflTable tbody').on('click', 'tr', function () {
+                // Get the username from the first cell of the clicked row
+                let username = $(this).find('td:first').text();
+
+                // Set this username as the value for the picksTable DataTables search input
+                $('#picksTable_filter input').val(username);
+
+                // Trigger a search on the picksTable
+                $('#picksTable').DataTable().search(username).draw();
+
+                // Scroll to the top of the page
+                window.scrollTo(0, 0);
+            });
+        });
+
+
+
         function initDataTable() {
             if (!$.fn.dataTable.isDataTable('#picksTable')) {
                 picksTable = $('#picksTable').DataTable({
@@ -512,6 +544,9 @@
                     }, {
                         searchable: false
                     }],
+                    search: {
+                        smart: false
+                    },
                     lengthChange: false,
                     paging: false,
                     info: false,
@@ -531,6 +566,7 @@
                     }
                 });
                 addControls();
+                $('#picksTable_filter input').prop('readonly', true);
             }
         }
 
