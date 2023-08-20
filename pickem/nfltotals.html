@@ -20,6 +20,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
@@ -33,6 +34,10 @@
     <script src="./js/PEheader-footer.js"></script>
 
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         .table-wrapper {
             overflow-x: auto;
         }
@@ -290,6 +295,15 @@
         .dataTables_filter input {
             text-align: center;
         }
+
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
     </style>
 </head>
 
@@ -305,6 +319,8 @@
     </header>
     <!-- ? main content -->
     <div class="container" style="padding-top: 70px;">
+        <!-- Add this to your HTML -->
+
 
         <div class="card bg-light">
 
@@ -421,6 +437,7 @@
                     paging: false,
                     info: false,
                     ordering: false,
+
                 });
             });
         }
@@ -538,15 +555,15 @@
                     // Trigger a search on the picksTable
                     $('#picksTable').DataTable().search(username).draw();
 
-
-                    // Scroll to the top of the page
-                    $('html, body').animate({
-                        scrollTop: 0
-                    }, 1100);
-
+                    // Use the native CSS scrolling
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
+
 
 
 
