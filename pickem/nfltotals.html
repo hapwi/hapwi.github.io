@@ -538,8 +538,12 @@
                     // Trigger a search on the picksTable
                     $('#picksTable').DataTable().search(username).draw();
 
+
                     // Scroll to the top of the page
-                    window.scrollTo(0, 0);
+                    $('html, body').animate({
+                        scrollTop: 0
+                    }, 1100);
+
                 }
             });
         });
