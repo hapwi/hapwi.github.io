@@ -463,7 +463,7 @@
 
 
         function addControls() {
-            $('<span class="search-label">Search username to display picks history: </span>  \
+            $('<span class="search-label">Select a username to display picks history: </span>  \
         <select id="weekDropdown">\
         <option value="1" selected>Week 1</option>\
         <option value="2">Week 2</option>\
@@ -519,17 +519,23 @@
         $(document).ready(function () {
             // Add a click event listener to each row of the nflTable
             $('#nflTable tbody').on('click', 'tr', function () {
-                // Get the username from the first cell of the clicked row
-                let username = $(this).find('td:first').text();
+                const noDataMessageVisible = document.getElementById('noDataMessage').style.display ===
+                    "block";
 
-                // Set this username as the value for the picksTable DataTables search input
-                $('#picksTable_filter input').val(username);
+                // Only proceed if the no data message isn't displayed
+                if (!noDataMessageVisible) {
+                    // Get the username from the first cell of the clicked row
+                    let username = $(this).find('td:first').text();
 
-                // Trigger a search on the picksTable
-                $('#picksTable').DataTable().search(username).draw();
+                    // Set this username as the value for the picksTable DataTables search input
+                    $('#picksTable_filter input').val(username);
 
-                // Scroll to the top of the page
-                window.scrollTo(0, 0);
+                    // Trigger a search on the picksTable
+                    $('#picksTable').DataTable().search(username).draw();
+
+                    // Scroll to the top of the page
+                    window.scrollTo(0, 0);
+                }
             });
         });
 
