@@ -10,6 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <link rel="stylesheet" href="./styles/main.css">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
 
   <style>
     body {
@@ -22,9 +24,9 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: #f4f6f8;
+      background: #272829;
       /* Soft gray background */
-      color: #333;
+      color: #FFF6E0;
       /* Dark gray text color for contrast */
     }
 
@@ -33,7 +35,11 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       /* Subtle shadow for depth */
-      background: white;
+      backdrop-filter: blur(5px);
+      /* Adding the blur effect */
+      /* Semi-transparent white background to show the blur effect */
+
+
     }
 
     @keyframes spin {
@@ -49,7 +55,7 @@
     .rotate {
       display: inline-block;
       animation: spin 4s linear infinite;
-      color: #85a5b5;
+      color: #FFF6E0;
       /* Muted blue for the cog */
     }
 
@@ -57,21 +63,21 @@
       font-weight: 500;
       /* Semi-bold font weight */
       margin: 20px 0;
-      color: #2c3e50;
+      color: #FFF6E0;
       /* Slightly darker text for title */
     }
 
     a {
-      color: #2c3e50;
+      color: #61677A;
       /* Muted dark blue text */
-      background: #eaf2f8;
+      background: #FFF6E0;
       /* Soft blue background */
       text-decoration: none;
       font-weight: 400;
       /* Regular font weight */
       font-size: 1.2rem;
       padding: 10px 20px;
-      border: 1px solid #bdc3c7;
+      border: 1px solid #FFF6E0;
       /* Subtle border for definition */
       border-radius: 5px;
       transition: all 0.3s;
@@ -79,56 +85,25 @@
     }
 
     a:hover {
-      background: #d4e6f1;
+      background: #272829;
       /* Slightly darker blue background on hover */
-      color: #2c3e50;
+      color: #D8D9DA;
       text-decoration: none;
     }
 
-
-
-
-    /* Dark Mode styles */
-    body.dark-mode {
-      background-color: #121212;
-      color: #eeeeee;
-    }
-
-    .dark-mode a:hover {
-      background: var(--blue);
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-
-    body.dark-mode .container {
-      background-color: #242424;
-      color: #eeeeee;
-    }
-
-    body.dark-mode a {
-      color: var(--blue);
-    }
-
-    /* Toggle Button styles */
-    #toggleDarkMode {
+    #particles-js {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      background: transparent;
-      border: none;
-      color: #333;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    body.dark-mode #toggleDarkMode {
-      color: #eee;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
     }
   </style>
 </head>
 
 <body>
+  <div id="particles-js"></div>
   <div class="container">
     <i class="fas fa-cog fa-3x rotate"></i>
     <h1>Under Maintenance</h1>
@@ -137,21 +112,114 @@
     <br>
     <a href="./pickem/peindex.html">NFL Pick'em</a>
   </div>
-
-  <!-- Toggle Button -->
-  <!-- <button id="toggleDarkMode" title="Toggle Dark Mode"><i class="far fa-moon"></i></button>
-
   <script>
-    const toggleButton = document.getElementById('toggleDarkMode');
-    toggleButton.addEventListener('click', function () {
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-        toggleButton.innerHTML = '<i class="far fa-sun"></i>';
-      } else {
-        toggleButton.innerHTML = '<i class="far fa-moon"></i>';
-      }
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#FFF6E0"
+        },
+        shape: {
+          type: "circle",
+          stroke: {
+            width: 0,
+            color: "#000000"
+          },
+          polygon: {
+            nb_sides: 5
+          }
+        },
+        opacity: {
+          value: 0.5,
+          random: false,
+          anim: {
+            enable: false,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: {
+            enable: false,
+            speed: 40,
+            size_min: 0.1,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#FFF6E0",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 6,
+          direction: "none",
+          random: false,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: false,
+            rotateX: 600,
+            rotateY: 1200
+          }
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 400,
+            line_linked: {
+              opacity: 1
+            }
+          },
+          bubble: {
+            distance: 400,
+            size: 40,
+            duration: 2,
+            opacity: 8,
+            speed: 3
+          },
+          repulse: {
+            distance: 200,
+            duration: 0.4
+          },
+          push: {
+            particles_nb: 4
+          },
+          remove: {
+            particles_nb: 2
+          }
+        }
+      },
+      retina_detect: true
     });
-  </script> -->
+  </script>
+
 </body>
 
 </html>
