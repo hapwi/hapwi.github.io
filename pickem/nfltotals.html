@@ -11,6 +11,8 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        rel="stylesheet" />
     <!-- ? link form styles -->
     <link rel="stylesheet" href="../styles/main.css">
     <!-- <link href="../styles/form.css" rel="stylesheet" /> -->
@@ -340,9 +342,13 @@
     <!-- ! header -->
     <header>
         <div class="header-container">
-            <a class="logo">NFL Pick'em Totals</a>
+            <a class="logo" href="#">NFL Pick'em Totals</a>
             <div id="countdown-timer"></div>
-            <a id="countdown-timer" href="../index.html" style="color: rgb(233, 106, 106);">Golf Pool</a>
+            <a id="countdown-timer" href="../index.html"
+                style="color:var(--link-white); text-decoration: none; margin-right:15px;">
+                <i class="fa-solid fa-golf-ball-tee"></i>
+            </a>
+
 
         </div>
     </header>
