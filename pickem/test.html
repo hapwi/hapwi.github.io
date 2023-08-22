@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Expandable Table Rows</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #272829;
+            color: #D8D9DA;
+        }
+
+        table {
+            border-color: #D8D9DA;
+        }
+
+        th,
+        td {
+            border-color: #D8D9DA;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #3A3B3C;
+        }
+
+        .details-row {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="details-row" data-bs-toggle="collapse" data-bs-target="#details1">
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr id="details1" class="collapse">
+                    <td colspan="4">Additional details for Mark Otto...</td>
+                </tr>
+
+                <tr class="details-row" data-bs-toggle="collapse" data-bs-target="#details2">
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr id="details2" class="collapse">
+                    <td colspan="4">Additional details for Jacob Thornton...</td>
+                </tr>
+
+                <tr class="details-row" data-bs-toggle="collapse" data-bs-target="#details3">
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                <tr id="details3" class="collapse">
+                    <td colspan="4">Additional details for Larry the Bird...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
