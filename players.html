@@ -12,24 +12,149 @@
   <link rel="stylesheet" href="./styles/main.css">
 
   <!-- Add Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="shortcut icon" href="195540.png" type="image/x-icon" />
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
-  <!--   display a popup to not use this screen  -->
-  <!--   <script>
-    function displayPopup() {
-      var screenWidth = window.innerWidth;
-      var mobileWidth = 3600; // The width at which we consider the device to be a mobile device
-
-      if (screenWidth < mobileWidth) {
-        alert('Please do not reference this players list. We are still waiting on ESPN to update their site for The Masters field. What a bunch of clowns.');
-      }
+  <style>
+    /* Navigation bar styles */
+    #bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      /* height: 60px;
+        background-color: var(--blue); */
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      /* Vertically align icons between middle and top */
+      padding-top: 8px;
+      /* Add top padding to adjust icon position */
+      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+      z-index: 9999;
     }
 
-    // Call the function to display the popup when the page loads
-    displayPopup();
-  </script> -->
+    #bottom-nav ul {
+      display: flex;
+      list-style: none;
+      width: 100%;
+      justify-content: space-around;
+      padding: 0 20px;
+      margin-top: 3px;
+      /* Add this line to create space between <nav> and <ul> */
+      background-color: var(--blue);
+    }
+
+    #bottom-nav li {
+      text-align: center;
+    }
+
+    #bottom-nav a {
+      display: block;
+      padding: 8px;
+      color: white;
+      text-decoration: none;
+    }
+
+    #pillNav2 {
+      background-color: #003e7e;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+      color: transparent;
+    }
+
+    #pillNav2 .nav-item a.nav-link:hover,
+    #pillNav2 .nav-item a.nav-link:focus {
+      color: #003e7e;
+      background-color: var(--bs-white);
+    }
+
+    #pillNav2 .nav-item a.nav-link.active {
+      color: #003e7e;
+      background-color: var(--bs-white);
+    }
+
+    header {
+      background-color: var(--blue);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60px;
+      padding: 0;
+      position: fixed;
+      width: 100%;
+      z-index: 9999;
+    }
+
+    .header-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      /* needed to position the child #countdown-timer absolutely */
+      width: 100%;
+      height: 100%;
+    }
+
+    #countdown-timer {
+      font-size: 18px;
+      color: white;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      /* shift up by half of its own height to center */
+    }
+
+    .card {
+      z-index: 1;
+    }
+
+    .logo {
+      font-size: 24px;
+      text-decoration: none;
+      color: #fff;
+      display: block;
+      margin: auto;
+    }
+
+
+    .logo {
+      font-size: 24px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+
+    #content {
+      padding-top: 80px;
+    }
+
+    /* Media queries for responsive design */
+    @media (max-width: 768px) {
+      header {
+        height: 50px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 
 
