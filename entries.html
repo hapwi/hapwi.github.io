@@ -21,9 +21,11 @@
     <style>
         /* The outer container */
         .table-container {
-            overflow-x: scroll;
+            overflow-x: auto;
+            /* Changed from scroll to auto for better mobile display */
             width: 100%;
-            height: 80vh;
+            max-height: 70vh;
+            /* Adjusted for better visibility on mobile */
         }
 
         .table thead th:first-child {
@@ -93,22 +95,14 @@
         }
 
         #tablecard {
-            margin-bottom: 90px;
-        }
-
-        #tablecard {
-            margin-bottom: 30px;
+            margin-bottom: 120px;
+            /* Adjusted margin to make sure it's not hidden behind bottom nav */
             border-collapse: separate;
             border-radius: 15px;
             overflow: hidden;
             background-color: #f9f9f9;
             border: 2px solid #ccc;
-
-            /* Gradient background for 3D effect */
             background: linear-gradient(to bottom, #f9f9f9, #e5e5e5);
-
-            /* Multiple box shadows for a 3D effect */
-
         }
 
         #tablecard th {
@@ -121,7 +115,6 @@
         #tablecard th:last-child {
             border-right: none;
         }
-
 
         #tablecard tbody tr:hover {
             background-color: #f2f2f2;
