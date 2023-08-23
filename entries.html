@@ -19,13 +19,21 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
     <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            /* Prevent scrolling */
+        }
+
         /* The outer container */
         .table-container {
+            height: 90%;
+            /* or a suitable value for your design */
             overflow-x: auto;
-            /* Changed from scroll to auto for better mobile display */
-            width: 100%;
-            max-height: 70vh;
-            /* Adjusted for better visibility on mobile */
+            overflow-y: auto;
+            /* Allow vertical scrolling if the table content exceeds the container height */
         }
 
         .table thead th:first-child {
@@ -103,6 +111,7 @@
             background-color: #f9f9f9;
             border: 2px solid #ccc;
             background: linear-gradient(to bottom, #f9f9f9, #e5e5e5);
+            max-height: 80vh;
         }
 
         #tablecard th {
