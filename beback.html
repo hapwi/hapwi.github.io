@@ -60,12 +60,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 60px;
+      height: 5px;
       padding: 0;
       position: fixed;
       width: 100%;
       z-index: 9999;
     }
+
+    nav.navbar {
+      background-color: #272829;
+    }
+
 
     .container {
       padding: 30px 50px;
@@ -156,13 +161,14 @@
     }
   </style>
 </head>
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-  </nav>
 
-</header>
 
 <body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    </nav>
+
+  </header>
   <div class="centered-content">
     <button id="secretBtn" class="btn btn-primary btn-lg position-fixed"
       style="bottom: 10px; right: 10px; opacity: 0.01; transition: opacity 0.3s;">
