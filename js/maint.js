@@ -2,7 +2,7 @@
 const currentDate = new Date();
 
 // Maintenance end date
-const maintenanceDate = new Date("08/05/23 9:00 AM MST");
+const maintenanceDate = new Date("02/05/24 9:00 AM MST");
 
 // Check if the current date is before the maintenance end date
 const isMaintenancePeriod = currentDate <= maintenanceDate;
