@@ -132,6 +132,10 @@
                 font-size: 20px;
             }
         }
+
+        #here {
+            color: #fff;
+        }
     </style>
     <!-- !end main styles -->
 </head>
@@ -172,14 +176,11 @@
                     remaining buy-in fees. As an example, if the contest has 10 participants, resulting in a total
                     buy-in of $1800, and the weekly prize is $50 ($50 x 18 = $900), the season champion will receive the
                     balance of $900.</p>
-                <p class="text-center text-bg-danger"><strong>If the correct view is not showing please click where it
-                        says "NFL Pick'em Sign-up"</strong></p>
-
-
-
+                <p class="text-center text-bg-danger"><strong>If the correct view is not showing please
+                        click <a href="../pickem/peindex.html" id="here">HERE</a> </strong></p>
             </div>
             <!-- New Sign Up Form -->
-            <div class="card card-body bg-light rounded">
+            <div class="card card-body bg-light rounded" id="signUpFormTop">
                 <h3 class="text-center">Form</h3>
                 <p id="countdown"></p>
 
@@ -316,7 +317,7 @@
         if (now.getTime() > deadline.getTime()) {
             // If the current time is after the deadline,
             // hide the form and display a message
-            document.getElementById('signUpForm').style.display = 'none';
+            document.getElementById('signUpFormTop').style.display = 'none';
 
             // Create a new div for the message
             var messageDiv = document.createElement('div');
@@ -333,6 +334,8 @@
             containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
         }
     </script>
+
+
 
 
 

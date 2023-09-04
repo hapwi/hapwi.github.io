@@ -289,13 +289,38 @@
             background-color: var(--bs-white);
             /* This sets the background color for the active state to white */
         }
+
+        #here {
+            color: #fff;
+        }
+
+        #toast {
+            z-index: 9999;
+        }
     </style>
 </head>
 
 <body id="form">
+    <!-- <div class="position-fixed top-50 start-50 translate-middle" id="toast">
+        <div id="visitToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Welcome!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Thanks for visiting our page.
+            </div>
+        </div>
+    </div> -->
+
+
     <header>
         <div class="header-container">
-            <a href="../pickem/peindex.html" class="logo">Week 1</a>
+            <a href="../pickem/peindex.html" class="logo">
+                <span class="badge rounded-pill text-bg-secondary">
+                    Week 1
+                </span>
+            </a>
             <div id="countdown-timer"></div>
             <a id="countdown-timer" href="../index.html"
                 style="color:var(--link-white); text-decoration: none; margin-right:15px;">
@@ -337,9 +362,8 @@
 
                 <p><strong>If you forget to submit your picks for the week unfortunetely you will be DQ for the
                         week</strong></p>
-                <p class="text-center text-bg-danger"><strong>If the correct view is not showing please
-                        click where it
-                        says "Week 1"</strong></p>
+                <p class="text-center text-bg-danger"><strong>If the correct view is not showing please click <a
+                            href="../pickem/peindex.html" id="here">HERE</a> </strong></p>
             </div>
         </div>
 
@@ -649,6 +673,12 @@
             // Insert the message at the top of the container
             containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var toastEl = document.getElementById('visitToast');
+            var toast = new bootstrap.Toast(toastEl);
+            toast.show();
+        });
     </script>
     <div id="output" class="pt-custom"></div>
 
