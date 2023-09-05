@@ -531,6 +531,10 @@
                     paging: false,
                     info: false,
                     ordering: false,
+                    language: {
+                        emptyTable: "Your custom message for no data",
+                        zeroRecords: "Your custom message when search returns zero records"
+                    }
 
                 });
             });
@@ -689,6 +693,10 @@
                         } else {
                             $('#picks').hide();
                         }
+                    },
+                    language: {
+                        emptyTable: "Picks are not available yet for this week",
+                        zeroRecords: "Picks are not available yet for this week"
                     }
                 });
                 addControls();
