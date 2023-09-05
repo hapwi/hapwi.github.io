@@ -8,7 +8,7 @@ const maintenanceDate = new Date("02/05/24 9:00 AM MST");
 const isMaintenancePeriod = currentDate <= maintenanceDate;
 
 // Check if the current page is 'beback.html'
-const isOnMaintenancePage = window.location.pathname.endsWith("beback.html");
+const isOnMaintenancePage = window.location.pathname.endsWith("../beback.html");
 
 console.log("Is Maintenance Period:", isMaintenancePeriod);
 console.log("Is On Maintenance Page:", isOnMaintenancePage);
