@@ -13,6 +13,7 @@ async function fetchGoogleSheetsData() {
 
         if (data.error) {
             throw new Error(data.error.message);
+
         }
 
         displayTable(data);
