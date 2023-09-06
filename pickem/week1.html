@@ -294,25 +294,10 @@
         #here {
             color: #fff;
         }
-
-        #toast {
-            z-index: 9999;
-        }
     </style>
 </head>
 
 <body id="form">
-    <!-- <div class="position-fixed top-50 start-50 translate-middle" id="toast">
-        <div id="visitToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto">Welcome!</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                Thanks for visiting our page.
-            </div>
-        </div>
-    </div> -->
 
 
     <header>
@@ -573,23 +558,16 @@
             const cells = document.querySelectorAll("table tbody td");
             cells.forEach(cell => {
                 cell.addEventListener("click", function (event) {
-                    const inputElement = event.target.querySelector("input");
+                    console.log("Cell clicked");
+                    const inputElement = cell.querySelector("label input");
                     if (inputElement) {
-                        if (inputElement.checked) {
-                            // If the radio button is already selected, unselect it
-                            inputElement.checked = false;
-                            cell.classList.remove("selected");
-                        } else {
-                            // Otherwise, select it
-                            inputElement.checked = true;
-
-                            // Remove "selected" class from all cells in the row
-                            cell.parentElement.querySelectorAll('td').forEach(c => c.classList
-                                .remove("selected"));
-
-                            // Add "selected" class to the clicked cell
-                            cell.classList.add("selected");
-                        }
+                        // Always select the radio button and apply the background
+                        inputElement.checked = true;
+                        // Remove "selected" class from all cells in the row
+                        cell.parentElement.querySelectorAll('td').forEach(c => c.classList
+                            .remove("selected"));
+                        // Add "selected" class to the clicked cell
+                        cell.classList.add("selected");
                     }
                 });
             });
@@ -711,12 +689,6 @@
             // Insert the message at the top of the container
             containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var toastEl = document.getElementById('visitToast');
-            var toast = new bootstrap.Toast(toastEl);
-            toast.show();
-        });
     </script>
     <div id="output" class="pt-custom"></div>
 
