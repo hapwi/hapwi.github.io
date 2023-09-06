@@ -294,6 +294,30 @@
         #here {
             color: #fff;
         }
+
+        @keyframes smoothGlow {
+            0% {
+                transform: scale(1);
+                background-color: #8ecc9c;
+                color: #000000;
+            }
+
+            50% {
+                transform: scale(1.05);
+                background-color: #6ebf87;
+                color: #ffffff;
+            }
+
+            100% {
+                transform: scale(1);
+                background-color: #8ecc9c;
+                color: #000000;
+            }
+        }
+
+        .selected {
+            animation: smoothGlow .5s alternate;
+        }
     </style>
 </head>
 
