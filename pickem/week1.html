@@ -603,11 +603,13 @@
                     if (!Array.from(radios).some(radio => radio.checked)) {
                         // Find the table row for the unselected game
                         const gameRow = document.querySelector(`input[name=pick${i}]`).closest("tr");
-                        // Scroll to the table row
-                        gameRow.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
+
+                        // Use jQuery to smoothly scroll to the position
+                        $('html, body').animate({
+                            scrollTop: $(gameRow).offset().top -
+                                100 // Subtracting 100 to account for fixed headers, adjust as necessary
+                        }, 1000);
+
                         // Display the custom message
                         Swal.fire('Please make a selection!', `Please make a selection for game ${i}`,
                             'warning');
