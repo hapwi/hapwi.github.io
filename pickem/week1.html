@@ -317,6 +317,129 @@
         .selected {
             animation: smoothGlow .5s alternate;
         }
+
+        /* Night Mode Styles */
+        body.night-mode {
+            background-color: #2c2c2c;
+            color: white;
+        }
+
+        .night-mode a,
+        .night-mode p,
+        .night-mode h1,
+        .night-mode h2,
+        .night-mode td,
+        .night-mode th {
+            color: white;
+        }
+
+        .night-mode .bg-light {
+            background-color: #333 !important;
+        }
+
+        .night-mode .card-body {
+            border: 1px solid #555;
+        }
+
+        .night-mode #nflTable {
+            background-color: #444;
+            border-color: #555;
+        }
+
+        .night-mode .alert-danger {
+            background-color: #b94a48;
+            border-color: #953b39;
+            color: #ffffff;
+        }
+
+        .night-mode #nflTable td,
+        .night-mode #nflTable th {
+            background-color: #444;
+            border-color: #555;
+            color: white;
+        }
+
+        .night-mode #nflTable tbody tr:hover {
+            background-color: #555;
+        }
+
+        .night-mode #nflTable th {
+            background: #1f1f1f;
+        }
+
+        .night-mode .selected {
+            background-color: #6ebf87 !important;
+            color: black;
+        }
+
+        .night-mode label,
+        .night-mode p {
+            color: white;
+        }
+
+        /* Header and footer night mode styles */
+        .night-mode header,
+        .night-mode #bottom-nav {
+            background-color: #1f1f1f;
+        }
+
+        .night-mode #countdown-timer {
+            color: #ddd;
+        }
+
+        .night-mode #bottom-nav a,
+        .night-mode #here {
+            color: #ddd;
+        }
+
+        .night-mode #pillNav2 {
+            background-color: #1f1f1f;
+        }
+
+        .night-mode #pillNav2 .nav-item a.nav-link:hover,
+        .night-mode #pillNav2 .nav-item a.nav-link:focus {
+            color: #1f1f1f;
+            background-color: #ddd;
+        }
+
+        .night-mode #pillNav2 .nav-item a.nav-link.active {
+            color: #1f1f1f;
+            background-color: #ddd;
+        }
+
+        /* Bottom navigation pill styles for better distinction */
+        #pillNav2 .nav-item a.nav-link {
+            border: 2px solid #ffffff;
+            /* Border for all pills */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Slight shadow for a raised appearance */
+            transition: all 0.3s;
+            /* Smooth transition for hover and active effects */
+        }
+
+        .night-mode #pillNav2 .nav-item a.nav-link {
+            border: 2px solid #444;
+            /* Border for all pills */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Slight shadow for a raised appearance */
+            transition: all 0.3s;
+            /* Smooth transition for hover and active effects */
+        }
+
+        /* Style for the active pill to make it look pressed */
+        #pillNav2 .nav-item a.nav-link.active {
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Inset shadow for a pressed appearance */
+            border-color: #ddd;
+            /* Active pill border */
+        }
+
+        /* Slight enlargement and brightening of the pill on hover */
+        #pillNav2 .nav-item a.nav-link:hover {
+            /* Enlarging the pill */
+            border-color: #ddd;
+            /* Brightened border on hover */
+        }
     </style>
 </head>
 
@@ -325,6 +448,9 @@
 
     <header>
         <div class="header-container">
+            <!-- <a href="#" id="nightModeToggle" style="color: white; text-decoration: none; margin-left: 15px;">
+                🌙
+            </a> -->
             <a href="../pickem/peindex.html" class="logo">
                 <span class="badge rounded-pill px-4 py-2" id="pillNav3"
                     style="background-color: #fff; color: #003e7e;">
@@ -337,6 +463,7 @@
                 style="color:var(--link-white); text-decoration: none; margin-right:15px;">
                 <i class="fa-solid fa-golf-ball-tee"></i>
             </a>
+
 
 
         </div>
@@ -712,6 +839,13 @@
             // Insert the message at the top of the container
             containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
         }
+        //  initialize dark mode
+        document.getElementById('nightModeToggle').addEventListener('click', function () {
+            const body = document.body;
+
+            // Toggle night mode class
+            body.classList.toggle('night-mode');
+        });
     </script>
     <div id="output" class="pt-custom"></div>
 

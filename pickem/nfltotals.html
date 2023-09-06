@@ -34,8 +34,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js">
     </script>
 
-
-
     <script src="./js/PEheader-footer.js"></script>
     <!-- ? main styles -->
     <style>
@@ -335,6 +333,40 @@
             /* This sets the icon color for the active state to the blue you previously used */
             background-color: var(--bs-white);
             /* This sets the background color for the active state to white */
+        }
+
+        /* Bottom navigation pill styles for better distinction */
+        #pillNav2 .nav-item a.nav-link {
+            border: 2px solid #ffffff;
+            /* Border for all pills */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Slight shadow for a raised appearance */
+            transition: all 0.3s;
+            /* Smooth transition for hover and active effects */
+        }
+
+        .night-mode #pillNav2 .nav-item a.nav-link {
+            border: 2px solid #444;
+            /* Border for all pills */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Slight shadow for a raised appearance */
+            transition: all 0.3s;
+            /* Smooth transition for hover and active effects */
+        }
+
+        /* Style for the active pill to make it look pressed */
+        #pillNav2 .nav-item a.nav-link.active {
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Inset shadow for a pressed appearance */
+            border-color: #ddd;
+            /* Active pill border */
+        }
+
+        /* Slight enlargement and brightening of the pill on hover */
+        #pillNav2 .nav-item a.nav-link:hover {
+            /* Enlarging the pill */
+            border-color: #ddd;
+            /* Brightened border on hover */
         }
     </style>
     <!-- ? end main styles -->
