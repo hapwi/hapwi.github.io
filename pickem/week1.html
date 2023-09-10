@@ -846,7 +846,9 @@
             // Create a new div for the message
             var messageDiv = document.createElement('div');
             messageDiv.innerHTML =
-                '<p class="alert alert-danger">Submissions are now closed. See winners below <i class="bi bi-arrow-down-circle-fill"></i> </p>';
+                '<p class="alert alert-danger">Submissions are now closed.' +
+                '<span style="display: block; margin-top: 1rem;">See winners below <i class="bi bi-arrow-down-circle-fill"></i></span>' +
+                '</p>';
 
             // Get the container div
             var containerDiv = document.querySelector('.container');
