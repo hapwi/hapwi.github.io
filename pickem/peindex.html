@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta id="theme-color-meta" name="theme-color" content="#003e7e">
     <title>Weekly Content</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
@@ -284,9 +285,12 @@
 
 </head>
 
-<body id="form">
+<body>
     <header>
         <div class="header-container">
+            <a href="#" id="nightModeToggle" style="color: white; text-decoration: none; margin-left: 15px;">
+                <i class="bi bi-moon-fill"></i>
+            </a>
             <a class="logo">
                 <header>
                     <div class="header-container">
@@ -422,37 +426,32 @@
             window.location.href = 'week' + currentWeek + '.html';
         }
 
-        // night mode script
         document.getElementById('nightModeToggle').addEventListener('click', function () {
-
             // Toggle the night mode class
             document.body.classList.toggle('night-mode');
 
-            // setTimeout(function () {
-            //     location.reload();
-            // }, 10);
-
-            // Get the new mode
             const isNightMode = document.body.classList.contains('night-mode');
+            setThemeColor(isNightMode);
 
             // Save to sessionStorage
             sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
-
         });
 
         // Get mode setting from sessionStorage
-        const darkModeSetting = sessionStorage.getItem('night-mode');
+        let darkModeSetting = sessionStorage.getItem('night-mode');
 
         // Default to 'light' if not set
         if (!darkModeSetting) {
             darkModeSetting = 'light';
         }
 
-        // Set the body class based on the setting
+        // Set the body class and theme color based on the setting
         if (darkModeSetting === 'dark') {
             document.body.classList.add('night-mode');
+            setThemeColor(true);
         } else {
             document.body.classList.remove('night-mode');
+            setThemeColor(false);
         }
     </script>
 </body>
