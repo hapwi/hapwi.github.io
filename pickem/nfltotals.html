@@ -401,6 +401,10 @@
             /* Adjust as needed for spacing */
             /* Additional styling for these decorative elements can be added here */
         }
+
+        #weekDropdown {
+            text-align: center;
+        }
     </style>
     <!-- ? end main styles -->
 </head>
@@ -649,8 +653,8 @@
 
 
         function addControls() {
-            $('<span class="search-label">Select a username to display pick history: </span>  \
-        <select id="weekDropdown">\
+            $('<span class="search-label" style="margin-right: 10px;">Select a username to display pick history: </span>  \
+        <select id="weekDropdown" style="margin-top: 10px;">\
         <option value="1" selected>Week 1</option>\
         <option value="2">Week 2</option>\
         <option value="3">Week 3</option>\
