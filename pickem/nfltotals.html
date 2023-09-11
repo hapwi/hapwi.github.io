@@ -1051,6 +1051,10 @@
             // Toggle the night mode class
             document.body.classList.toggle('night-mode');
 
+            setTimeout(function () {
+                location.reload();
+            }, 5);
+
             // Get the new mode
             const isNightMode = document.body.classList.contains('night-mode');
 
