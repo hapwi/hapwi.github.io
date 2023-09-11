@@ -540,10 +540,10 @@
     <!-- ! header -->
     <header>
         <div class="header-container">
-            <!-- <a href="#" id="nightModeToggle" style="color: white; text-decoration: none; margin-left: 15px;">
+            <a href="#" id="nightModeToggle" style="color: white; text-decoration: none; margin-left: 15px;">
                 🌙
-            </a> -->
-            <a href="../pickem/peindex.html" class="logo">
+            </a>
+            <a href="#" class="logo">
                 <span class="badge rounded-pill px-4 py-2" id="pillNav3"
                     style="background-color: #fff; color: #003e7e;">
                     Week 1
@@ -980,13 +980,34 @@
             });
         }
 
-        //  initialize dark mode
-        document.getElementById('nightModeToggle').addEventListener('click', function () {
-            const body = document.body;
 
-            // Toggle night mode class
-            body.classList.toggle('night-mode');
+        document.getElementById('nightModeToggle').addEventListener('click', function () {
+
+            // Toggle the night mode class
+            document.body.classList.toggle('night-mode');
+
+            // Get the new mode
+            const isNightMode = document.body.classList.contains('night-mode');
+
+            // Save to sessionStorage
+            sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
+
         });
+
+        // Get mode setting from sessionStorage
+        const darkModeSetting = sessionStorage.getItem('night-mode');
+
+        // Default to 'light' if not set
+        if (!darkModeSetting) {
+            darkModeSetting = 'light';
+        }
+
+        // Set the body class based on the setting
+        if (darkModeSetting === 'dark') {
+            document.body.classList.add('night-mode');
+        } else {
+            document.body.classList.remove('night-mode');
+        }
     </script>
     <div id="output" class="pt-custom"></div>
 

@@ -289,10 +289,11 @@
 
         #weekDropdown:hover {
             border-color: #999;
+
         }
 
         #picksTable tbody tr.matching-pick {
-            background-color: lightgreen;
+            background-color: rgb(90, 158, 90);
         }
 
         .dataTables_filter input {
@@ -405,6 +406,104 @@
         #weekDropdown {
             text-align: center;
         }
+
+        /* Night Mode Styles */
+        body.night-mode {
+            background-color: #2c2c2c;
+            color: white;
+        }
+
+        .night-mode a,
+        .night-mode p,
+        .night-mode h1,
+        .night-mode h2,
+        .night-mode td,
+        .night-mode th {
+            color: white;
+        }
+
+        .night-mode .bg-light {
+            background-color: #333 !important;
+        }
+
+        .night-mode .card-body {
+            border: 1px solid #555;
+        }
+
+        .night-mode #nflTable {
+            background-color: #444;
+            border-color: #555;
+        }
+
+        .night-mode .alert-danger {
+            background-color: #b94a48;
+            border-color: #953b39;
+            color: #ffffff;
+        }
+
+        .night-mode #nflTable td,
+        .night-mode #nflTable th {
+            background-color: #444;
+            border-color: #555;
+            color: white;
+        }
+
+        .night-mode #nflTable tbody tr:hover {
+            background-color: #555;
+        }
+
+        .night-mode #nflTable th {
+            background: #1f1f1f;
+        }
+
+        .night-mode .selected {
+            background-color: #6ebf87 !important;
+            color: black;
+        }
+
+        .night-mode label,
+        .night-mode p {
+            color: white;
+        }
+
+        /* Header and footer night mode styles */
+        .night-mode header,
+        .night-mode #bottom-nav {
+            background-color: #1f1f1f;
+        }
+
+        .night-mode #countdown-timer {
+            color: #ddd;
+        }
+
+        .night-mode #bottom-nav a,
+        .night-mode #here {
+            color: #ddd;
+        }
+
+        .night-mode #pillNav2 {
+            background-color: #1f1f1f;
+        }
+
+        .night-mode #pillNav2 .nav-item a.nav-link:hover,
+        .night-mode #pillNav2 .nav-item a.nav-link:focus {
+            color: #1f1f1f;
+            background-color: #ddd;
+        }
+
+        .night-mode #pillNav2 .nav-item a.nav-link.active {
+            color: #1f1f1f;
+            background-color: #ddd;
+        }
+
+        .night-mode #weekDropdown {
+            background-color: #444;
+            color: white;
+        }
+
+        .night-mode .search-label {
+            color: white;
+        }
     </style>
     <!-- ? end main styles -->
 </head>
@@ -413,6 +512,9 @@
     <!-- ! header -->
     <header>
         <div class="header-container">
+            <a href="#" id="nightModeToggle" style="color: white; text-decoration: none; margin-left: 15px;">
+                🌙
+            </a>
             <a href="#" class="logo">
                 <span class="badge rounded-pill px-4 py-2" id="pillNav3"
                     style="background-color: #fff; color: #003e7e;">
@@ -457,8 +559,8 @@
                 <table id="nflTable" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Username</th>
-                            <th>Total</th>
+                            <th>USERNAME</th>
+                            <th>TOTAL</th>
                         </tr>
                     </thead>
                     <tbody id="scores"></tbody>
@@ -946,6 +1048,35 @@
                     '.html'; // Update the href to the corresponding week's page if necessary
             }
         });
+
+        // night mode script
+        document.getElementById('nightModeToggle').addEventListener('click', function () {
+
+            // Toggle the night mode class
+            document.body.classList.toggle('night-mode');
+
+            // Get the new mode
+            const isNightMode = document.body.classList.contains('night-mode');
+
+            // Save to sessionStorage
+            sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
+
+        });
+
+        // Get mode setting from sessionStorage
+        const darkModeSetting = sessionStorage.getItem('night-mode');
+
+        // Default to 'light' if not set
+        if (!darkModeSetting) {
+            darkModeSetting = 'light';
+        }
+
+        // Set the body class based on the setting
+        if (darkModeSetting === 'dark') {
+            document.body.classList.add('night-mode');
+        } else {
+            document.body.classList.remove('night-mode');
+        }
     </script>
 </body>
 
