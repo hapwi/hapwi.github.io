@@ -990,13 +990,8 @@
 
 
         document.getElementById('nightModeToggle').addEventListener('click', function () {
-
             // Toggle the night mode class
             document.body.classList.toggle('night-mode');
-
-            setTimeout(function () {
-                location.reload();
-            }, 10);
 
             // Get the new mode
             const isNightMode = document.body.classList.contains('night-mode');
@@ -1004,10 +999,14 @@
             // Save to sessionStorage
             sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
 
+            // Consider whether you really need to reload the page. If you do, increase the delay or handle it differently.
+            setTimeout(function () {
+                location.reload();
+            }, 100); // Increased the delay to 100ms for a safer margin.
         });
 
         // Get mode setting from sessionStorage
-        const darkModeSetting = sessionStorage.getItem('night-mode');
+        let darkModeSetting = sessionStorage.getItem('night-mode');
 
         // Default to 'light' if not set
         if (!darkModeSetting) {
