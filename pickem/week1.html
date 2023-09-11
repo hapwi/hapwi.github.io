@@ -6,8 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta name="theme-color" content="#003e7e" media="(prefers-color-scheme: light)">
-    <!-- <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)"> -->
+    <meta id="theme-color-meta" name="theme-color" content="#003e7e">
     <link href="pickem.png" rel="shortcut icon" type="image/x-icon" />
     <title>NFL Weekly Pick'em</title>
     <!-- Bootstrap CSS -->
@@ -991,20 +990,24 @@
         }
 
 
+        function setThemeColor(isDarkMode) {
+            const metaTag = document.getElementById('theme-color-meta');
+            if (isDarkMode) {
+                metaTag.setAttribute('content', '#1f1f1f');
+            } else {
+                metaTag.setAttribute('content', '#003e7e');
+            }
+        }
+
         document.getElementById('nightModeToggle').addEventListener('click', function () {
             // Toggle the night mode class
             document.body.classList.toggle('night-mode');
 
-            // setTimeout(function () {
-            //     location.reload();
-            // }, 10);
-
-            // Get the new mode
             const isNightMode = document.body.classList.contains('night-mode');
+            setThemeColor(isNightMode);
 
             // Save to sessionStorage
             sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
-
         });
 
         // Get mode setting from sessionStorage
@@ -1015,11 +1018,13 @@
             darkModeSetting = 'light';
         }
 
-        // Set the body class based on the setting
+        // Set the body class and theme color based on the setting
         if (darkModeSetting === 'dark') {
             document.body.classList.add('night-mode');
+            setThemeColor(true);
         } else {
             document.body.classList.remove('night-mode');
+            setThemeColor(false);
         }
     </script>
     <div id="output" class="pt-custom"></div>
