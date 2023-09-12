@@ -731,7 +731,7 @@
                     smallTextSpan.style.padding = '2px 5px'; // Some padding for spacing
                     smallTextSpan.style.borderRadius = '4px'; // Rounded corners
                     smallTextSpan.style.textShadow =
-                    '0px 1px 1px rgba(0, 0, 0, 0.2)'; // Subtle text shadow for legibility
+                        '0px 1px 1px rgba(0, 0, 0, 0.2)'; // Subtle text shadow for legibility
 
                     totalCell.style.position = 'relative';
                     totalCell.appendChild(smallTextSpan);
@@ -996,9 +996,11 @@
         }
 
         async function fetchData() {
+
             await fetchGoogleSheetsData();
-            await fetchWeeklyWinData();
+
             await fetchPicksData();
+            await fetchWeeklyWinData();
         }
 
         fetchData();
