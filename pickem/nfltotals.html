@@ -241,6 +241,11 @@
             background-color: #f2f2f2;
         }
 
+        #nflTable tbody td:first-child,
+        #picksTable tbody td:first-child {
+            text-align: center;
+        }
+
         #nflTable td,
         #nflTable th {
             padding: 15px;
@@ -493,6 +498,7 @@
             color: white;
         }
 
+
         #nightModeToggle {
             font-size: 18px;
             color: white;
@@ -675,21 +681,65 @@
             }
         }
 
+        const weekRanges = {
+            1: 'nfl-totals!C1:C1000',
+            2: 'nfl-totals!D1:D1000',
+            // etc
+        };
 
-        // weekly win data
         async function fetchWeeklyWinData() {
+            const range = weekRanges[currentWeek];
             try {
                 const response = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/nfl-totals!C1:C1000?key=${apiKey}`
+                    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}&_=${new Date().getTime()}`
                 );
                 const data = await response.json();
 
-                // handle data similarly to totals data
+                if (data.values) {
+                    appendWeeklyWinToTable(data.values);
+                } else {
+                    console.log('No weekly win data found in the specified range.');
+                }
 
             } catch (error) {
                 console.error('Error fetching weekly win data:', error);
             }
         }
+
+        function appendWeeklyWinToTable(weeklyWins) {
+            const scoresTbody = document.getElementById('scores');
+            const rows = scoresTbody.querySelectorAll('tr');
+
+            // Remove existing weekly win data
+            scoresTbody.querySelectorAll('.weekly-win-data').forEach(span => span.remove());
+
+
+            weeklyWins.slice(1).forEach((win, index) => {
+                if (rows[index]) {
+                    const totalCell = rows[index].querySelector('td:nth-child(2)');
+                    const smallTextSpan = document.createElement('span');
+                    smallTextSpan.classList.add('weekly-win-data');
+                    smallTextSpan.textContent = win[0];
+                    // Add inline styles
+                    smallTextSpan.style.fontSize = 'small';
+                    smallTextSpan.style.position = 'absolute';
+                    smallTextSpan.style.bottom = '5px';
+                    smallTextSpan.style.right = '5px';
+                    smallTextSpan.style.color = '#fff'; // Changed to white for contrast
+                    smallTextSpan.style.fontWeight = 'bold';
+                    smallTextSpan.style.backgroundColor = 'rgba(230, 122, 143, 0.8)'; // Added some transparency
+                    smallTextSpan.style.padding = '2px 5px'; // Some padding for spacing
+                    smallTextSpan.style.borderRadius = '4px'; // Rounded corners
+                    smallTextSpan.style.textShadow =
+                    '0px 1px 1px rgba(0, 0, 0, 0.2)'; // Subtle text shadow for legibility
+
+                    totalCell.style.position = 'relative';
+                    totalCell.appendChild(smallTextSpan);
+                }
+            });
+        }
+
+
 
         function displayTable(rows) {
             const scoresTbody = document.getElementById('scores');
@@ -721,6 +771,7 @@
                 });
             });
         }
+
 
 
         async function fetchPicksData(week = 2) {
@@ -796,7 +847,9 @@
             // Dropdown change event
             document.getElementById('weekDropdown').addEventListener('change', function () {
                 currentWeek = this.value;
+
                 fetchPicksData(currentWeek);
+                fetchWeeklyWinData(currentWeek);
                 $('#picksTable_filter')
                     .show(); // Show the DataTables search control when a new week is selected
             });
@@ -944,6 +997,7 @@
 
         async function fetchData() {
             await fetchGoogleSheetsData();
+            await fetchWeeklyWinData();
             await fetchPicksData();
         }
 
