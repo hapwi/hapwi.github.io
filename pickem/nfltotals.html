@@ -529,6 +529,7 @@
         <div class="header-container">
             <a href="#" id="nightModeToggle" style="color: white; text-decoration: none; margin-left: 15px;">
                 <i class="bi bi-moon-fill"></i>
+                <i class="bi bi-brightness-high-fill" style="display:none;"></i>
             </a>
             <a href="#" class="logo">
                 <span class="badge rounded-pill px-4 py-2" id="pillNav3">
@@ -692,10 +693,11 @@
             }
         }
 
+        // weeklywindata function shows the weekly wins the user has
         const weekRanges = {
             1: 'nfl-totals!C1:C1000',
             2: 'nfl-totals!D1:D1000',
-            // etc
+            3: 'nfl-totals!E1:E1000',
         };
 
         async function fetchWeeklyWinData() {
@@ -1009,7 +1011,6 @@
         async function fetchData() {
 
             await fetchGoogleSheetsData();
-
             await fetchPicksData();
             await fetchWeeklyWinData();
         }
@@ -1134,12 +1135,26 @@
             }
         }
 
+        function toggleIcons(isNightMode) {
+            const moonIcon = document.querySelector('.bi-moon-fill');
+            const sunIcon = document.querySelector('.bi-brightness-high-fill');
+
+            if (isNightMode) {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'inline'; // or 'block' based on your design
+            } else {
+                moonIcon.style.display = 'inline'; // or 'block' based on your design
+                sunIcon.style.display = 'none';
+            }
+        }
+
         document.getElementById('nightModeToggle').addEventListener('click', function () {
             // Toggle the night mode class
             document.body.classList.toggle('night-mode');
 
             const isNightMode = document.body.classList.contains('night-mode');
             setThemeColor(isNightMode);
+            toggleIcons(isNightMode); // Call this to toggle the icons
 
             // Save to sessionStorage
             sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
@@ -1153,13 +1168,15 @@
             darkModeSetting = 'light';
         }
 
-        // Set the body class and theme color based on the setting
+        // Set the body class, theme color, and icons based on the setting
         if (darkModeSetting === 'dark') {
             document.body.classList.add('night-mode');
             setThemeColor(true);
+            toggleIcons(true); // Set the icons based on the theme
         } else {
             document.body.classList.remove('night-mode');
             setThemeColor(false);
+            toggleIcons(false); // Set the icons based on the theme
         }
     </script>
 </body>

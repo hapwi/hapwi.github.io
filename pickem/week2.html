@@ -592,6 +592,7 @@
         <div class="header-container">
             <a href="#" id="nightModeToggle" style="color: white; text-decoration: none; margin-left: 15px;">
                 <i class="bi bi-moon-fill"></i>
+                <i class="bi bi-brightness-high-fill" style="display:none;"></i>
             </a>
             <a href="#" class="logo">
                 <span class="badge rounded-pill px-4 py-2" id="pillNav3">
@@ -663,7 +664,8 @@
                             <th scope="col">HOME</th>
                         </tr>
                     </thead>
-                    <!-- update below from pickem matchups file in gpt -->
+                    <!-- ! update below from pickem matchups file in gpt -->
+                    <!-- ? tbody contains all the data for the table -->
                     <tbody>
                         <!-- spreads pulled as of your provided date -->
                         <tr>
@@ -797,7 +799,7 @@
                     </tbody>
                 </table>
 
-
+                <!-- ! secoond part of form after table -->
                 <div class="card2" id="card2">
                     <div class="form-group">
                         <label for="tiebreaker">Tie Breaker: Browns @ Steelers (ex. 28)</label>
@@ -1023,12 +1025,26 @@
             }
         }
 
+        function toggleIcons(isNightMode) {
+            const moonIcon = document.querySelector('.bi-moon-fill');
+            const sunIcon = document.querySelector('.bi-brightness-high-fill');
+
+            if (isNightMode) {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'inline'; // or 'block' based on your design
+            } else {
+                moonIcon.style.display = 'inline'; // or 'block' based on your design
+                sunIcon.style.display = 'none';
+            }
+        }
+
         document.getElementById('nightModeToggle').addEventListener('click', function () {
             // Toggle the night mode class
             document.body.classList.toggle('night-mode');
 
             const isNightMode = document.body.classList.contains('night-mode');
             setThemeColor(isNightMode);
+            toggleIcons(isNightMode); // Call this to toggle the icons
 
             // Save to sessionStorage
             sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
@@ -1042,13 +1058,15 @@
             darkModeSetting = 'light';
         }
 
-        // Set the body class and theme color based on the setting
+        // Set the body class, theme color, and icons based on the setting
         if (darkModeSetting === 'dark') {
             document.body.classList.add('night-mode');
             setThemeColor(true);
+            toggleIcons(true); // Set the icons based on the theme
         } else {
             document.body.classList.remove('night-mode');
             setThemeColor(false);
+            toggleIcons(false); // Set the icons based on the theme
         }
     </script>
     <div id="output" class="pt-custom"></div>
