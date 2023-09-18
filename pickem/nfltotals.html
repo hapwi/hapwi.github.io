@@ -244,7 +244,9 @@
         #nflTable tbody td:first-child,
         #picksTable tbody td:first-child {
             text-align: center;
+
         }
+
 
         #nflTable td,
         #nflTable th {
@@ -264,6 +266,38 @@
             text-align: center;
             vertical-align: middle;
             /* This will vertically center the content if there are multiple lines in a cell */
+        }
+
+        #picksTable {
+            border-collapse: separate;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            margin-top: 20px;
+        }
+
+        #table1 #picksTable {
+            margin-top: 20px;
+        }
+
+        #picksTable th,
+        #picksTable td {
+            border-right: 1px solid #dee2e6;
+        }
+
+        #picksTable th:last-child,
+        #picksTable td:last-child {
+            border-right: none;
+        }
+
+        #picksTable thead tr:first-child th {
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        #picksTable tbody tr:last-child td {
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
         }
 
         .card {
@@ -304,6 +338,7 @@
 
         .dataTables_filter input {
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .card {
@@ -561,7 +596,7 @@
                             <th></th>
                             <th></th>
                         </tr>
-                    </thead>
+                        <!-- </thead> -->
                     <tbody id="picks"></tbody>
 
                 </table>
