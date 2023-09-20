@@ -351,6 +351,8 @@
             background-color: rgb(90, 158, 90);
         }
 
+
+
         .dataTables_filter input {
             text-align: center;
             margin-bottom: 20px;
@@ -661,7 +663,7 @@
     <script>
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo';
-        let currentWeek = "2"; // Default week
+        let currentWeek = "3"; // Default week
 
         const winners = {
             "1": [
@@ -704,7 +706,9 @@
 
             ], // Week 2
 
-            "3": [],
+            "3": [
+
+            ],
             // Week 3
 
             "4": [], // Week 4
@@ -878,7 +882,7 @@
 
 
 
-        async function fetchPicksData(week = 2) {
+        async function fetchPicksData(week = 3) {
             const picksTbody = document.getElementById('picks');
             picksTbody.innerHTML = ''; // Clear the table before fetching new data
 
@@ -1121,11 +1125,11 @@
             }, // Week 1
             {
                 start: new Date("09/11/23 05:15 PM MST"),
-                end: new Date("09/20/23 06:00 AM MST")
+                end: new Date("09/19/23 06:00 AM MST")
             }, // Week 2
             {
-                start: new Date("09/20/23 06:00 AM MST"),
-                end: new Date("09/21/23 05:15 PM MST")
+                start: new Date("09/19/23 06:00 AM MST"),
+                end: new Date("09/28/23 05:15 PM MST")
             }, // Week 3
             {
                 start: new Date("09/25/23 04:15 PM MST"),
