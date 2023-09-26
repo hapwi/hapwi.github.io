@@ -606,7 +606,7 @@
             </a>
             <a href="#" class="logo">
                 <span class="badge rounded-pill px-4 py-2" id="pillNav3">
-                    Week 3
+                    Week 4
                 </span>
             </a>
 
@@ -625,7 +625,7 @@
         <ul class="nav nav-pills nav-fill gap-2 p-1 py-3 small shadow-sm" id="pillNav2" role="tablist"
             style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
             <li class="nav-item" role="presentation">
-                <a href="../pickem/week3.html" id="menu-item-4" class="nav-link active rounded-5">
+                <a href="../pickem/week4.html" id="menu-item-4" class="nav-link active rounded-5">
                     <i class="bi bi-check-circle"></i>
                 </a>
             </li>
@@ -641,7 +641,7 @@
 
     <div class="container text-center pt-custom">
         <div class="card" id="card1">
-            <div class="card-body rounded">
+            <div class="card-body bg-light rounded">
                 <!-- <h1 class="mb-3">NFL Weekly Pick'em</h1>
                 <p>Welcome to the NFL Weekly Pick'em challenge! Here's how to participate:</p>
 
@@ -655,7 +655,7 @@
                 <!-- <p class="text-center redirect"><strong>If the correct week is not showing please click
                         <a href="../pickem/peindex.html" id="here">HERE</a> </strong></p> -->
                 <p></p>
-                <p><strong style="font-size: 20px;">Spreads locked as of Wednesday 9/20 @ 2:00 AM EST</strong>
+                <p><strong style="font-size: 20px;">Spreads locked as of Wednesday 9/27 @ 2:00 AM EST</strong>
                     <p>These are <strong>NOT live</strong> lines and <strong>will NOT</strong>
                         update
                         throughout the week.</p>
@@ -867,79 +867,8 @@
         // define winners for the week
         const winners = {
 
-            "San Francisco 49ers (-10)": "San Francisco 49ers",
-            "New England Patriots (-2.5)": "New England Patriots",
-            "Detroit Lions (-3.5)": "Detroit Lions",
-            "Buffalo Bills (-6.5)": "Buffalo Bills",
-            "Miami Dolphins (-6.5)": "Miami Dolphins",
-            "Houston Texans (+9.5)": "Houston Texans",
-            "Indianapolis Colts (+8)": "Indianapolis Colts",
-            "Los Angeles Chargers (PK)": "Los Angeles Chargers",
-            "New Orleans Saints (+2)": "New Orleans Saints",
-            "Cleveland Browns (-3)": "Cleveland Browns",
-            "Arizona Cardinals (+12)": "Arizona Cardinals",
-            "Kansas City Chiefs (-12.5)": "Kansas City Chiefs",
-            "Seattle Seahawks (-5.5)": "Seattle Seahawks",
-            "Pittsburgh Steelers (+2.5)": "Pittsburgh Steelers",
-            "Philadelphia Eagles (-5)": "Philadelphia Eagles",
-
 
         };
-
-
-        function setThemeColor(isDarkMode) {
-            const metaTag = document.getElementById('theme-color-meta');
-            if (isDarkMode) {
-                metaTag.setAttribute('content', '#1f1f1f');
-            } else {
-                metaTag.setAttribute('content', '#003e7e');
-            }
-        }
-
-        function toggleIcons(isNightMode) {
-            const moonIcon = document.querySelector('.bi-moon-fill');
-            const sunIcon = document.querySelector('.bi-brightness-high-fill');
-
-            if (isNightMode) {
-                moonIcon.style.display = 'none';
-                sunIcon.style.display = 'inline'; // or 'block' based on your design
-            } else {
-                moonIcon.style.display = 'inline'; // or 'block' based on your design
-                sunIcon.style.display = 'none';
-            }
-        }
-
-        document.getElementById('nightModeToggle').addEventListener('click', function () {
-            // Toggle the night mode class
-            document.body.classList.toggle('night-mode');
-
-            const isNightMode = document.body.classList.contains('night-mode');
-            setThemeColor(isNightMode);
-            toggleIcons(isNightMode); // Call this to toggle the icons
-
-            // Save to sessionStorage
-            sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
-        });
-
-        // Get mode setting from sessionStorage
-        let darkModeSetting = sessionStorage.getItem('night-mode');
-        // let darkModeSetting = localStorage.getItem('night-mode') || 'dark';
-
-        // Default to 'light' if not set
-        if (!darkModeSetting) {
-            darkModeSetting = 'dark';
-        }
-
-        // Set the body class, theme color, and icons based on the setting
-        if (darkModeSetting === 'dark') {
-            document.body.classList.add('night-mode');
-            setThemeColor(true);
-            toggleIcons(true); // Set the icons based on the theme
-        } else {
-            document.body.classList.remove('night-mode');
-            setThemeColor(false);
-            toggleIcons(false); // Set the icons based on the theme
-        }
 
         document.addEventListener('DOMContentLoaded', function () {
             // Highlight selected table cells
@@ -1057,7 +986,7 @@
         });
 
         // Set the deadline date and time
-        var deadline = new Date("09/21/23 05:15 PM MST"); // Change to your deadline
+        var deadline = new Date("09/28/23 05:15 PM MST"); // Change to your deadline
         // Get the current date and time
         var now = new Date();
 
@@ -1108,6 +1037,60 @@
             });
 
 
+        }
+
+
+        function setThemeColor(isDarkMode) {
+            const metaTag = document.getElementById('theme-color-meta');
+            if (isDarkMode) {
+                metaTag.setAttribute('content', '#1f1f1f');
+            } else {
+                metaTag.setAttribute('content', '#003e7e');
+            }
+        }
+
+        function toggleIcons(isNightMode) {
+            const moonIcon = document.querySelector('.bi-moon-fill');
+            const sunIcon = document.querySelector('.bi-brightness-high-fill');
+
+            if (isNightMode) {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'inline'; // or 'block' based on your design
+            } else {
+                moonIcon.style.display = 'inline'; // or 'block' based on your design
+                sunIcon.style.display = 'none';
+            }
+        }
+
+        document.getElementById('nightModeToggle').addEventListener('click', function () {
+            // Toggle the night mode class
+            document.body.classList.toggle('night-mode');
+
+            const isNightMode = document.body.classList.contains('night-mode');
+            setThemeColor(isNightMode);
+            toggleIcons(isNightMode); // Call this to toggle the icons
+
+            // Save to sessionStorage
+            sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
+        });
+
+        // Get mode setting from sessionStorage
+        let darkModeSetting = sessionStorage.getItem('night-mode');
+
+        // Default to 'light' if not set
+        if (!darkModeSetting) {
+            darkModeSetting = 'dark';
+        }
+
+        // Set the body class, theme color, and icons based on the setting
+        if (darkModeSetting === 'dark') {
+            document.body.classList.add('night-mode');
+            setThemeColor(true);
+            toggleIcons(true); // Set the icons based on the theme
+        } else {
+            document.body.classList.remove('night-mode');
+            setThemeColor(false);
+            toggleIcons(false); // Set the icons based on the theme
         }
     </script>
     <div id="output" class="pt-custom"></div>
