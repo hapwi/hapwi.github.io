@@ -854,39 +854,6 @@
     <!-- ! sorry picks are now closed after date anmd time -->
 
     <script>
-        $(document).ready(function () {
-            $('#nflTable').DataTable({
-                searching: false,
-                lengthChange: false,
-                paging: false,
-                info: false,
-                ordering: false,
-            });
-        });
-
-        // define winners for the week
-        const winners = {
-
-            "San Francisco 49ers (-10)": "San Francisco 49ers",
-            "New England Patriots (-2.5)": "New England Patriots",
-            "Detroit Lions (-3.5)": "Detroit Lions",
-            "Buffalo Bills (-6.5)": "Buffalo Bills",
-            "Miami Dolphins (-6.5)": "Miami Dolphins",
-            "Houston Texans (+9.5)": "Houston Texans",
-            "Indianapolis Colts (+8)": "Indianapolis Colts",
-            "Los Angeles Chargers (PK)": "Los Angeles Chargers",
-            "New Orleans Saints (+2)": "New Orleans Saints",
-            "Cleveland Browns (-3)": "Cleveland Browns",
-            "Arizona Cardinals (+12)": "Arizona Cardinals",
-            "Kansas City Chiefs (-12.5)": "Kansas City Chiefs",
-            "Seattle Seahawks (-5.5)": "Seattle Seahawks",
-            "Pittsburgh Steelers (+2.5)": "Pittsburgh Steelers",
-            "Philadelphia Eagles (-5)": "Philadelphia Eagles",
-
-
-        };
-
-
         function setThemeColor(isDarkMode) {
             const metaTag = document.getElementById('theme-color-meta');
             if (isDarkMode) {
@@ -940,6 +907,42 @@
             setThemeColor(false);
             toggleIcons(false); // Set the icons based on the theme
         }
+
+        $(document).ready(function () {
+            $('#nflTable').DataTable({
+                searching: false,
+                lengthChange: false,
+                paging: false,
+                info: false,
+                ordering: false,
+            });
+        });
+
+        // define winners for the week
+        const winners = {
+
+            "San Francisco 49ers (-10)": "San Francisco 49ers",
+            "New England Patriots (-2.5)": "New England Patriots",
+            "Detroit Lions (-3.5)": "Detroit Lions",
+            "Buffalo Bills (-6.5)": "Buffalo Bills",
+            "Miami Dolphins (-6.5)": "Miami Dolphins",
+            "Houston Texans (+9.5)": "Houston Texans",
+            "Indianapolis Colts (+8)": "Indianapolis Colts",
+            "Los Angeles Chargers (PK)": "Los Angeles Chargers",
+            "New Orleans Saints (+2)": "New Orleans Saints",
+            "Cleveland Browns (-3)": "Cleveland Browns",
+            "Arizona Cardinals (+12)": "Arizona Cardinals",
+            "Kansas City Chiefs (-12.5)": "Kansas City Chiefs",
+            "Seattle Seahawks (-5.5)": "Seattle Seahawks",
+            "Pittsburgh Steelers (+2.5)": "Pittsburgh Steelers",
+            "Philadelphia Eagles (-5)": "Philadelphia Eagles",
+            "Cincinnati Bengals (-2.5)": "Cinnicinnati Bengals",
+
+
+        };
+
+
+
 
         document.addEventListener('DOMContentLoaded', function () {
             // Highlight selected table cells
