@@ -663,7 +663,7 @@
     <script>
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo';
-        let currentWeek = "3"; // Default week
+        let currentWeek = "4"; // Default week
 
         const winners = {
             "1": [
@@ -726,7 +726,10 @@
             ],
             // Week 3
 
-            "4": [], // Week 4
+            "4": [
+
+            ],
+            // Week 4
             "5": [], // Week 5
             "6": [], // Week 6
             "7": [], // Week 7
@@ -897,7 +900,7 @@
 
 
 
-        async function fetchPicksData(week = 3) {
+        async function fetchPicksData(week = 4) {
             const picksTbody = document.getElementById('picks');
             picksTbody.innerHTML = ''; // Clear the table before fetching new data
 
