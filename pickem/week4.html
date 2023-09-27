@@ -41,6 +41,55 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js">
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function setThemeColor(isNightMode) {
+                const metaTag = document.getElementById('theme-color-meta');
+                if (isNightMode) {
+                    metaTag.setAttribute('content', '#1f1f1f');
+                } else {
+                    metaTag.setAttribute('content', '#003e7e');
+                }
+            }
+
+            function toggleIcons(isNightMode) {
+                const moonIcon = document.querySelector('.bi-moon-fill');
+                const sunIcon = document.querySelector('.bi-brightness-high-fill');
+
+                if (isNightMode) {
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'inline';
+                } else {
+                    moonIcon.style.display = 'inline';
+                    sunIcon.style.display = 'none';
+                }
+            }
+
+            document.getElementById('nightModeToggle').addEventListener('click', function () {
+                document.body.classList.toggle('night-mode');
+                const isNightMode = document.body.classList.contains('night-mode');
+                setThemeColor(isNightMode);
+                toggleIcons(isNightMode);
+                sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
+            });
+
+            let darkModeSetting = sessionStorage.getItem('night-mode');
+            if (!darkModeSetting) {
+                darkModeSetting = 'dark';
+            }
+
+            if (darkModeSetting === 'dark') {
+                document.body.classList.add('night-mode');
+                setThemeColor(true);
+                toggleIcons(true);
+            } else {
+                document.body.classList.remove('night-mode');
+                setThemeColor(false);
+                toggleIcons(false);
+            }
+        });
+    </script>
+
 
     <style>
         .table-wrapper {
@@ -593,6 +642,9 @@
             color: black !important;
         }
     </style>
+
+
+
 </head>
 
 <body>
@@ -672,8 +724,8 @@
                 <table id="nflTable" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th scope="col">HOME</th>
                             <th scope="col">AWAY</th>
+                            <th scope="col">HOME</th>
                         </tr>
                     </thead>
                     <!-- ! update below from pickem matchups file in gpt -->
@@ -687,126 +739,127 @@
                             <td><label><input class="hidden-radio" name="pick1" type="radio"
                                         value="Green Bay Packers (+1.5)" required="">Green Bay Packers <strong
                                         style="color: rgb(90, 158, 90);">(+1.5)</strong></label></td>
+
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick2" type="radio"
-                                        value="Jacksonville Jaguars (-3.0)" required="">Jacksonville Jaguars <strong
-                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
                             <td><label><input class="hidden-radio" name="pick2" type="radio"
                                         value="Atlanta Falcons (+3.0)" required="">Atlanta Falcons <strong
                                         style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick2" type="radio"
+                                        value="Jacksonville Jaguars (-3.0)" required="">Jacksonville Jaguars <strong
+                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick3" type="radio"
-                                        value="Tennessee Titans (+2.5)" required="">Tennessee Titans <strong
-                                        style="color: rgb(90, 158, 90);">(+2.5)</strong></label></td>
                             <td><label><input class="hidden-radio" name="pick3" type="radio"
                                         value="Cincinnati Bengals (-2.5)" required="">Cincinnati Bengals <strong
                                         style="color: rgb(90, 158, 90);">(-2.5)</strong></label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input class="hidden-radio" name="pick4" type="radio"
-                                        value="Chicago Bears (+3.0)" required="">Chicago Bears <strong
-                                        style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick4" type="radio"
-                                        value="Denver Broncos (-3.0)" required="">Denver Broncos <strong
-                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input class="hidden-radio" name="pick5" type="radio"
-                                        value="New Orleans Saints (-3.0)" required="">New Orleans Saints <strong
-                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick5" type="radio"
-                                        value="Tampa Bay Buccaneers (+3.0)" required="">Tampa Bay Buccaneers <strong
-                                        style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input class="hidden-radio" name="pick6" type="radio"
-                                        value="Philadelphia Eagles (-8.0)" required="">Philadelphia Eagles <strong
-                                        style="color: rgb(90, 158, 90);">(-8.0)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick6" type="radio"
-                                        value="Washington Commanders (+8.0)" required="">Washington Commanders <strong
-                                        style="color: rgb(90, 158, 90);">(+8.0)</strong></label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input class="hidden-radio" name="pick7" type="radio"
-                                        value="Buffalo Bills (-3.0)" required="">Buffalo Bills <strong
-                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick7" type="radio"
-                                        value="Miami Dolphins (+3.0)" required="">Miami Dolphins <strong
-                                        style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input class="hidden-radio" name="pick8" type="radio"
-                                        value="Indianapolis Colts (-1.0)" required="">Indianapolis Colts <strong
-                                        style="color: rgb(90, 158, 90);">(-1.0)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick8" type="radio"
-                                        value="Los Angeles Rams (+1.0)" required="">Los Angeles Rams <strong
-                                        style="color: rgb(90, 158, 90);">(+1.0)</strong></label></td>
-                        </tr>
-                        <tr>
-                            <td><label><input class="hidden-radio" name="pick9" type="radio"
-                                        value="Cleveland Browns (-2.5)" required="">Cleveland Browns <strong
-                                        style="color: rgb(90, 158, 90);">(-2.5)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick9" type="radio"
-                                        value="Baltimore Ravens (+2.5)" required="">Baltimore Ravens <strong
+                            <td><label><input class="hidden-radio" name="pick3" type="radio"
+                                        value="Tennessee Titans (+2.5)" required="">Tennessee Titans <strong
                                         style="color: rgb(90, 158, 90);">(+2.5)</strong></label></td>
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick10" type="radio"
-                                        value="Houston Texans (+3.0)" required="">Houston Texans <strong
+                            <td><label><input class="hidden-radio" name="pick4" type="radio"
+                                        value="Denver Broncos (-3.0)" required="">Denver Broncos <strong
+                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick4" type="radio"
+                                        value="Chicago Bears (+3.0)" required="">Chicago Bears <strong
                                         style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick10" type="radio"
-                                        value="Pittsburgh Steelers (-3.0)" required="">Pittsburgh Steelers <strong
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick5" type="radio"
+                                        value="Tampa Bay Buccaneers (+3.0)" required="">Tampa Bay Buccaneers <strong
+                                        style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick5" type="radio"
+                                        value="New Orleans Saints (-3.0)" required="">New Orleans Saints <strong
                                         style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick11" type="radio"
-                                        value="Carolina Panthers (+3.5)" required="">Carolina Panthers <strong
-                                        style="color: rgb(90, 158, 90);">(+3.5)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick6" type="radio"
+                                        value="Washington Commanders (+8.0)" required="">Washington Commanders <strong
+                                        style="color: rgb(90, 158, 90);">(+8.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick6" type="radio"
+                                        value="Philadelphia Eagles (-8.0)" required="">Philadelphia Eagles <strong
+                                        style="color: rgb(90, 158, 90);">(-8.0)</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick7" type="radio"
+                                        value="Miami Dolphins (+3.0)" required="">Miami Dolphins <strong
+                                        style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick7" type="radio"
+                                        value="Buffalo Bills (-3.0)" required="">Buffalo Bills <strong
+                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick8" type="radio"
+                                        value="Los Angeles Rams (+1.0)" required="">Los Angeles Rams <strong
+                                        style="color: rgb(90, 158, 90);">(+1.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick8" type="radio"
+                                        value="Indianapolis Colts (-1.0)" required="">Indianapolis Colts <strong
+                                        style="color: rgb(90, 158, 90);">(-1.0)</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick9" type="radio"
+                                        value="Baltimore Ravens (+2.5)" required="">Baltimore Ravens <strong
+                                        style="color: rgb(90, 158, 90);">(+2.5)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick9" type="radio"
+                                        value="Cleveland Browns (-2.5)" required="">Cleveland Browns <strong
+                                        style="color: rgb(90, 158, 90);">(-2.5)</strong></label></td>
+                        </tr>
+                        <tr>
+                            <td><label><input class="hidden-radio" name="pick10" type="radio"
+                                        value="Pittsburgh Steelers (-3.0)" required="">Pittsburgh Steelers <strong
+                                        style="color: rgb(90, 158, 90);">(-3.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick10" type="radio"
+                                        value="Houston Texans (+3.0)" required="">Houston Texans <strong
+                                        style="color: rgb(90, 158, 90);">(+3.0)</strong></label></td>
+                        </tr>
+                        <tr>
                             <td><label><input class="hidden-radio" name="pick11" type="radio"
                                         value="Minnesota Vikings (-3.5)" required="">Minnesota Vikings <strong
                                         style="color: rgb(90, 158, 90);">(-3.5)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick11" type="radio"
+                                        value="Carolina Panthers (+3.5)" required="">Carolina Panthers <strong
+                                        style="color: rgb(90, 158, 90);">(+3.5)</strong></label></td>
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick12" type="radio"
-                                        value="Los Angeles Chargers (-5.0)" required="">Los Angeles Chargers <strong
-                                        style="color: rgb(90, 158, 90);">(-5.0)</strong></label></td>
                             <td><label><input class="hidden-radio" name="pick12" type="radio"
                                         value="Las Vegas Raiders (+5.0)" required="">Las Vegas Raiders <strong
                                         style="color: rgb(90, 158, 90);">(+5.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick12" type="radio"
+                                        value="Los Angeles Chargers (-5.0)" required="">Los Angeles Chargers <strong
+                                        style="color: rgb(90, 158, 90);">(-5.0)</strong></label></td>
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick13" type="radio"
-                                        value="San Francisco 49ers (-14.0)" required="">San Francisco 49ers <strong
-                                        style="color: rgb(90, 158, 90);">(-14.0)</strong></label></td>
                             <td><label><input class="hidden-radio" name="pick13" type="radio"
                                         value="Arizona Cardinals (+14.0)" required="">Arizona Cardinals <strong
                                         style="color: rgb(90, 158, 90);">(+14.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick13" type="radio"
+                                        value="San Francisco 49ers (-14.0)" required="">San Francisco 49ers <strong
+                                        style="color: rgb(90, 158, 90);">(-14.0)</strong></label></td>
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick14" type="radio"
-                                        value="Dallas Cowboys (-6.5)" required="">Dallas Cowboys <strong
-                                        style="color: rgb(90, 158, 90);">(-6.5)</strong></label></td>
                             <td><label><input class="hidden-radio" name="pick14" type="radio"
                                         value="New England Patriots (+6.5)" required="">New England Patriots <strong
                                         style="color: rgb(90, 158, 90);">(+6.5)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick14" type="radio"
+                                        value="Dallas Cowboys (-6.5)" required="">Dallas Cowboys <strong
+                                        style="color: rgb(90, 158, 90);">(-6.5)</strong></label></td>
                         </tr>
                         <tr>
-                            <td><label><input class="hidden-radio" name="pick15" type="radio"
-                                        value="New York Jets (+10.0)" required="">New York Jets <strong
-                                        style="color: rgb(90, 158, 90);">(+10.0)</strong></label></td>
                             <td><label><input class="hidden-radio" name="pick15" type="radio"
                                         value="Kansas City Chiefs (-10.0)" required="">Kansas City Chiefs <strong
                                         style="color: rgb(90, 158, 90);">(-10.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick15" type="radio"
+                                        value="New York Jets (+10.0)" required="">New York Jets <strong
+                                        style="color: rgb(90, 158, 90);">(+10.0)</strong></label></td>
                         </tr>
                         <tr>
                             <td><label><input class="hidden-radio" name="pick16" type="radio"
-                                        value="New York Giants (-1.0)" required="">New York Giants <strong
-                                        style="color: rgb(90, 158, 90);">(-1.0)</strong></label></td>
-                            <td><label><input class="hidden-radio" name="pick16" type="radio"
                                         value="Seattle Seahawks (+1.0)" required="">Seattle Seahawks <strong
                                         style="color: rgb(90, 158, 90);">(+1.0)</strong></label></td>
+                            <td><label><input class="hidden-radio" name="pick16" type="radio"
+                                        value="New York Giants (-1.0)" required="">New York Giants <strong
+                                        style="color: rgb(90, 158, 90);">(-1.0)</strong></label></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1037,60 +1090,6 @@
             });
 
 
-        }
-
-
-        function setThemeColor(isDarkMode) {
-            const metaTag = document.getElementById('theme-color-meta');
-            if (isDarkMode) {
-                metaTag.setAttribute('content', '#1f1f1f');
-            } else {
-                metaTag.setAttribute('content', '#003e7e');
-            }
-        }
-
-        function toggleIcons(isNightMode) {
-            const moonIcon = document.querySelector('.bi-moon-fill');
-            const sunIcon = document.querySelector('.bi-brightness-high-fill');
-
-            if (isNightMode) {
-                moonIcon.style.display = 'none';
-                sunIcon.style.display = 'inline'; // or 'block' based on your design
-            } else {
-                moonIcon.style.display = 'inline'; // or 'block' based on your design
-                sunIcon.style.display = 'none';
-            }
-        }
-
-        document.getElementById('nightModeToggle').addEventListener('click', function () {
-            // Toggle the night mode class
-            document.body.classList.toggle('night-mode');
-
-            const isNightMode = document.body.classList.contains('night-mode');
-            setThemeColor(isNightMode);
-            toggleIcons(isNightMode); // Call this to toggle the icons
-
-            // Save to sessionStorage
-            sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
-        });
-
-        // Get mode setting from sessionStorage
-        let darkModeSetting = sessionStorage.getItem('night-mode');
-
-        // Default to 'light' if not set
-        if (!darkModeSetting) {
-            darkModeSetting = 'dark';
-        }
-
-        // Set the body class, theme color, and icons based on the setting
-        if (darkModeSetting === 'dark') {
-            document.body.classList.add('night-mode');
-            setThemeColor(true);
-            toggleIcons(true); // Set the icons based on the theme
-        } else {
-            document.body.classList.remove('night-mode');
-            setThemeColor(false);
-            toggleIcons(false); // Set the icons based on the theme
         }
     </script>
     <div id="output" class="pt-custom"></div>
