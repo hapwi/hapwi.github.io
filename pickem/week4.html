@@ -1020,7 +1020,13 @@
 
                             // Show success message
                             var rowNumber = parseInt(responseJson.row) - 1;
-                            Swal.fire('Success!', 'Submission ID: ' + rowNumber);
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Submission ID: ' + rowNumber,
+                                icon: 'success',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false
+                            });
 
                             // Clear form and other UI changes
                             event.target.reset();
