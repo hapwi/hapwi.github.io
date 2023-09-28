@@ -1,4 +1,5 @@
 class AppHeader extends HTMLElement {
+
     constructor() {
         super();
         // The template now directly modifies the innerHTML of the component
