@@ -853,8 +853,10 @@
                 let hue, saturation = 85,
                     lightness = 50;
 
+
                 if (winValue === 0) {
                     hue = 0; // Red
+                    saturation = 0;
                 } else if (winValue >= 1 && winValue <= 5) {
                     hue = 10; // Orange (between red and yellow)
                 } else if (winValue >= 6 && winValue <= 7) {
