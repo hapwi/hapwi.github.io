@@ -842,16 +842,13 @@
             scoresTbody.querySelectorAll('.weekly-win-data').forEach(span => span.remove());
 
 
-            function getBackgroundColor(winValue) {
+            function getBackgroundColor(winValue, hueAdjustment = 0) {
                 let hue, saturation = 100,
-                    lightness = 55; // Default values
-
-                // A simple linear mapping: winValue of 0 maps to a hue of 0 (red), 
-                // while a winValue of 10 maps to a hue of 120 (green).
-                hue = Math.min(winValue, 10) * 12;
-
+                    lightness = 55;
+                hue = Math.min(winValue, 10) * 12 + hueAdjustment;
                 return `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`;
             }
+
 
 
             weeklyWins.slice(1).forEach((win, index) => {
