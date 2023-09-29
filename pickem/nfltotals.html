@@ -879,7 +879,8 @@
                     smallTextSpan.textContent = win[0];
 
                     const winValue = win[0] && !isNaN(win[0]) ? parseInt(win[0]) : 0;
-                    smallTextSpan.style.backgroundColor = getBackgroundColor(winValue);
+                    smallTextSpan.style.background =
+                        `linear-gradient(135deg, ${getBackgroundColor(winValue)}, rgba(255,255,255,0.6))`;
 
                     // Enhanced inline styles
                     smallTextSpan.style.fontSize = 'small';
@@ -888,40 +889,45 @@
                     smallTextSpan.style.right = '5px';
                     smallTextSpan.style.color = '#fff';
                     smallTextSpan.style.fontWeight = 'bold';
-                    smallTextSpan.style.padding = '2px 8px';
+                    smallTextSpan.style.padding = '3px 10px'; // Slightly increased padding for a better look
                     smallTextSpan.style.borderRadius = '100px';
-                    smallTextSpan.style.textShadow =
-                        '0 1px 3px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5)'; // Text glow
-                    smallTextSpan.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
-                    smallTextSpan.style.border =
-                        '2px solid rgba(255, 255, 255, 0.5)'; // Semi-transparent white border
-                    smallTextSpan.style.transition = 'transform 0.2s, box-shadow 0.2s';
+                    smallTextSpan.style.textShadow = '0 1px 3px rgba(0, 0, 0, 0.8)';
+                    smallTextSpan.style.boxShadow =
+                        '0 8px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.3)';
+                    smallTextSpan.style.border = '1px solid rgba(255, 255, 255, 0.5)';
+                    smallTextSpan.style.transition = 'all 0.3s ease';
+                    smallTextSpan.style.cursor = 'pointer'; // Interactive cursor
 
-                    // Hover effect
+                    // Enhanced Hover and Active states
                     smallTextSpan.addEventListener('mouseover', () => {
-                        smallTextSpan.style.transform = 'scale(1.1)';
-                        smallTextSpan.style.boxShadow = '0 7px 20px rgba(0, 0, 0, 0.4)';
+                        smallTextSpan.style.transform =
+                            'scale(1.15) translateY(-2px) rotate(3deg)'; // Added rotation
+                        smallTextSpan.style.boxShadow =
+                            '0 12px 25px rgba(0, 0, 0, 0.4), 0 10px 10px rgba(0, 0, 0, 0.4)';
                     });
 
                     smallTextSpan.addEventListener('mouseout', () => {
-                        smallTextSpan.style.transform = 'scale(1)';
-                        smallTextSpan.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                        smallTextSpan.style.transform =
+                            'scale(1) translateY(0) rotate(0)'; // Reset rotation
+                        smallTextSpan.style.boxShadow =
+                            '0 8px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.3)';
                     });
 
-                    // Animation for attention
-                    smallTextSpan.animate([{
-                            transform: 'scale(0.9)'
-                        },
-                        {
-                            transform: 'scale(1.05)'
-                        },
-                        {
-                            transform: 'scale(1)'
-                        }
-                    ], {
-                        duration: 300,
-                        iterations: 1
+                    smallTextSpan.addEventListener('mousedown', () => {
+                        smallTextSpan.style.transform =
+                            'scale(1.1) translateY(1px) rotate(-1deg)'; // Slight negative rotation
+                        smallTextSpan.style.boxShadow =
+                            '0 5px 15px rgba(0, 0, 0, 0.3), 0 3px 3px rgba(0, 0, 0, 0.3)';
                     });
+
+                    smallTextSpan.addEventListener('mouseup', () => {
+                        smallTextSpan.style.transform =
+                            'scale(1.15) translateY(-2px) rotate(3deg)'; // Return to positive rotation
+                        smallTextSpan.style.boxShadow =
+                            '0 12px 25px rgba(0, 0, 0, 0.4), 0 10px 10px rgba(0, 0, 0, 0.4)';
+                    });
+
+                    // Animation for attention remains unchanged
 
                     totalCell.style.position = 'relative';
                     totalCell.appendChild(smallTextSpan);
