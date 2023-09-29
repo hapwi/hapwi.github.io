@@ -842,29 +842,94 @@
             scoresTbody.querySelectorAll('.weekly-win-data').forEach(span => span.remove());
 
 
+            function getBackgroundColor(winValue) {
+                switch (winValue) {
+                    case 0:
+                        return 'rgba(255, 0, 0, 0.8)'; // Red
+                    case 1:
+                        return 'rgba(255, 85, 0, 0.8)'; // Dark Orange
+                    case 2:
+                        return 'rgba(255, 170, 0, 0.8)'; // Orange
+                    case 3:
+                        return 'rgba(255, 255, 0, 0.8)'; // Yellow
+                    case 4:
+                        return 'rgba(170, 255, 0, 0.8)'; // Yellowish Green
+                    case 5:
+                        return 'rgba(85, 255, 0, 0.8)'; // Light Green
+                    case 6:
+                        return 'rgba(0, 255, 85, 0.8)'; // Bright Green
+                    case 7:
+                        return 'rgba(0, 255, 170, 0.8)'; // Turquoise
+                    case 8:
+                        return 'rgba(0, 170, 255, 0.8)'; // Light Blue
+                    case 9:
+                        return 'rgba(0, 85, 255, 0.8)'; // Blue
+                    default:
+                        return 'rgba(0, 255, 0, 0.8)'; // Green for 10 and above
+                }
+            }
+
+
             weeklyWins.slice(1).forEach((win, index) => {
                 if (rows[index]) {
                     const totalCell = rows[index].querySelector('td:nth-child(2)');
                     const smallTextSpan = document.createElement('span');
+
                     smallTextSpan.classList.add('weekly-win-data');
                     smallTextSpan.textContent = win[0];
-                    // Add inline styles
+
+                    const winValue = win[0] && !isNaN(win[0]) ? parseInt(win[0]) : 0;
+                    smallTextSpan.style.backgroundColor = getBackgroundColor(winValue);
+
+                    // Enhanced inline styles
                     smallTextSpan.style.fontSize = 'small';
                     smallTextSpan.style.position = 'absolute';
                     smallTextSpan.style.bottom = '5px';
                     smallTextSpan.style.right = '5px';
-                    smallTextSpan.style.color = '#fff'; // Changed to white for contrast
+                    smallTextSpan.style.color = '#fff';
                     smallTextSpan.style.fontWeight = 'bold';
-                    smallTextSpan.style.backgroundColor = 'rgba(230, 122, 143, 0.8)'; // Added some transparency
-                    smallTextSpan.style.padding = '2px 8px'; // Some padding for spacing
-                    smallTextSpan.style.borderRadius = '100px'; // Rounded corners
+                    smallTextSpan.style.padding = '2px 8px';
+                    smallTextSpan.style.borderRadius = '100px';
                     smallTextSpan.style.textShadow =
-                        '0px 1px 1px rgba(0, 0, 0, 0.2)'; // Subtle text shadow for legibility
+                        '0 1px 3px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5)'; // Text glow
+                    smallTextSpan.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                    smallTextSpan.style.border =
+                        '2px solid rgba(255, 255, 255, 0.5)'; // Semi-transparent white border
+                    smallTextSpan.style.transition = 'transform 0.2s, box-shadow 0.2s';
+
+                    // Hover effect
+                    smallTextSpan.addEventListener('mouseover', () => {
+                        smallTextSpan.style.transform = 'scale(1.1)';
+                        smallTextSpan.style.boxShadow = '0 7px 20px rgba(0, 0, 0, 0.4)';
+                    });
+
+                    smallTextSpan.addEventListener('mouseout', () => {
+                        smallTextSpan.style.transform = 'scale(1)';
+                        smallTextSpan.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                    });
+
+                    // Animation for attention
+                    smallTextSpan.animate([{
+                            transform: 'scale(0.9)'
+                        },
+                        {
+                            transform: 'scale(1.05)'
+                        },
+                        {
+                            transform: 'scale(1)'
+                        }
+                    ], {
+                        duration: 300,
+                        iterations: 1
+                    });
 
                     totalCell.style.position = 'relative';
                     totalCell.appendChild(smallTextSpan);
                 }
             });
+
+
+
         }
 
 
