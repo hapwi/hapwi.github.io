@@ -881,6 +881,16 @@
                     const winValue = win[0] && !isNaN(win[0]) ? parseInt(win[0]) : 0;
                     smallTextSpan.style.backgroundColor = getBackgroundColor(winValue);
 
+                    // Check if the parent container (or any ancestor) has the night-mode class
+                    if (totalCell.closest('.night-mode')) {
+                        smallTextSpan.style.boxShadow =
+                            '0 8px 20px rgba(255, 255, 255, 0.7), 0 6px 6px rgba(255, 255, 255, 0.7)'; // Pronounced white shadow
+                        smallTextSpan.style.textShadow =
+                            '0 1px 3px rgba(255, 255, 255, 0.7)'; // Enhanced white shadow for text
+                        smallTextSpan.style.border =
+                            '1px solid rgba(255, 255, 255, 0.7)'; // Slightly more visible white border
+                    }
+
                     // Enhanced inline styles
                     smallTextSpan.style.fontSize = 'small';
                     smallTextSpan.style.position = 'absolute';
@@ -892,7 +902,7 @@
                     smallTextSpan.style.borderRadius = '100px';
                     smallTextSpan.style.textShadow =
                         '0 1px 3px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5)'; // Text glow
-                    smallTextSpan.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                    smallTextSpan.style.boxShadow = '0 5px 15px rgba(255, 255, 255, 0.4)';
                     smallTextSpan.style.border =
                         '2px solid rgba(255, 255, 255, 0.5)'; // Semi-transparent white border
                     smallTextSpan.style.transition = 'transform 0.2s, box-shadow 0.2s';
