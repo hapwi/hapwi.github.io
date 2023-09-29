@@ -842,10 +842,34 @@
             scoresTbody.querySelectorAll('.weekly-win-data').forEach(span => span.remove());
 
 
+            // function getBackgroundColor(winValue, hueAdjustment = 0) {
+            //     let hue, saturation = 100,
+            //         lightness = 50;
+            //     hue = Math.min(winValue, 10) * 12 + hueAdjustment;
+            //     return `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`;
+            // }
+
             function getBackgroundColor(winValue, hueAdjustment = 0) {
-                let hue, saturation = 100,
-                    lightness = 55;
-                hue = Math.min(winValue, 10) * 12 + hueAdjustment;
+                let hue, saturation = 85,
+                    lightness = 50;
+
+                if (winValue === 0) {
+                    hue = 0; // Red
+                } else if (winValue >= 1 && winValue <= 5) {
+                    hue = 10; // Orange (between red and yellow)
+                } else if (winValue >= 6 && winValue <= 7) {
+                    hue = 30; // Yellow
+                } else if (winValue >= 8 && winValue <= 9) {
+                    hue = 50; // Yellowish-green
+                } else if (winValue === 10) {
+                    hue = 70; // A color between yellowish-green and green
+                } else if (winValue >= 11 && winValue <= 12) {
+                    hue = 120; // Orange (between red and yellow)
+                } else {
+                    hue = 120; // Green for 10 and above
+                }
+
+                hue += hueAdjustment;
                 return `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`;
             }
 
@@ -862,25 +886,17 @@
                     const winValue = win[0] && !isNaN(win[0]) ? parseInt(win[0]) : 0;
                     smallTextSpan.style.backgroundColor = getBackgroundColor(winValue);
 
-                    // Check if the parent container (or any ancestor) has the night-mode class
-                    if (totalCell.closest('.night-mode')) {
-                        smallTextSpan.style.boxShadow =
-                            '0 8px 20px rgba(255, 255, 255, 0.7), 0 6px 6px rgba(255, 255, 255, 0.7)'; // Pronounced white shadow
-                        smallTextSpan.style.textShadow =
-                            '0 1px 3px rgba(255, 255, 255, 0.7)'; // Enhanced white shadow for text
-                        smallTextSpan.style.border =
-                            '1px solid rgba(255, 255, 255, 0.7)'; // Slightly more visible white border
-                    }
 
                     // Enhanced inline styles
                     smallTextSpan.style.fontSize = 'small';
                     smallTextSpan.style.position = 'absolute';
                     smallTextSpan.style.bottom = '5px';
                     smallTextSpan.style.right = '5px';
-                    smallTextSpan.style.color = '#fff';
+                    smallTextSpan.style.color = '#000';
                     smallTextSpan.style.fontWeight = 'bold';
                     smallTextSpan.style.padding = '2px 8px';
                     smallTextSpan.style.borderRadius = '100px';
+                    smallTextSpan.style.fontSize = '.8rem';
                     smallTextSpan.style.textShadow =
                         '0 1px 3px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 255, 255, 0.5)'; // Text glow
                     smallTextSpan.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
