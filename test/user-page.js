@@ -1,7 +1,7 @@
 import {
     formatWeekData,
     findUserWeekData
-} from './utils.js'; // Utility functions to keep the code DRY
+} from '../test/utils.js'; // Utility functions to keep the code DRY
 
 document.addEventListener('DOMContentLoaded', () => {
     const dropdown = document.getElementById('week-dropdown');
@@ -24,7 +24,7 @@ function populateWeekDropdown(dropdown) {
 
 async function loadWeekData(weekNumber) {
     try {
-        const response = await fetch('weekly-data.json');
+        const response = await fetch('../test/weekly-data.json');
         if (!response.ok) throw new Error('Failed to fetch weekly data');
 
         const allWeeksData = await response.json();
