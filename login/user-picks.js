@@ -2,12 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("login-form");
     const errorMessage = document.getElementById("error-message");
 
-    //! Check if the user is already logged in
-    // const loggedInUser = localStorage.getItem("loggedInUser");
-    // if (loggedInUser) {
-    //     window.location.href = `${loggedInUser}.html`;
-    //     return;
-    // }
 
     // Hardcoded multiple users
     const validUsers = [{
@@ -66,21 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
-        let isAuthenticated = false;
-
-        for (let i = 0; i < validUsers.length; i++) {
-            if (username === validUsers[i].username && password === validUsers[i].password) {
-                isAuthenticated = true;
-                break;
-            }
-        }
+        const isAuthenticated = validUsers.some(user => user.username === username && user.password === password);
 
         if (isAuthenticated) {
-            // Save the logged-in user to local storage
             localStorage.setItem("loggedInUser", username);
-
-            // Redirect based on username
-            window.location.href = `${username}.html`;
+            window.location.href = "../login/username.html";
         } else {
             errorMessage.textContent = "Invalid credentials";
         }
