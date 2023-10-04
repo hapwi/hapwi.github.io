@@ -1130,7 +1130,52 @@
             ],
             "tiebreaker": 45
         }
+    ],
+
+    "Week5": [{
+            "username": "marvizu",
+            "password": "6recvl",
+            "picks": [
+                "Chicago Bears (+6)",
+                "Jacksonville Jaguars (+5.5)",
+                "New York Giants (+11)",
+                "Detroit Lions (-9.5)",
+                "Baltimore Ravens (-4)",
+                "New Orleans Saints (+1.5)",
+                "Houston Texans (+2)",
+                "Indianapolis Colts (-1)",
+                "Arizona Cardinals (+3)",
+                "Los Angeles Rams (+4)",
+                "Kansas City Chiefs (-5)",
+                "New York Jets (+2)",
+                "Dallas Cowboys (+3.5)",
+                "Green Bay Packers (-2.5)"
+            ],
+            "tiebreaker": 39
+        },
+        {
+            "username": "pbaga",
+            "password": "0s3kr1",
+            "picks": [
+                "Washington Commanders (-6)",
+                "Buffalo Bills (-5.5)",
+                "Miami Dolphins (-11)",
+                "Detroit Lions (-9.5)",
+                "Baltimore Ravens (-4)",
+                "New England Patriots (-1.5)",
+                "Houston Texans (+2)",
+                "Indianapolis Colts (-1)",
+                "Arizona Cardinals (+3)",
+                "Los Angeles Rams (+4)",
+                "Kansas City Chiefs (-5)",
+                "New York Jets (+2)",
+                "San Francisco 49ers (-3.5)",
+                "Green Bay Packers (-2.5)"
+            ],
+            "tiebreaker": 45
+        }
     ]
+
 
 
 
