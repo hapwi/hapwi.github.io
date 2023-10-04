@@ -19,7 +19,7 @@ const loadWeekData = async (weekNumber, loggedInUser) => {
             const userData = weekData.find((user) => user.username === loggedInUser);
 
             if (userData) {
-                const pickList = userData.picks.map((pick, idx) => `<tr><td>Pick ${idx + 1}</td><td>${pick}</td></tr>`).join("");
+                const pickList = userData.picks.map((pick, idx) => `<tr><td>${idx + 1}</td><td>${pick}</td></tr>`).join("");
                 weekDataDiv.innerHTML = `${pickList}<tr><td>Tiebreaker</td><td>${userData.tiebreaker}</td></tr>`;
             } else {
                 weekDataDiv.innerHTML = "<tr><td colspan='2'>No data available for this user this week.</td></tr>";
