@@ -1173,8 +1173,30 @@
                 "Green Bay Packers (-2.5)"
             ],
             "tiebreaker": 45
+        },
+        {
+            "username": "pblang",
+            "password": "tulie",
+            "picks": [
+                "Washington Commanders (-6)",
+                "Buffalo Bills (-5.5)",
+                "Miami Dolphins (-11)",
+                "Detroit Lions (-9.5)",
+                "Pittsburgh Steelers (+4)",
+                "New England Patriots (-1.5)",
+                "Houston Texans (+2)",
+                "Tennessee Titans (+1)",
+                "Arizona Cardinals (+3)",
+                "Philadelphia Eagles (-4)",
+                "Minnesota Vikings (+5)",
+                "New York Jets (+2)",
+                "San Francisco 49ers (-3.5)",
+                "Las Vegas Raiders (+2.5)"
+            ],
+            "tiebreaker": 35
         }
     ]
+
 
 
 
