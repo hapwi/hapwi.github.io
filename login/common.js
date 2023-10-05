@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loggedInUser) {
             window.location.href = "../login/username.html";
         } else {
-            window.location.href = e.target.getAttribute('href');
+            window.location.href = "../login/user-picks-login.html";
         }
     }
 
