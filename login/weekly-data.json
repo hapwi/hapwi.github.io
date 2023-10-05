@@ -1194,6 +1194,69 @@
                 "Las Vegas Raiders (+2.5)"
             ],
             "tiebreaker": 35
+        },
+        {
+            "username": "tjorda",
+            "password": "kaga4l",
+            "picks": [
+                "Chicago Bears (+6)",
+                "Jacksonville Jaguars (+5.5)",
+                "Miami Dolphins (-11)",
+                "Carolina Panthers (+9.5)",
+                "Baltimore Ravens (-4)",
+                "New Orleans Saints (+1.5)",
+                "Houston Texans (+2)",
+                "Indianapolis Colts (-1)",
+                "Cincinnati Bengals (-3)",
+                "Philadelphia Eagles (-4)",
+                "Minnesota Vikings (+5)",
+                "New York Jets (+2)",
+                "San Francisco 49ers (-3.5)",
+                "Green Bay Packers (-2.5)"
+            ],
+            "tiebreaker": 28
+        },
+        {
+            "username": "jbaga",
+            "password": "t9za3u",
+            "picks": [
+                "Chicago Bears (+6)",
+                "Buffalo Bills (-5.5)",
+                "Miami Dolphins (-11)",
+                "Carolina Panthers (+9.5)",
+                "Pittsburgh Steelers (+4)",
+                "New Orleans Saints (+1.5)",
+                "Houston Texans (+2)",
+                "Tennessee Titans (+1)",
+                "Arizona Cardinals (+3)",
+                "Philadelphia Eagles (-4)",
+                "Kansas City Chiefs (-5)",
+                "New York Jets (+2)",
+                "San Francisco 49ers (-3.5)",
+                "Green Bay Packers (-2.5)"
+            ],
+            "tiebreaker": 31
+        },
+        {
+            "username": "dhari",
+            "password": "4rs3fd",
+            "picks": [
+                "Chicago Bears (+6)",
+                "Jacksonville Jaguars (+5.5)",
+                "Miami Dolphins (-11)",
+                "Carolina Panthers (+9.5)",
+                "Baltimore Ravens (-4)",
+                "New England Patriots (-1.5)",
+                "Houston Texans (+2)",
+                "Indianapolis Colts (-1)",
+                "Cincinnati Bengals (-3)",
+                "Philadelphia Eagles (-4)",
+                "Kansas City Chiefs (-5)",
+                "New York Jets (+2)",
+                "San Francisco 49ers (-3.5)",
+                "Green Bay Packers (-2.5)"
+            ],
+            "tiebreaker": 46
         }
     ]
 
