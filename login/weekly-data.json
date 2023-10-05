@@ -1257,8 +1257,30 @@
                 "Green Bay Packers (-2.5)"
             ],
             "tiebreaker": 46
+        },
+        {
+            "username": "cgodi",
+            "password": "z4h7w2",
+            "picks": [
+                "Chicago Bears (+6)",
+                "Jacksonville Jaguars (+5.5)",
+                "New York Giants (+11)",
+                "Carolina Panthers (+9.5)",
+                "Pittsburgh Steelers (+4)",
+                "New Orleans Saints (+1.5)",
+                "Houston Texans (+2)",
+                "Indianapolis Colts (-1)",
+                "Arizona Cardinals (+3)",
+                "Los Angeles Rams (+4)",
+                "Minnesota Vikings (+5)",
+                "Denver Broncos (-2)",
+                "Dallas Cowboys (+3.5)",
+                "Las Vegas Raiders (+2.5)"
+            ],
+            "tiebreaker": 56
         }
     ]
+
 
 
 
