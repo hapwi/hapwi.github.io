@@ -1278,8 +1278,30 @@
                 "Las Vegas Raiders (+2.5)"
             ],
             "tiebreaker": 56
+        },
+        {
+            "username": "jbindi",
+            "password": "nunu69",
+            "picks": [
+                "Washington Commanders (-6)",
+                "Buffalo Bills (-5.5)",
+                "Miami Dolphins (-11)",
+                "Detroit Lions (-9.5)",
+                "Baltimore Ravens (-4)",
+                "New England Patriots (-1.5)",
+                "Houston Texans (+2)",
+                "Tennessee Titans (+1)",
+                "Cincinnati Bengals (-3)",
+                "Philadelphia Eagles (-4)",
+                "Kansas City Chiefs (-5)",
+                "Denver Broncos (-2)",
+                "San Francisco 49ers (-3.5)",
+                "Las Vegas Raiders (+2.5)"
+            ],
+            "tiebreaker": 40
         }
     ]
+
 
 
 
