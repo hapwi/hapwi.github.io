@@ -22,23 +22,45 @@
             color: white;
         }
 
+        /* Define CSS variables */
+        :root {
+            --main-bg-color: #121212;
+            --main-text-color: #ffffff;
+            --primary-color: #274469;
+            --light-gray: #C5C6C7;
+            --border-color: #ddd;
+            --box-shadow-light: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            --box-shadow-dark: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            --transition-quick: all 0.3s ease-in-out;
+        }
+
+        body {
+            background-color: var(--main-bg-color);
+            color: var(--main-text-color);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+
+
+        /* Bottom navigation styles */
         #bottom-nav {
             position: fixed;
-            /* or you can use sticky */
             bottom: 0;
             left: 0;
             width: 100%;
-            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
             z-index: 9999;
-        }
-
-        #bottom-nav .nav-item {
-            border: 1px solid var(--bs-light);
-            /* Border color set to Bootstrap's light variable */
-            border-radius: 20px;
-            /* Optional, for rounded corners */
-            margin: 0 5px;
-            /* Optional, to give some spacing between items */
+            background-color: var(--main-bg-color);
         }
 
         #bottom-nav ul {
@@ -48,8 +70,7 @@
             justify-content: space-around;
             padding: 0 20px;
             margin-top: 3px;
-            /* Add this line to create space between <nav> and <ul> */
-            background-color: var(--blue);
+            background-color: var(--main-bg-color);
         }
 
         #bottom-nav li {
@@ -63,44 +84,9 @@
             text-decoration: none;
         }
 
-        /* Bottom navigation pill styles for better distinction */
-        #pillNav2 .nav-item a.nav-link {
-            border: 2px solid #ffffff;
-            /* Border for all pills */
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-            /* Slight shadow for a raised appearance */
-            transition: all 0.3s;
-            /* Smooth transition for hover and active effects */
-        }
-
-        #pillNav2 .nav-item a.nav-link {
-            border: 2px solid #fff;
-            /* Border for all pills */
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-            /* Slight shadow for a raised appearance */
-            transition: all 0.3s;
-            /* Smooth transition for hover and active effects */
-        }
-
-        /* Style for the active pill to make it look pressed */
-        #pillNav2 .nav-item a.nav-link.active {
-            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
-            /* Inset shadow for a pressed appearance */
-            border-color: #ddd;
-            /* Active pill border */
-        }
-
-        /* Slight enlargement and brightening of the pill on hover */
-        #pillNav2 .nav-item a.nav-link:hover {
-            /* Enlarging the pill */
-            border-color: #ddd;
-            /* Brightened border on hover */
-        }
-
-        /* Bottom navigation wrapper */
+        /* Styles for pill navigation */
         #pillNav2 {
-            background-color: #003e7e;
-            /* The color you provided */
+            background-color: #1f1f1f;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -109,63 +95,42 @@
             color: transparent;
         }
 
-        /* General style for the pills inside #pillNav2 bottom nav */
         #pillNav2 .nav-item a.nav-link {
-            border: 2px solid #ffffff;
-            /* Border for all pills */
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-            /* Slight shadow for a raised appearance */
-            transition: all 0.3s ease-in-out;
-            /* transform: skewX(-5deg) rotate(-2deg); */
-            /* Tilting and rotation effect */
+            border: 2px solid var(--main-text-color);
+            box-shadow: var(--box-shadow-dark);
+            transition: var(--transition-quick);
             letter-spacing: 2px;
             text-transform: uppercase;
             font-variant: small-caps;
             font-weight: bold;
-            /* If you're using a custom font, adjust this accordingly */
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-            /* Text shadow for depth */
-        }
-
-        /* Hover effect for pills inside #pillNav2 */
-        #pillNav2 .nav-item a.nav-link:hover {
-            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
-            /* transform: translateY(-4px) scale(1.08) skewX(-7deg) rotate(-1deg); */
-            /* Slight upward movement and scale */
-            border-color: #ddd;
-            /* Brightened border on hover */
-        }
-
-        /* Active effect for pills inside #pillNav2 */
-        #pillNav2 .nav-item a.nav-link.active {
-            background-color: var(--bs-white);
-            /* This sets the background color for the active state to white */
-            color: #1f1f1f;
-            /* This sets the icon color for the active state to the blue you previously used */
-        }
-
-        /* Hover and focus effects for pills inside #pillNav2 */
-        #pillNav2 .nav-item a.nav-link:hover,
-        #pillNav2 .nav-item a.nav-link:focus {
-            background-color: var(--bs-white);
-            /* This sets the background color of the link on hover and focus to white */
-            color: #1f1f1f;
-            /* This sets the icon color on hover and focus to the blue you previously used */
-        }
-
-        #pillNav2 {
-            background-color: #1f1f1f;
         }
 
         #pillNav2 .nav-item a.nav-link:hover,
-        #pillNav2 .nav-item a.nav-link:focus {
-            color: #1f1f1f;
-            background-color: #ddd;
-        }
-
+        #pillNav2 .nav-item a.nav-link:focus,
         #pillNav2 .nav-item a.nav-link.active {
             color: #1f1f1f;
-            background-color: #ddd;
+            background-color: var(--border-color);
+        }
+
+        .table1 {
+            margin-bottom: 60px;
+        }
+
+        #logout-button {
+            background: none;
+            border: none;
+            color: inherit;
+        }
+
+        #logout-button:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        #logout-button .bi {
+            font-size: 24px;
+            color: var(--light-gray);
         }
     </style>
 </head>
