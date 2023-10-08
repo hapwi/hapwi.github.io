@@ -106,6 +106,7 @@
           "Cinnicinnati Bengals (-3)",
           "Philadelphia Eagles (-4)",
           "New York Jets (+2)",
+          "Kansas City Chiefs (-5)",
 
 
       ],
