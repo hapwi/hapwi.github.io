@@ -573,12 +573,6 @@
         }
     </style>
     <!-- ? end main styles -->
-
-    <script>
-        const script = document.createElement('script');
-        script.src = "../login/winners.js?v=" + new Date().getTime();
-        document.head.appendChild(script);
-    </script>
 </head>
 
 <body>
@@ -1217,6 +1211,12 @@
         }
     </script>
     <!-- <script src="../login/winners.js?v=1.0.2"></script> -->
+    <script>
+        const script = document.createElement('script');
+        script.src = `../login/winners.js?v=${new Date().getTime()}`;
+        document.body.appendChild(script);
+    </script>
+
     <script src="../login/common.js"></script>
 
 

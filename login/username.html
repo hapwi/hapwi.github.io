@@ -175,11 +175,6 @@
         }
     </style>
 
-    <script>
-        const script = document.createElement('script');
-        script.src = "../login/winners.js?v=" + new Date().getTime();
-        document.head.appendChild(script);
-    </script>
 </head>
 
 <body class="dark-mode">
@@ -236,6 +231,12 @@
 
     </nav>
     <!-- <script src="../login/winners.js?v=1.0.2"></script> -->
+    <script>
+        const script = document.createElement('script');
+        script.src = `../login/winners.js?v=${new Date().getTime()}`;
+        document.body.appendChild(script);
+    </script>
+
     <script src="../login/user-page.js"></script>
     <script src="../login/common.js"></script>
 
