@@ -74,7 +74,7 @@ const winners = {
         "Baltimore Ravens (+2.5)",
         "Houston Texans (+3.0)",
         "Minnesota Vikings (-3.5)",
-        "Los Angeles Chargers (-5.0) ",
+        "Los Angeles Chargers (-5.0)",
         "San Francisco 49ers (-14.0)",
         "Dallas Cowboys (-6.5)",
         "New York Jets (+10.0)",
@@ -93,7 +93,6 @@ const winners = {
         "Pittsburgh Steelers (+4)",
         "Detroit Lions (-9.5)",
         "Miami Dolphins (-11)",
-        // "Arizona Cardinals (+3)",
 
 
     ],
