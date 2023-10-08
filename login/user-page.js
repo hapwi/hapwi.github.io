@@ -14,7 +14,7 @@ const fetchJSON = async (url) => {
 // Function to load weekly data
 const loadWeekData = async (weekNumber, loggedInUser) => {
     try {
-        const allWeeksData = await fetchJSON("weekly-data.json"); // Path can be adjusted
+        const allWeeksData = await fetchJSON("../login/weekly-data.json"); // Path can be adjusted
         const weekData = allWeeksData[`Week${weekNumber}`];
         const weekDataDiv = document.querySelector("#week-data tbody");
 
