@@ -1166,18 +1166,18 @@
             }
         }
 
-        function toggleIcons(isNightMode) {
-            const moonIcon = document.querySelector('.bi-moon-fill');
-            const sunIcon = document.querySelector('.bi-brightness-high-fill');
+        // function toggleIcons(isNightMode) {
+        //     const moonIcon = document.querySelector('.bi-moon-fill');
+        //     const sunIcon = document.querySelector('.bi-brightness-high-fill');
 
-            if (isNightMode) {
-                moonIcon.style.display = 'none';
-                sunIcon.style.display = 'inline'; // or 'block' based on your design
-            } else {
-                moonIcon.style.display = 'inline'; // or 'block' based on your design
-                sunIcon.style.display = 'none';
-            }
-        }
+        //     if (isNightMode) {
+        //         moonIcon.style.display = 'none';
+        //         sunIcon.style.display = 'inline'; // or 'block' based on your design
+        //     } else {
+        //         moonIcon.style.display = 'inline'; // or 'block' based on your design
+        //         sunIcon.style.display = 'none';
+        //     }
+        // }
 
         document.getElementById('nightModeToggle').addEventListener('click', function () {
             // Toggle the night mode class
@@ -1185,7 +1185,7 @@
 
             const isNightMode = document.body.classList.contains('night-mode');
             setThemeColor(isNightMode);
-            toggleIcons(isNightMode); // Call this to toggle the icons
+            // toggleIcons(isNightMode); // Call this to toggle the icons
 
             // Save to sessionStorage
             sessionStorage.setItem('night-mode', isNightMode ? 'dark' : 'light');
@@ -1203,11 +1203,11 @@
         if (darkModeSetting === 'dark') {
             document.body.classList.add('night-mode');
             setThemeColor(true);
-            toggleIcons(true); // Set the icons based on the theme
+            // toggleIcons(true); // Set the icons based on the theme
         } else {
             document.body.classList.remove('night-mode');
             setThemeColor(false);
-            toggleIcons(false); // Set the icons based on the theme
+            // toggleIcons(false); // Set the icons based on the theme
         }
     </script>
     <!-- <script src="../login/winners.js?v=1.0.2"></script> -->

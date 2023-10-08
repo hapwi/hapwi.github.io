@@ -1,5 +1,7 @@
+const version = "1.0.2";
+
 const winners = {
-    "version": "1.0.1",
+    "version": version,
 
     "1": [
         "Detroit Lions (+5.5)",

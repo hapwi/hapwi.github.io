@@ -231,33 +231,18 @@
 
     </nav>
     <!-- <script src="../login/winners.js?v=1.0.2"></script> -->
-    <!-- <script src="../login/winners.js"></script> -->
     <script>
-        // Dynamically inject the script
-        function injectScript(tempVersion) {
-            const script = document.createElement('script');
-            script.src = `../login/winners.js?v=${tempVersion}`;
-
-            script.addEventListener('load', function () {
-                if (window.winners && winners.version) {
-                    // Update the script tag with the actual version
-                    this.src = `../login/winners.js?v=${winners.version}`;
-                    console.log(`Loaded winners.js version ${winners.version}`);
-                } else {
-                    console.error("Failed to retrieve winners.js version.");
-                }
-            });
-
-            document.head.appendChild(script);
-        }
-
-        // Call it with a timestamp or a random number to avoid immediate caching
-        injectScript(new Date().getTime());
+        // Update the src attribute of the script dynamically
+        document.querySelector('script[src*="winners.js"]').src = `../login/winners.js?v=${winners.version}`;
     </script>
+    <script src="../login/winners.js"></script>
+
+
 
 
     <script src="../login/user-page.js"></script>
     <script src="../login/common.js"></script>
+
 
     <!-- Include Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
