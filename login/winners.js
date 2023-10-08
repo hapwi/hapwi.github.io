@@ -84,6 +84,7 @@ const winners = {
     "5": [
 
         "Chicago Bears (+6)",
+        "Jacksonville Jaguars (+5.5)"
 
     ],
     // Week 5
