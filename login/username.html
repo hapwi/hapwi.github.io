@@ -175,6 +175,8 @@
         }
     </style>
 
+    <link rel="preload" href="../login/winners.js" as="script">
+
 </head>
 
 <body class="dark-mode">
@@ -235,9 +237,14 @@
         // Generate a timestamp to bust the cache
         const timestamp = new Date().getTime();
 
-        // Add the timestamp as a query parameter to the script URL
+        // Construct the script source with the timestamp
+        const scriptSrc = `../login/winners.js?v=${timestamp}`;
+
+        // Create a new script element and set its src attribute
         const script = document.createElement("script");
-        script.src = `../login/winners.js?v=${timestamp}`;
+        script.src = scriptSrc;
+
+        // Append the script element to the document
         document.body.appendChild(script);
     </script>
 
