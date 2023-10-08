@@ -175,7 +175,7 @@
         }
     </style>
 
-    <link rel="preload" href="../login/winners.js" as="script">
+    <link rel="preload" href="../login/winners.js">
 
 </head>
 
@@ -232,21 +232,7 @@
 
 
     </nav>
-    <!-- <script src="../login/winners.js?v=1.0.2"></script> -->
-    <script>
-        // Generate a timestamp to bust the cache
-        const timestamp = new Date().getTime();
-
-        // Construct the script source with the timestamp
-        const scriptSrc = `../login/winners.js?v=${timestamp}`;
-
-        // Create a new script element and set its src attribute
-        const script = document.createElement("script");
-        script.src = scriptSrc;
-
-        // Append the script element to the document
-        document.body.appendChild(script);
-    </script>
+    <script src="../login/winners.js?v=1.0.2"></script>
 
     <script src="../login/user-page.js"></script>
     <script src="../login/common.js"></script>
