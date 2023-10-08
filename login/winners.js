@@ -113,5 +113,3 @@ const winners = {
     "17": [], // Week 17
     "18": [], // Week 18
 };
-
-document.querySelector('script[src*="winners.js"]').src = `../login/winners.js?v=${winners.version}`;
