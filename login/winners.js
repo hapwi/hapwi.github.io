@@ -84,7 +84,14 @@ const winners = {
     "5": [
 
         "Chicago Bears (+6)",
-        "Jacksonville Jaguars (+5.5)"
+        "Jacksonville Jaguars (+5.5)",
+        "New Orleans Saints (+1.5)",
+        "Indianapolis Colts (-1)",
+        "Pittsburgh Steelers (+4)",
+        "Detroit Lions (-9.5)",
+        "Miami Dolphins (-11)",
+
+
 
     ],
     // Week 5
