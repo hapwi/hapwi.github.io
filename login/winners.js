@@ -3,7 +3,7 @@
 
   // Update the script source in the HTML
   const scriptElement = document.getElementById('dynamic-script');
-  scriptElement.src = `../login/winners${versionNumber}.js`;
+  scriptElement.src = `../login/winners${versionNumber}.js?v=${versionNumber}`;
 
 
   const winners = {
