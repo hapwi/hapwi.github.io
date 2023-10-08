@@ -1,5 +1,5 @@
 const winners = {
-    "version": "1.0.3",
+    "version": "1.0.0",
 
     "1": [
         "Detroit Lions (+5.5)",
@@ -18,7 +18,8 @@ const winners = {
         "Los Angeles Rams (+5.5)",
         "Dallas Cowboys (-3)",
         "New York Jets (+2.5)"
-    ], // Week 1
+    ],
+    // Week 1
 
     "2": [
         "Minnesota Vikings (+7)",
@@ -39,7 +40,8 @@ const winners = {
         "Pittsburgh Steelers (+2.5)"
 
 
-    ], // Week 2
+    ],
+    // Week 2
 
     "3": [
         "San Francisco 49ers (-10)",
@@ -112,3 +114,5 @@ const winners = {
     "17": [], // Week 17
     "18": [], // Week 18
 };
+
+document.querySelector('script[src*="winners.js"]').src = `../login/winners.js?v=${winners.version}`;
