@@ -233,7 +233,8 @@
     <!-- <script src="../login/winners.js?v=1.0.2"></script> -->
     <script>
         const script = document.createElement('script');
-        script.src = `../login/winners.js?v=${new Date().getTime()}`;
+        const timestamp = new Date().getTime(); // or use any other unique value
+        script.src = `../login/winners.js?v=${timestamp}`;
         document.body.appendChild(script);
     </script>
 
