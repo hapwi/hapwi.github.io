@@ -93,6 +93,7 @@ const winners = {
         "Pittsburgh Steelers (+4)",
         "Detroit Lions (-9.5)",
         "Miami Dolphins (-11)",
+        "Arizona Cardinals (+3)",
 
 
     ],
