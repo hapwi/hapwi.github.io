@@ -1,5 +1,5 @@
   // Define a global variable for the version number
-  const versionNumber = 'v1.0.0'; // Replace with the actual version number
+  const versionNumber = 'week-5v-afternoon-1'; // Replace with the actual version number
 
   // Update the script source in the HTML
   const scriptElement = document.getElementById('dynamic-script');
