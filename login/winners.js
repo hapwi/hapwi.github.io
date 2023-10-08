@@ -1,5 +1,5 @@
   // Define a global variable for the version number
-  const versionNumber = 'v1.0.1'; // Replace with the actual version number
+  const versionNumber = 'v1.0.0'; // Replace with the actual version number
 
   // Update the script source in the HTML
   const scriptElement = document.getElementById('dynamic-script');
@@ -101,7 +101,8 @@
           "Pittsburgh Steelers (+4)",
           "Detroit Lions (-9.5)",
           "Miami Dolphins (-11)",
-          // "Arizona Cardinals (+3)",
+          "Cinnicinnati Bengals (-3)",
+          "Philadelphia Eagles (-4)"
 
 
       ],
