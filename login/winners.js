@@ -1,4 +1,4 @@
-const version = "1.0.2";
+const version = "1.0.3";
 
 const winners = {
     "version": version,
@@ -96,6 +96,7 @@ const winners = {
         "Pittsburgh Steelers (+4)",
         "Detroit Lions (-9.5)",
         "Miami Dolphins (-11)",
+        "Arizona Cardinals (+3)",
 
 
     ],
