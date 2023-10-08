@@ -231,24 +231,29 @@
 
     </nav>
     <!-- <script src="../login/winners.js?v=1.0.2"></script> -->
-    <script src="../login/winners.js"></script>
-    <!-- <script>
-        const script = document.createElement('script');
-        script.src = "../login/winners.js"; // Adjust the path as necessary
+    <!-- <script src="../login/winners.js"></script> -->
+    <script>
+        // Dynamically inject the script
+        function injectScript(tempVersion) {
+            const script = document.createElement('script');
+            script.src = `../login/winners.js?v=${tempVersion}`;
 
-        // Listen for the 'load' event to make sure the script has executed
-        script.addEventListener('load', function () {
-            if (winners && winners.version) {
-                script.src = `../login/winners.js?v=${winners.version}`;
-                console.log(`Loaded winners.js version ${winners.version}`);
-            } else {
-                console.error("Failed to retrieve winners.js version.");
-            }
-        });
+            script.addEventListener('load', function () {
+                if (window.winners && winners.version) {
+                    // Update the script tag with the actual version
+                    this.src = `../login/winners.js?v=${winners.version}`;
+                    console.log(`Loaded winners.js version ${winners.version}`);
+                } else {
+                    console.error("Failed to retrieve winners.js version.");
+                }
+            });
 
-        // Append the script to the DOM to trigger its loading
-        document.head.appendChild(script);
-    </script> -->
+            document.head.appendChild(script);
+        }
+
+        // Call it with a timestamp or a random number to avoid immediate caching
+        injectScript(new Date().getTime());
+    </script>
 
 
     <script src="../login/user-page.js"></script>
