@@ -230,9 +230,19 @@
 
 
     </nav>
-    <script src="../login/winners.js?v=1.0.2"></script>
+    <!-- <script src="../login/winners.js?v=1.0.2"></script> -->
+    <script src="../login/winners.js"></script>
     <script src="../login/user-page.js"></script>
     <script src="../login/common.js"></script>
+
+    <script>
+        // Generate a timestamp to ensure the latest version of winners.js is loaded
+        const timestamp = new Date().getTime();
+
+        // Update the src attribute of the script tag for winners.js with the timestamp
+        document.querySelector('script[src*="winners.js"]').src = `../login/winners.js?timestamp=${timestamp}`;
+    </script>
+
 
 
     <!-- Include Bootstrap JavaScript -->
