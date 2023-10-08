@@ -1,11 +1,11 @@
   // Define a global variable for the version number
   const versionNumber = 'v5.0.2'; // Replace with the actual version number
 
-  const timestamp = Date.now();
-
   // Update the script source in the HTML
   const scriptElement = document.getElementById('dynamic-script');
-  scriptElement.src = `../login/winners${versionNumber}.js?v=${timestamp}`;
+  const uniqueQueryParam = `timestamp${Date.now()}`;
+  scriptElement.src = `../login/winners.js?v=${uniqueQueryParam}`;
+
 
 
   const winners = {
