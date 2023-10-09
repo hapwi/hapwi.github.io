@@ -18,18 +18,3 @@ document.addEventListener("DOMContentLoaded", () => {
         loginMenuItem.addEventListener('click', handleLoginItemClick);
     }
 });
-
-const version = '5.0.5';
-// Define a function to set the version number dynamically
-function setVersion(version) {
-    // Create a new script element
-    const script = document.createElement('script');
-
-    // Set the source attribute with the version number
-    script.src = `../login/winners.js?v=${version}`;
-
-    // Append the script element to the HTML document
-    document.head.appendChild(script);
-}
-
-setVersion(version);
