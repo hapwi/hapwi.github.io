@@ -19,9 +19,10 @@ const updateHighlightCount = (weekDataDiv, countSpan) => {
         }
     });
 
-    countSpan.style.fontSize = '1rem';
+    countSpan.style.fontSize = '1.5rem';
     countSpan.style.color = 'white';
     countSpan.style.fontWeight = 'bold';
+    countSpan.style.marginLeft = '1rem';
 
     countSpan.textContent = `  ${count} correct picks`;
 };
