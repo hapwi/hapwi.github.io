@@ -1,3 +1,11 @@
+function loadWinnersScript() {
+    const scriptElement = document.createElement('script');
+    scriptElement.src = '../login/winners.js';
+    document.head.appendChild(scriptElement);
+}
+
+loadWinnersScript();
+
 document.addEventListener("DOMContentLoaded", () => {
     const loggedInUser = localStorage.getItem('loggedInUser');
 
@@ -18,11 +26,3 @@ document.addEventListener("DOMContentLoaded", () => {
         loginMenuItem.addEventListener('click', handleLoginItemClick);
     }
 });
-
-function loadWinnersScript() {
-    const scriptElement = document.createElement('script');
-    scriptElement.src = '../login/winners.js';
-    document.head.appendChild(scriptElement);
-}
-
-loadWinnersScript();
