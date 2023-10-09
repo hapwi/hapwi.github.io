@@ -97,7 +97,7 @@ const winners = {
         "Philadelphia Eagles (-4)",
         "New York Jets (+2)",
         "Kansas City Chiefs (-5)",
-        "San Francisco 49ers (-3.5)"
+
 
 
 
