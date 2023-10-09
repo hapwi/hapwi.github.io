@@ -24,7 +24,7 @@ const updateHighlightCount = (weekDataDiv, countSpan) => {
     countSpan.style.fontWeight = 'bold';
     countSpan.style.marginLeft = '1rem';
 
-    countSpan.textContent = `  ${count} correct picks`;
+    countSpan.textContent = `  ${count} correct`;
 };
 
 // Function to load weekly data
@@ -57,7 +57,7 @@ const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) =>
 
         // If function reaches here, then there's no data for the selected week or user.
         // Reset the highlight count to 0.
-        countSpan.textContent = '  0 correct picks';
+        countSpan.textContent = '  0 correct';
     } catch (error) {
         console.error(`An error occurred: ${error.message}`);
     }
