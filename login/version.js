@@ -1,5 +1,5 @@
 // Define the version of the script you want to load
-const VERSION_NUMBER = "1.0.0";
+const VERSION_NUMBER = "1.0.1";
 
 // Key to store in SessionStorage
 const SESSION_STORAGE_KEY = `winners-${VERSION_NUMBER}`;
