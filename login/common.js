@@ -18,3 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
         loginMenuItem.addEventListener('click', handleLoginItemClick);
     }
 });
+
+function loadWinnersScript() {
+    const scriptElement = document.createElement('script');
+    scriptElement.src = '../login/winners.js';
+    document.head.appendChild(scriptElement);
+}
+
+loadWinnersScript();
