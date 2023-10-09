@@ -1,24 +1,38 @@
 // Utility to fetch JSON data
 const fetchJSON = async (url) => {
     const response = await fetch(url);
-
     if (!response.ok) {
         throw new Error(`Could not fetch from ${url}`);
     }
     return await response.json();
-
 };
 
+// Function to update count of green highlighted items
+const updateHighlightCount = (weekDataDiv, countSpan) => {
+    const highlightedRows = weekDataDiv.querySelectorAll('tr');
+    let count = 0;
 
+    highlightedRows.forEach((row) => {
+        const cells = Array.from(row.querySelectorAll('td'));
+        if (cells.some((cell) => cell.style.color === "green")) {
+            count++;
+        }
+    });
+
+    countSpan.style.fontSize = '1rem';
+    countSpan.style.color = 'white';
+    countSpan.style.fontWeight = 'bold';
+
+    countSpan.textContent = `  ${count} correct picks`;
+};
 
 // Function to load weekly data
-const loadWeekData = async (weekNumber, loggedInUser) => {
+const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) => {
     try {
-        const allWeeksData = await fetchJSON("../login/weekly-data.json"); // Path can be adjusted
+        const allWeeksData = await fetchJSON("../login/weekly-data.json");
         const weekData = allWeeksData[`Week${weekNumber}`];
-        const weekDataDiv = document.querySelector("#week-data tbody");
 
-        const weekWinners = winners[weekNumber] || []; // Fetch the winners for the given week
+        const weekWinners = winners[weekNumber] || [];
 
         if (weekData) {
             const userData = weekData.find((user) => user.username === loggedInUser);
@@ -31,36 +45,43 @@ const loadWeekData = async (weekNumber, loggedInUser) => {
                     pickList += `<tr><td ${isWinner}>${idx + 1}</td><td ${isWinner}>${pick}</td></tr>`;
                 }
                 weekDataDiv.innerHTML = `${pickList}<tr><td>Tiebreaker</td><td>${userData.tiebreaker}</td></tr>`;
+                updateHighlightCount(weekDataDiv, countSpan);
+                return;
             } else {
                 weekDataDiv.innerHTML = "<tr><td colspan='2'>No data available for this user this week.</td></tr>";
             }
         } else {
             weekDataDiv.innerHTML = "<tr><td colspan='2'>Picks are not available yet for this week.</td></tr>";
         }
+
+        // If function reaches here, then there's no data for the selected week or user.
+        // Reset the highlight count to 0.
+        countSpan.textContent = '  0 correct picks';
     } catch (error) {
         console.error(`An error occurred: ${error.message}`);
     }
 };
 
 
-
 document.addEventListener("DOMContentLoaded", async () => {
     const dropdown = document.getElementById("week-dropdown");
-    const currentWeek = 5; // Default week, adjustable
+    const currentWeek = 5;
     const loggedInUser = localStorage.getItem("loggedInUser") || "Guest";
+    const weekDataDiv = document.querySelector("#week-data tbody");
+    const countSpan = document.createElement("span");
+    countSpan.id = "highlighted-count";
 
     document.getElementById("username-display").textContent = loggedInUser;
+    document.getElementById("username-display").appendChild(countSpan);
 
-    // Populate dropdown
     dropdown.innerHTML = Array.from({
         length: 18
     }, (_, i) => `<option value='${i + 1}'>Week ${i + 1}</option>`).join("");
 
     dropdown.value = currentWeek;
-    loadWeekData(currentWeek, loggedInUser);
+    loadWeekData(currentWeek, loggedInUser, weekDataDiv, countSpan);
 
-    // Event handlers
-    dropdown.addEventListener("change", (e) => loadWeekData(e.target.value, loggedInUser));
+    dropdown.addEventListener("change", (e) => loadWeekData(e.target.value, loggedInUser, weekDataDiv, countSpan));
 
     document.getElementById("logout-button").addEventListener("click", () => {
         localStorage.removeItem("loggedInUser");
