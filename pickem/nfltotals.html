@@ -764,32 +764,37 @@
             // Remove existing weekly win data
             scoresTbody.querySelectorAll('.weekly-win-data').forEach(span => span.remove());
 
+            let maxWinValue = Number.NEGATIVE_INFINITY;
 
+            // Extract winValues from weeklyWins
+            const winValues = weeklyWins.slice(1).map(row => parseInt(row[0], 10));
 
-            function getBackgroundColor(winValue, hueAdjustment = 0) {
-                let hue, saturation = 85,
-                    lightness = 50;
+            // Update maxWinValue
+            maxWinValue = Math.max(...winValues);
 
-
+            function getBackgroundColor(winValue) {
                 if (winValue === 0) {
-                    hue = 0; // Red
-                    saturation = 0;
-                } else if (winValue >= 1 && winValue <= 5) {
-                    hue = 10; // Orange (between red and yellow)
-                } else if (winValue >= 6 && winValue <= 7) {
-                    hue = 30; // Yellow
-                } else if (winValue >= 8 && winValue <= 9) {
-                    hue = 50; // Yellowish-green
-                } else if (winValue === 10) {
-                    hue = 70; // A color between yellowish-green and green
-                } else if (winValue >= 11 && winValue <= 12) {
-                    hue = 120; // Orange (between red and yellow)
-                } else {
-                    hue = 120; // Green for 10 and above
+                    return `hsla(0, 0%, 50%, 0.8)`; // Gray for zero
                 }
 
-                hue += hueAdjustment;
-                return `hsla(${hue}, ${saturation}%, ${lightness}%, 0.8)`;
+                if (winValue === maxWinValue) {
+                    return `hsla(120, 85%, 50%, 0.8)`; // Green for maximum value
+                }
+
+                if (winValue >= 1 && winValue <= 5) {
+                    return `hsla(15, 85%, 50%, 0.8)`; // Red for 1-4
+                }
+                if (winValue >= 6 && winValue <= 7) {
+                    return `hsla(35, 85%, 50%, 0.8)`; // Orange for 5-8
+                }
+                if (winValue >= 8 && winValue <= 12) {
+                    return `hsla(55, 85%, 50%, 0.8)`; // Light green for 9-12
+                }
+                if (winValue >= 13 && winValue <= 16) {
+                    return `hsla(105, 85%, 50%, 0.8)`; // Darker green for 13-16
+                }
+
+                return `hsla(0, 0%, 50%, 0.8)`; // Default to gray if none of the above conditions are met
             }
 
 
@@ -806,8 +811,8 @@
                     smallTextSpan.style.backgroundColor = getBackgroundColor(winValue);
 
 
-                    // Enhanced inline styles
-                    smallTextSpan.style.fontSize = 'small';
+
+                    // Basic styles, applying to all elements
                     smallTextSpan.style.position = 'absolute';
                     smallTextSpan.style.bottom = '5px';
                     smallTextSpan.style.right = '5px';
@@ -817,6 +822,14 @@
                     smallTextSpan.style.borderRadius = '100px';
                     smallTextSpan.style.fontSize = '.8rem';
                     smallTextSpan.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                    smallTextSpan.style.transition = 'transform 0.2s, box-shadow 0.2s';
+
+                    // If it's the maximum value, then apply special styles
+                    if (winValue === maxWinValue) {
+                        smallTextSpan.style.fontWeight = 'bold';
+                        smallTextSpan.style.fontSize = '1rem'; // Slightly bigger font size for maximum value
+
+                    }
                     // smallTextSpan.style.border =
                     //     '2px solid rgba(255, 255, 255, 0.5)'; // Semi-transparent white border
                     smallTextSpan.style.transition = 'transform 0.2s, box-shadow 0.2s';
