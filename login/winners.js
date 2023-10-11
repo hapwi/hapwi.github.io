@@ -106,7 +106,11 @@ const winners = {
     ],
     // Week 5
 
-    "6": [], // Week 6
+    "6": [
+
+    ],
+    // Week 6
+
     "7": [], // Week 7
     "8": [], // Week 8
     "9": [], // Week 9
