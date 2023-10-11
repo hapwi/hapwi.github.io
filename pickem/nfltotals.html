@@ -667,11 +667,7 @@
     <script>
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo';
-        let currentWeek = "5"; // Default week
-
-
-
-
+        let currentWeek = "6"; // Default week
 
         function processNflScoresData(values) {
             // Assuming the first row contains week headers, which we'll skip
@@ -690,8 +686,6 @@
 
             console.log('Updated winners object array:', winners);
         }
-
-
 
         async function fetchGoogleSheetsData() {
             try {
@@ -827,7 +821,9 @@
                     // If it's the maximum value, then apply special styles
                     if (winValue === maxWinValue) {
                         smallTextSpan.style.fontWeight = 'bold';
-                        smallTextSpan.style.fontSize = '1rem'; // Slightly bigger font size for maximum value
+                        smallTextSpan.style.fontSize = '.8rem'; // Slightly bigger font size for maximum value
+                        smallTextSpan.style.boxShadow =
+                            '0 7px 20px rgba(1, 100, 1, 0.9)'; // Slightly bigger shadow
 
                     }
                     // smallTextSpan.style.border =
@@ -902,9 +898,7 @@
             });
         }
 
-
-
-        async function fetchPicksData(week = 5) {
+        async function fetchPicksData(week = 6) {
             const picksTbody = document.getElementById('picks');
             picksTbody.innerHTML = ''; // Clear the table before fetching new data
 
@@ -941,9 +935,7 @@
             }
         }
 
-
-
-
+        //  week dropdown options
         function addControls() {
             $('<span class="search-label" style="margin-right: 10px;">Select a username to display pick history: </span>  \
         <select id="weekDropdown" style="margin-top: 10px;">\
@@ -1025,9 +1017,6 @@
                 }
             });
         });
-
-
-
 
         function initDataTable() {
             if (!$.fn.dataTable.isDataTable('#picksTable')) {

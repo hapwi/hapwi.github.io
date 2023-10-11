@@ -57,7 +57,7 @@ const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) =>
 
         // If function reaches here, then there's no data for the selected week or user.
         // Reset the highlight count to 0.
-        countSpan.textContent = '  0 correct';
+        countSpan.textContent = '';
     } catch (error) {
         console.error(`An error occurred: ${error.message}`);
     }
@@ -66,7 +66,7 @@ const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) =>
 
 document.addEventListener("DOMContentLoaded", async () => {
     const dropdown = document.getElementById("week-dropdown");
-    const currentWeek = 5;
+    const currentWeek = 6;
     const loggedInUser = localStorage.getItem("loggedInUser") || "Guest";
     const weekDataDiv = document.querySelector("#week-data tbody");
     const countSpan = document.createElement("span");
