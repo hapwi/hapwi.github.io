@@ -1384,6 +1384,273 @@
             ],
             "tiebreaker": 46
         }
+    ],
+
+    "Week6": [{
+            "username": "pbaga",
+            "password": "0s3kr1",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Titans (+4.5)",
+                "49ers (-5.5)",
+                "Colts (+4)",
+                "Commanders (+2.5)",
+                "Dolphins (-13.5)",
+                "Texans (+1.5)",
+                "Seahawks (+3)",
+                "Bears (+2.5)",
+                "Raiders (-3)",
+                "Cardinals (+7)",
+                "Eagles (-7)",
+                "Buccaneers (+3)",
+                "Bills (-14)",
+                "Chargers (+2)"
+            ],
+            "tiebreaker": 50
+        },
+        {
+            "username": "tjorda",
+            "password": "kaga4l",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Titans (+4.5)",
+                "49ers (-5.5)",
+                "Colts (+4)",
+                "Commanders (+2.5)",
+                "Dolphins (-13.5)",
+                "Texans (+1.5)",
+                "Bengals (-3)",
+                "Vikings (-2.5)",
+                "Raiders (-3)",
+                "Rams (-7)",
+                "Eagles (-7)",
+                "Lions (-3)",
+                "Bills (-14)",
+                "Chargers (+2)"
+            ],
+            "tiebreaker": 28
+        },
+        {
+            "username": "jbaga",
+            "password": "t9za3u",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Ravens (-4.5)",
+                "49ers (-5.5)",
+                "Colts (+4)",
+                "Falcons (-2.5)",
+                "Dolphins (-13.5)",
+                "Texans (+1.5)",
+                "Bengals (-3)",
+                "Bears (+2.5)",
+                "Raiders (-3)",
+                "Cardinals (+7)",
+                "Eagles (-7)",
+                "Buccaneers (+3)",
+                "Bills (-14)",
+                "Chargers (+2)"
+            ],
+            "tiebreaker": 31
+        },
+        {
+            "username": "jbindi",
+            "password": "nunu69",
+            "picks": [
+                "Broncos (+10.5)",
+                "Titans (+4.5)",
+                "49ers (-5.5)",
+                "Jaguars (-4)",
+                "Falcons (-2.5)",
+                "Dolphins (-13.5)",
+                "Saints (-1.5)",
+                "Bengals (-3)",
+                "Vikings (-2.5)",
+                "Patriots (+3)",
+                "Rams (-7)",
+                "Eagles (-7)",
+                "Lions (-3)",
+                "Giants (+14)",
+                "Cowboys (-2)"
+            ],
+            "tiebreaker": 45
+        },
+        {
+            "username": "adelli",
+            "password": "eiddyc",
+            "picks": [
+                "Broncos (+10.5)",
+                "Titans (+4.5)",
+                "Browns (+5.5)",
+                "Colts (+4)",
+                "Falcons (-2.5)",
+                "Dolphins (-13.5)",
+                "Saints (-1.5)",
+                "Bengals (-3)",
+                "Vikings (-2.5)",
+                "Patriots (+3)",
+                "Cardinals (+7)",
+                "Jets (+7)",
+                "Buccaneers (+3)",
+                "Bills (-14)",
+                "Chargers (+2)"
+            ],
+            "tiebreaker": 69
+        },
+        {
+            "username": "cgodi",
+            "password": "z4h7w2",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Ravens (-4.5)",
+                "Browns (+5.5)",
+                "Colts (+4)",
+                "Falcons (-2.5)",
+                "Panthers (+13.5)",
+                "Saints (-1.5)",
+                "Seahawks (+3)",
+                "Bears (+2.5)",
+                "Patriots (+3)",
+                "Cardinals (+7)",
+                "Eagles (-7)",
+                "Lions (-3)",
+                "Giants (+14)",
+                "Cowboys (-2)"
+            ],
+            "tiebreaker": 56
+        },
+        {
+            "username": "dhari",
+            "password": "4rs3fd",
+            "picks": [
+                "Broncos (+10.5)",
+                "Titans (+4.5)",
+                "49ers (-5.5)",
+                "Jaguars (-4)",
+                "Commanders (+2.5)",
+                "Panthers (+13.5)",
+                "Texans (+1.5)",
+                "Bengals (-3)",
+                "Vikings (-2.5)",
+                "Patriots (+3)",
+                "Rams (-7)",
+                "Jets (+7)",
+                "Buccaneers (+3)",
+                "Bills (-14)",
+                "Cowboys (-2)"
+            ],
+            "tiebreaker": 45
+        },
+        {
+            "username": "bleet",
+            "password": "3o59ad",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Titans (+4.5)",
+                "49ers (-5.5)",
+                "Jaguars (-4)",
+                "Falcons (-2.5)",
+                "Panthers (+13.5)",
+                "Texans (+1.5)",
+                "Bengals (-3)",
+                "Vikings (-2.5)",
+                "Raiders (-3)",
+                "Rams (-7)",
+                "Eagles (-7)",
+                "Buccaneers (+3)",
+                "Bills (-14)",
+                "Chargers (+2)"
+            ],
+            "tiebreaker": 40
+        },
+        {
+            "username": "marvizu",
+            "password": "6recvl",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Titans (+4.5)",
+                "49ers (-5.5)",
+                "Jaguars (-4)",
+                "Commanders (+2.5)",
+                "Dolphins (-13.5)",
+                "Texans (+1.5)",
+                "Seahawks (+3)",
+                "Bears (+2.5)",
+                "Patriots (+3)",
+                "Rams (-7)",
+                "Eagles (-7)",
+                "Lions (-3)",
+                "Bills (-14)",
+                "Chargers (+2)"
+            ],
+            "tiebreaker": 39
+        },
+        {
+            "username": "pblang",
+            "password": "tulie",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Ravens (-4.5)",
+                "49ers (-5.5)",
+                "Jaguars (-4)",
+                "Commanders (+2.5)",
+                "Dolphins (-13.5)",
+                "Texans (+1.5)",
+                "Bengals (-3)",
+                "Bears (+2.5)",
+                "Raiders (-3)",
+                "Rams (-7)",
+                "Eagles (-7)",
+                "Lions (-3)",
+                "Bills (-14)",
+                "Cowboys (-2)"
+            ],
+            "tiebreaker": 42
+        },
+        {
+            "username": "aquint",
+            "password": "pgio9s",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Ravens (-4.5)",
+                "49ers (-5.5)",
+                "Colts (+4)",
+                "Commanders (+2.5)",
+                "Dolphins (-13.5)",
+                "Texans (+1.5)",
+                "Bengals (-3)",
+                "Bears (+2.5)",
+                "Patriots (+3)",
+                "Rams (-7)",
+                "Jets (+7)",
+                "Lions (-3)",
+                "Bills (-14)",
+                "Chargers (+2)"
+            ],
+            "tiebreaker": 48
+        },
+        {
+            "username": "dbouch",
+            "password": "franklin",
+            "picks": [
+                "Chiefs (-10.5)",
+                "Titans (+4.5)",
+                "49ers (-5.5)",
+                "Colts (+4)",
+                "Commanders (+2.5)",
+                "Dolphins (-13.5)",
+                "Texans (+1.5)",
+                "Bengals (-3)",
+                "Vikings (-2.5)",
+                "Patriots (+3)",
+                "Rams (-7)",
+                "Eagles (-7)",
+                "Lions (-3)",
+                "Giants (+14)",
+                "Cowboys (-2)"
+            ],
+            "tiebreaker": 52
+        }
     ]
+
 
 }
