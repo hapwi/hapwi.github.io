@@ -107,7 +107,7 @@ const winners = {
     // Week 5
 
     "6": [
-
+        "Chiefs (-10.5)",
     ],
     // Week 6
 
