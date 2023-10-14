@@ -1,5 +1,7 @@
 {
-    "Week1": [{
+    "Week1": [
+
+        {
             "username": "marvizu",
             "password": "6recvl",
             "picks": [
@@ -277,7 +279,9 @@
         }
     ],
 
-    "Week2": [{
+    "Week2": [
+
+        {
             "username": "tjorda",
             "password": "kaga4l",
             "picks": [
@@ -577,7 +581,9 @@
             "tiebreaker": 38
         }
     ],
-    "Week3": [{
+    "Week3": [
+
+        {
             "username": "cgodi",
             "password": "z4h7w2",
             "picks": [
@@ -854,7 +860,9 @@
         }
     ],
 
-    "Week4": [{
+    "Week4": [
+
+        {
             "username": "tjorda",
             "password": "kaga4l",
             "picks": [
@@ -1132,7 +1140,9 @@
         }
     ],
 
-    "Week5": [{
+    "Week5": [
+
+        {
             "username": "marvizu",
             "password": "6recvl",
             "picks": [
@@ -1386,7 +1396,9 @@
         }
     ],
 
-    "Week6": [{
+    "Week6": [
+
+        {
             "username": "pbaga",
             "password": "0s3kr1",
             "picks": [
@@ -1624,7 +1636,7 @@
                 "Jets (+7)",
                 "Lions (-3)",
                 "Bills (-14)",
-                "Chargers (+2)"
+                "Cowboys (-2)"
             ],
             "tiebreaker": 48
         },
