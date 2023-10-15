@@ -108,6 +108,7 @@ const winners = {
 
     "6": [
         "Chiefs (-10.5)",
+        "Ravens (-4.5)"
     ],
     // Week 6
 
