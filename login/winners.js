@@ -116,6 +116,10 @@ const winners = {
         "Jaguars (-4)",
         "Browns (+5.5)",
         "Texans (+1.5)",
+        "Raiders (-3)",
+        "Rams (-7)",
+        "Lions (-3)",
+        "Jets (+7)",
     ],
     // Week 6
 
