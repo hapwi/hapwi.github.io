@@ -108,7 +108,14 @@ const winners = {
 
     "6": [
         "Chiefs (-10.5)",
-        "Ravens (-4.5)"
+        "Ravens (-4.5)",
+        "Bengals (-3)",
+        "Commanders (+2.5)",
+        "Vikings (-2.5)",
+        "Dolphins (-13.5)",
+        "Jaguars (-4)",
+        "Browns (+5.5)",
+        "Texans (+1.5)",
     ],
     // Week 6
 
