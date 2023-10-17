@@ -120,7 +120,8 @@ const winners = {
         "Rams (-7)",
         "Lions (-3)",
         "Jets (+7)",
-        "Giants (+14)"
+        "Giants (+14)",
+      "Cowboys (-2)"
     ],
     // Week 6
 
