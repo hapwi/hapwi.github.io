@@ -126,7 +126,7 @@ const winners = {
     // Week 6
 
     "7": [
-
+"Jaguars (-1)"
     ], // Week 7
     "8": [], // Week 8
     "9": [], // Week 9
