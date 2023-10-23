@@ -132,7 +132,12 @@ const winners = {
 "Falcons (+2.5)",
 "Giants (+2.5)",
 "Bears (+3)",
-"Colts (+2.5)"
+"Colts (+2.5)",
+"Steelers (+3)",
+"Seahawks (-8)",
+"Broncos (+1)",
+"Chiefs (-5.5)"
+
 
     ], // Week 7
     "8": [], // Week 8
