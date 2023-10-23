@@ -136,7 +136,8 @@ const winners = {
 "Steelers (+3)",
 "Seahawks (-8)",
 "Broncos (+1)",
-"Chiefs (-5.5)"
+"Chiefs (-5.5)",
+"Eagles (-2.5)"
 
 
     ], // Week 7
