@@ -137,7 +137,8 @@ const winners = {
 "Seahawks (-8)",
 "Broncos (+1)",
 "Chiefs (-5.5)",
-"Eagles (-2.5)"
+"Eagles (-2.5)",
+"Vikings (+7)"
 
 
     ], // Week 7
