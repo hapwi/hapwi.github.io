@@ -29,10 +29,10 @@ var weeks = [{
     }, // Week 6
     {
         start: new Date("10/18/23 06:00 AM MST"),
-        end: new Date("10/25/23 06:00 AM MST")
+        end: new Date("10/24/23 06:00 AM MST")
     }, // Week 7
     {
-        start: new Date("10/25/23 06:00 AM MST"),
+        start: new Date("10/24/23 06:00 AM MST"),
             end: new Date("11/01/23 06:00 AM MST")
     }, // Week 8
     {
