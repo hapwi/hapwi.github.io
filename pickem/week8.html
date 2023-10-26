@@ -946,7 +946,7 @@
             const cells = document.querySelectorAll("table tbody td");
             cells.forEach(cell => {
                 cell.addEventListener("click", function (event) {
-                    if (now.getTime() > deadline.getTime()) {
+                    if (now.getTime() > finalDeadline.getTime()) {
                         return; // Return if the deadline has passed
                     }
 
