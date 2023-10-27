@@ -30,7 +30,7 @@ const updateHighlightCount = (weekDataDiv, countSpan) => {
 // Function to load weekly data
 const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) => {
     try {
-        const allWeeksData = await fetchJSON("../login/weekly-data.json?v=8.0.0");
+        const allWeeksData = await fetchJSON("../login/weekly-data.json?v=8.0.1");
         const weekData = allWeeksData[`Week${weekNumber}`];
 
         const weekWinners = winners[weekNumber] || [];

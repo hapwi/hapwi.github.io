@@ -2047,8 +2047,141 @@
                 "Raiders (+8)"
             ],
             "tiebreaker": 39
+        }, {
+            "username": "cgodi",
+            "password": "z4h7w2",
+            "picks": [
+                "Bills (-8.5)",
+                "Rams (+6.5)",
+                "Packers (EVEN)",
+                "Titans (+2.5)",
+                "Saints (+1)",
+                "Patriots (+9.5)",
+                "Jets (-3)",
+                "Steelers (+2.5)",
+                "Commanders (+6.5)",
+                "Texans (-3)",
+                "Browns (+3)",
+                "Broncos (+8)",
+                "Cardinals (+8.5)",
+                "49ers (-5.5)",
+                "Bears (+8.5)",
+                "Raiders (+8)"
+            ],
+            "tiebreaker": 56
+        }, {
+            "username": "jbaga",
+            "password": "t9za3u",
+            "picks": [
+                "Buccaneers (+8.5)",
+                "Rams (+6.5)",
+                "Vikings (EVEN)",
+                "Falcons (-2.5)",
+                "Colts (-1)",
+                "Dolphins (-9.5)",
+                "Jets (-3)",
+                "Jaguars (-2.5)",
+                "Eagles (-6.5)",
+                "Texans (-3)",
+                "Browns (+3)",
+                "Chiefs (-8)",
+                "Cardinals (+8.5)",
+                "Bengals (+5.5)",
+                "Bears (+8.5)",
+                "Raiders (+8)"
+            ],
+            "tiebreaker": 31
+        }, {
+            "username": "bleet",
+            "password": "3o59ad",
+            "picks": [
+                "Bills (-8.5)",
+                "Rams (+6.5)",
+                "Vikings (EVEN)",
+                "Titans (+2.5)",
+                "Colts (-1)",
+                "Dolphins (-9.5)",
+                "Jets (-3)",
+                "Steelers (+2.5)",
+                "Commanders (+6.5)",
+                "Panthers (+3)",
+                "Browns (+3)",
+                "Broncos (+8)",
+                "Cardinals (+8.5)",
+                "49ers (-5.5)",
+                "Bears (+8.5)",
+                "Raiders (+8)"
+            ],
+            "tiebreaker": 44
+        }, {
+            "username": "aquint",
+            "password": "pgio9s",
+            "picks": [
+                "Buccaneers (+8.5)",
+                "Rams (+6.5)",
+                "Vikings (EVEN)",
+                "Falcons (-2.5)",
+                "Colts (-1)",
+                "Patriots (+9.5)",
+                "Jets (-3)",
+                "Steelers (+2.5)",
+                "Commanders (+6.5)",
+                "Panthers (+3)",
+                "Seahawks (-3)",
+                "Chiefs (-8)",
+                "Ravens (-8.5)",
+                "Bengals (+5.5)",
+                "Chargers (-8.5)",
+                "Lions (-8)"
+            ],
+            "tiebreaker": 38
+        }, {
+            "username": "marvizu",
+            "password": "6recvl",
+            "picks": [
+                "Buccaneers (+8.5)",
+                "Rams (+6.5)",
+                "Vikings (EVEN)",
+                "Titans (+2.5)",
+                "Colts (-1)",
+                "Dolphins (-9.5)",
+                "Jets (-3)",
+                "Jaguars (-2.5)",
+                "Eagles (-6.5)",
+                "Texans (-3)",
+                "Seahawks (-3)",
+                "Chiefs (-8)",
+                "Ravens (-8.5)",
+                "Bengals (+5.5)",
+                "Chargers (-8.5)",
+                "Lions (-8)"
+            ],
+            "tiebreaker": 36
+        }, {
+            "username": "dbouch",
+            "password": "franklin",
+            "picks": [
+                "Buccaneers (+8.5)",
+                "Rams (+6.5)",
+                "Vikings (EVEN)",
+                "Titans (+2.5)",
+                "Saints (+1)",
+                "Patriots (+9.5)",
+                "Giants (+3)",
+                "Steelers (+2.5)",
+                "Commanders (+6.5)",
+                "Texans (-3)",
+                "Seahawks (-3)",
+                "Chiefs (-8)",
+                "Ravens (-8.5)",
+                "Bengals (+5.5)",
+                "Bears (+8.5)",
+                "Lions (-8)"
+            ],
+            "tiebreaker": 52
         }
     ]
+
 
 
 
