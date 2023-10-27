@@ -144,7 +144,7 @@ const winners = {
     ], // Week 7
 "8": [
 
-
+"Buccaneers (+8.5)"
 
 
 ], // Week 8
