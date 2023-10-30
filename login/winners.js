@@ -158,7 +158,7 @@ const winners = {
 "Cardinals (+8.5)",
 "Bengals (+5.5)",
 "Chargers (-8.5)",
-"Raiders (+8)"
+
 
 
 ], // Week 8
