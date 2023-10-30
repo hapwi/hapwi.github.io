@@ -1,3 +1,45 @@
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Increment the version and return the updated version string
+    function incrementVersion(currentVersion) {
+        let [major, minor, patch] = currentVersion.split('.').map(Number);
+
+        patch++;
+        if (patch >= 10) {
+            patch = 0;
+            minor++;
+        }
+        if (minor >= 10) {
+            minor = 0;
+            major++;
+        }
+
+        return `${major}.${minor}.${patch}`;
+    }
+
+    // Load the script with updated version
+    function loadScript(version) {
+        const script = document.createElement('script');
+        script.src = `../login/winners.js?v=${version}`;
+        script.onload = function() {
+            initializeApp();
+        };
+        document.body.appendChild(script);
+    }
+
+    // Get and update the version
+    let version = localStorage.getItem('version') || '1.0.0';
+    version = incrementVersion(version);
+    localStorage.setItem('version', version);
+
+    // Load the winners script
+    loadScript(version);
+});
+
+
+
 // Utility to fetch JSON data
 const fetchJSON = async (url) => {
     const response = await fetch(url);
@@ -6,6 +48,9 @@ const fetchJSON = async (url) => {
     }
     return await response.json();
 };
+
+
+    
 
 // Function to update count of green highlighted items
 const updateHighlightCount = (weekDataDiv, countSpan) => {
@@ -64,7 +109,7 @@ const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) =>
 };
 
 
-document.addEventListener("DOMContentLoaded", async () => {
+function initializeApp() {
     const dropdown = document.getElementById("week-dropdown");
     const currentWeek = 8;
     const loggedInUser = localStorage.getItem("loggedInUser") || "Guest";
@@ -88,4 +133,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         localStorage.removeItem("loggedInUser");
         window.location.href = "../login/user-picks-login.html";
     });
-});
+}
+
+
