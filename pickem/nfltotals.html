@@ -1216,7 +1216,44 @@
             // toggleIcons(false); // Set the icons based on the theme
         }
     </script>
-    <script src="../login/winners.js?v=8.0.4"></script>
+    <!-- <script src="../login/winners.js?v=8.0.4"></script> -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    // Get the current version from localStorage
+    let version = localStorage.getItem('version') || '1.0.0';
+
+    // Split the version into its major, minor, and patch parts
+    let [major, minor, patch] = version.split('.').map(Number); // Convert to numbers
+
+    // Increment the patch number
+    patch++;
+
+    // Check if patch reaches 10, if so reset to 0 and increment minor
+    if (patch >= 10) {
+        patch = 0;
+        minor++;
+    }
+
+    // Check if minor reaches 10, if so reset to 0 and increment major
+    if (minor >= 10) {
+        minor = 0;
+        major++;
+    }
+
+    // Construct the updated version string
+    version = `${major}.${minor}.${patch}`;
+
+    // Save the incremented version back to localStorage
+    localStorage.setItem('version', version);
+
+    // Create the script tag dynamically with the updated version
+    const script = document.createElement('script');
+    script.src = `../login/winners.js?v=${version}`;
+    document.body.appendChild(script);
+});
+
+
+    </script>
     <script src="../login/common.js"></script>
 
 
