@@ -54,6 +54,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js">
     </script>
 
+<!-- night mode toggle stuff -->
     <!-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             function setThemeColor(isNightMode) {
@@ -1091,19 +1092,19 @@
 
         // Define the deadlines
         // date that hides the table until a date and time
-        const testDeadline = new Date("10/25/23 06:00 PM MST");
+        const tableDeadline = new Date("10/25/23 06:00 PM MST");
         const finalDeadline = new Date("10/26/23 05:15 PM MST");
 
         // Get the current date and time
         const now = new Date();
 
         // If the current time is before the first deadline, hide the nflTable
-        if (now.getTime() <= testDeadline.getTime()) {
+        if (now.getTime() <= tableDeadline.getTime()) {
             document.getElementById('nflTable').style.display = 'none';
             document.getElementById('locked').style.display = 'none';
         }
 
-        if (now.getTime() >= testDeadline.getTime()) {
+        if (now.getTime() >= tableDeadline.getTime()) {
             document.getElementById('unlocked').style.display = 'none';
         }
 
