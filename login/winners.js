@@ -144,7 +144,19 @@ const winners = {
     ], // Week 7
 "8": [
 
-"Buccaneers (+8.5)"
+"Buccaneers (+8.5)",
+"Panthers (+3)",
+"Cowboys (-6.5)",
+"Dolphins (-9.5)",
+"Saints (+1)",
+"Eagles (-6.5)",
+"Titans (+2.5)",
+"Vikings (EVEN)",
+"Jaguars (-2.5)",
+"Seahawks (-3)",
+"Broncos (+8)",
+"Cardinals (+8.5)",
+"Bengals (+5.5)",
 
 
 ], // Week 8
