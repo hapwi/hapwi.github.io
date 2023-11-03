@@ -1,23 +1,23 @@
 
+function incrementVersion(currentVersion) {
+    let [major, minor, patch] = currentVersion.split('.').map(Number);
 
+    patch++;
+    if (patch >= 10) {
+        patch = 0;
+        minor++;
+    }
+    if (minor >= 10) {
+        minor = 0;
+        major++;
+    }
+
+    return `${major}.${minor}.${patch}`;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Increment the version and return the updated version string
-    function incrementVersion(currentVersion) {
-        let [major, minor, patch] = currentVersion.split('.').map(Number);
-
-        patch++;
-        if (patch >= 10) {
-            patch = 0;
-            minor++;
-        }
-        if (minor >= 10) {
-            minor = 0;
-            major++;
-        }
-
-        return `${major}.${minor}.${patch}`;
-    }
+  
 
     // Load the script with updated version
     function loadScript(version) {
@@ -74,8 +74,14 @@ const updateHighlightCount = (weekDataDiv, countSpan) => {
 
 // Function to load weekly data
 const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) => {
+    
+    let jsonVersion = localStorage.getItem('jsonVersion') || '1.0.0';
+    jsonVersion = incrementVersion(jsonVersion);
+    localStorage.setItem('jsonVersion', jsonVersion);
+    console.log("json version:" , jsonVersion);
+
     try {
-        const allWeeksData = await fetchJSON("../login/weekly-data.json?v=8.0.1");
+        const allWeeksData = await fetchJSON(`../login/weekly-data.json?v=${jsonVersion}`);
         const weekData = allWeeksData[`Week${weekNumber}`];
 
         const weekWinners = winners[weekNumber] || [];
