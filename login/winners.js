@@ -126,6 +126,8 @@ const winners = {
     // Week 6
 
     "7": [
+
+        
 "Jaguars (+1)",
 "Patriots (+8.5)",
 "Ravens (-3)",
@@ -178,6 +180,7 @@ const winners = {
 "Packers (-3)",
 "Vikings (+4.5)",
 "Buccaneers (+3)",
+
 
 
     ], // Week 9
