@@ -169,7 +169,8 @@ const winners = {
 
     "9": [
         
-"Steelers (-2.5)"
+"Steelers (-2.5)",
+"Chiefs (-1.5)"
 
     ], // Week 9
 
