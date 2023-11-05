@@ -170,7 +170,15 @@ const winners = {
     "9": [
         
 "Steelers (-2.5)",
-"Chiefs (-1.5)"
+"Chiefs (-1.5)",
+"Ravens (-6)",
+"Browns (-8)",
+"Bears (+8.5)",
+"Commanders (+3.5)",
+"Packers (-3)",
+"Vikings (+4.5)",
+"Buccaneers (+3)",
+
 
     ], // Week 9
 
