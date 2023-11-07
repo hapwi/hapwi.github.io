@@ -78,7 +78,8 @@ const winners = {
         "San Francisco 49ers (-14.0)",
         "Dallas Cowboys (-6.5)",
         "New York Jets (+10.0)",
-        "Seattle Seahawks (+1.0)"
+        "Seattle Seahawks (+1.0)",
+        
 
 
     ],
@@ -184,6 +185,7 @@ const winners = {
 "Colts (-2.5)",
 "Raiders (-2)",
 "Eagles (-3)",
+"Chargers (-3.5)"
 
 
 
