@@ -195,6 +195,7 @@ const winners = {
 
     "10": [
 
+      "Panthers (+3.5)",
 
         
     ], // Week 10
