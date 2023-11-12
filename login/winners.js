@@ -21,6 +21,8 @@ const winners = {
     // Week 1
 
     "2": [
+
+
         "Minnesota Vikings (+7)",
         "Buffalo Bills (-10)",
         "Tennessee Titans (+3)",
@@ -196,6 +198,7 @@ const winners = {
     "10": [
 
       "Panthers (+3.5)",
+      "Colts (-2)",
 
         
     ], // Week 10
