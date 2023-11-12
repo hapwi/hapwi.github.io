@@ -199,8 +199,14 @@ const winners = {
 
       "Panthers (+3.5)",
       "Colts (-2)",
+      "Texans (+6.5)",
+      "Vikings (-3)",
+      "Steelers (-3.5)",
+      "Buccaneers (-1)",
+      "49ers (-3)",
+      "Browns (+6.5)",
 
-        
+
     ], // Week 10
     "11": [], // Week 11
     "12": [], // Week 12
