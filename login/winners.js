@@ -208,6 +208,7 @@ const winners = {
       "Cowboys (-17)",
       "Cardinals (+2)",
       "Commanders (+6.5)",
+      "Raiders (+1)",
 
 
     ], // Week 10
