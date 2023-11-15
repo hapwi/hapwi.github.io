@@ -10,7 +10,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../pickem/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../pickem/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../pickem/img/favicon-16x16.png">
-    <link rel="manifest" href="../pickem/img/site.webmanifest">
     <link rel="mask-icon" href="../pickem/img/safari-pinned-tab.svg" color="#020202">
     <meta name="msapplication-TileColor" content="#da532c">
 <!-- favicon -->
@@ -54,7 +53,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js">
     </script>
 
-
+<!-- ? main styles -->
     <style>
         .table-wrapper {
             overflow-x: auto;
@@ -796,8 +795,126 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
-    <!-- ! set time and date for when picks need to be submitted by -->
-    <!-- ! sorry picks are now closed after date anmd time -->
+
+
+
+<!-- ! defines winners for the week -->
+<!-- ! highlightWinners() function needs to be updated for correct week -->
+<script>
+    // Define a function to load the winners.js file dynamically
+    function loadWinnersScript(version) {
+      const script = document.createElement("script");
+      script.src = `../login/winners.js?v=${version}`; // Specify the path to your winners.js file
+      document.body.appendChild(script);
+      script.onload = () => {
+        // Once the script is loaded, you can use the data from winners.js
+        highlightWinners();
+      };
+    }
+  
+    // Get the current version from localStorage
+    let version = localStorage.getItem('version') || '1.0.0';
+
+    // Split the version into its major, minor, and patch parts
+    let [major, minor, patch] = version.split('.').map(Number); // Convert to numbers
+
+    // Increment the patch number
+    patch++;
+
+    // Check if patch reaches 10, if so reset to 0 and increment minor
+    if (patch >= 10) {
+        patch = 0;
+        minor++;
+    }
+
+    // Check if minor reaches 10, if so reset to 0 and increment major
+    if (minor >= 10) {
+        minor = 0;
+        major++;
+    }
+
+    // Construct the updated version string
+    version = `${major}.${minor}.${patch}`;
+
+    // Save the incremented version back to localStorage
+    localStorage.setItem('version', version);
+
+    // Call the function to load winners.js with the updated version
+    loadWinnersScript(version);
+
+    // Define a function to highlight winners
+    function highlightWinners() {
+        if (typeof winners !== 'undefined' && winners["11"]) {
+            const weekWinners = winners["11"];
+            const cells = document.querySelectorAll("table tbody td");
+            cells.forEach(cell => {
+                let cellText = cell.innerText.trim();
+                let strongElement = cell.querySelector('strong');
+
+                if (weekWinners.includes(cellText) || (strongElement && weekWinners.includes(strongElement.innerText.trim()))) {
+                    cell.style.backgroundColor = "#5a9e5a";
+                    cell.style.color = "white";
+
+                    if (strongElement) {
+                        strongElement.style.color = 'white';
+                    }
+
+                    var spreadElement = cell.querySelector('.spread');
+                    if (spreadElement) {
+                        spreadElement.style.color = 'white';
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+<!-- ! define the deadlines for table visability. -->
+<!-- ! tableDeadline will hide the table and show lines will be available soon -->
+<!-- ! finalDeadline stops users from submitting picks and locks table -->
+  <script>
+      
+        // date that hides the table until a date and time
+        const tableDeadline = new Date("11/16/23 12:00 AM MST");
+        // data that no longer allows picks to be submitted
+        const finalDeadline = new Date("11/16/23 05:15 PM MST");
+
+        // Get the current date and time
+        const now = new Date();
+
+        // If the current time is before the first deadline, hide the nflTable
+        if (now.getTime() <= tableDeadline.getTime()) {
+            document.getElementById('nflTable').style.display = 'none';
+            document.getElementById('locked').style.display = 'none';
+        }
+
+        if (now.getTime() >= tableDeadline.getTime()) {
+            document.getElementById('unlocked').style.display = 'none';
+        }
+
+
+        // If the current time is after the final deadline, hide the forms and display a message
+        if (now.getTime() > finalDeadline.getTime()) {
+            ['card2', 'btn-div', 'card1'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+
+            });
+
+            // Create a message div
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML =
+                '<p class="alert alert-danger">Submissions are now closed.' +
+                '<span style="display: block; margin-top: 1rem;"><i class="bi bi-arrow-down-circle-fill"></i> See winners below <i class="bi bi-arrow-down-circle-fill"></i></span>' +
+                '</p>';
+
+            // Get the container div and insert the message at the top
+            const containerDiv = document.querySelector('.container');
+            containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
+
+
+
+        }
+  </script>
 
     <script>
         $(document).ready(function () {
@@ -810,13 +927,6 @@
             });
         });
 
-        // define winners for the week
-        const winners = {
-
-
-
-
-        };
 
         document.addEventListener('DOMContentLoaded', function () {
             // Highlight selected table cells
@@ -940,70 +1050,7 @@
             });
         });
 
-        // Define the deadlines
-        // date that hides the table until a date and time
-        const tableDeadline = new Date("11/16/23 12:00 AM MST");
-        const finalDeadline = new Date("11/16/23 05:15 PM MST");
-
-        // Get the current date and time
-        const now = new Date();
-
-        // If the current time is before the first deadline, hide the nflTable
-        if (now.getTime() <= tableDeadline.getTime()) {
-            document.getElementById('nflTable').style.display = 'none';
-            document.getElementById('locked').style.display = 'none';
-        }
-
-        if (now.getTime() >= tableDeadline.getTime()) {
-            document.getElementById('unlocked').style.display = 'none';
-        }
-
-
-        // If the current time is after the final deadline, hide the forms and display a message
-        if (now.getTime() > finalDeadline.getTime()) {
-            ['card2', 'btn-div', 'card1'].forEach(id => {
-                document.getElementById(id).style.display = 'none';
-
-            });
-
-            // Create a message div
-            const messageDiv = document.createElement('div');
-            messageDiv.innerHTML =
-                '<p class="alert alert-danger">Submissions are now closed.' +
-                '<span style="display: block; margin-top: 1rem;"><i class="bi bi-arrow-down-circle-fill"></i> See winners below <i class="bi bi-arrow-down-circle-fill"></i></span>' +
-                '</p>';
-
-            // Get the container div and insert the message at the top
-            const containerDiv = document.querySelector('.container');
-            containerDiv.insertBefore(messageDiv, containerDiv.firstChild);
-
-            // Highlight winners in the table
-            const cells = document.querySelectorAll("table tbody td");
-            cells.forEach(cell => {
-                let cellText = cell.innerText.trim(); // Extract text content of the cell
-                let strongElement = cell.querySelector(
-                    'strong'); // Get the <strong> element inside the cell, if any
-
-                // Check both the cell's text and the <strong> element's text against the winners
-                if (winners[cellText] || (strongElement && winners[strongElement.innerText.trim()])) {
-                    cell.style.backgroundColor = "#5a9e5a"; // Highlight in light green
-                    cell.style.color = "white";
-
-                    // If there's a <strong> element, change its style
-                    if (strongElement) {
-                        strongElement.style.color = 'white';
-                    }
-
-                    // Only change the color of the 'spread' element inside the highlighted cell
-                    var spreadElement = cell.querySelector('.spread');
-                    if (spreadElement) {
-                        spreadElement.style.color = 'white';
-                    }
-                }
-            });
-
-
-        }
+      
     </script>
     <script src="../login/common.js"></script>
     <div id="output" class="pt-custom"></div>

@@ -217,7 +217,6 @@ const winners = {
 
     "11": [
 
-
         
     ], // Week 11
     "12": [], // Week 12
