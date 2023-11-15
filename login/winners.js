@@ -1,6 +1,6 @@
 const winners = {
 
-    "1": [
+    "1":[
         "Detroit Lions (+5.5)",
         "Green Bay Packers (+1)",
         "Philadelphia Eagles (-4)",
@@ -213,7 +213,13 @@ const winners = {
 
 
     ], // Week 10
-    "11": [], // Week 11
+
+
+    "11": [
+
+
+        
+    ], // Week 11
     "12": [], // Week 12
     "13": [], // Week 13
     "14": [], // Week 14
