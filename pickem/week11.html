@@ -187,6 +187,7 @@
             /* needed to position the child #countdown-timer absolutely */
             width: 100%;
             height: 100%;
+            background-color: #282c34;
         }
 
         #countdown-timer {
@@ -334,105 +335,112 @@
             animation: smoothGlow .5s alternate;
         }
 
-        /* Night Mode Styles */
-        body.night-mode {
-            background-color: #1f1f1f;
-            color: white;
-        }
+             /* Night Mode Styles */
+body.night-mode {
+    background-color: #282c34; /* Updated background color */
+    color: #dcdcdc; /* Updated text color */
+}
 
-        .night-mode a,
-        .night-mode p,
-        .night-mode h1,
-        .night-mode h2,
-        .night-mode td,
-        .night-mode th {
-            color: white;
-        }
+.night-mode a,
+.night-mode p,
+.night-mode h1,
+.night-mode h2,
+.night-mode td,
+.night-mode th {
+    color: #dcdcdc; /* Updated text color */
+}
 
-        .night-mode .bg-light {
-            background-color: #333 !important;
-        }
+.night-mode .bg-light {
+    background-color: #282c34 !important;
+}
 
-        .night-mode .card-body {
-            border: 1px solid #555;
-        }
+.night-mode .card-body {
+    border: 1px solid #555;
+}
 
-        .night-mode #nflTable {
-            background-color: #444;
-            border-color: #555;
-        }
+.night-mode #nflTable {
+    background-color: #32363e; /* Updated table background color */
+    border-color: #4b4f58; /* Updated table border color */
+}
 
-        .night-mode .alert-danger {
-            background-color: #b94a48;
-            border-color: #953b39;
-            color: #ffffff;
-        }
+.night-mode .alert-danger {
+    background-color: #b94a48;
+    border-color: #953b39;
+    color: #ffffff;
+}
 
-        .night-mode #nflTable td,
-        .night-mode #nflTable th {
-            background-color: #444;
-            border-color: #555;
-            color: white;
-        }
+.night-mode #nflTable td,
+.night-mode #nflTable th {
+    background-color: #32363e; /* Updated table cell background color */
+    border-color: #4b4f58; /* Updated table cell border color */
+    color: white;
+}
 
-        .night-mode #nflTable tbody tr:hover {
-            background-color: #555;
-        }
+.night-mode #nflTable tbody tr:hover {
+    background-color: #505763; /* Updated hover color */
+}
 
-        .night-mode #nflTable th {
-            background: #1f1f1f;
-        }
+.night-mode #nflTable th {
+    background: #20232a; /* Updated header background color */
+}
 
-        .night-mode .selected {
-            background-color: #6ebf87 !important;
-            color: black;
-        }
+.night-mode .selected {
+    background-color: #676d76 !important; /* Updated selected row color */
+    color: black;
+}
 
-        .night-mode label,
-        .night-mode p {
-            color: white;
-        }
+.night-mode label,
+.night-mode p {
+    color: white;
+}
+
+/* Header and footer night mode styles */
+.night-mode header,
+.night-mode #bottom-nav {
+    background-color: #282c34; /* Updated background color */
+}
+
+.night-mode #countdown-timer {
+    color: #ddd;
+}
+
+.night-mode #bottom-nav a,
+.night-mode #here {
+    color: white2; /* Updated link color */
+}
+
+.night-mode #pillNav2 {
+    background-color: #282c34; /* Updated pill navigation background color */
+}
+
+.night-mode #pillNav2 .nav-item a.nav-link:hover,
+.night-mode #pillNav2 .nav-item a.nav-link:focus {
+    color: #1f1f1f;
+    background-color: #ddd;
+}
+
+.night-mode #pillNav2 .nav-item a.nav-link.active {
+    color: #1f1f1f;
+    background-color: #ddd;
+}
+
+.night-mode #weekDropdown {
+    background-color: #444;
+    color: white;
+}
 
 
-        /* Header and footer night mode styles */
-        .night-mode header,
-        .night-mode #bottom-nav {
-            background-color: #1f1f1f;
-        }
+.night-mode .search-label {
+    color: white;
+}
 
-        .night-mode #countdown-timer {
-            color: #ddd;
-        }
-
-        .night-mode #bottom-nav a,
-        .night-mode #here {
-            color: #ddd;
-        }
-
-        .night-mode #pillNav2 {
-            background-color: #1f1f1f;
-        }
-
-        .night-mode #pillNav2 .nav-item a.nav-link:hover,
-        .night-mode #pillNav2 .nav-item a.nav-link:focus {
-            color: #1f1f1f;
-            background-color: #ddd;
-        }
-
-        .night-mode #pillNav2 .nav-item a.nav-link.active {
-            color: #1f1f1f;
-            background-color: #ddd;
-        }
-
-
-        #nightModeToggle {
-            font-size: 18px;
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-        }
+.night-mode #pillNav3 {
+    border: 2px solid #fff;
+    box-shadow: 0px 2px 5px rgb(90, 90, 90);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: #282c34;
+    color: #fff;
+}
 
 
         /* Bottom navigation pill styles for better distinction */
@@ -544,7 +552,7 @@
             border: 2px solid #fff;
             box-shadow: 0px 2px 5px rgb(90, 90, 90);
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-            background-color: #444;
+            background-color: #282c34;
             color: #fff;
         }
 
