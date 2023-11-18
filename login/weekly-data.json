@@ -2680,7 +2680,251 @@
             ],
             "tiebreaker": 44
         }
+    ],
+
+    "Week11": [
+        {
+            "username": "pbaga",
+            "picks": [
+                "Ravens (-3.5)",
+                "Browns (-1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Giants (+9.5)",
+                "Cowboys (-10.5)",
+                "Titans (+7)",
+                "Texans (-4.5)",
+                "Buccaneers (+11.5)",
+                "Seahawks (-1)",
+                "Jets (+7)",
+                "Vikings (+2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 49
+        },
+        {
+            "username": "jbindi",
+            "picks": [
+                "Ravens (-3.5)",
+                "Browns (-1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Giants (+9.5)",
+                "Cowboys (-10.5)",
+                "Jaguars (-7)",
+                "Cardinals (+4.5)",
+                "49ers (-11.5)",
+                "Rams (+1)",
+                "Jets (+7)",
+                "Vikings (+2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 39
+        },
+        {
+            "username": "tjorda",
+            "picks": [
+                "Bengals (+3.5)",
+                "Steelers (+1.5)",
+                "Bears (+8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Commanders (-9.5)",
+                "Cowboys (-10.5)",
+                "Jaguars (-7)",
+                "Texans (-4.5)",
+                "Buccaneers (+11.5)",
+                "Seahawks (-1)",
+                "Bills (-7)",
+                "Vikings (+2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 28
+        },
+        {
+            "username": "cgodi",
+            "picks": [
+                "Ravens (-3.5)",
+                "Browns (-1.5)",
+                "Bears (+8.5)",
+                "Chargers (-3)",
+                "Dolphins (-12.5)",
+                "Giants (+9.5)",
+                "Panthers (+10.5)",
+                "Titans (+7)",
+                "Texans (-4.5)",
+                "Buccaneers (+11.5)",
+                "Rams (+1)",
+                "Bills (-7)",
+                "Broncos (-2.5)",
+                "Chiefs (-2.5)"
+            ],
+            "tiebreaker": 65
+        },
+        {
+            "username": "jbaga",
+            "picks": [
+                "Ravens (-3.5)",
+                "Browns (-1.5)",
+                "Lions (-8.5)",
+                "Packers (+3)",
+                "Raiders (+12.5)",
+                "Commanders (-9.5)",
+                "Panthers (+10.5)",
+                "Titans (+7)",
+                "Cardinals (+4.5)",
+                "Buccaneers (+11.5)",
+                "Seahawks (-1)",
+                "Jets (+7)",
+                "Broncos (-2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 31
+        },
+        {
+            "username": "marvizu",
+            "picks": [
+                "Bengals (+3.5)",
+                "Browns (-1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Commanders (-9.5)",
+                "Cowboys (-10.5)",
+                "Jaguars (-7)",
+                "Cardinals (+4.5)",
+                "Buccaneers (+11.5)",
+                "Seahawks (-1)",
+                "Jets (+7)",
+                "Vikings (+2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 39
+        },
+        {
+            "username": "dbouch",
+            "picks": [
+                "Bengals (+3.5)",
+                "Steelers (+1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Giants (+9.5)",
+                "Cowboys (-10.5)",
+                "Titans (+7)",
+                "Cardinals (+4.5)",
+                "Buccaneers (+11.5)",
+                "Seahawks (-1)",
+                "Jets (+7)",
+                "Vikings (+2.5)",
+                "Chiefs (-2.5)"
+            ],
+            "tiebreaker": 48
+        },
+        {
+            "username": "dhari",
+            "picks": [
+                "Ravens (-3.5)",
+                "Steelers (+1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Commanders (-9.5)",
+                "Panthers (+10.5)",
+                "Titans (+7)",
+                "Texans (-4.5)",
+                "49ers (-11.5)",
+                "Rams (+1)",
+                "Bills (-7)",
+                "Vikings (+2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 45
+        },
+        {
+            "username": "aquint",
+            "picks": [
+                "Ravens (-3.5)",
+                "Steelers (+1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Dolphins (-12.5)",
+                "Commanders (-9.5)",
+                "Panthers (+10.5)",
+                "Jaguars (-7)",
+                "Texans (-4.5)",
+                "49ers (-11.5)",
+                "Seahawks (-1)",
+                "Bills (-7)",
+                "Vikings (+2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 51
+        },
+        {
+            "username": "bleet",
+            "picks": [
+                "Ravens (-3.5)",
+                "Steelers (+1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Giants (+9.5)",
+                "Cowboys (-10.5)",
+                "Jaguars (-7)",
+                "Texans (-4.5)",
+                "Buccaneers (+11.5)",
+                "Seahawks (-1)",
+                "Bills (-7)",
+                "Broncos (-2.5)",
+                "Chiefs (-2.5)"
+            ],
+            "tiebreaker": 42
+        },
+        {
+            "username": "adelli",
+            "picks": [
+                "Bengals (+3.5)",
+                "Steelers (+1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Dolphins (-12.5)",
+                "Giants (+9.5)",
+                "Cowboys (-10.5)",
+                "Titans (+7)",
+                "Cardinals (+4.5)",
+                "49ers (-11.5)",
+                "Rams (+1)",
+                "Jets (+7)",
+                "Vikings (+2.5)",
+                "Chiefs (-2.5)"
+            ],
+            "tiebreaker": 69
+        },
+        {
+            "username": "pblang",
+            "picks": [
+                "Bengals (+3.5)",
+                "Steelers (+1.5)",
+                "Lions (-8.5)",
+                "Chargers (-3)",
+                "Raiders (+12.5)",
+                "Commanders (-9.5)",
+                "Cowboys (-10.5)",
+                "Jaguars (-7)",
+                "Cardinals (+4.5)",
+                "49ers (-11.5)",
+                "Seahawks (-1)",
+                "Jets (+7)",
+                "Vikings (+2.5)",
+                "Eagles (+2.5)"
+            ],
+            "tiebreaker": 40
+        }
     ]
+    
     
     
 
