@@ -218,7 +218,7 @@ const winners = {
     "11": [
 
         "Ravens (-3.5)",
-        "Browns (-1.5)"
+        
     ], // Week 11
     "12": [], // Week 12
     "13": [], // Week 13
