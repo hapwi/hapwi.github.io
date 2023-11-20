@@ -226,6 +226,9 @@ const winners = {
         "Cowboys (-10.5)",
         "Jaguars (-7)",
         "Texans (-4.5)",
+        "49ers (-11.5)",
+        "Rams (+1)",
+        "Bills (-7)",
         
     ], // Week 11
     "12": [], // Week 12
