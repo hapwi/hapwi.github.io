@@ -230,10 +230,15 @@ const winners = {
         "Rams (+1)",
         "Bills (-7)",
       "Vikings (+2.5)",
-      "Eagles (+2.5)
+      "Eagles (+2.5)"
         
     ], // Week 11
-    "12": [], // Week 12
+
+    
+    "12": [
+
+
+    ], // Week 12
     "13": [], // Week 13
     "14": [], // Week 14
     "15": [], // Week 15

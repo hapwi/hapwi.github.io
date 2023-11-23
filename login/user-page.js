@@ -117,7 +117,7 @@ const loadWeekData = async (weekNumber, loggedInUser, weekDataDiv, countSpan) =>
 
 function initializeApp() {
     const dropdown = document.getElementById("week-dropdown");
-    const currentWeek = 11;
+    const currentWeek = 12;
     const loggedInUser = localStorage.getItem("loggedInUser") || "Guest";
     const weekDataDiv = document.querySelector("#week-data tbody");
     const countSpan = document.createElement("span");
