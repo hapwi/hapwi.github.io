@@ -2923,7 +2923,275 @@
             ],
             "tiebreaker": 40
         }
+    ],
+
+    "Week12": [
+        {
+            "username": "jbindi",
+            "picks": [
+                "Green Bay Packers (+7.5)",
+                "Dallas Cowboys (-13.5)",
+                "Seattle Seahawks (+7)",
+                "New York Jets (+9.5)",
+                "Cincinnati Bengals (+1)",
+                "New Orleans Saints (-1)",
+                "Houston Texans (+1.5)",
+                "Tennessee Titans (-3.5)",
+                "Indianapolis Colts (-2.5)",
+                "New England Patriots (-3.5)",
+                "Denver Broncos (-1.5)",
+                "Arizona Cardinals (+1)",
+                "Kansas City Chiefs (-9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 36
+        },
+        {
+            "username": "marvizu",
+            "picks": [
+                "Detroit Lions (-7.5)",
+                "Dallas Cowboys (-13.5)",
+                "Seattle Seahawks (+7)",
+                "Miami Dolphins (-9.5)",
+                "Pittsburgh Steelers (-1)",
+                "New Orleans Saints (-1)",
+                "Jacksonville Jaguars (-1.5)",
+                "Tennessee Titans (-3.5)",
+                "Tampa Bay Buccaneers (+2.5)",
+                "New York Giants (+3.5)",
+                "Cleveland Browns (+1.5)",
+                "Los Angeles Rams (-1)",
+                "Kansas City Chiefs (-9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Chicago Bears (+3.5)"
+            ],
+            "tiebreaker": 37
+        },
+        {
+            "username": "pbaga",
+            "picks": [
+                "Green Bay Packers (+7.5)",
+                "Dallas Cowboys (-13.5)",
+                "San Francisco 49ers (-7)",
+                "Miami Dolphins (-9.5)",
+                "Pittsburgh Steelers (-1)",
+                "New Orleans Saints (-1)",
+                "Houston Texans (+1.5)",
+                "Tennessee Titans (-3.5)",
+                "Tampa Bay Buccaneers (+2.5)",
+                "New York Giants (+3.5)",
+                "Cleveland Browns (+1.5)",
+                "Arizona Cardinals (+1)",
+                "Kansas City Chiefs (-9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 44
+        },
+        {
+            "username": "dhari",
+            "picks": [
+                "Green Bay Packers (+7.5)",
+                "Dallas Cowboys (-13.5)",
+                "San Francisco 49ers (-7)",
+                "New York Jets (+9.5)",
+                "Pittsburgh Steelers (-1)",
+                "New Orleans Saints (-1)",
+                "Houston Texans (+1.5)",
+                "Carolina Panthers (+3.5)",
+                "Indianapolis Colts (-2.5)",
+                "New England Patriots (-3.5)",
+                "Denver Broncos (-1.5)",
+                "Los Angeles Rams (-1)",
+                "Las Vegas Raiders (+9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Chicago Bears (+3.5)"
+            ],
+            "tiebreaker": 34
+        },
+        {
+            "username": "jbaga",
+            "picks": [
+                "Detroit Lions (-7.5)",
+                "Washington Commanders (+13.5)",
+                "San Francisco 49ers (-7)",
+                "New York Jets (+9.5)",
+                "Pittsburgh Steelers (-1)",
+                "New Orleans Saints (-1)",
+                "Houston Texans (+1.5)",
+                "Carolina Panthers (+3.5)",
+                "Tampa Bay Buccaneers (+2.5)",
+                "New York Giants (+3.5)",
+                "Denver Broncos (-1.5)",
+                "Arizona Cardinals (+1)",
+                "Las Vegas Raiders (+9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 31
+        },
+        {
+            "username": "cgodi",
+            "picks": [
+                "Green Bay Packers (+7.5)",
+                "Dallas Cowboys (-13.5)",
+                "Seattle Seahawks (+7)",
+                "Miami Dolphins (-9.5)",
+                "Cincinnati Bengals (+1)",
+                "New Orleans Saints (-1)",
+                "Houston Texans (+1.5)",
+                "Tennessee Titans (-3.5)",
+                "Tampa Bay Buccaneers (+2.5)",
+                "New York Giants (+3.5)",
+                "Cleveland Browns (+1.5)",
+                "Los Angeles Rams (-1)",
+                "Kansas City Chiefs (-9)",
+                "Buffalo Bills (+3)",
+                "Los Angeles Chargers (+3.5)",
+                "Chicago Bears (+3.5)"
+            ],
+            "tiebreaker": 51
+        },
+        {
+            "username": "bleet",
+            "picks": [
+                "Green Bay Packers (+7.5)",
+                "Dallas Cowboys (-13.5)",
+                "Seattle Seahawks (+7)",
+                "New York Jets (+9.5)",
+                "Pittsburgh Steelers (-1)",
+                "New Orleans Saints (-1)",
+                "Jacksonville Jaguars (-1.5)",
+                "Carolina Panthers (+3.5)",
+                "Indianapolis Colts (-2.5)",
+                "New England Patriots (-3.5)",
+                "Denver Broncos (-1.5)",
+                "Los Angeles Rams (-1)",
+                "Kansas City Chiefs (-9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 36
+        },
+        {
+            "username": "tjorda",
+            "picks": [
+                "Detroit Lions (-7.5)",
+                "Dallas Cowboys (-13.5)",
+                "San Francisco 49ers (-7)",
+                "Miami Dolphins (-9.5)",
+                "Pittsburgh Steelers (-1)",
+                "Atlanta Falcons (+1)",
+                "Houston Texans (+1.5)",
+                "Tennessee Titans (-3.5)",
+                "Tampa Bay Buccaneers (+2.5)",
+                "New England Patriots (-3.5)",
+                "Denver Broncos (-1.5)",
+                "Arizona Cardinals (+1)",
+                "Kansas City Chiefs (-9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 28
+        },
+        {
+            "username": "pblang",
+            "picks": [
+                "Detroit Lions (-7.5)",
+                "Washington Commanders (+13.5)",
+                "San Francisco 49ers (-7)",
+                "Miami Dolphins (-9.5)",
+                "Cincinnati Bengals (+1)",
+                "New Orleans Saints (-1)",
+                "Houston Texans (+1.5)",
+                "Carolina Panthers (+3.5)",
+                "Indianapolis Colts (-2.5)",
+                "New England Patriots (-3.5)",
+                "Denver Broncos (-1.5)",
+                "Los Angeles Rams (-1)",
+                "Kansas City Chiefs (-9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 35
+        },
+        {
+            "username": "adelli",
+            "picks": [
+                "Green Bay Packers (+7.5)",
+                "Dallas Cowboys (-13.5)",
+                "Seattle Seahawks (+7)",
+                "Miami Dolphins (-9.5)",
+                "Pittsburgh Steelers (-1)",
+                "Atlanta Falcons (+1)",
+                "Houston Texans (+1.5)",
+                "Tennessee Titans (-3.5)",
+                "Indianapolis Colts (-2.5)",
+                "New England Patriots (-3.5)",
+                "Denver Broncos (-1.5)",
+                "Arizona Cardinals (+1)",
+                "Kansas City Chiefs (-9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 69
+        },
+        {
+            "username": "aquint",
+            "picks": [
+                "Detroit Lions (-7.5)",
+                "Washington Commanders (+13.5)",
+                "San Francisco 49ers (-7)",
+                "Miami Dolphins (-9.5)",
+                "Pittsburgh Steelers (-1)",
+                "New Orleans Saints (-1)",
+                "Houston Texans (+1.5)",
+                "Carolina Panthers (+3.5)",
+                "Indianapolis Colts (-2.5)",
+                "New York Giants (+3.5)",
+                "Cleveland Browns (+1.5)",
+                "Arizona Cardinals (+1)",
+                "Las Vegas Raiders (+9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 47
+        },
+        {
+            "username": "dbouch",
+            "picks": [
+                "Green Bay Packers (+7.5)",
+                "Washington Commanders (+13.5)",
+                "San Francisco 49ers (-7)",
+                "New York Jets (+9.5)",
+                "Pittsburgh Steelers (-1)",
+                "New Orleans Saints (-1)",
+                "Jacksonville Jaguars (-1.5)",
+                "Tennessee Titans (-3.5)",
+                "Tampa Bay Buccaneers (+2.5)",
+                "New York Giants (+3.5)",
+                "Denver Broncos (-1.5)",
+                "Arizona Cardinals (+1)",
+                "Las Vegas Raiders (+9)",
+                "Philadelphia Eagles (-3)",
+                "Baltimore Ravens (-3.5)",
+                "Minnesota Vikings (-3.5)"
+            ],
+            "tiebreaker": 48
+        }
     ]
+    
     
     
     
