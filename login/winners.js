@@ -237,6 +237,9 @@ const winners = {
     
     "12": [
 
+       "Green Bay Packers (+7.5)" ,
+       "Dallas Cowboys (-13.5)"
+
 
     ], // Week 12
     "13": [], // Week 13
