@@ -239,7 +239,8 @@ const winners = {
 
        "Green Bay Packers (+7.5)" ,
        "Dallas Cowboys (-13.5)",
-       "San Francisco 49ers (-7)"
+       "San Francisco 49ers (-7)",
+       "Miami Dolphins (-9.5)"
 
 
     ], // Week 12
