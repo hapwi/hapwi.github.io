@@ -240,7 +240,18 @@ const winners = {
        "Green Bay Packers (+7.5)" ,
        "Dallas Cowboys (-13.5)",
        "San Francisco 49ers (-7)",
-       "Miami Dolphins (-9.5)"
+       "Miami Dolphins (-9.5)",
+       "Pittsburgh Steelers (-1)",
+       "Atlanta Falcons (+1)",
+       "Jacksonville Jaguars (-1.5)",
+       "Tennessee Titans (-3.5)",
+       "Indianapolis Colts (-2.5)",
+       "New York Giants (+3.5)",
+       "Denver Broncos (-1.5)",
+       "Los Angeles Rams (-1)",
+       "Kansas City Chiefs (-9)",
+       
+
 
 
     ], // Week 12
