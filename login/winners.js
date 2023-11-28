@@ -250,7 +250,8 @@ const winners = {
        "Denver Broncos (-1.5)",
        "Los Angeles Rams (-1)",
        "Kansas City Chiefs (-9)",
-      "Baltimore Ravens (-3.5)"
+      "Baltimore Ravens (-3.5)",
+      "Chicago Bears (+3.5)"
        
 
 
