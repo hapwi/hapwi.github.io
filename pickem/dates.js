@@ -53,10 +53,10 @@ var weeks = [{
     }, // Week 12
     {
         start: new Date("11/29/23 06:15 PM MST"),
-        end: new Date("11/30/23 06:15 PM MST")
+        end: new Date("12/06/23 06:15 PM MST")
     }, // Week 13
     {
-        start: new Date("12/04/23 06:15 PM MST"),
+        start: new Date("12/06/23 06:15 PM MST"),
         end: new Date("12/07/23 06:15 PM MST")
     }, // Week 14
     {

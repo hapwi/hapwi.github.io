@@ -96,7 +96,7 @@ const winners = {
         "Pittsburgh Steelers (+4)",
         "Detroit Lions (-9.5)",
         "Miami Dolphins (-11)",
-        "Cinnicinnati Bengals (-3)",
+        "Cincinnati Bengals (-3)",
         "Philadelphia Eagles (-4)",
         "New York Jets (+2)",
         "Kansas City Chiefs (-5)",
@@ -257,7 +257,12 @@ const winners = {
 
 
     ], // Week 12
-    "13": [], // Week 13
+
+
+    "13": [
+
+
+    ], // Week 13
     "14": [], // Week 14
     "15": [], // Week 15
     "16": [], // Week 16
