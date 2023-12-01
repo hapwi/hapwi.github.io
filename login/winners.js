@@ -261,6 +261,8 @@ const winners = {
 
     "13": [
 
+      "Seahawks (+9)",
+
 
     ], // Week 13
     "14": [], // Week 14
