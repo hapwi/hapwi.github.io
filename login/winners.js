@@ -262,6 +262,13 @@ const winners = {
     "13": [
 
       "Seahawks (+9)",
+      "Chargers (-5.5)",
+      "Lions (-4)",
+      "Falcons (-2.5)",
+      "Texans (-3.5)",
+      "Dolphins (-9.5)",
+
+
 
 
     ], // Week 13
