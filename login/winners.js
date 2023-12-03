@@ -267,6 +267,9 @@ const winners = {
       "Falcons (-2.5)",
       "Texans (-3.5)",
       "Dolphins (-9.5)",
+      "Colts (-1)",
+      "Cardinals (+5.5)"
+
 
 
 
