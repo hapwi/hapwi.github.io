@@ -272,7 +272,8 @@ const winners = {
       "Buccaneers (-5.5)",
       "Rams (-3.5)",
       "49ers (-3)",
-      "Packers (+6)"
+      "Packers (+6)",
+      "Bengals (+8.5)"
 
 
 
