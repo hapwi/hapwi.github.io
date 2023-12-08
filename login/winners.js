@@ -149,8 +149,7 @@ const winners = {
 
     ], // Week 7
 
-
-"8": [
+    "8": [
 
 "Buccaneers (+8.5)",
 "Panthers (+3)",
@@ -169,9 +168,8 @@ const winners = {
 "Lions (-8)"
 
 
-], // Week 8
-
-
+    ],
+    // Week 8
 
     "9": [
         
@@ -191,9 +189,8 @@ const winners = {
 
 
 
-    ], // Week 9
-
-
+    ],
+    // Week 9
 
     "10": [
 
@@ -212,8 +209,8 @@ const winners = {
       "Broncos (+7)"
 
 
-    ], // Week 10
-
+    ],
+    // Week 10
 
     "11": [
 
@@ -232,9 +229,9 @@ const winners = {
       "Vikings (+2.5)",
       "Eagles (+2.5)"
         
-    ], // Week 11
+    ],
+    // Week 11
 
-    
     "12": [
 
        "Green Bay Packers (+7.5)" ,
@@ -256,8 +253,8 @@ const winners = {
 
 
 
-    ], // Week 12
-
+    ],
+    // Week 12
 
     "13": [
 
@@ -280,13 +277,16 @@ const winners = {
 
 
 
-    ], // Week 13
-
+    ],
+    // Week 13
 
     "14": [
 
         "Patriots (+6)"
-    ], // Week 14
+    ],
+    // Week 14
+
+
     "15": [], // Week 15
     "16": [], // Week 16
     "17": [], // Week 17
