@@ -281,7 +281,12 @@ const winners = {
 
 
     ], // Week 13
-    "14": [], // Week 14
+
+
+    "14": [
+
+        "Patriots (+6)"
+    ], // Week 14
     "15": [], // Week 15
     "16": [], // Week 16
     "17": [], // Week 17
