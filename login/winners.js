@@ -282,7 +282,23 @@ const winners = {
 
     "14": [
 
-        "Patriots (+6)"
+        "Patriots (+6)",
+        "Saints (-5)",
+        "Rams (+7)",
+        "Bengals (+1)",
+        "Browns (-3)",
+        "Bears (+3)",
+        "Buccaneers (+1)",
+        "Jets (+3.5)",
+        "49ers (-10.5)",
+        "Broncos (+2.5)",
+        "Cowboys (-3.5)"
+        
+
+
+
+
+
     ],
     // Week 14
 
