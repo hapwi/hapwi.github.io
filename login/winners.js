@@ -292,7 +292,8 @@ const winners = {
         "Jets (+3.5)",
         "49ers (-10.5)",
         "Broncos (+2.5)",
-        "Cowboys (-3.5)"
+        "Cowboys (-3.5)",
+        "Bills (+1.5)",
         
 
 
