@@ -294,6 +294,9 @@ const winners = {
         "Broncos (+2.5)",
         "Cowboys (-3.5)",
         "Bills (+1.5)",
+        "Titans (+13)",
+        "Giants (+6.5)"
+
         
 
 
