@@ -309,7 +309,7 @@ const winners = {
 
     "15": [
 
-        
+        "Raiders (-3)"
     ], 
     // Week 15
     "16": [], // Week 16
