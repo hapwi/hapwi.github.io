@@ -310,7 +310,18 @@ const winners = {
     "15": [
 
         "Raiders (-3)",
-      "Colts (-2.5)"
+      "Colts (-2.5)",
+      "Lions (-4)",
+      "Chiefs (-9)",
+      "Saints (-6)",
+      "Panthers (+3)",
+      "Buccaneers (+3.5)",
+      "Texans (+2)",
+      "Dolphins (-12)",
+      "Rams (-6.5)",
+      "49ers (-13.5)",
+      "Bills (-2)"
+
     ], 
     // Week 15
     "16": [], // Week 16
