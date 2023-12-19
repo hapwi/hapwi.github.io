@@ -320,7 +320,9 @@ const winners = {
       "Dolphins (-12)",
       "Rams (-6.5)",
       "49ers (-13.5)",
-      "Bills (-2)"
+      "Bills (-2)",
+      "Ravens (-3)",
+      "Seahawks (+4.5)"
 
     ], 
     // Week 15
