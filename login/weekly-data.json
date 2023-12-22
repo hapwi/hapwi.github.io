@@ -3943,7 +3943,275 @@
             ],
             "tiebreaker": 37
         }
+    ],
+
+    "Week16": [
+        {
+            "username": "aquint",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "TEN Titans (+2.5)",
+                "DET Lions (-3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "HOU Texans (+2.5)",
+                "TB Buccaneers (-1)",
+                "CHI Bears (-4.5)",
+                "DAL Cowboys (+1.5)",
+                "DEN Broncos (-6.5)",
+                "LV Raiders (+10)",
+                "PHI Eagles (-12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 48
+        },
+        {
+            "username": "tjorda",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "SEA Seahawks (-2.5)",
+                "DET Lions (-3.5)",
+                "NYJ Jets (-3)",
+                "GB Packers (-5)",
+                "CLE Browns (-2.5)",
+                "TB Buccaneers (-1)",
+                "CHI Bears (-4.5)",
+                "DAL Cowboys (+1.5)",
+                "DEN Broncos (-6.5)",
+                "LV Raiders (+10)",
+                "NYG Giants (+12)",
+                "SF 49ers (-5.5)"
+            ],
+            "tiebreaker": 28
+        },
+        {
+            "username": "jbaga",
+            "picks": [
+                "NO Saints (+4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "TEN Titans (+2.5)",
+                "MIN Vikings (+3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "HOU Texans (+2.5)",
+                "TB Buccaneers (-1)",
+                "CHI Bears (-4.5)",
+                "MIA Dolphins (-1.5)",
+                "NE Patriots (+6.5)",
+                "LV Raiders (+10)",
+                "NYG Giants (+12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 30
+        },
+        {
+            "username": "marvizu",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "SEA Seahawks (-2.5)",
+                "DET Lions (-3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "CLE Browns (-2.5)",
+                "JAX Jaguars (+1)",
+                "ARI Cardinals (+4.5)",
+                "DAL Cowboys (+1.5)",
+                "DEN Broncos (-6.5)",
+                "KC Chiefs (-10)",
+                "PHI Eagles (-12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 38
+        },
+        {
+            "username": "jbindi",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "SEA Seahawks (-2.5)",
+                "DET Lions (-3.5)",
+                "NYJ Jets (-3)",
+                "GB Packers (-5)",
+                "HOU Texans (+2.5)",
+                "JAX Jaguars (+1)",
+                "ARI Cardinals (+4.5)",
+                "DAL Cowboys (+1.5)",
+                "NE Patriots (+6.5)",
+                "LV Raiders (+10)",
+                "NYG Giants (+12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 48
+        },
+        {
+            "username": "dhari",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "TEN Titans (+2.5)",
+                "DET Lions (-3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "HOU Texans (+2.5)",
+                "JAX Jaguars (+1)",
+                "ARI Cardinals (+4.5)",
+                "MIA Dolphins (-1.5)",
+                "NE Patriots (+6.5)",
+                "KC Chiefs (-10)",
+                "PHI Eagles (-12)",
+                "SF 49ers (-5.5)"
+            ],
+            "tiebreaker": 44
+        },
+        {
+            "username": "cgodi",
+            "picks": [
+                "NO Saints (+4)",
+                "PIT Steelers (+2)",
+                "LAC Chargers (+12)",
+                "ATL Falcons (-1)",
+                "TEN Titans (+2.5)",
+                "DET Lions (-3.5)",
+                "WSH Commanders (+3)",
+                "CAR Panthers (+5)",
+                "CLE Browns (-2.5)",
+                "JAX Jaguars (+1)",
+                "CHI Bears (-4.5)",
+                "DAL Cowboys (+1.5)",
+                "NE Patriots (+6.5)",
+                "LV Raiders (+10)",
+                "PHI Eagles (-12)",
+                "SF 49ers (-5.5)"
+            ],
+            "tiebreaker": 38
+        },
+        {
+            "username": "pbaga",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "SEA Seahawks (-2.5)",
+                "DET Lions (-3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "CLE Browns (-2.5)",
+                "JAX Jaguars (+1)",
+                "ARI Cardinals (+4.5)",
+                "DAL Cowboys (+1.5)",
+                "NE Patriots (+6.5)",
+                "LV Raiders (+10)",
+                "NYG Giants (+12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 47
+        },
+        {
+            "username": "bleet",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "TEN Titans (+2.5)",
+                "MIN Vikings (+3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "CLE Browns (-2.5)",
+                "TB Buccaneers (-1)",
+                "CHI Bears (-4.5)",
+                "MIA Dolphins (-1.5)",
+                "DEN Broncos (-6.5)",
+                "LV Raiders (+10)",
+                "PHI Eagles (-12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 48
+        },
+        {
+            "username": "aquint",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "BUF Bills (-12)",
+                "IND Colts (+1)",
+                "TEN Titans (+2.5)",
+                "DET Lions (-3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "HOU Texans (+2.5)",
+                "TB Buccaneers (-1)",
+                "CHI Bears (-4.5)",
+                "MIA Dolphins (-1.5)",
+                "DEN Broncos (-6.5)",
+                "LV Raiders (+10)",
+                "PHI Eagles (-12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 48
+        },
+        {
+            "username": "adelli",
+            "picks": [
+                "NO Saints (+4)",
+                "PIT Steelers (+2)",
+                "LAC Chargers (+12)",
+                "ATL Falcons (-1)",
+                "TEN Titans (+2.5)",
+                "DET Lions (-3.5)",
+                "NYJ Jets (-3)",
+                "CAR Panthers (+5)",
+                "CLE Browns (-2.5)",
+                "JAX Jaguars (+1)",
+                "ARI Cardinals (+4.5)",
+                "MIA Dolphins (-1.5)",
+                "NE Patriots (+6.5)",
+                "KC Chiefs (-10)",
+                "PHI Eagles (-12)",
+                "BAL Ravens (+5.5)"
+            ],
+            "tiebreaker": 46
+        },
+        {
+            "username": "pblang",
+            "picks": [
+                "LAR Rams (-4)",
+                "CIN Bengals (-2)",
+                "LAC Chargers (+12)",
+                "ATL Falcons (-1)",
+                "SEA Seahawks (-2.5)",
+                "MIN Vikings (+3.5)",
+                "WSH Commanders (+3)",
+                "GB Packers (-5)",
+                "CLE Browns (-2.5)",
+                "JAX Jaguars (+1)",
+                "ARI Cardinals (+4.5)",
+                "DAL Cowboys (+1.5)",
+                "DEN Broncos (-6.5)",
+                "KC Chiefs (-10)",
+                "PHI Eagles (-12)",
+                "SF 49ers (-5.5)"
+            ],
+            "tiebreaker": 40
+        }
     ]
+    
     
     
     
