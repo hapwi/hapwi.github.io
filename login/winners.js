@@ -330,7 +330,14 @@ const winners = {
 
       "LAR Rams (-4)",
       "PIT Steelers (+2)",
-      "LAC Chargers (+12)"
+      "LAC Chargers (+12)",
+      "ATL Falcons (-1)",
+      "SEA Seahawks (-2.5)",
+      "DET Lions (-3.5)",
+      "WSH Commanders (+3)",
+      "CAR Panthers (+5)",
+      "CLE Browns (-2.5)",
+      
       
     ], // Week 16
     "17": [], // Week 17
