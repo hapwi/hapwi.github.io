@@ -328,7 +328,10 @@ const winners = {
     // Week 15
     "16": [
 
-      "LAR Rams (-4)"
+      "LAR Rams (-4)",
+      "PIT Steelers (+2)",
+      "LAC Chargers (+12)"
+      
     ], // Week 16
     "17": [], // Week 17
     "18": [], // Week 18
