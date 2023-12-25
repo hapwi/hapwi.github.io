@@ -572,50 +572,26 @@ body.night-mode {
     color: #fff;
 }
 
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
+#closeSearchFilter {
+    background-color: #f44336; /* Red color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 8px 15px; /* Padding for size */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline display */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin around the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Box shadow for depth */
+    transition-duration: 0.4s; /* Transition for hover effect */
 }
 
-.search-container input[type="search"] {
-    flex-grow: 1;
-    padding-right: 35px; /* Adjust the padding to make room for the button */
+#closeSearchFilter:hover {
+    background-color: #d32f2f; /* Darker red on hover */
 }
 
-.search-container #closeSearchFilter {
-    position: absolute;
-    right: 10px;
-    top: 30%;
-    transform: translate(0, -50%);
-    width: 24px; /* Slightly larger for mobile touch targets */
-    height: 24px;
-    background-color: #757575;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-size: 16px; /* Adjust font-size to ensure the 'X' fits well */
-    line-height: 24px; /* Match height for vertical centering */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.search-container #closeSearchFilter:hover {
-    background-color: #616161;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 600px) {
-    .search-container #closeSearchFilter {
-        right: 5px;
-        width: 30px; /* Larger button for easier touch */
-        height: 30px;
-        line-height: 30px;
-        font-size: 18px; /* Larger 'X' for visibility */
-    }
-}
 
 
     </style>
@@ -1102,22 +1078,12 @@ body.night-mode {
                 addControls();
                 $('#picksTable_filter input').prop('readonly', true);
 
-// Create a new div that will contain the search input and the close button
-var searchInput = $('#picksTable_filter input');
-var closeButton = $('<button id="closeSearchFilter" aria-label="Clear" type="button" class="search-close-button">' +
-    '<svg aria-hidden="true" focusable="false" role="img" class="octicon octicon-x-circle-fill" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">' +
-    '<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8Zm2.47 10.78a.75.75 0 0 1-1.06 0L8 9.31l-1.41 1.47a.75.75 0 1 1-1.06-1.06L6.94 8 5.47 6.53a.75.75 0 1 1 1.06-1.06L8 6.69l1.41-1.47a.75.75 0 1 1 1.06 1.06L9.06 8l1.41 1.47a.75.75 0 0 1 0 1.06Z"></path>' +
-    '</svg></button>');
+                 // Add close button next to DataTable search input
+        $('<button id="closeSearchFilter">Close</button>').insertAfter('#picksTable_filter input');
 
-searchInput.wrap('<div class="search-container"></div>');
-closeButton.insertAfter(searchInput);
-
-// Add click event for the close button
-$('#closeSearchFilter').on('click', function() {
-    searchInput.val('');
-    picksTable.search('').draw();
+        $('#closeSearchFilter').on('click', function() {
+    $('#picksTable').DataTable().search('').draw();
 });
-
 
             }
         }
