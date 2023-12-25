@@ -341,7 +341,8 @@ const winners = {
       "TB Buccaneers (-1)",
       "CHI Bears (-4.5)",
       "MIA Dolphins (-1.5)",
-      "NE Patriots (+6.5)"
+      "NE Patriots (+6.5)",
+      "LV Raiders (+10)"
       
       
     ], // Week 16
