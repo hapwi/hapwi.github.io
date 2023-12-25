@@ -579,6 +579,8 @@ body.night-mode {
 }
 
 
+
+
     </style>
     <!-- ? end main styles -->
 </head>
@@ -970,6 +972,30 @@ body.night-mode {
         <option value="18">Week 18</option>\
         </select>')
                 .prependTo('#picksTable_filter');
+
+                $('.dataTables_wrapper').css({
+        'display': 'flex',
+        'justify-content': 'center', // Centers horizontally in the flex container
+        'flex-wrap': 'wrap' // Allows items to wrap as needed
+    });
+
+    // Center the '#picksTable_filter' itself if it's not a direct child of the flex container
+    $('#picksTable_filter').css({
+        'display': 'flex',
+        'justify-content': 'center', // This will center the child elements of '#picksTable_filter'
+        'flex-direction': 'column', // Stack children vertically
+        'align-items': 'center', // Center align the children vertically
+        'width': '100%' // Use the full width to allow centering within the parent
+    });
+    
+    // Make sure the week dropdown is not floating or absolutely positioned
+    // so it can be centered by the flex container
+    $('#weekDropdown').css({
+        'margin': '0 auto', // Center the dropdown
+        'display': 'block', // Ensure it's a block-level element for margin auto to work
+        'margin-top': '10px'
+    });
+
 
             $('#picksTable_filter label').contents().filter(function () {
                 return this.nodeType === 3;
