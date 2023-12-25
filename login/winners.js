@@ -249,6 +249,7 @@ const winners = {
        "Kansas City Chiefs (-9)",
       "Baltimore Ravens (-3.5)",
       "Chicago Bears (+3.5)"
+      
        
 
 
@@ -337,6 +338,9 @@ const winners = {
       "WSH Commanders (+3)",
       "CAR Panthers (+5)",
       "CLE Browns (-2.5)",
+      "TB Buccaneers (-1)",
+      "CHI Bears (-4.5)",
+      "MIA Dolphins (-1.5)"
       
       
     ], // Week 16

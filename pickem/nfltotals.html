@@ -572,6 +572,42 @@ body.night-mode {
     color: #fff;
 }
 
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input[type="search"] {
+    flex-grow: 1;
+    padding-right: 30px; /* Adjust the padding to ensure text does not overlap the button */
+}
+
+.search-container #closeSearchFilter {
+    background-color: #757575; /* Grey background */
+    color: white; /* White color for the 'X' */
+    font-family: "Arial", sans-serif; /* Ensures the 'X' is properly centered */
+    border: none; /* No border */
+    border-radius: 50%; /* Circular shape */
+    width: 20px; /* Width of the button */
+    height: 20px; /* Height of the button, same as width for a perfect circle */
+    line-height: 20px; /* Center the 'X' vertically */
+    font-size: 20px; /* Size of the 'X', adjust as needed */
+    cursor: pointer; /* Cursor indicates clickable button */
+    position: absolute; /* Absolute position relative to the search input */
+    right: 5px; /* Distance from the right edge of the search input */
+    top: 32%; /* Align top edge of button to the middle of the parent */
+    transform: translate(0, -50%); /* Center the button vertically */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center the content vertically */
+    justify-content: center; /* Center the content horizontally */
+}
+
+.search-container #closeSearchFilter:hover {
+    background-color: #616161; /* Darker grey on hover for feedback */
+}
+
+
 
     </style>
     <!-- ? end main styles -->
@@ -1056,6 +1092,20 @@ body.night-mode {
                 });
                 addControls();
                 $('#picksTable_filter input').prop('readonly', true);
+
+// Create a new div that will contain the search input and the close button
+var searchInput = $('#picksTable_filter input');
+var closeButton = $('<button id="closeSearchFilter">&times;</button>');
+
+searchInput.wrap('<div class="search-container"></div>');
+closeButton.insertAfter(searchInput);
+
+// Add click event for the close button
+$('#closeSearchFilter').on('click', function() {
+    searchInput.val('');
+    picksTable.search('').draw();
+});
+
             }
         }
 
