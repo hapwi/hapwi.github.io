@@ -580,33 +580,42 @@ body.night-mode {
 
 .search-container input[type="search"] {
     flex-grow: 1;
-    padding-right: 30px; /* Adjust the padding to ensure text does not overlap the button */
+    padding-right: 35px; /* Adjust the padding to make room for the button */
 }
 
 .search-container #closeSearchFilter {
-    background-color: #757575; /* Grey background */
-    color: white; /* White color for the 'X' */
-    font-family: "Arial", sans-serif; /* Ensures the 'X' is properly centered */
-    border: none; /* No border */
-    border-radius: 50%; /* Circular shape */
-    width: 20px; /* Width of the button */
-    height: 20px; /* Height of the button, same as width for a perfect circle */
-    line-height: 20px; /* Center the 'X' vertically */
-    font-size: 20px; /* Size of the 'X', adjust as needed */
-    cursor: pointer; /* Cursor indicates clickable button */
-    position: absolute; /* Absolute position relative to the search input */
-    right: 5px; /* Distance from the right edge of the search input */
-    top: 32%; /* Align top edge of button to the middle of the parent */
-    transform: translate(0, -50%); /* Center the button vertically */
-    display: flex; /* Use flexbox for centering */
-    align-items: center; /* Center the content vertically */
-    justify-content: center; /* Center the content horizontally */
+    position: absolute;
+    right: 10px;
+    top: 30%;
+    transform: translate(0, -50%);
+    width: 24px; /* Slightly larger for mobile touch targets */
+    height: 24px;
+    background-color: #757575;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 16px; /* Adjust font-size to ensure the 'X' fits well */
+    line-height: 24px; /* Match height for vertical centering */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .search-container #closeSearchFilter:hover {
-    background-color: #616161; /* Darker grey on hover for feedback */
+    background-color: #616161;
 }
 
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .search-container #closeSearchFilter {
+        right: 5px;
+        width: 30px; /* Larger button for easier touch */
+        height: 30px;
+        line-height: 30px;
+        font-size: 18px; /* Larger 'X' for visibility */
+    }
+}
 
 
     </style>
