@@ -573,30 +573,6 @@ body.night-mode {
 }
 
 
-#searchClearContainer {
-    display: flex;
-    align-items: center; /* Align items vertically in the center */
-    justify-content: space-between; /* Space the children out */
-    position: relative; /* Set the position context for absolute children, if any */
-}
-
-.search-input {
-    flex-grow: 1; /* Let the input grow to fill space */
-    padding-right: 2em; /* Make room for the clear button */
-    /* Other styles for the input */
-}
-
-#clearFilter {
-    position: absolute;
-    right: 1px; /* Position the button inside the input, from the right */
-    top: 33%; /* Start at 50% of the parent's height */
-    transform: translateY(-50%); /* Offset the button by half its height upward */
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    /* Other styles for the button */
-}
-
 
 #clearFilter .bi {
     color: white;
@@ -655,6 +631,9 @@ body.night-mode {
             </div>
 
         </div>
+
+
+        
 
         <div class="card bg-light rounded">
             <div class="card-body rounded" id="table2">
@@ -1050,48 +1029,89 @@ body.night-mode {
             });
         });
         
-    function initDataTable() {
-        if (!$.fn.dataTable.isDataTable('#picksTable')) {
-            picksTable = $('#picksTable').DataTable({
-                searching: true,
-                searchCols: [{
-                    searchable: true
-                }, {
-                    searchable: false
-                }],
-                search: {
-                    smart: false
-                },
-                lengthChange: false,
-                paging: false,
-                info: false,
-                ordering: false,
-                columnDefs: [{
-                    targets: 0, // Hide the first column
-                    visible: false,
-                    searchable: true
-                }],
-                drawCallback: function () {
-                    var table = $('#picksTable').DataTable();
-                    if (table.search() !== "") {
-                        $('#picks').show();
-                    } else {
-                        $('#picks').hide();
-                    }
-                },
-                language: {
-                    emptyTable: "Picks are not available yet for this week",
-                    zeroRecords: "Picks are not available yet for this week"
+        function initDataTable() {
+    if (!$.fn.dataTable.isDataTable('#picksTable')) {
+        picksTable = $('#picksTable').DataTable({
+            searching: true,
+            searchCols: [{
+                searchable: true
+            }, {
+                searchable: false
+            }],
+            search: {
+                smart: false
+            },
+            lengthChange: false,
+            paging: false,
+            info: false,
+            ordering: false,
+            columnDefs: [{
+                targets: 0, // Hide the first column
+                visible: false,
+                searchable: true
+            }],
+            drawCallback: function () {
+                var table = $('#picksTable').DataTable();
+                if (table.search() !== "") {
+                    $('#picks').show();
+                } else {
+                    $('#picks').hide();
                 }
-            });
+            },
+            language: {
+                emptyTable: "Picks are not available yet for this week",
+                zeroRecords: "Picks are not available yet for this week"
+            }
+        });
 
-          // Wrap the search input and the clear button in a div
-        $('#picksTable_filter label').append('<div id="searchClearContainer"><button id="clearFilter"><i class="bi bi-x-circle-fill"></i></button></div>');
-        $('#searchClearContainer').prepend($('#picksTable_filter label input'));
+        // Remove the default DataTables search input
+        $('#picksTable_filter label').remove();
 
-        // Add a click event listener to the clear button
-        $('#clearFilter').on('click', function() {
-            // Clear the DataTables search filter
+        // Create the search input and clear button elements
+        var searchInput = $('<input type="text" class="search-input" placeholder="">');
+        var clearButton = $('<button id="clearFilter"><i class="bi bi-x-circle-fill"></i></button>');
+
+        // Create the container for the search input and clear button
+        var searchClearContainer = $('<div id="searchClearContainer"></div>');
+
+        // Append the search input and clear button to the searchClearContainer
+        searchClearContainer.append(searchInput).append(clearButton);
+
+        // Replace the default DataTables search with the new container
+        $('#picksTable_filter').append(searchClearContainer);
+
+        // Apply Flexbox styling to the searchClearContainer
+        searchClearContainer.css({
+            'display': 'flex',
+            'align-items': 'center',
+            'position': 'relative'
+        });
+
+        // Apply CSS to the search input
+        searchInput.css({
+            'flex-grow': '1',
+            'padding-right': '1em', // Make room for the clear button
+            'border': '1px solid #ddd', // Example border, adjust as needed
+            'border-radius': '4px', // Example border radius, adjust as needed
+            'height': '2rem', // Adjust height as needed
+            'margin-bottom': '10px', // Adjust margin as needed
+            'margin-top': '10px',
+        });
+
+        // Apply CSS to the clear button to position it inside the input
+        clearButton.css({
+            'position': 'absolute',
+            'right': '10px',
+            'top': '50%',
+            'transform': 'translateY(-50%)',
+            'background-color': 'transparent',
+            'border': 'none',
+            'cursor': 'pointer'
+        });
+
+        // Add click event listener to clear button to clear the search input
+        clearButton.on('click', function() {
+            searchInput.val('');
             picksTable.search('').draw();
         });
 
