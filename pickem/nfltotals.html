@@ -1104,7 +1104,10 @@ body.night-mode {
 
 // Create a new div that will contain the search input and the close button
 var searchInput = $('#picksTable_filter input');
-var closeButton = $('<button id="closeSearchFilter">&times;</button>');
+var closeButton = $('<button id="closeSearchFilter" aria-label="Clear" type="button" class="search-close-button">' +
+    '<svg aria-hidden="true" focusable="false" role="img" class="octicon octicon-x-circle-fill" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">' +
+    '<path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8Zm2.47 10.78a.75.75 0 0 1-1.06 0L8 9.31l-1.41 1.47a.75.75 0 1 1-1.06-1.06L6.94 8 5.47 6.53a.75.75 0 1 1 1.06-1.06L8 6.69l1.41-1.47a.75.75 0 1 1 1.06 1.06L9.06 8l1.41 1.47a.75.75 0 0 1 0 1.06Z"></path>' +
+    '</svg></button>');
 
 searchInput.wrap('<div class="search-container"></div>');
 closeButton.insertAfter(searchInput);
@@ -1114,6 +1117,7 @@ $('#closeSearchFilter').on('click', function() {
     searchInput.val('');
     picksTable.search('').draw();
 });
+
 
             }
         }
