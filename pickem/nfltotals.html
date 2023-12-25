@@ -575,21 +575,19 @@ body.night-mode {
 
 #searchClearContainer {
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center; /* vertically center the children */
 }
 
 #clearFilter {
     position: absolute;
-    top: 4px;
-    right: 10px;
-   border: none;
+    right: 3px;
+    border: none;
     cursor: pointer;
+    background-color: transparent;
     /* Flexbox to center the "x" */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-
+    top: 7%;
 }
 
 #clearFilter .bi {
