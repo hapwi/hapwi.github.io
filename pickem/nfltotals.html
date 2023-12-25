@@ -573,24 +573,35 @@ body.night-mode {
 }
 
 
- #searchClearContainer {
-    position: relative;
-    align-items: center;
+#searchClearContainer {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Space the children out */
+    position: relative; /* Set the position context for absolute children, if any */
+}
+
+.search-input {
+    flex-grow: 1; /* Let the input grow to fill space */
+    padding-right: 2em; /* Make room for the clear button */
+    /* Other styles for the input */
 }
 
 #clearFilter {
     position: absolute;
-    right: .5%;
+    right: 1px; /* Position the button inside the input, from the right */
+    top: 33%; /* Start at 50% of the parent's height */
+    transform: translateY(-50%); /* Offset the button by half its height upward */
+    background-color: transparent;
     border: none;
     cursor: pointer;
-    background-color: transparent;
-    display: flex;
-    top: 4px;
-} 
+    /* Other styles for the button */
+}
+
 
 #clearFilter .bi {
     color: white;
 }
+
 
     </style>
     <!-- ? end main styles -->
