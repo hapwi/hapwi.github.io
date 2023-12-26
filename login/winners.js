@@ -344,8 +344,9 @@ const winners = {
       "NE Patriots (+6.5)",
       "LV Raiders (+10)",
       "NYG Giants (+12)",
+      "BAL Ravens (+5.5)"
 
-      
+
       
       
     ], // Week 16
