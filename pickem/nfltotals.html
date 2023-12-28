@@ -680,7 +680,7 @@ body.night-mode {
     <script>
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo';
-        let currentWeek = "16"; // Default week
+        let currentWeek = "17"; // Default week
 
         function processNflScoresData(values) {
             // Assuming the first row contains week headers, which we'll skip
@@ -910,8 +910,7 @@ body.night-mode {
             });
         }
 
-        async function fetchPicksData(week = 16
-        ) {
+        async function fetchPicksData(week = 17) {
             const picksTbody = document.getElementById('picks');
             picksTbody.innerHTML = ''; // Clear the table before fetching new data
 
