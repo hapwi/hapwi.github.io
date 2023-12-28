@@ -68,7 +68,7 @@ var weeks = [{
         end: new Date("12/27/23 06:15 PM MST")
     }, // Week 16
     {
-        start: new Date("12/28/23 11:00 AM MST"),
+        start: new Date("12/27/23 11:00 AM MST"),
         end: new Date("12/31/24 06:15 PM MST")
     }, // Week 17
     {
