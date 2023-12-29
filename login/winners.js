@@ -350,6 +350,10 @@ const winners = {
       
       
     ], // Week 16
-    "17": [], // Week 17
+  
+    "17": [
+
+      "CLE Browns (-7.5)"
+    ], // Week 17
     "18": [], // Week 18
 };
