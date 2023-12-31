@@ -60,7 +60,7 @@
         padding: 0 20px;
         margin-top: 3px;
         /* Add this line to create space between <nav> and <ul> */
-        background-color: var(--blue);
+        background-color: var(--background-dark);
     }
 
     #bottom-nav li {
@@ -86,19 +86,45 @@
 
     #pillNav2 .nav-item a.nav-link:hover,
     #pillNav2 .nav-item a.nav-link:focus {
-        color: #003e7e;
+        color: black;
         background-color: var(--bs-white);
     }
 
     #pillNav2 .nav-item a.nav-link.active {
-        color: #003e7e;
+        color: black;
         background-color: var(--bs-white);
+
+        
     }
+
+    #pillNav2 .nav-item a.nav-link {
+            border: 2px solid #fff;
+            /* Border for all pills */
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Slight shadow for a raised appearance */
+            transition: all 0.3s;
+            /* Smooth transition for hover and active effects */
+        }
+
+        /* Style for the active pill to make it look pressed */
+        #pillNav2 .nav-item a.nav-link.active {
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
+            /* Inset shadow for a pressed appearance */
+            border-color: #ddd;
+            /* Active pill border */
+        }
+
+        /* Slight enlargement and brightening of the pill on hover */
+        #pillNav2 .nav-item a.nav-link:hover {
+            /* Enlarging the pill */
+            border-color: #ddd;
+            /* Brightened border on hover */
+        }
 </style>
 
 <script>
     // Set the date and time when the links should become visible
-    const desiredDate = new Date("aug 5, 2023 8:00 AM MST");
+    const desiredDate = new Date("08/05/2023 8:00 AM MST");
 
     // Get the current date and time
     const now = new Date();

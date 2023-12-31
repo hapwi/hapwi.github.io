@@ -55,19 +55,19 @@ function setPageTitle() {
 
     switch (bodyId) {
         case "form":
-            pageTitle = "Form";
+            pageTitle = "FORM";
             break;
         case "leaderboard":
-            pageTitle = "Leaderboard";
+            pageTitle = "LEADERBOARD";
             break;
         case "players":
-            pageTitle = "Players";
+            pageTitle = "PLAYERS";
             break;
         case "entries":
-            pageTitle = "Entries";
+            pageTitle = "ENTRIES";
             break;
         case "about-page":
-            pageTitle = "About";
+            pageTitle = "ABOUT";
             break;
             // Add more cases for other pages
         default:
