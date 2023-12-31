@@ -354,7 +354,17 @@ const winners = {
     "17": [
 
       "CLE Browns (-7.5)",
-      "DET Lions (+5.5)"
+      "DET Lions (+5.5)",
+      "NE Patriots (+13)",
+      "CHI Bears (-3)",
+      "NYG Giants (+5.5)",
+      "ARI Cardinals (+11)",
+      "NO Saints (+2.5)",
+      "SF 49ers (-12.5)",
+      "JAX Jaguars (-6.5)",
+      "BAL Ravens (-3.5)",
+      "HOU Texans (-5.5)",
+
     ], // Week 17
     "18": [], // Week 18
 };
