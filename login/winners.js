@@ -353,7 +353,8 @@ const winners = {
   
     "17": [
 
-      "CLE Browns (-7.5)"
+      "CLE Browns (-7.5)",
+      "DET Lions (+5.5)"
     ], // Week 17
     "18": [], // Week 18
 };
