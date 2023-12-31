@@ -231,3 +231,4 @@ document.getElementById('close-picks').addEventListener('click', () => {
 });
 
 fetchGoogleSheetsData();
+
