@@ -364,6 +364,9 @@ const winners = {
       "JAX Jaguars (-6.5)",
       "BAL Ravens (-3.5)",
       "HOU Texans (-5.5)",
+      "PIT Steelers (+3.5)",
+      "DEN Broncos (-3.5)",
+      "KC Chiefs (-7)"
 
     ], // Week 17
     "18": [], // Week 18
