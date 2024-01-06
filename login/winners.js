@@ -307,7 +307,6 @@ const winners = {
     ],
     // Week 14
 
-
     "15": [
 
         "Raiders (-3)",
@@ -325,8 +324,9 @@ const winners = {
       "Ravens (-3)",
       "Seahawks (+4.5)"
 
-    ], 
+    ],
     // Week 15
+
     "16": [
 
       "LAR Rams (-4)",
@@ -349,8 +349,9 @@ const winners = {
 
       
       
-    ], // Week 16
-  
+    ],
+    // Week 16
+
     "17": [
 
       "CLE Browns (-7.5)",
@@ -369,6 +370,12 @@ const winners = {
       "KC Chiefs (-7)",
       "GB Packers (+1.5)"
 
-    ], // Week 17
-    "18": [], // Week 18
+    ],
+    // Week 17
+
+    "18": [
+
+      
+    ],
+    // Week 18
 };
