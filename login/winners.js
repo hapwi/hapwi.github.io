@@ -374,8 +374,18 @@ const winners = {
     // Week 17
 
     "18": [
-"PIT Steelers (-3)",
-      "HOU Texans (-1.5)"
+      "PIT Steelers (-3)",
+      "HOU Texans (-1.5)",
+      "CIN Bengals (-7)",
+      "DET Lions (-3.5)",
+      "TEN Titans (+3.5)",
+      "NYJ Jets (+2)",
+      "NO Saints (-3)",
+      "TB Buccaneers (-4.5)",
+
+
+
+
       
       
     ],
