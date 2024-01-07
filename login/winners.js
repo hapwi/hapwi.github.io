@@ -374,7 +374,9 @@ const winners = {
     // Week 17
 
     "18": [
-
+"PIT Steelers (-3)",
+      "HOU Texans (-1.5)"
+      
       
     ],
     // Week 18
