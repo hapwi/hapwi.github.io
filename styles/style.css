@@ -132,13 +132,13 @@ body {
 }
 
 .data-table tbody tr:nth-child(even) {
-  background-color: #003e7e;
+  background-color: var(--background-dark);
   color: #fff;
 }
 
 .data-table tbody tr:nth-child(odd) {
-  background-color: #fff;
-  color: black;
+  background-color: var(--color-dark-gray);
+  color: #fff;
 }
 
 .data-table tbody tr:last-child td:first-child {

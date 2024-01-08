@@ -28,143 +28,144 @@
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
   <style>
-    /* Navigation bar styles */
-    #bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      /* height: 60px;
-        background-color: var(--blue); */
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
-      /* Vertically align icons between middle and top */
-      padding-top: 8px;
-      /* Add top padding to adjust icon position */
-      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-      z-index: 9999;
+    :root {
+        /* Colors defined in the first code snippet */
+        --color-dark-blue: #282c34;
+        --color-light-gray: #dcdcdc;
+        --color-dark-gray: #20232a;
+        --color-medium-gray: #C5C6C7;
+        --color-soft-white: #ddd;
+        --color-bright-red: #e03a3a;
+        --color-deep-black: #000;
+        --color-very-dark-gray: #222;
+        --color-darker-gray: #1b1b1b;
+        --color-dark-charcoal: #31353d;
+        --color-dark-slate: #1f1f1f;
+        --shadow-light: rgba(0, 0, 0, 0.1);
+        --shadow-dark: rgba(0, 0, 0, 0.5);
+        --red-hover: #a87e00; /* Hover button color */
+
+        /* Additional colors for dark mode */
+        --background-dark: var(--color-dark-blue); /* Dark mode background */
+        --text-color-light: var(--color-light-gray); /* Light text color for dark mode */
+        --border-dark: var(--color-dark-charcoal); /* Dark border color */
     }
 
-    #bottom-nav ul {
-      display: flex;
-      list-style: none;
-      width: 100%;
-      justify-content: space-around;
-      padding: 0 20px;
-      margin-top: 3px;
-      /* Add this line to create space between <nav> and <ul> */
-      background-color: var(--blue);
-    }
-
-    #bottom-nav li {
-      text-align: center;
-    }
-
-    #bottom-nav a {
-      display: block;
-      padding: 8px;
-      color: white;
-      text-decoration: none;
-    }
-
-    #pillNav2 {
-      background-color: #003e7e;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-      color: transparent;
-    }
-
-    #pillNav2 .nav-item a.nav-link:hover,
-    #pillNav2 .nav-item a.nav-link:focus {
-      color: #003e7e;
-      background-color: var(--bs-white);
-    }
-
-    #pillNav2 .nav-item a.nav-link.active {
-      color: #003e7e;
-      background-color: var(--bs-white);
-    }
-
-    header {
-      background-color: var(--blue);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 60px;
-      padding: 0;
-      position: fixed;
-      width: 100%;
-      z-index: 9999;
-    }
-
-    .header-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-    }
-
-    .header-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      /* needed to position the child #countdown-timer absolutely */
-      width: 100%;
-      height: 100%;
-    }
-
-    #countdown-timer {
-      font-size: 18px;
-      color: white;
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      /* shift up by half of its own height to center */
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        background-color: var(--background-dark); /* Dark mode navbar background */
+        color: var(--text-color-light); /* Light text color */
     }
 
     .card {
-      z-index: 1;
+        z-index: 1;
+        background-color: var(--color-dark-slate); /* Dark mode card background */
+        color: var(--text-color-light); /* Light text color */
     }
 
-    .logo {
-      font-size: 24px;
-      text-decoration: none;
-      color: #fff;
-      display: block;
-      margin: auto;
+    .card-body {
+        padding: 10;
     }
-
-
-    .logo {
-      font-size: 24px;
-      text-decoration: none;
-      color: #fff;
-    }
-
 
     #content {
-      padding-top: 80px;
+        position: relative;
+        padding-bottom: 90px;
+        min-height: calc(100vh - 120px);
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        background-color: var(--background-dark); /* Dark mode content background */
+        color: var(--text-color-light); /* Light text color */
     }
 
-    /* Media queries for responsive design */
-    @media (max-width: 768px) {
-      header {
-        height: 50px;
-      }
-
-      .logo {
-        font-size: 20px;
-      }
+    #main-table.table-striped>tbody>tr:nth-child(odd)>td,
+    #main-table.table-striped>tbody>tr:nth-child(odd)>th {
+        background-color: var(--color-dark-gray); /* Dark mode table stripe */
     }
-  </style>
+
+    #main-table.table td:first-child {
+        border-top-left-radius: 50px !important;
+        border-bottom-left-radius: 50px !important;
+    }
+
+    #main-table.table td:last-child {
+        border-top-right-radius: 50px !important;
+        border-bottom-right-radius: 50px !important;
+    }
+
+    #main-table.table,
+    #main-table.table tr,
+    #main-table.table td {
+        border: none !important;
+    }
+
+    #main-table tr {
+        line-height: 3.5;
+    }
+
+    .table-responsive {
+        padding: 0 15px;
+    }
+
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        padding: 0 15px;
+    }
+
+    #picksModal .modal-footer .btn-secondary {
+        background-color: var(--color-bright-red);
+        border-color: var(--color-bright-red);
+    }
+
+    .modal-content {
+        margin: 0 auto;
+        max-width: 90%;
+    }
+
+    .modal-title {
+        width: 100%;
+        text-align: center;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal.show {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px;
+    }
+
+    button.custom-button {
+        padding: .375rem .75rem !important;
+        font-size: .9rem !important;
+        line-height: 1.6 !important;
+        background-color: var(--color-bright-red) !important;
+        border-color: var(--color-bright-red) !important;
+        color: var(--text-color-light) !important;
+        text-decoration: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        border-radius: 20px !important;
+        box-shadow: none !important;
+        border-style: solid !important;
+    }
+
+    button.custom-button:hover {
+        background-color: var(--red-hover) !important;
+        border-color: var(--red-hover) !important;
+    }
+</style>
+
 </head>
 
 
