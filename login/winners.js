@@ -382,6 +382,17 @@ const winners = {
       "NYJ Jets (+2)",
       "NO Saints (-3)",
       "TB Buccaneers (-4.5)",
+      "GB Packers (-3)",
+      "LV Raiders (-3)",
+      "NYG Giants (+5.5)",
+      "ARI Cardinals (+3)",
+      "KC Chiefs (+3.5)",
+      "LAR Rams (+4)",
+      "DAL Cowboys (-13)"
+
+
+
+
 
 
 
