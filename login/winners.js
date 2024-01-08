@@ -388,7 +388,8 @@ const winners = {
       "ARI Cardinals (+3)",
       "KC Chiefs (+3.5)",
       "LAR Rams (+4)",
-      "DAL Cowboys (-13)"
+      "DAL Cowboys (-13)",
+      "BUF Bills (-2.5)"
 
 
 
