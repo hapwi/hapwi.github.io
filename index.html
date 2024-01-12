@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dark Mode Leaderboard Table</title>
+    <title>Leaderboard</title>
     <!-- flowbite css -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
-
     <!-- boostrap icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-    <style>
-
-      .active-button {
-        background-color: #111827;
-        color: #1F2937;
-      }
-
-      .bottom-icons {
-        color: #8b8b8b; /* Bootstrap's gray color, adjust as needed */
-    }
-
-    body {
-        padding-bottom: 60px; /* Adjust this value based on the height of your navbar */
-    }
-
-    </style>
+    <!-- custom css -->
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-900 text-white">
-
+  <!-- ? start of header -->
+  <div id="header-placeholder" class="fixed top-0 left-0 right-0 z-50 mx-auto my-8 px-4 sm:px-0">
+    <div class="relative shadow-md w-1/2 max-w-sm mx-auto">
+      <div class="overflow-x-auto rounded-full bg-gray-700 text-white uppercase text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+        <h1 class="px-4 py-2">Leaderboard</h1>
+      </div>
+    </div>
+  </div>
 <!-- ? start of table -->
   <div class="max-w-2xl mx-auto my-10 px-4 sm:px-0">
     <div class="relative shadow-md">
@@ -48,116 +40,145 @@
     </div>
 </div>
 
-<!-- ? bottom nav -->
-<div class="fixed z-50 w-full h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
-  <div class="grid h-full max-w-lg grid-cols-4 mx-auto">
-      <button id="btn-leaderboard" data-href="" data-tooltip-target="tooltip-home" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-s-full hover:bg-gray-50 dark:hover:bg-gray-800 group navigation-button">
-        <i class="bi bi-trophy-fill w-5 h-5 mb-1 bottom-icons"></i>
-        <span class="sr-only">Leaderboard</span>
-      </button>
-      <div id="tooltip-home" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-          Leaderboard
-          <div class="tooltip-arrow" data-popper-arrow></div>
-      </div>
-      <button id="btn-players" data-href="" data-tooltip-target="tooltip-wallet" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group navigation-button">
-        <i class="bi bi-person-circle w-5 h-5 mb-1 bottom-icons"></i>
-        <span class="sr-only">Players</span>
-      </button>
-      <div id="tooltip-wallet" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-          Players
-          <div class="tooltip-arrow" data-popper-arrow></div>
-      </div>
-      <button id="btn-entries" data-href="" data-tooltip-target="tooltip-settings" type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group navigation-button">
-        <i class="bi bi-list-task w-5 h-5 mb-1 bottom-icons"></i>
-        <span class="sr-only">Entries</span>
-      </button>
-      <div id="tooltip-settings" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-          Entries
-          <div class="tooltip-arrow" data-popper-arrow></div>
-      </div>
-      <button id="btn-form" data-href="" data-tooltip-target="tooltip-profile" type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-e-full hover:bg-gray-50 dark:hover:bg-gray-800 group navigation-button">
-        <i class="bi bi-pencil-square w-5 h-5 mb-1 bottom-icons"></i>
-        <span class="sr-only">Form</span>
-      </button>
-      <div id="tooltip-profile" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-          Form
-          <div class="tooltip-arrow" data-popper-arrow></div>
-      </div>
-  </div>
-</div>
+<div id="bottom-nav-placeholder"></div>
+
 
 <!-- flowbite js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 <script>
     const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
-    const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo';
+    const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo'; //? leaderboard api
+    const spreadsheetId2 = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg'; //? entires api
+    const spreadsheetId3 = '1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc'; //? players api
 
-    async function fetchGoogleSheetsData() {
-        try {
-            const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Copy%20of%20Leaderboard!A1:Z?key=${apiKey}`
-            );
-            const data = await response.json();
+    async function fetchGoogleSheetsData3() {
+      try {
+        const response = await fetch(
+          `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId3}/values/A2:B?key=${apiKey}`
+        );
+        const data = await response.json();
 
-            if (data.error) {
-                throw new Error(data.error.message);
-            }
-
-            displayTable(data);
-        } catch (error) {
-            console.error('Error fetching Google Sheets data:', error);
+        if (data.error) {
+          throw new Error(data.error.message);
         }
+
+        return data;
+      } catch (error) {
+        console.error('Error fetching Google Sheets data:', error);
+      }
     }
 
-    function displayTable(data) {
+    async function fetchGoogleSheetsData2() {
+    try {
+        const response = await fetch(
+            `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId2}/values/A2:G?key=${apiKey}`
+        );
+        const data = await response.json();
+
+        if (data.error) {
+            throw new Error(data.error.message);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching Google Sheets data:', error);
+    }
+}
+
+    async function fetchGoogleSheetsData() {
+      try {
+        const response = await fetch(
+          `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Copy%20of%20Leaderboard!A1:Z?key=${apiKey}`
+        );
+        const data = await response.json();
+
+        if (data.error) {
+          throw new Error(data.error.message);
+        }
+
+        const data2 = await fetchGoogleSheetsData2();
+        const userGolfersMap = new Map();
+        data2.values.forEach((row) => { // Removed index from here
+
+          const user = row[0];
+          const golfers = row.slice(1, 7); // Get golfers 1-6
+
+          if (userGolfersMap.has(user)) {
+            // If the user already exists in the map, append the golfers to the existing list
+            userGolfersMap.set(user, [...userGolfersMap.get(user), ...golfers]);
+          } else {
+            // If the user doesn't exist in the map, add them with their golfers
+            userGolfersMap.set(user, golfers);
+          }
+        });
+
+        const data3 = await fetchGoogleSheetsData3();
+        const golferScoresMap = new Map();
+        data3.values.forEach(row => {
+          golferScoresMap.set(row[0], row[1]); // Store golfer scores
+        });
+
+        displayTable(data, userGolfersMap, golferScoresMap);
+      } catch (error) {
+        console.error('Error fetching Google Sheets data:', error);
+      }
+    }
+
+    function displayTable(data, userGolfersMap, golferScoresMap) {
       const tableBody = document.getElementById('table-body');
       tableBody.innerHTML = '';
 
       data.values.forEach((row, index) => {
         if (index === 0) return; // Skip header row if present
 
-        const tr = document.createElement('tr');
-        tr.className = "divide-x divide-gray-200 dark:divide-gray-700";
-        tr.innerHTML = `
+        const golfers = userGolfersMap.get(row[0]) || []; // Get golfers for the user
+
+        // Main row with arrow icon in the last cell
+        const mainRow = document.createElement('tr');
+        mainRow.className = "accordion-toggle divide-gray-200 dark:divide-gray-700";
+        mainRow.innerHTML = `
           <td class="px-6 py-4">${row[0]}</td>
-          <td class="px-6 py-4 text-right">${row[1]}</td> <!-- Add 'text-right' here -->
+          <td class="px-6 py-4 text-right">
+            ${row[1]}
+            <i class="arrow bi bi-chevron-down" style="float: right; cursor: pointer;"></i>
+          </td>
         `;
-        tableBody.appendChild(tr);
+        tableBody.appendChild(mainRow);
+
+        // Additional data row (hidden by default)
+        const additionalDataRow = document.createElement('tr');
+        additionalDataRow.className = "accordion-content hidden";
+        additionalDataRow.innerHTML = `
+          <td colspan="2">
+            <div class="golfer-container">
+              ${golfers.map(golfer => {
+                const score = golferScoresMap.get(golfer) || 'N/A'; // Get score for the golfer
+                return `<div class="golfer-item">${golfer}: <span class="golfer-score">${score}</span></div>`;
+              }).join('')}
+            </div>
+          </td>
+        `;
+        tableBody.appendChild(additionalDataRow);
+      });
+
+      // Add event listeners for accordion toggle
+      document.querySelectorAll('.accordion-toggle').forEach(item => {
+        item.addEventListener('click', () => {
+          const accordionContent = item.nextElementSibling;
+          accordionContent.classList.toggle('hidden');
+
+          const arrowIcon = item.querySelector('.arrow');
+          arrowIcon.classList.toggle('rotated');
+        });
       });
     }
 
     fetchGoogleSheetsData(); // Fetch data on page load
 
-    // highlight active pages
-    document.addEventListener("DOMContentLoaded", function() {
-    // Define your page-button mappings
-    const pageButtonMap = {
-        "/index.html": "btn-leaderboard",
-        "/players.html": "btn-players",
-        "/entries.html": "btn-entries",
-        "/form.html": "btn-form"
-    };
-
-    // Get the current pathname
-    const currentPage = window.location.pathname;
-
-    // Find the corresponding button for the current page
-    const activeButtonId = pageButtonMap[currentPage];
-    if (activeButtonId) {
-        document.getElementById(activeButtonId).classList.add("active-button");
-    }
-
-    // Attach click event listeners to buttons for navigation
-    document.querySelectorAll('.navigation-button').forEach(button => {
-    button.addEventListener('click', function() {
-        window.location.href = this.getAttribute('data-href');
-    });
-});
-console.log("Current page:", currentPage);
-console.log("Active Button ID:", activeButtonId);
-
-});
+    
 
 </script>
+<script src="./js/nav.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,107 @@
+.active-button {
+    background-color: #111827;
+    color: #1F2937;
+  }
+
+  .bottom-icons {
+    color: #8b8b8b; /* Bootstrap's gray color, adjust as needed */
+}
+
+body {
+    padding-bottom: 60px; /* Adjust this value based on the height of your navbar */
+    padding-top: 60px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.arrow {
+    margin-left: 10px; /* Adjust as needed for adequate spacing */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+    transform: rotate(180deg);
+}
+
+.hidden {
+    display: none;
+}
+
+.golfer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.golfer-item {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #667a8d;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    width: 80%;
+    /*Reducethewidth*/color: #fff;
+    margin-left: auto;
+    /*Addthis*/margin-right: auto;
+    /*Addthis*/transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+}
+
+.golfer-item:hover {
+    background-color: #556072;
+}
+
+.golfer-score {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* styles.css */
+
+table {
+    width: 100%;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody {
+    display: block; /* Enable scrolling on tbody */
+    height: 780px; /* Set height to your preference */
+    overflow: auto; /* Enable scrollbar */
+}
+
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; /* Make columns of equal width */
+}
+
+tbody::-webkit-scrollbar {
+    display: none;
+}
+
+tbody {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
