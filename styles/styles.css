@@ -43,7 +43,7 @@ body {
     letter-spacing: 1px;
     display: flex;
     justify-content: space-between;
-    background-color: #667a8d;
+    background-color: #515f6d;
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 10px;
@@ -87,7 +87,7 @@ thead {
 
 tbody {
     display: block; /* Enable scrolling on tbody */
-    height: 780px; /* Set height to your preference */
+    height: calc(100vh - 64px - 180px); /* Subtract additional amount to account for browser UI */
     overflow: auto; /* Enable scrollbar */
 }
 
