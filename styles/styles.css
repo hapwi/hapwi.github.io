@@ -16,19 +16,24 @@ body {
     overflow: hidden;
 }
 
+/* Update arrow icon styles */
 .arrow {
-    margin-left: 10px; /* Adjust as needed for adequate spacing */
+    margin-left: 10px;
     cursor: pointer;
     transition: transform 0.3s ease;
-}
-
-.arrow.rotated {
+    font-size: 18px; /* Increase icon size for better visibility */
+  }
+  
+  /* Rotate the arrow icon when expanded */
+  .arrow.rotated {
     transform: rotate(180deg);
-}
+  }
+  
 
 .hidden {
     display: none;
 }
+
 
 .golfer-container {
     display: flex;
@@ -44,25 +49,21 @@ body {
     display: flex;
     justify-content: space-between;
     background-color: #515f6d;
-    border-radius: 5px;
+    color: #fff;
     padding: 15px;
     margin-bottom: 10px;
     width: 80%;
-    /*Reducethewidth*/color: #fff;
     margin-left: auto;
-    /*Addthis*/margin-right: auto;
-    /*Addthis*/transition: background-color 0.3s ease;
+    margin-right: auto;
+    transition: background-color 0.3s ease;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    -ms-border-radius: 15px;
-    -o-border-radius: 15px;
+    border-radius: 15px; /* Consistent border-radius */
 }
 
 .golfer-item:hover {
     background-color: #556072;
 }
+
 
 .golfer-score {
     font-weight: bold;
@@ -74,9 +75,10 @@ body {
 table {
     width: 100%;
     display: table;
-    border-collapse: separate;
+    border-collapse: collapse; /* Change this line */
     border-spacing: 2px;
     border-color: grey;
+    border-radius: 15px;
 }
 
 thead {
