@@ -42,7 +42,6 @@
 
     <style>
 
-   
 
     </style>
 
@@ -107,46 +106,45 @@
                     <tbody>
                         <tr>
                             <td>Scottie Scheffler</td>
-                            <td>+450</td>
+                            <td>+400</td>
                         </tr>
                         <tr>
-                            <td>Justin Thomas</td>
-                            <td>+1100</td>
+                            <td>Rory McIlroy</td>
+                            <td>+1000</td>
                         </tr>
                         <tr>
-                            <td>Max Homa</td>
+                            <td>Jon Rahm</td>
+                            <td>+1200</td>
+                            </tr>
+                            <tr>
+                                <td>Xander Schauffele</td>
+                            <td>+1800</td>
+                        </tr>
+                        <tr>
+                            <td>Brooks Koepka</td>
                             <td>+1800</td>
                         </tr>
                         <tr>
                             <td>Jordan Spieth</td>
-                            <td>+1800</td>
+                            <td>+2200</td>
                         </tr>
                         <tr>
-                            <td>Sam Burns</td>
+                            <td>Hideki Matsuyama</td>
                             <td>+2200</td>
+                        </tr>
+                        <tr>
+                            <td>Joaquin Niemann</td>
+                            <td>+2500</td>
+                        </tr>
+                        <tr>
+                            <td>Ludvig Aberg</td>
+                            <td>+2800</td>
                         </tr>
                         <tr>
                             <td>Wyndham Clark</td>
                             <td>+2800</td>
                         </tr>
-                        <tr>
-                            <td>Byeong Hun An</td>
-                            <td>+2800</td>
-                        </tr>
-                        <tr>
-                            <td>Sungjae Im</td>
-                            <td>+3000</td>
-                        </tr>
-                        <tr>
-                            <td>Tom Kim</td>
-                            <td>+3500</td>
-                        </tr>
-                        <tr>
-                            <td>Min Woo Lee</td>
-                            <td>+3500</td>
-                        </tr>
                     </tbody>
-                    
 
                 </table>
 
@@ -226,17 +224,19 @@
                     <script>
                         $(document).ready(function () {
                             var topGolfers = [
-    "Scottie Scheffler",
-    "Justin Thomas",
-    "Max Homa",
-    "Jordan Spieth",
-    "Sam Burns",
-    "Wyndham Clark",
-    "Byeong Hun An",
-    "Sungjae Im",
-    "Tom Kim",
-    "Min Woo Lee"
-];
+                                "Scottie Scheffler",
+                                "Rory McIlroy",
+                                "Jon Rahm",
+                                "Xander Schauffele",
+                                "Brooks Koepka",
+                                "Jordan Spieth",
+                                "Hideki Matsuyama",
+                                "Joaquin Niemann",
+                                "Ludvig Aberg",
+                                "Wyndham Clark"
+                                ];
+
+
 
 
                             var form = $('#myForm');
@@ -331,7 +331,31 @@
     <!-- ! must be updated using chat gpt file Golfers for Form -->
     <script>
         $(document).ready(function () {
-            var availableGolfers = ["Nate Lashley", "Martin Laird", "Tyson Alexander", "David Lipsky", "Carl Yuan", "Kevin Yu", "Joel Dahmen", "Carson Young", "Greyson Sigg", "Callum Tarren", "Robert MacIntyre", "Matti Schmid", "Aaron Baddeley", "Luke Donald", "Alex Noren", "Joseph Bramlett", "Eric Cole", "Davis Thompson", "Brian Harman", "Jordan Spieth", "Emiliano Grillo", "Max Homa", "Akshay Bhatia", "Vincent Norrman", "Rickie Fowler", "Harris English", "Grayson Murray", "Erik van Rooyen", "Adam Schenk", "Tom Kim", "Matt Kuchar", "Shane Lowry", "Matt Fitzpatrick", "J.J. Spaun", "Matt Wallace", "Sungjae Im", "Lucas Glover", "Brendon Todd", "Tom Hoge", "Adam Svensson", "Sahith Theegala", "Nico Echavarria", "Luke List", "Ryan Brehm", "Gary Woodland", "Andrew Putnam", "Adam Hadwin", "Lee Hodges", "C.T. Pan", "Aaron Rai", "Garrick Higgo", "Ben Griffin", "Vince Whaley", "Dylan Wu", "Lanto Griffin", "Denny McCarthy", "Ben Taylor", "Hayden Buckley", "Austin Eckroat", "S.H. Kim", "Kevin Chappell", "Patton Kizzire", "Ben Kohles", "Victor Perez", "Nicolo Galletti", "Chris Gotterup", "Thomas Detry", "Bud Cauley", "Sam Ryder", "Andrew Novak", "Sam Stevens", "Harry Hall", "Charley Hoffman", "Peter Malnati", "Chesson Hadley", "Zac Blair", "Tyler Duncan", "Brandon Wu", "Ben Martin", "Byeong Hun An", "Keith Mitchell", "Maverick McNealy", "Min Woo Lee", "Will Gordon", "Brandt Snedeker", "Nick Taylor", "Hideki Matsuyama", "Scottie Scheffler", "Kurt Kitayama", "Wyndham Clark", "Stewart Cink", "Adam Scott", "J.B. Holmes", "Justin Thomas", "Nick Hardy", "Cameron Young", "Chez Reavie", "Si Woo Kim", "K.H. Lee", "Corey Conners", "Sam Burns", "J.T. Poston", "Camilo Villegas", "Scott Stallings", "Séamus Power", "Daniel Berger", "Chad Ramey", "Cameron Champ", "Zach Johnson", "Kevin Stadler", "Billy Horschel", "Beau Hossler", "Taylor Moore", "Taylor Montgomery", "Ryan Moore", "Jhonattan Vegas", "Matt NeSmith", "Michael Kim", "Justin Lower", "Doug Ghim", "Troy Merritt", "Ryan Fox", "Mark Hubbard", "Christiaan Bezuidenhout", "Robby Shelton", "Justin Suh", "Jesse Mueller", "Jim Knous", "Alexander Björk", "Jake Knapp", "Sami Välimäki", "Adrien Dumont de Chassart"];
+            var availableGolfers = [
+            "Ludvig Åberg", "Byeong Hun An", "Keegan Bradley", "Sam Burns",
+            "Patrick Cantlay", "Wyndham Clark", "Eric Cole", "Corey Conners",
+            "Fred Couples", "Cam Davis", "Jason Day", "Santiago De la Fuente",
+            "Bryson DeChambeau", "Nick Dunlap", "Austin Eckroat", "Harris English",
+            "Tony Finau", "Matt Fitzpatrick", "Tommy Fleetwood", "Rickie Fowler",
+            "Ryan Fox", "Sergio Garcia", "Lucas Glover", "Emiliano Grillo",
+            "Adam Hadwin", "Stewart Hagestad", "Brian Harman", "Tyrrell Hatton",
+            "Russell Henley", "Ryo Hisatsune", "Lee Hodges", "Nicolai Højgaard",
+            "Max Homa", "Viktor Hovland", "Sungjae Im", "Stephan Jaeger",
+            "Dustin Johnson", "Zach Johnson", "Si Woo Kim", "Tom Kim", "Chris Kirk",
+            "Kurt Kitayama", "Jake Knapp", "Brooks Koepka", "Christo Lamprecht",
+            "Min Woo Lee", "Luke List", "Shane Lowry", "Peter Malnati", "Hideki Matsuyama",
+            "Denny McCarthy", "Rory McIlroy", "Adrian Meronk", "Phil Mickelson",
+            "Taylor Moore", "Collin Morikawa", "Grayson Murray", "Joaquin Niemann",
+            "José María Olazábal", "Thorbjørn Olesen", "Matthieu Pavon", "J.T. Poston",
+            "Jon Rahm", "Patrick Reed", "Justin Rose", "Xander Schauffele",
+            "Scottie Scheffler", "Adam Schenk", "Charl Schwartzel", "Adam Scott",
+            "Neal Shipley", "Vijay Singh", "Cameron Smith", "Jordan Spieth",
+            "Sepp Straka", "Jasper Stubbs", "Nick Taylor", "Sahith Theegala",
+            "Justin Thomas", "Erik van Rooyen", "Camilo Villegas", "Bubba Watson",
+            "Mike Weir", "Danny Willett", "Gary Woodland", "Tiger Woods",
+            "Cameron Young", "Will Zalatoris"
+            ];
+
 
 
 
@@ -352,7 +376,7 @@
     <script>
         // Set the deadline date and time
 
-        var deadline = new Date("02/08/24 07:20 AM MST"); // Change to your deadline
+        var deadline = new Date("04/11/24 07:20 AM MST"); // Change to your deadline
 
         // Get the current date and time
         var now = new Date();
