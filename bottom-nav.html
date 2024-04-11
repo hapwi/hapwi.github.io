@@ -108,11 +108,16 @@
 </style>
 
 <script>
-    // JavaScript code remains the same as it's not related to styling
-    const desiredDate = new Date("04/11/2024 7:20 AM MST");
+    const desiredDate = new Date("04/11/2024 7:30 AM MST");
     const now = new Date();
     if (now >= desiredDate) {
+        // Making players-link and entries-link visible
         document.getElementById("players-link").style.display = "block";
         document.getElementById("entries-link").style.display = "block";
+        // Hiding form-link
+        document.getElementById("form-link").style.display = "none";
+        } else {
+        // Optionally, ensure form-link is visible before the desiredDate
+        document.getElementById("form-link").style.display = "block";
     }
 </script>
