@@ -127,11 +127,11 @@ async function showPlayerPicks(event, playerName) {
     displayPlayerPicks(entriesData, golferScores, playerName);
 }
 
-// Function to display the player's picks inside the picks button
+// Function to display the player's picks inside the picks modal
 function displayPlayerPicks(entriesData, golferScores, playerName) {
     const desiredDate = new Date("04/11/2024 7:30 AM MST");
     const now = new Date();
-if (now.getTime() < desiredDate.getTime()) {
+    if (now.getTime() < desiredDate.getTime()) {
         return;
     }
 
@@ -181,6 +181,13 @@ if (now.getTime() < desiredDate.getTime()) {
         }
         if (scoreB === 'CUT' || scoreB === 'WD' || scoreB === 'DQ') {
             return -1;
+        }
+
+        if (scoreA === 'E') {
+            return scoreB === 'E' ? 0 : scoreB[0] === '-' ? 1 : -1;
+        }
+        if (scoreB === 'E') {
+            return scoreA === 'E' ? 0 : scoreA[0] === '-' ? -1 : 1;
         }
 
         const numA = parseFloat(scoreA);
