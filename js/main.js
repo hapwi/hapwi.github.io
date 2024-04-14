@@ -1,7 +1,7 @@
 const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
-const spreadsheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo'; //? leaderboard api
-const spreadsheetId2 = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg'; //? entires api
-const spreadsheetId3 = '1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc'; //? players api
+const leaderboardSheetId = '1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo';
+const entriesSheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
+const playersSheetId = '1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc';
 
 // Function to fetch data from Google Sheets
 async function fetchGoogleSheetsData(spreadsheetId, range) {
@@ -24,7 +24,7 @@ async function fetchGoogleSheetsData(spreadsheetId, range) {
 
 // Function to display the leaderboard data
 async function displayLeaderboard() {
-        const leaderboardData = await fetchGoogleSheetsData(spreadsheetId, 'Copy%20of%20Leaderboard!A1:Z');
+    const leaderboardData = await fetchGoogleSheetsData(leaderboardSheetId, 'Copy%20of%20Leaderboard!A1:Z');
 
     if (!leaderboardData) {
         console.log('No data found in the Google Sheet.');
@@ -61,23 +61,28 @@ async function displayLeaderboard() {
                 playerName = cell;
                 const div = document.createElement('div');
                 div.textContent = cell;
-                div.style.overflow = 'hidden';
-                div.style.textOverflow = 'ellipsis';
-                div.style.whiteSpace = 'nowrap';
-                div.style.display = 'block';
-                div.style.maxWidth = '100%';
-                div.style.paddingLeft = '15px';
-                div.style.color = rowIndex % 2 === 0 ? 'white' : 'white';
+                const cellStyles = {
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    display: 'block',
+                    maxWidth: '100%',
+                    paddingLeft: '15px',
+                    color: rowIndex % 2 === 0 ? 'white' : 'white',
+                };
+                Object.assign(div.style, cellStyles);
                 td.style.verticalAlign = 'middle';
                 td.appendChild(div);
-                }
-                else if (index === 1) {
+            } else if (index === 1) {
                 const scoreDiv = document.createElement('div');
                 scoreDiv.textContent = cell;
-                scoreDiv.style.width = '50px';
-                scoreDiv.style.textAlign = 'right';
-                scoreDiv.style.paddingRight = '15px';
-                scoreDiv.style.color = rowIndex % 2 === 0 ? 'white' : 'white';
+                const scoreDivStyles = {
+                    width: '50px',
+                    textAlign: 'right',
+                    paddingRight: '15px',
+                    color: rowIndex % 2 === 0 ? 'white' : 'white',
+                };
+                Object.assign(scoreDiv.style, scoreDivStyles);
 
                 const buttonDiv = document.createElement('div');
                 const button = document.createElement('button');
@@ -110,8 +115,8 @@ async function displayLeaderboard() {
 async function showPlayerPicks(event, playerName) {
     event.preventDefault();
 
-    const entriesData = await fetchGoogleSheetsData(spreadsheetId2, 'Sheet1!A1:K');
-    const picksScoresData = await fetchGoogleSheetsData(spreadsheetId2, 'PicksScores!A2:B1000');
+    const entriesData = await fetchGoogleSheetsData(entriesSheetId, 'Sheet1!A1:K');
+    const picksScoresData = await fetchGoogleSheetsData(entriesSheetId, 'PicksScores!A2:B1000');
 
     if (!entriesData || !picksScoresData) {
         console.error('Error fetching Google Sheets data.');
@@ -126,7 +131,7 @@ async function showPlayerPicks(event, playerName) {
 function displayPlayerPicks(entriesData, golferScores, playerName) {
     const desiredDate = new Date("04/11/2024 7:30 AM MST");
     const now = new Date();
-    if (now < desiredDate) {
+if (now.getTime() < desiredDate.getTime()) {
         return;
     }
 
@@ -143,21 +148,55 @@ function displayPlayerPicks(entriesData, golferScores, playerName) {
     picksTable.innerHTML = '';
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
-    const th1 = document.createElement('th');
-    th1.textContent = 'Golfer';
-    const th2 = document.createElement('th');
-    th2.textContent = 'Score';
-    th2.style.textAlign = 'center';
-    headerRow.appendChild(th1);
-    headerRow.appendChild(th2);
+    const cells = ['Golfer', 'Score'];
+    cells.forEach((cellText, index) => {
+        const th = document.createElement('th');
+        th.textContent = cellText;
+        if (index === 1) {
+            th.style.textAlign = 'center';
+        }
+        headerRow.appendChild(th);
+    });
     thead.appendChild(headerRow);
     picksTable.appendChild(thead);
 
     const tbody = document.createElement('tbody');
 
-    golferNames.forEach((golferName) => {
-        const score = golferScores[golferName] || 'N/A';
+    const golferData = golferNames.map((golferName) => {
+        const {
+            [golferName]: score = 'N/A'
+        } = golferScores;
+        return {
+            golferName,
+            score
+        };
+    });
 
+    golferData.sort((a, b) => {
+        const scoreA = a.score.toUpperCase();
+        const scoreB = b.score.toUpperCase();
+
+        if (scoreA === 'CUT' || scoreA === 'WD' || scoreA === 'DQ') {
+            return 1;
+        }
+        if (scoreB === 'CUT' || scoreB === 'WD' || scoreB === 'DQ') {
+            return -1;
+        }
+
+        const numA = parseFloat(scoreA);
+        const numB = parseFloat(scoreB);
+
+        if (isNaN(numA) || isNaN(numB)) {
+            return scoreA.localeCompare(scoreB);
+        }
+
+        return numA - numB;
+    });
+
+    golferData.forEach(({
+                golferName,
+                score
+            }) => {
         const tableRow = document.createElement('tr');
         const td1 = document.createElement('td');
         td1.textContent = golferName;
