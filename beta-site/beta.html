@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="var(--theme-color)">
+<meta name="theme-color" content="var(--theme-color)" id="themeColorMeta">
+
 
 
 <head>
@@ -50,6 +51,10 @@ html[data-theme='garden'] {
 
 body {
 background-color: var(--theme-color);
+}
+
+html.is-theme-loaded body {
+display: block; /* Display the body once the theme is loaded */
 }
 
         @media (max-width: 640px) {
@@ -308,6 +313,9 @@ background-color: var(--theme-color);
     </div>
 </body>
 <script>
+    document.getElementById('themeColorMeta').setAttribute('content',
+    getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim());
+
     // Bottom Navigation Button Active State
     document.querySelectorAll('.btm-nav button').forEach(button => {
         button.addEventListener('click', function () {
@@ -339,6 +347,8 @@ background-color: var(--theme-color);
             document.documentElement.setAttribute('data-theme', themeName);
             localStorage.setItem('selectedTheme', themeName);
             updateThemeButton(themeName);
+// Close the dropdown by simulating a click outside or toggling a class
+document.querySelector('.dropdown').classList.remove('dropdown-open');
         });
     });
 
