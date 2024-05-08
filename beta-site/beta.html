@@ -311,11 +311,16 @@ localStorage.setItem('selectedTheme', themeName);
     });
     }
     function updateActiveButton(buttonId) {
-    document.querySelectorAll('.btm-nav button').forEach(btn => btn.classList.remove('active'));
-    const activeButton = document.getElementById(buttonId);
-    if (activeButton) {
-    activeButton.classList.add('active');
-    }
+        const buttons = document.querySelectorAll('.btm-nav button');
+        buttons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.classList.remove('bg-base-300');
+        });
+        const activeButton = document.getElementById(buttonId);
+        if (activeButton) {
+        activeButton.classList.add('active');
+            activeButton.classList.add('bg-base-300');
+        }
     }
     function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
