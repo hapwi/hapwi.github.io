@@ -265,71 +265,75 @@
     </div>
 </body>
 <script>
-    // Bottom Navigation Button Active State
-    document.querySelectorAll('.btm-nav button').forEach(button => {
-        button.addEventListener('click', function () {
-            document.querySelectorAll('.btm-nav button').forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            localStorage.setItem('activeNavButton', this
-                .id); // Store the ID of the active button in localStorage
-        });
-    });
-
-    // Theme Controller Button Event Listener
-    document.querySelectorAll('.theme-controller').forEach(input => {
-        input.addEventListener('change', function () {
-            // Update the theme button text with the selected theme name
-            let themeName = this.value.charAt(0).toUpperCase() + this.value.slice(
-                1); // Capitalize first letter
-            document.getElementById('themeButton').textContent = themeName + ' ';
-            // Re-append the SVG icon
-            let iconSvg =
-                `<svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path></svg>`;
-            document.getElementById('themeButton').innerHTML += iconSvg;
-        });
-    });
-
-    // Handle theme changes and store to localStorage
-    document.querySelectorAll('.theme-controller').forEach(button => {
-        button.addEventListener('change', function () {
-            let themeName = this.value;
-            document.documentElement.setAttribute('data-theme', themeName);
-            localStorage.setItem('selectedTheme', themeName);
-            updateThemeButton(themeName);
-        });
-    });
-
-    // Apply the stored theme on page load
     document.addEventListener('DOMContentLoaded', () => {
-        // Restore the theme as before
-        const savedTheme = localStorage.getItem('selectedTheme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeButton(savedTheme);
+    // Apply saved theme and navigation state on page load
+    const savedTheme = localStorage.getItem('selectedTheme');
+    const activeButtonId = localStorage.getItem('activeNavButton');
+
+    if (savedTheme) {
+        updateTheme(savedTheme);
+        updateThemeButton(savedTheme);
         }
 
-        // Restore the active state of the bottom navigation
-        const activeButtonId = localStorage.getItem('activeNavButton');
-        if (activeButtonId) {
-            const activeButton = document.getElementById(activeButtonId);
-            if (activeButton) {
-                document.querySelectorAll('.btm-nav button').forEach(btn => btn.classList.remove('active'));
-                activeButton.classList.add('active');
-            }
+    if (activeButtonId) {
+        updateActiveButton(activeButtonId);
         }
+});
+// Function to update the theme based on the stored or newly selected value
+function updateTheme(themeName) {
+document.documentElement.setAttribute('data-theme', themeName);
+localStorage.setItem('selectedTheme', themeName);
+}
+
+// Function to update the text and icon of the theme button
+function updateThemeButton(themeName) {
+const themeButton = document.getElementById('themeButton');
+if (themeButton) {
+        themeButton.textContent = capitalizeFirstLetter(themeName);
+        themeButton.innerHTML += themeIconSvg();
+        }
+
+    document.querySelectorAll('.theme-controller').forEach(input => {
+    input.checked = (input.value === themeName);
     });
-
-    // Update the theme button text and check the corresponding input
-    function updateThemeButton(themeName) {
-        const themeButton = document.getElementById('themeButton');
-        if (themeButton) {
-            themeButton.textContent =
-                `${themeName.charAt(0).toUpperCase() + themeName.slice(1)}`; // Capitalize the first letter and update the button text
-        }
-        document.querySelectorAll('.theme-controller').forEach(input => {
-            input.checked = (input.value === themeName);
-        });
     }
+// Function to handle active navigation button updates
+function updateActiveButton(buttonId) {
+document.querySelectorAll('.btm-nav button').forEach(btn => btn.classList.remove('active'));
+const activeButton = document.getElementById(buttonId);
+if (activeButton) {
+activeButton.classList.add('active');
+}
+}
+
+// Helper function to capitalize the first letter of a string
+function capitalizeFirstLetter(string) {
+return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Helper function to return the theme button's SVG icon
+function themeIconSvg() {
+return `<svg width="12px" height="12px" class="h-2 w-2 fill-current opacity-60 inline-block"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
+    <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+</svg>`;
+}
+
+// Event listeners for theme control changes and bottom navigation button clicks
+document.querySelectorAll('.theme-controller').forEach(input => {
+input.addEventListener('change', function () {
+updateTheme(this.value);
+updateThemeButton(this.value);
+});
+});
+
+document.querySelectorAll('.btm-nav button').forEach(button => {
+button.addEventListener('click', function () {
+updateActiveButton(this.id);
+localStorage.setItem('activeNavButton', this.id);
+});
+});
+
 </script>
 
 </html>
