@@ -10,43 +10,47 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-        :root {
-        --theme-color-default: #1D232A;
-        --theme-color-night: #0F172A;
-        --theme-color-luxury: #09090B;
-        --theme-color-sunset: #121C23;
-        --theme-color-dim: #2A303C;
-        --theme-color-coffee: #20161F;
-        --theme-color-garden: #E9E7E7;
-        }
+       :root {
+       --theme-color-default: #1D232A;
+       --theme-color-night: #0F172A;
+       --theme-color-luxury: #09090B;
+       --theme-color-sunset: #121C23;
+       --theme-color-dim: #2A303C;
+       --theme-color-coffee: #20161F;
+       --theme-color-garden: #E9E7E7;
+       }
 
-        html:has(#default-theme:checked) {
-        --theme-color: var(--theme-color-default);
-        }
+html[data-theme='default'] {
+--theme-color: var(--theme-color-default);
+}
 
-        html:has(#night-theme:checked) {
-        --theme-color: var(--theme-color-night);
-        }
+html[data-theme='night'] {
+--theme-color: var(--theme-color-night);
+}
 
-        html:has(#luxury-theme:checked) {
-        --theme-color: var(--theme-color-luxury);
-        }
+html[data-theme='luxury'] {
+--theme-color: var(--theme-color-luxury);
+}
 
-        html:has(#sunset-theme:checked) {
-        --theme-color: var(--theme-color-sunset);
-        }
+html[data-theme='sunset'] {
+--theme-color: var(--theme-color-sunset);
+}
 
-        html:has(#dim-theme:checked) {
-        --theme-color: var(--theme-color-dim);
-        }
+html[data-theme='dim'] {
+--theme-color: var(--theme-color-dim);
+}
 
-        html:has(#coffee-theme:checked) {
-        --theme-color: var(--theme-color-coffee);
-        }
+html[data-theme='coffee'] {
+--theme-color: var(--theme-color-coffee);
+}
 
-        html:has(#garden-theme:checked) {
-        --theme-color: var(--theme-color-garden);
-        }
+html[data-theme='garden'] {
+--theme-color: var(--theme-color-garden);
+}
+
+body {
+background-color: var(--theme-color);
+}
 
         @media (max-width: 640px) {
 
