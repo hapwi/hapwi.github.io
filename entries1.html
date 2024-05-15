@@ -57,7 +57,7 @@
             align-items: center;
             cursor: pointer;
             padding: 15px 20px;
-            background-color: #1c1c1c;
+            background-color: var(--color-dark-gray);
             border-radius: 10px 10px 0 0;
             color: #ffffff;
         }
@@ -65,7 +65,7 @@
         .card-body {
             display: none;
             padding: 20px;
-            background-color: #2e2e2e;
+            background-color: #3f3f3f;
             border-radius: 0 0 10px 10px;
             text-align: center;
         }
@@ -92,24 +92,19 @@
         }
 
         .entry-table th, .entry-table td {
-            padding: 10px;
-            border: 1px solid #444;
-            text-align: left;
-            color: #ffffff;
-        }
+    padding: 10px;
+    border: 1px solid #444;
+    text-align: left;
+    color: #ffffff;
+    background-color: #2c2f36; /* Slightly lighter shade */
+}
 
-        .entry-table th {
-            background-color: #333;
-        }
+.entry-table th {
+    background-color: #20232a; /* Darker shade */
+}
 
         .entry-table td:nth-child(2) {
             text-align: center;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #f0ad4e;
         }
 
         .no-data {
