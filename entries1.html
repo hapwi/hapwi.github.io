@@ -48,7 +48,6 @@
             margin-bottom: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s;
         }
 
         .card-header {
@@ -57,7 +56,7 @@
             align-items: center;
             cursor: pointer;
             padding: 15px 20px;
-            background-color: var(--color-dark-gray);
+            background-color: #3a3f47;
             border-radius: 10px 10px 0 0;
             color: #ffffff;
         }
@@ -68,6 +67,7 @@
             background-color: #3f3f3f;
             border-radius: 0 0 10px 10px;
             text-align: center;
+            transition: all 0.3s ease;
         }
 
         .card-body.show {
@@ -92,16 +92,16 @@
         }
 
         .entry-table th, .entry-table td {
-    padding: 10px;
-    border: 1px solid #444;
-    text-align: left;
-    color: #ffffff;
-    background-color: #2c2f36; /* Slightly lighter shade */
-}
+            padding: 10px;
+            border: 1px solid #444;
+            text-align: left;
+            color: #ffffff;
+            background-color: #2c2f36; /* Slightly lighter shade */
+        }
 
-.entry-table th {
-    background-color: #20232a; /* Darker shade */
-}
+        .entry-table th {
+             background-color: #20232a; /* Darker shade */
+        }
 
         .entry-table td:nth-child(2) {
             text-align: center;
@@ -183,16 +183,16 @@
                 cardBody.innerHTML = `
                     <div class="scrollable-content">
                         <table class="entry-table">
-                            <tr><th>Golfer 1</th><td>${row[1]}</td></tr>
-                            <tr><th>Golfer 2</th><td>${row[2]}</td></tr>
-                            <tr><th>Golfer 3</th><td>${row[3]}</td></tr>
-                            <tr><th>Golfer 4</th><td>${row[4]}</td></tr>
-                            <tr><th>Golfer 5</th><td>${row[5]}</td></tr>
-                            <tr><th>Golfer 6</th><td>${row[6]}</td></tr>
-                            <tr><th>Tiebreaker</th><td>${row[7]}</td></tr>
-                            <tr><th>Total</th><td>${row[8]}</td></tr>
-                            <tr><th>Worst</th><td>${row[9]}</td></tr>
-                            <tr><th>Top 5</th><td>${row[10]}</td></tr>
+                            <tr><th>Golfer 1</th><td>${row[1]}</td><td></td></tr>
+                            <tr><th>Golfer 2</th><td>${row[2]}</td><td></td></tr>
+                            <tr><th>Golfer 3</th><td>${row[3]}</td><td></td></tr>
+                            <tr><th>Golfer 4</th><td>${row[4]}</td><td></td></tr>
+                            <tr><th>Golfer 5</th><td>${row[5]}</td><td></td></tr>
+                            <tr><th>Golfer 6</th><td>${row[6]}</td><td></td></tr>
+                            <tr><th>Tiebreaker</th><td>${row[7]}</td><td></td></tr>
+                            <tr><th>Total</th><td>${row[8]}</td><td></td></tr>
+                            <tr><th>Worst</th><td>${row[9]}</td><td></td></tr>
+                            <tr><th>Top 5</th><td>${row[10]}</td><td></td></tr>
                         </table>
                     </div>
                 `;
