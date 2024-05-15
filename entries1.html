@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#282c34">
@@ -35,14 +34,15 @@
             color: var(--text-color-light);
             font-family: Arial, sans-serif;
         }
-    
+
         .container {
             max-width: 800px;
             margin: 20px auto;
-            height: 100%;
+            height: 80%;
             overflow-y: auto; /* Allow vertical scrolling */
+            padding-top: 10px;
         }
-    
+
         .card {
             background: linear-gradient(to bottom, #303030, #252525);
             margin-bottom: 20px;
@@ -50,7 +50,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s;
         }
-    
+
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -61,7 +61,7 @@
             border-radius: 10px 10px 0 0;
             color: #ffffff;
         }
-    
+
         .card-body {
             display: none;
             padding: 20px;
@@ -69,19 +69,19 @@
             border-radius: 0 0 10px 10px;
             text-align: center;
         }
-    
+
         .card-body.show {
             display: block;
         }
-    
+
         .accordion-icon {
             transition: transform 0.3s;
         }
-    
+
         .accordion-icon.rotate {
             transform: rotate(90deg);
         }
-    
+
         .entry-table {
             width: 100%;
             margin: auto;
@@ -90,32 +90,42 @@
             overflow: hidden;
             border: 1px solid #444;
         }
-    
+
         .entry-table th, .entry-table td {
             padding: 10px;
             border: 1px solid #444;
             text-align: left;
             color: #ffffff;
         }
-    
+
         .entry-table th {
             background-color: #333;
         }
-    
+
         .entry-table td:nth-child(2) {
             text-align: center;
         }
-    
+
         h1 {
             text-align: center;
             margin-bottom: 30px;
             color: #f0ad4e;
         }
-    
+
         .no-data {
             text-align: center;
             font-size: 1.2rem;
             color: #ffffff;
+        }
+
+        .top5-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .top5-value {
+            margin-right: 10px;
+            font-weight: bold;
         }
     </style>
     
@@ -131,40 +141,48 @@
     <script>
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
-    
+
         async function fetchGoogleSheetsData() {
             try {
                 const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:K?key=${apiKey}`);
                 const data = await response.json();
-    
+
                 if (data.error) {
                     throw new Error(data.error.message);
                 }
-    
+
                 displayEntries(data);
             } catch (error) {
                 console.error('Error fetching Google Sheets data:', error);
             }
         }
-    
+
         function displayEntries(data) {
             const { values } = data;
-    
+
             if (!values || values.length === 0) {
                 document.getElementById('entries-container').innerHTML = '<p class="no-data">No data available.</p>';
                 return;
             }
-    
+
             const container = document.getElementById('entries-container');
-    
+
             values.slice(1).forEach((row, index) => {
+                const top5Value = row[10] === '0' ? 'E' : row[10]; // Check if Top 5 value is 0
+
                 const card = document.createElement('div');
                 card.classList.add('card');
-    
+
                 const cardHeader = document.createElement('div');
                 cardHeader.classList.add('card-header');
-                cardHeader.innerHTML = `${row[0]} <i class="bi bi-caret-right-fill accordion-icon"></i>`;
-    
+                cardHeader.innerHTML = `
+                    <div>${row[0]}</div>
+                    <div class="top5-container">
+                        <span class="top5-value">${top5Value}</span>
+                        <i class="bi bi-caret-right-fill accordion-icon"></i>
+                    </div>
+                `;
+
                 const cardBody = document.createElement('div');
                 cardBody.classList.add('card-body');
                 cardBody.innerHTML = `
@@ -183,18 +201,18 @@
                         </table>
                     </div>
                 `;
-    
+
                 cardHeader.addEventListener('click', () => {
                     cardBody.classList.toggle('show');
                     cardHeader.querySelector('.accordion-icon').classList.toggle('rotate');
                 });
-    
+
                 card.appendChild(cardHeader);
                 card.appendChild(cardBody);
                 container.appendChild(card);
             });
         }
-    
+
         window.onload = fetchGoogleSheetsData;
     </script>
 </body>
