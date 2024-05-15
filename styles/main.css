@@ -29,3 +29,20 @@
     --border-dark: var(--color-dark-charcoal);
     /* Dark border color */
 }
+/* Hide scroll bar but allow scrolling */
+html,
+body {
+    overflow: -moz-scrollbars-none;
+    /* For Firefox */
+    -ms-overflow-style: none;
+    /* For Internet Explorer and Edge */
+    scrollbar-width: none;
+    /* For Firefox */
+    background-color: var(--background-dark);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    /* For Chrome, Safari, and Opera */
+}

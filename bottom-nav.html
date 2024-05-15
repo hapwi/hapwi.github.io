@@ -1,7 +1,7 @@
 <nav id="bottom-nav">
     <ul class="nav nav-pills nav-fill gap-2 p-1 py-3 small shadow-sm" id="pillNav2" role="tablist"
-        style="--bs-nav-link-color: var(--masters-gold); --bs-nav-pills-link-active-color: var(--masters-green);
-        --bs-nav-pills-link-active-bg: var(--masters-gold);">
+        style="--bs-nav-link-color: var(--nav-link-color); --bs-nav-pills-link-active-color: var(--active-link-color);
+        --bs-nav-pills-link-active-bg: var(--active-bg-color);">
         <li class="nav-item" role="presentation">
             <a href="index.html" id="menu-item-1" class="nav-link rounded-5">
                 <i class="bi bi-trophy-fill"></i>
@@ -32,9 +32,15 @@
 <style>
     /* Define the color palette */
     :root {
-    --masters-green: #006B54;
-    --masters-gold: #ca9800;
-    --masters-gold-hover: #a87e00;
+        --masters-green: #006B54;
+        --masters-gold: #ca9800;
+        --masters-gold-hover: #a87e00;
+        --nav-bg-color: #333; /* Dark background color for navigation */
+        --nav-link-color: #fff; /* White link text */
+        --active-bg-color: #555; /* Slightly lighter background for active link */
+        --active-link-color: #fff; /* White text for active link */
+        --hover-bg-color: #444; /* Hover background color */
+        --hover-border-color: #666; /* Hover border color */
     }
 
     /* Navigation bar styles */
@@ -51,7 +57,7 @@
         padding-right: 15px;
         box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
         z-index: 9999;
-        background-color: var(--masters-green); /* Use masters-green for the background */
+        background-color: var(--nav-bg-color); /* Use dark background */
     }
 
     #bottom-nav ul {
@@ -61,7 +67,7 @@
         justify-content: space-around;
         padding: 0 20px;
         margin-top: 3px;
-        background-color: var(--masters-green); /* Use masters-green for the ul background */
+        background-color: var(--nav-bg-color); /* Use dark background */
     }
 
     #bottom-nav li {
@@ -71,44 +77,44 @@
     #bottom-nav a {
         display: block;
         padding: 8px;
-        color: var(--masters-gold); /* Use masters-gold for link text */
+        color: var(--nav-link-color); /* White link text */
         text-decoration: none;
     }
 
     #pillNav2 {
-        background-color: var(--masters-green);
+        background-color: var(--nav-bg-color);
         color: transparent;
     }
 
     #pillNav2 .nav-item a.nav-link:hover,
     #pillNav2 .nav-item a.nav-link:focus {
-        color: var(--masters-green);
-        background-color: var(--masters-gold-hover); /* Use masters-gold-hover for hover background */
+        color: var(--nav-link-color);
+        background-color: var(--hover-bg-color); /* Hover background */
     }
 
     #pillNav2 .nav-item a.nav-link.active {
-        color: var(--masters-green);
-        background-color: var(--masters-gold); /* Use masters-gold for active background */
+        color: var(--active-link-color);
+        background-color: var(--active-bg-color); /* Active background */
     }
 
     #pillNav2 .nav-item a.nav-link {
-        border: 2px solid var(--masters-gold);
+        border: 2px solid var(--hover-border-color);
         box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
         transition: all 0.3s;
     }
 
     #pillNav2 .nav-item a.nav-link.active {
-    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
-        border-color: var(--masters-gold-hover); /* Slightly darker gold for active border */
+        box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
+        border-color: var(--hover-border-color); /* Slightly darker border for active link */
         }
 
     #pillNav2 .nav-item a.nav-link:hover {
-        border-color: var(--masters-gold-hover); /* Use masters-gold-hover for hover border */
+        border-color: var(--hover-border-color); /* Hover border color */
         }
 </style>
 
 <script>
-    const desiredDate = new Date("04/11/2024 7:30 AM MST");
+    const desiredDate = new Date("05/16/2024 4:15 AM MST");
     const now = new Date();
     if (now >= desiredDate) {
         // Making players-link and entries-link visible
@@ -116,7 +122,7 @@
         document.getElementById("entries-link").style.display = "block";
         // Hiding form-link
         document.getElementById("form-link").style.display = "none";
-        } else {
+    } else {
         // Optionally, ensure form-link is visible before the desiredDate
         document.getElementById("form-link").style.display = "block";
     }
