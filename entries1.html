@@ -101,10 +101,16 @@
 
         .entry-table th {
              background-color: #20232a; /* Darker shade */
+             text-align: center;
         }
 
         .entry-table td:nth-child(2) {
             text-align: center;
+        }
+
+        .entry-table td:nth-child(3) {
+            text-align: center; /* Center align the third column */
+            letter-spacing: 0.2em;
         }
 
         .no-data {
@@ -137,32 +143,41 @@
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
 
-        async function fetchGoogleSheetsData() {
+        async function fetchGoogleSheetsData(spreadsheetId, range) {
             try {
-                const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:K?key=${apiKey}`);
+                const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`);
                 const data = await response.json();
 
                 if (data.error) {
                     throw new Error(data.error.message);
                 }
 
-                displayEntries(data);
+                return data.values;
             } catch (error) {
                 console.error('Error fetching Google Sheets data:', error);
+                return null;
             }
         }
 
-        function displayEntries(data) {
-            const { values } = data;
+        async function displayEntries() {
+            const entriesData = await fetchGoogleSheetsData(spreadsheetId, 'Sheet1!A:K');
+            const picksScoresData = await fetchGoogleSheetsData(spreadsheetId, 'PicksScores!A2:B1000');
 
-            if (!values || values.length === 0) {
+            if (!entriesData) {
+                console.error('Error fetching entries data.');
+                return;
+            }
+
+            const golferScores = picksScoresData ? Object.fromEntries(picksScoresData) : {};
+
+            if (entriesData.length === 0) {
                 document.getElementById('entries-container').innerHTML = '<p class="no-data">No data available.</p>';
                 return;
             }
 
             const container = document.getElementById('entries-container');
 
-            values.slice(1).forEach((row, index) => {
+            entriesData.slice(1).forEach((row, index) => {
                 const top5Value = row[10] === '0' ? 'E' : row[10]; // Check if Top 5 value is 0
 
                 const card = document.createElement('div');
@@ -183,12 +198,12 @@
                 cardBody.innerHTML = `
                     <div class="scrollable-content">
                         <table class="entry-table">
-                            <tr><th>Golfer 1</th><td>${row[1]}</td><td></td></tr>
-                            <tr><th>Golfer 2</th><td>${row[2]}</td><td></td></tr>
-                            <tr><th>Golfer 3</th><td>${row[3]}</td><td></td></tr>
-                            <tr><th>Golfer 4</th><td>${row[4]}</td><td></td></tr>
-                            <tr><th>Golfer 5</th><td>${row[5]}</td><td></td></tr>
-                            <tr><th>Golfer 6</th><td>${row[6]}</td><td></td></tr>
+                            <tr><th>Golfer 1</th><td>${row[1]}</td><td>${golferScores[row[1]] || ''}</td></tr>
+                            <tr><th>Golfer 2</th><td>${row[2]}</td><td>${golferScores[row[2]] || ''}</td></tr>
+                            <tr><th>Golfer 3</th><td>${row[3]}</td><td>${golferScores[row[3]] || ''}</td></tr>
+                            <tr><th>Golfer 4</th><td>${row[4]}</td><td>${golferScores[row[4]] || ''}</td></tr>
+                            <tr><th>Golfer 5</th><td>${row[5]}</td><td>${golferScores[row[5]] || ''}</td></tr>
+                            <tr><th>Golfer 6</th><td>${row[6]}</td><td>${golferScores[row[6]] || ''}</td></tr>
                             <tr><th>Tiebreaker</th><td>${row[7]}</td><td></td></tr>
                             <tr><th>Total</th><td>${row[8]}</td><td></td></tr>
                             <tr><th>Worst</th><td>${row[9]}</td><td></td></tr>
@@ -208,7 +223,7 @@
             });
         }
 
-        window.onload = fetchGoogleSheetsData;
+        window.onload = displayEntries;
     </script>
 </body>
 
