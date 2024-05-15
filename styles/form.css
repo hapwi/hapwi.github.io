@@ -29,6 +29,7 @@
 
 body {
     background-color: var(--background-dark);
+    color: var(--text-color-light);
 }
 
 
@@ -85,17 +86,6 @@ button[type="submit"] {
 .form-group input {
     margin-bottom: 0.5rem;
     /* Adjust as needed */
-}
-
-#pillNav2 {
-    background-color: #003e7e;
-    /* The color you provided */
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    color: transparent;
 }
 
 button.btn {
