@@ -129,7 +129,7 @@ async function showPlayerPicks(event, playerName) {
 
 // Function to display the player's picks inside the picks modal
 function displayPlayerPicks(entriesData, golferScores, playerName) {
-    const desiredDate = new Date("04/16/2024 4:15 AM MST");
+    const desiredDate = new Date("05/16/2024 4:15 AM MST");
     const now = new Date();
     if (now.getTime() < desiredDate.getTime()) {
         return;
