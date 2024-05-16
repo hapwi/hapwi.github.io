@@ -100,15 +100,12 @@
         }
 
         .entry-table th {
-             background-color: #20232a; /* Darker shade */
+            background-color: #20232a; /* Darker shade */
         }
 
-        .entry-table td:nth-child(2) {
-            text-align: center;
-        }
-
+        .entry-table td:nth-child(2),
         .entry-table td:nth-child(3) {
-            text-align: center; /* Center align the third column */
+            text-align: center;
             letter-spacing: 0.1em; /* Add letter spacing to the third column */
         }
 
@@ -149,14 +146,11 @@
             font-weight: bold;
         }
 
-        
-
         .btn-close {
             background-color: #ffffff;
             border-radius: 50%;
         }
     </style>
-    
 </head>
 
 <body id="leaderboard">
@@ -175,7 +169,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Viewing picks will be availablle on 5/16/2024 @ 7:15 AM EST.
+                    Viewing picks will be available on 5/16/2024 @ 7:15 AM EST.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
@@ -187,8 +181,7 @@
     <script>
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
-
-        const unlockDate = new Date("05/16/2024 4:15 AM MST");
+        const unlockDate = new Date("05/16/2024 7:15 AM EST");
 
         async function fetchGoogleSheetsData(spreadsheetId, range) {
             try {
@@ -204,6 +197,16 @@
                 console.error('Error fetching Google Sheets data:', error);
                 return null;
             }
+        }
+
+        function parseScore(score) {
+            if (score === 'E') return 0;
+            if (score === '') return Infinity;
+            return parseFloat(score);
+        }
+
+        function sortEntriesByTop5(entries) {
+            return entries.slice(1).sort((a, b) => parseScore(a[10]) - parseScore(b[10]));
         }
 
         async function displayEntries() {
@@ -222,9 +225,11 @@
                 return;
             }
 
+            const sortedEntries = sortEntriesByTop5(entriesData);
+
             const container = document.getElementById('entries-container');
 
-            entriesData.slice(1).forEach((row, index) => {
+            sortedEntries.forEach((row, index) => {
                 const top5Value = row[10] === '0' ? 'E' : row[10]; // Check if Top 5 value is 0
 
                 const card = document.createElement('div');
