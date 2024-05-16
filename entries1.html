@@ -101,7 +101,6 @@
 
         .entry-table th {
              background-color: #20232a; /* Darker shade */
-             text-align: center;
         }
 
         .entry-table td:nth-child(2) {
@@ -110,7 +109,7 @@
 
         .entry-table td:nth-child(3) {
             text-align: center; /* Center align the third column */
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em; /* Add letter spacing to the third column */
         }
 
         .no-data {
@@ -142,6 +141,8 @@
     <script>
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
+
+        const unlockDate = new Date("05/16/2024 4:15 AM MST");
 
         async function fetchGoogleSheetsData(spreadsheetId, range) {
             try {
@@ -213,6 +214,11 @@
                 `;
 
                 cardHeader.addEventListener('click', () => {
+                    const now = new Date();
+                    if (now.getTime() < unlockDate.getTime()) {
+                        alert("The players picks feature will be unlocked on " + unlockDate.toLocaleString());
+                        return;
+                    }
                     cardBody.classList.toggle('show');
                     cardHeader.querySelector('.accordion-icon').classList.toggle('rotate');
                 });
