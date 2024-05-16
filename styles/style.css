@@ -137,7 +137,7 @@ body {
 }
 
 .data-table tbody tr:nth-child(odd) {
-  background-color: var(--color-dark-gray);
+  background-color: #3a3f47;
   color: #fff;
 }
 
