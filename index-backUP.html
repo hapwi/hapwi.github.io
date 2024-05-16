@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#282c34">
+  <meta property="og:title" content="Golf Pool">
+  <!-- favicon -->
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+  <!-- <meta property="og:description" content="Your website description goes here."> -->
+  <meta property="og:image" content="https://golf.contact/logo.png">
+  <meta property="og:url" content="https://golf.contact/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+
+
+
+  <!-- ? root styles -->
+  <link rel="stylesheet" href="./styles/main.css">
+
+  <!-- Add Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+  <title>Golf Pool</title>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="js/maint.js"></script>
+
+  <!-- ! main styles -->
+  <style>
+
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 9999;
+        background-color: var(--background-dark); /* Dark mode navbar background */
+        color: var(--text-color-light); /* Light text color */
+    }
+
+    .card {
+        z-index: 1;
+        background-color: var(--color-dark-slate); /* Dark mode card background */
+        color: var(--text-color-light); /* Light text color */
+    }
+
+    .card-body {
+        padding: 10;
+    }
+
+    #content {
+        position: relative;
+        padding-bottom: 90px;
+        min-height: calc(100vh - 120px);
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        background-color: var(--background-dark); /* Dark mode content background */
+        color: var(--text-color-light); /* Light text color */
+    }
+
+    #main-table.table-striped>tbody>tr:nth-child(odd)>td,
+    #main-table.table-striped>tbody>tr:nth-child(odd)>th {
+        background-color: #3a3f47; /* Dark mode table stripe */
+    }
+
+    #main-table.table-striped>tbody>tr:nth-child(even)>td,
+    #main-table.table-striped>tbody>tr:nth-child(even)>th {
+        background-color: var(--color-dark-blue); /* Dark mode table stripe */
+    }
+
+    #main-table.table td:first-child {
+        border-top-left-radius: 50px !important;
+        border-bottom-left-radius: 50px !important;
+    }
+
+    #main-table.table td:last-child {
+        border-top-right-radius: 50px !important;
+        border-bottom-right-radius: 50px !important;
+    }
+
+    #main-table.table,
+    #main-table.table tr,
+    #main-table.table td {
+        border: none !important;
+    }
+
+    #main-table tr {
+        line-height: 3.5;
+    }
+
+    .table-responsive {
+        padding: 0 15px;
+    }
+
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        padding: 0 15px;
+    }
+
+    #picksModal .modal-footer .btn-secondary {
+        background-color: var(--color-bright-red);
+        border-color: var(--color-bright-red);
+    }
+
+    .modal-content {
+        margin: 0 auto;
+        max-width: 90%;
+    }
+
+    .modal-title {
+        width: 100%;
+        text-align: center;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal.show {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px;
+    }
+
+    button.custom-button {
+        padding: .375rem .75rem !important;
+        font-size: .9rem !important;
+        line-height: 1.6 !important;
+        background-color: var(--color-bright-red) !important;
+        border-color: var(--color-bright-red) !important;
+        color: var(--text-color-light) !important;
+        text-decoration: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        border-radius: 20px !important;
+        box-shadow: none !important;
+        border-style: solid !important;
+    }
+
+    button.custom-button:hover {
+        background-color: var(--border-dark) !important;
+        border-color: var(--border-dark) !important;
+    }
+</style>
+
+</head>
+
+<body id="leaderboard">
+  <!-- ! below adds header and footer to page -->
+  <script src="js/header-footer.js"></script>
+
+
+  <main id="content" class="d-flex justify-content-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-12 mx-auto">
+          <div class="centered-container">
+            <div class="table-responsive">
+              <table id="main-table" class="table table-striped table-bordered"></table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+
+  <div id="player-picks" style="display:none;">
+    <h2>Player Picks</h2>
+    <div id="picks-content"></div>
+    <!-- Add Bootstrap classes to your button -->
+    <button id="close-picks" class="btn btn-primary">Close</button>
+  </div>
+
+  <!-- Add Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ! below file is where all the data is coming from -->
+  <script src="js/main.js"></script>
+
+  <div class="modal fade" id="picksModal" tabindex="-1" role="dialog" aria-labelledby="picksModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog mx-auto" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="picksModalLabel">Player Picks</h5>
+          <!-- uncomment line below to bring back X button -->
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table id="picks-table" class="table table-striped table-bordered"></table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
