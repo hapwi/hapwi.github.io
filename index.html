@@ -109,6 +109,10 @@
             letter-spacing: 0.1em; /* Add letter spacing to the third column */
         }
 
+        .highlight-red th, .highlight-red td {
+            background-color: #ff0000 !important;
+        }
+
         .no-data {
             text-align: center;
             font-size: 1.2rem;
@@ -209,6 +213,10 @@
             return entries.slice(1).sort((a, b) => parseScore(a[10]) - parseScore(b[10]));
         }
 
+        function sortGolferScores(golferScores) {
+            return golferScores.sort((a, b) => parseScore(a.score) - parseScore(b.score));
+        }
+
         async function displayEntries() {
             const entriesData = await fetchGoogleSheetsData(spreadsheetId, 'Sheet1!A:K');
             const picksScoresData = await fetchGoogleSheetsData(spreadsheetId, 'PicksScores!A2:B1000');
@@ -245,17 +253,36 @@
                     </div>
                 `;
 
+                // Gather the golfer data
+                const golferData = [
+                    { label: 'Golfer 1', name: row[1], score: golferScores[row[1]] || '' },
+                    { label: 'Golfer 2', name: row[2], score: golferScores[row[2]] || '' },
+                    { label: 'Golfer 3', name: row[3], score: golferScores[row[3]] || '' },
+                    { label: 'Golfer 4', name: row[4], score: golferScores[row[4]] || '' },
+                    { label: 'Golfer 5', name: row[5], score: golferScores[row[5]] || '' },
+                    { label: 'Golfer 6', name: row[6], score: golferScores[row[6]] || '' }
+                ];
+
+                // Sort only the scores while preserving the labels
+                const sortedGolferData = golferData
+                    .map(golfer => ({ ...golfer, originalLabel: golfer.label }))
+                    .sort((a, b) => parseScore(a.score) - parseScore(b.score));
+
+                // Create the table rows
+                const tableRows = golferData.map((golfer, i) => `
+                    <tr class="${golfer.label === 'Golfer 6' ? 'highlight-red' : ''}">
+                        <th>${golfer.label}</th>
+                        <td>${sortedGolferData[i].name}</td>
+                        <td>${sortedGolferData[i].score}</td>
+                    </tr>
+                `).join('');
+
                 const cardBody = document.createElement('div');
                 cardBody.classList.add('card-body');
                 cardBody.innerHTML = `
                     <div class="scrollable-content">
                         <table class="entry-table">
-                            <tr><th>Golfer 1</th><td>${row[1]}</td><td>${golferScores[row[1]] || ''}</td></tr>
-                            <tr><th>Golfer 2</th><td>${row[2]}</td><td>${golferScores[row[2]] || ''}</td></tr>
-                            <tr><th>Golfer 3</th><td>${row[3]}</td><td>${golferScores[row[3]] || ''}</td></tr>
-                            <tr><th>Golfer 4</th><td>${row[4]}</td><td>${golferScores[row[4]] || ''}</td></tr>
-                            <tr><th>Golfer 5</th><td>${row[5]}</td><td>${golferScores[row[5]] || ''}</td></tr>
-                            <tr><th>Golfer 6</th><td>${row[6]}</td><td>${golferScores[row[6]] || ''}</td></tr>
+                            ${tableRows}
                             <tr><th>Tiebreaker</th><td>${row[7]}</td><td></td></tr>
                             <tr><th>Total</th><td>${row[8]}</td><td></td></tr>
                             <tr><th>Worst</th><td>${row[9]}</td><td></td></tr>
