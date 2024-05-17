@@ -35,12 +35,18 @@
             font-family: Arial, sans-serif;
         }
 
+        .container::-webkit-scrollbar {
+            width: 100px;
+        }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
             height: 80%;
             overflow-y: auto; /* Allow vertical scrolling */
             padding-top: 10px;
+            -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
         }
 
         .card {
