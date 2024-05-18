@@ -211,6 +211,7 @@
 
         function parseScore(score) {
             if (score === 'E') return 0;
+            if (score === 'CUT') return Infinity; // Treat CUT as the worst score
             if (score === '') return Infinity;
             return parseFloat(score);
         }
