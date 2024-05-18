@@ -46,7 +46,7 @@
             overflow-y: auto; /* Allow vertical scrolling */
             padding-top: 10px;
             -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+            scrollbar-width: none;  /* Firefox */
         }
 
         .card {
@@ -192,6 +192,7 @@
         const apiKey = 'AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc';
         const spreadsheetId = '1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg';
         const unlockDate = new Date("05/16/2024 7:15 AM EST");
+        let previousEntriesData = null;
 
         async function fetchGoogleSheetsData(spreadsheetId, range) {
             try {
@@ -201,6 +202,8 @@
                 if (data.error) {
                     throw new Error(data.error.message);
                 }
+
+                console.log('Fetched data:', data.values); // Log the fetched data
 
                 return data.values;
             } catch (error) {
@@ -224,6 +227,13 @@
             return golferScores.sort((a, b) => parseScore(a.score) - parseScore(b.score));
         }
 
+        function entriesDataChanged(newData) {
+            if (!previousEntriesData) return true;
+            const changed = JSON.stringify(newData) !== JSON.stringify(previousEntriesData);
+            console.log('Data changed:', changed);
+            return changed;
+        }
+
         async function displayEntries() {
             const entriesData = await fetchGoogleSheetsData(spreadsheetId, 'Sheet1!A:K');
             const picksScoresData = await fetchGoogleSheetsData(spreadsheetId, 'PicksScores!A2:B1000');
@@ -240,15 +250,32 @@
                 return;
             }
 
+            if (!entriesDataChanged(entriesData)) {
+                console.log('No data changes detected.');
+                return;
+            }
+
+            console.log('Data changes detected, updating entries...');
+            previousEntriesData = entriesData;
+
             const sortedEntries = sortEntriesByTop5(entriesData);
 
             const container = document.getElementById('entries-container');
+            
+            // Preserve the state of the open cards
+            const openCards = new Set();
+            document.querySelectorAll('.card-body.show').forEach(card => {
+                openCards.add(card.parentElement.dataset.entryId);
+            });
+
+            container.innerHTML = ''; // Clear existing entries
 
             sortedEntries.forEach((row, index) => {
                 const top5Value = row[10] === '0' ? 'E' : row[10]; // Check if Top 5 value is 0
 
                 const card = document.createElement('div');
                 card.classList.add('card');
+                card.dataset.entryId = row[0]; // Use a unique identifier from the row data
 
                 const cardHeader = document.createElement('div');
                 cardHeader.classList.add('card-header');
@@ -310,13 +337,25 @@
                     cardHeader.querySelector('.accordion-icon').classList.toggle('rotate');
                 });
 
+                // Append card header and body to the card
                 card.appendChild(cardHeader);
                 card.appendChild(cardBody);
+                
+                // Append the card to the container
                 container.appendChild(card);
+
+                // If this card was previously open, keep it open
+                if (openCards.has(card.dataset.entryId)) {
+                    cardBody.classList.add('show');
+                    cardHeader.querySelector('.accordion-icon').classList.add('rotate');
+                }
             });
         }
 
-        window.onload = displayEntries;
+        window.onload = () => {
+            displayEntries();
+            setInterval(displayEntries, 10000); // Refresh every 10 seconds
+        };
     </script>
 
     <!-- Bootstrap JavaScript -->
