@@ -68,19 +68,16 @@
         }
 
         .card-body {
-            height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transition: height 0.3s ease, opacity 0.3s ease;
-            padding: 0;
+            display: none;
+            padding: 20px;
             background-color: #3f3f3f;
             border-radius: 0 0 10px 10px;
             text-align: center;
+            transition: all 0.3s ease;
         }
 
         .card-body.show {
-            opacity: 1;
-            padding: 20px;
+            display: block;
         }
 
         .accordion-icon {
@@ -329,7 +326,17 @@
                     </div>
                 `;
 
-                cardHeader.addEventListener('click', () => toggleAccordion(cardHeader, cardBody));
+                cardHeader.addEventListener('click', () => {
+                    const now = new Date();
+                    if (now.getTime() < unlockDate.getTime()) {
+                        // Show modal if the current date is before the unlock date
+                        $('#unlockModal').modal('show');
+                        return;
+                    }
+
+                    cardBody.classList.toggle('show');
+                    cardHeader.querySelector('.accordion-icon').classList.toggle('rotate');
+                });
 
                 // Append card header and body to the card
                 card.appendChild(cardHeader);
@@ -341,43 +348,9 @@
                 // If this card was previously open, keep it open
                 if (openCards.has(card.dataset.entryId)) {
                     cardBody.classList.add('show');
-                    cardBody.style.height = `${cardBody.scrollHeight}px`;
                     cardHeader.querySelector('.accordion-icon').classList.add('rotate');
                 }
             });
-        }
-
-        function toggleAccordion(cardHeader, cardBody) {
-            const now = new Date();
-            if (now.getTime() < unlockDate.getTime()) {
-                // Show modal if the current date is before the unlock date
-                $('#unlockModal').modal('show');
-                return;
-            }
-
-            const isOpen = cardBody.classList.contains('show');
-
-            if (isOpen) {
-                cardBody.style.height = `${cardBody.scrollHeight}px`; // Set current height
-                requestAnimationFrame(() => {
-                    cardBody.style.height = '0'; // Animate to height 0
-                });
-                cardBody.classList.remove('show');
-                cardHeader.querySelector('.accordion-icon').classList.remove('rotate');
-            } else {
-                cardBody.classList.add('show');
-                cardBody.style.height = '0'; // Set initial height
-                requestAnimationFrame(() => {
-                    cardBody.style.height = `${cardBody.scrollHeight}px`; // Animate to full height
-                });
-                cardHeader.querySelector('.accordion-icon').classList.add('rotate');
-            }
-
-            cardBody.addEventListener('transitionend', () => {
-                if (!cardBody.classList.contains('show')) {
-                    cardBody.style.height = ''; // Reset height after closing
-                }
-            }, { once: true });
         }
 
         window.onload = () => {
