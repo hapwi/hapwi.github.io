@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
 const leaderboardSheetId = "1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo";
@@ -161,65 +162,102 @@ const LeaderboardRow = ({
 };
 
 const CompareModal = ({ users, closeModal }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const nextUser = () => {
+    setActiveIndex(
+      (prevIndex) => (prevIndex + 1) % Math.ceil(users.length / 3)
+    );
+  };
+
+  const prevUser = () => {
+    setActiveIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + Math.ceil(users.length / 3)) %
+        Math.ceil(users.length / 3)
+    );
+  };
+
+  const renderUserColumn = (user) => (
+    <div
+      key={user.id}
+      className="flex-1 min-w-[200px] p-4 bg-gray-750 rounded-lg"
+    >
+      <h3 className="text-lg font-semibold text-white mb-2">{user.user}</h3>
+      <div className="text-emerald-400 mb-4">
+        Total: {user.totalScore === 0 ? "E" : user.totalScore}
+      </div>
+      <div className="space-y-2">
+        {user.golfers.map((golfer, golferIndex) => (
+          <div
+            key={`compare-${user.id}-${golferIndex}`}
+            className="flex justify-between items-center bg-gray-700 p-2 rounded"
+          >
+            <span className="text-gray-300 truncate">{golfer.name}</span>
+            <span className="text-emerald-400 ml-2">
+              {golfer.score === 0 ? "E" : golfer.score}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="text-sm text-gray-300 mt-4">
+        <span className="font-semibold">Tiebreaker:</span> {user.tiebreaker}
+      </div>
+    </div>
+  );
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-gray-800 rounded-lg w-full max-w-4xl max-h-screen overflow-y-auto p-2 sm:p-4">
-        <div className="mb-2 flex justify-between items-center">
-          <h2 className="text-xl sm:text-2xl font-bold text-white">
-            Compare Picks
-          </h2>
+      <div className="bg-gray-800 rounded-lg w-full max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+        <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+          <h2 className="text-xl font-bold text-white">Compare Picks</h2>
           <button
             onClick={closeModal}
-            className="px-4 py-2 bg-blue-500 text-white text-sm sm:text-base rounded hover:bg-blue-600 transition-colors duration-300"
+            className="text-gray-400 hover:text-white transition-colors duration-300"
           >
-            Close
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         </div>
-        <div className="space-y-4">
-          {users.map((user) => (
-            <div key={`compare-${user.id}`} className="bg-gray-700 rounded-lg">
-              <div className="p-4 flex justify-between items-center">
-                <h3 className="text-lg sm:text-xl font-semibold text-white">
-                  {user.user}
-                </h3>
-                <span className="text-emerald-400 text-sm sm:text-base">
-                  Total: {user.totalScore === 0 ? "E" : user.totalScore}
-                </span>
-              </div>
-              <div className="px-4 pb-4">
-                <div className="overflow-x-auto">
-                  <table className="min-w-full text-left text-sm sm:text-base">
-                    <thead className="border-b border-gray-600">
-                      <tr>
-                        <th className="p-2 text-gray-300">Golfer</th>
-                        <th className="p-2 text-gray-300 text-right">Score</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {user.golfers.map((golfer, golferIndex) => (
-                        <tr
-                          key={`compare-${user.id}-${golferIndex}`}
-                          className="border-b border-gray-600"
-                        >
-                          <td className="p-2 text-gray-300 truncate">
-                            {golfer.name}
-                          </td>
-                          <td className="p-2 text-emerald-400 text-right">
-                            {golfer.score === 0 ? "E" : golfer.score}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="mt-2 text-sm sm:text-base text-gray-300">
-                  <span className="font-semibold">Tiebreaker:</span>{" "}
-                  {user.tiebreaker}
-                </div>
-              </div>
-            </div>
-          ))}
+
+        <div className="flex-grow overflow-y-auto">
+          <div className="flex flex-col md:flex-row gap-4 p-4">
+            {users
+              .slice(activeIndex * 3, activeIndex * 3 + 3)
+              .map(renderUserColumn)}
+          </div>
         </div>
+
+        {users.length > 3 && (
+          <div className="p-4 border-t border-gray-700 flex justify-between items-center">
+            <button
+              onClick={prevUser}
+              className="p-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition-colors duration-300"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <span className="text-white">
+              {activeIndex + 1} of {Math.ceil(users.length / 3)}
+            </span>
+            <button
+              onClick={nextUser}
+              className="p-2 rounded-full bg-gray-700 text-white hover:bg-gray-600 transition-colors duration-300"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
