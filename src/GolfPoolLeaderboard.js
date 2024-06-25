@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
 const leaderboardSheetId = "1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo";
@@ -160,59 +160,70 @@ const LeaderboardRow = ({
   );
 };
 
-const CompareModal = ({ users, closeModal }) => (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-    <div className="bg-gray-800 rounded-lg w-full max-w-4xl max-h-screen overflow-y-auto p-2 sm:p-4">
-      <div className="mb-2 flex justify-between items-center">
-        <h2 className="text-xl sm:text-2xl font-bold text-white">
-          Compare Picks
-        </h2>
-        <button
-          onClick={closeModal}
-          className="px-4 py-2 bg-blue-500 text-white text-sm sm:text-base rounded hover:bg-blue-600 transition-colors duration-300"
-        >
-          Close
-        </button>
-      </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {users.map((user) => (
-          <div
-            key={`compare-${user.id}`}
-            className="bg-gray-700 p-3 sm:p-4 rounded-lg"
+const CompareModal = ({ users, closeModal }) => {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-gray-800 rounded-lg w-full max-w-4xl max-h-screen overflow-y-auto p-2 sm:p-4">
+        <div className="mb-2 flex justify-between items-center">
+          <h2 className="text-xl sm:text-2xl font-bold text-white">
+            Compare Picks
+          </h2>
+          <button
+            onClick={closeModal}
+            className="px-4 py-2 bg-blue-500 text-white text-sm sm:text-base rounded hover:bg-blue-600 transition-colors duration-300"
           >
-            <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white text-center">
-              {user.user}
-            </h3>
-            <p className="text-sm sm:text-base text-emerald-400 mb-2 text-center">
-              Total: {user.totalScore === 0 ? "E" : user.totalScore}
-            </p>
-            {user.golfers.map((golfer, golferIndex) => (
-              <div
-                key={`compare-${user.id}-${golferIndex}`}
-                className="text-sm sm:text-base mb-1 flex justify-between"
-              >
-                <span className="text-gray-300 truncate mr-2">
-                  {golfer.name}
-                </span>
-                <span className="text-emerald-400">
-                  {golfer.score === 0 ? "E" : golfer.score}
+            Close
+          </button>
+        </div>
+        <div className="space-y-4">
+          {users.map((user) => (
+            <div key={`compare-${user.id}`} className="bg-gray-700 rounded-lg">
+              <div className="p-4 flex justify-between items-center">
+                <h3 className="text-lg sm:text-xl font-semibold text-white">
+                  {user.user}
+                </h3>
+                <span className="text-emerald-400 text-sm sm:text-base">
+                  Total: {user.totalScore === 0 ? "E" : user.totalScore}
                 </span>
               </div>
-            ))}
-            <div className="text-sm sm:text-base mt-2 text-gray-300 text-center">
-              <span className="font-semibold">Tiebreaker:</span>{" "}
-              {user.tiebreaker}
+              <div className="px-4 pb-4">
+                <div className="overflow-x-auto">
+                  <table className="min-w-full text-left text-sm sm:text-base">
+                    <thead className="border-b border-gray-600">
+                      <tr>
+                        <th className="p-2 text-gray-300">Golfer</th>
+                        <th className="p-2 text-gray-300 text-right">Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {user.golfers.map((golfer, golferIndex) => (
+                        <tr
+                          key={`compare-${user.id}-${golferIndex}`}
+                          className="border-b border-gray-600"
+                        >
+                          <td className="p-2 text-gray-300 truncate">
+                            {golfer.name}
+                          </td>
+                          <td className="p-2 text-emerald-400 text-right">
+                            {golfer.score === 0 ? "E" : golfer.score}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="mt-2 text-sm sm:text-base text-gray-300">
+                  <span className="font-semibold">Tiebreaker:</span>{" "}
+                  {user.tiebreaker}
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
-
-
-
-
+  );
+};
 
 const GolfPoolLeaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -222,128 +233,128 @@ const GolfPoolLeaderboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchLeaderboardData() {
-      setLoading(true);
-      try {
-        const entriesData = await fetchGoogleSheetsData(
-          entriesSheetId,
-          "Sheet1!A1:K"
-        );
-        const picksScoresData = await fetchGoogleSheetsData(
-          entriesSheetId,
-          "PicksScores!A2:B1000"
-        );
+  const fetchLeaderboardData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const entriesData = await fetchGoogleSheetsData(
+        entriesSheetId,
+        "Sheet1!A1:K"
+      );
+      const picksScoresData = await fetchGoogleSheetsData(
+        entriesSheetId,
+        "PicksScores!A2:B1000"
+      );
 
-        if (entriesData && picksScoresData) {
-          // Create a map of golfer names to their scores
-          const scoresMap = new Map();
-          picksScoresData.forEach(([golferName, score]) => {
-            scoresMap.set(golferName, score === "E" ? 0 : parseInt(score));
-          });
+      if (entriesData && picksScoresData) {
+        // Create a map of golfer names to their scores
+        const scoresMap = new Map();
+        picksScoresData.forEach(([golferName, score]) => {
+          scoresMap.set(golferName, score === "E" ? 0 : parseInt(score));
+        });
 
-          const [headers, ...rows] = entriesData;
-          function customSortScore(a, b) {
-            const scoreOrder = {
-              CUT: Infinity,
-              WD: Infinity,
-              DQ: Infinity,
-              E: 0,
-            };
+        const [headers, ...rows] = entriesData;
+        function customSortScore(a, b) {
+          const scoreOrder = {
+            CUT: Infinity,
+            WD: Infinity,
+            DQ: Infinity,
+            E: 0,
+          };
 
-            const aScore =
-              scoreOrder[a.score] !== undefined
-                ? scoreOrder[a.score]
-                : parseInt(a.score);
-            const bScore =
-              scoreOrder[b.score] !== undefined
-                ? scoreOrder[b.score]
-                : parseInt(b.score);
+          const aScore =
+            scoreOrder[a.score] !== undefined
+              ? scoreOrder[a.score]
+              : parseInt(a.score);
+          const bScore =
+            scoreOrder[b.score] !== undefined
+              ? scoreOrder[b.score]
+              : parseInt(b.score);
 
-            // Handle cases where scores are non-numeric
-            if (isNaN(aScore)) aScore = Infinity;
-            if (isNaN(bScore)) bScore = Infinity;
+          // Handle cases where scores are non-numeric
+          if (isNaN(aScore)) aScore = Infinity;
+          if (isNaN(bScore)) bScore = Infinity;
 
-            return aScore - bScore;
-          }
-
-          const formattedData = rows.map((row, index) => {
-            const golfers = [
-              {
-                name: row[1],
-                score: scoresMap.get(row[1]) || "CUT",
-              },
-              {
-                name: row[2],
-                score: scoresMap.get(row[2]) || "CUT",
-              },
-              {
-                name: row[3],
-                score: scoresMap.get(row[3]) || "CUT",
-              },
-              {
-                name: row[4],
-                score: scoresMap.get(row[4]) || "CUT",
-              },
-              {
-                name: row[5],
-                score: scoresMap.get(row[5]) || "CUT",
-              },
-              {
-                name: row[6],
-                score: scoresMap.get(row[6]) || "CUT",
-              },
-            ];
-
-            // Sort golfers array using the custom sorting function
-            golfers.sort(customSortScore);
-
-            return {
-              id: index + 1,
-              user: row[0],
-              totalScore: golfers.reduce((total, golfer) => {
-                return (
-                  total +
-                  (isNaN(golfer.score) ||
-                  golfer.score === "CUT" ||
-                  golfer.score === "WD" ||
-                  golfer.score === "DQ"
-                    ? 0
-                    : parseInt(golfer.score))
-                );
-              }, 0),
-              change: 0, // Placeholder, update as needed
-              tiebreaker: row[7],
-              golfers,
-            };
-          });
-
-          // Calculate total scores
-          formattedData.forEach((entry) => {
-            entry.totalScore = entry.golfers.reduce((total, golfer) => {
-              return total + (isNaN(golfer.score) ? 0 : parseInt(golfer.score));
-            }, 0);
-          });
-
-          // Sort the data by totalScore (ascending order)
-          formattedData.sort((a, b) => a.totalScore - b.totalScore);
-
-          setLeaderboardData(formattedData);
-        } else {
-          throw new Error("Failed to fetch leaderboard data");
+          return aScore - bScore;
         }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
 
-    fetchLeaderboardData();
+        const formattedData = rows.map((row, index) => {
+          const golfers = [
+            {
+              name: row[1],
+              score: scoresMap.get(row[1]) || "CUT",
+            },
+            {
+              name: row[2],
+              score: scoresMap.get(row[2]) || "CUT",
+            },
+            {
+              name: row[3],
+              score: scoresMap.get(row[3]) || "CUT",
+            },
+            {
+              name: row[4],
+              score: scoresMap.get(row[4]) || "CUT",
+            },
+            {
+              name: row[5],
+              score: scoresMap.get(row[5]) || "CUT",
+            },
+            {
+              name: row[6],
+              score: scoresMap.get(row[6]) || "CUT",
+            },
+          ];
+
+          // Sort golfers array using the custom sorting function
+          golfers.sort(customSortScore);
+
+          return {
+            id: index + 1,
+            user: row[0],
+            totalScore: golfers.reduce((total, golfer) => {
+              return (
+                total +
+                (isNaN(golfer.score) ||
+                golfer.score === "CUT" ||
+                golfer.score === "WD" ||
+                golfer.score === "DQ"
+                  ? 0
+                  : parseInt(golfer.score))
+              );
+            }, 0),
+            change: 0, // Placeholder, update as needed
+            tiebreaker: row[7],
+            golfers,
+          };
+        });
+
+        // Calculate total scores
+        formattedData.forEach((entry) => {
+          entry.totalScore = entry.golfers.reduce((total, golfer) => {
+            return total + (isNaN(golfer.score) ? 0 : parseInt(golfer.score));
+          }, 0);
+        });
+
+        // Sort the data by totalScore (ascending order)
+        formattedData.sort((a, b) => a.totalScore - b.totalScore);
+
+        setLeaderboardData(formattedData);
+      } else {
+        throw new Error("Failed to fetch leaderboard data");
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
+  useEffect(() => {
+    fetchLeaderboardData();
+  }, [fetchLeaderboardData]);
+
   if (loading) {
-    return <div className="text-center text-white"></div>;
+    return <div className="text-center text-white">Loading...</div>;
   }
 
   if (error) {
