@@ -1,0 +1,51 @@
+function updateGolfLeaderboard() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet12");
+  var columns = ['A', 'C', 'D', 'E', 'F', 'G', 'H'];
+  var xpaths = [
+    "//td[@class='tl plyr Table__TD']", // For player names
+    "//td[@class='Table__TD'][2]",       
+    "//td[@class='Table__TD'][5]",       
+    "//td[@class='Table__TD'][6]",
+    "//td[@class='Table__TD'][7]",
+    "//td[@class='Table__TD'][8]",
+    "//td[@class='Table__TD'][9]"
+  ];
+
+  // Get the last row with data
+  var lastRow = spreadsheet.getLastRow();
+  
+  // Store existing data
+  var existingData = spreadsheet.getRange('A2:H' + lastRow).getValues();
+  
+  // Clear existing data in the range A2:H (including all rows that might have data)
+  if (lastRow > 1) {
+    spreadsheet.getRange('A2:H' + lastRow).clearContent();
+  } else {
+    spreadsheet.getRange('A2:H').clearContent();
+  }
+  
+  SpreadsheetApp.flush(); // Ensure changes are applied before setting new data
+
+  var success = true;
+
+  // Set new formulas starting from row 2
+  columns.forEach((column, index) => {
+    try {
+      var range = spreadsheet.getRange(column + '2');
+      range.setFormula('=IMPORTXML("https://www.espn.com/golf/leaderboard/_/tournamentId/401580355", "' + xpaths[index] + '")');
+    } catch (e) {
+      Logger.log('Error importing data for ' + column + ' with XPath: ' + xpaths[index] + '. Error: ' + e.message);
+      success = false;
+    }
+  });
+
+  SpreadsheetApp.flush(); // Apply changes
+
+  // Error handling: Check if any cell in the new data contains #N/A
+  if (!success || columns.some((column) => spreadsheet.getRange(column + '2').getValue() == "#N/A")) {
+    Logger.log('Reverting to old data due to import errors.');
+    spreadsheet.getRange('A2:H' + (existingData.length + 1)).setValues(existingData);
+  } else {
+    Logger.log('Data imported successfully.');
+  }
+}
