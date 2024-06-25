@@ -162,12 +162,14 @@ const LeaderboardRow = ({
 
 const CompareModal = ({ users, closeModal }) => (
   <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-    <div className="bg-gray-800 rounded-lg w-full max-w-4xl max-h-screen overflow-y-auto p-4 sm:p-6">
-      <div className="mb-4 flex justify-between items-center">
-        <h2 className="text-xl font-bold text-white">Compare Picks</h2>
+    <div className="bg-gray-800 rounded-lg w-full max-w-4xl max-h-screen overflow-y-auto p-2 sm:p-4">
+      <div className="mb-2 flex justify-between items-center">
+        <h2 className="text-xl sm:text-2xl font-bold text-white">
+          Compare Picks
+        </h2>
         <button
           onClick={closeModal}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300"
+          className="px-4 py-2 bg-blue-500 text-white text-sm sm:text-base rounded hover:bg-blue-600 transition-colors duration-300"
         >
           Close
         </button>
@@ -176,18 +178,18 @@ const CompareModal = ({ users, closeModal }) => (
         {users.map((user) => (
           <div
             key={`compare-${user.id}`}
-            className="bg-gray-700 p-3 rounded-lg"
+            className="bg-gray-700 p-3 sm:p-4 rounded-lg"
           >
-            <h3 className="text-lg font-semibold mb-2 text-white text-center">
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 text-white text-center">
               {user.user}
             </h3>
-            <p className="text-sm text-emerald-400 mb-2 text-center">
+            <p className="text-sm sm:text-base text-emerald-400 mb-2 text-center">
               Total: {user.totalScore === 0 ? "E" : user.totalScore}
             </p>
             {user.golfers.map((golfer, golferIndex) => (
               <div
                 key={`compare-${user.id}-${golferIndex}`}
-                className="text-xs mb-1 flex justify-between"
+                className="text-sm sm:text-base mb-1 flex justify-between"
               >
                 <span className="text-gray-300 truncate mr-2">
                   {golfer.name}
@@ -197,7 +199,7 @@ const CompareModal = ({ users, closeModal }) => (
                 </span>
               </div>
             ))}
-            <div className="text-xs mt-2 text-gray-300 text-center">
+            <div className="text-sm sm:text-base mt-2 text-gray-300 text-center">
               <span className="font-semibold">Tiebreaker:</span>{" "}
               {user.tiebreaker}
             </div>
@@ -207,6 +209,8 @@ const CompareModal = ({ users, closeModal }) => (
     </div>
   </div>
 );
+
+
 
 
 
