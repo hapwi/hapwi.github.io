@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
 const leaderboardSheetId = "1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo";
 const entriesSheetId = "1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg";
-const playersSheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
 
 async function fetchGoogleSheetsData(spreadsheetId, range) {
   try {
@@ -24,6 +23,21 @@ async function fetchGoogleSheetsData(spreadsheetId, range) {
   }
 }
 
+const PopupMessage = ({ message, onClose }) => (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-gray-800 p-6 rounded-lg shadow-xl max-w-sm w-full mx-4">
+      <p className="text-white text-center mb-4">{message}</p>
+      <button
+        onClick={onClose}
+        className="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition-colors duration-300"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+);
+
+// Modify the LeaderboardRow component
 const LeaderboardRow = ({
   entry,
   index,
@@ -32,6 +46,7 @@ const LeaderboardRow = ({
   compareUsers,
   setCompareUsers,
 }) => {
+  const [showPopup, setShowPopup] = useState(false);
   const isExpanded = expandedId === entry.id;
   const isSelected = compareUsers.includes(entry.id);
 
@@ -44,120 +59,136 @@ const LeaderboardRow = ({
     }
   };
 
+  const handleRowClick = () => {
+    const unlockDate = new Date("06/13/2024 3:45 AM EST");
+    const currentDate = new Date();
+
+    if (currentDate < unlockDate) {
+      setShowPopup(true);
+    } else {
+      setExpandedId(isExpanded ? null : entry.id);
+    }
+  };
+
   return (
-    <div
-      className={`transition-all duration-300 ease-in-out ${
-        isExpanded ? "bg-gray-800" : "hover:bg-gray-750"
-      } border-b border-gray-700`}
-    >
+    <>
       <div
-        className="grid grid-cols-12 items-center py-3 px-2 sm:px-4 cursor-pointer"
-        onClick={() => setExpandedId(isExpanded ? null : entry.id)}
+        className={`transition-all duration-300 ease-in-out ${
+          isExpanded ? "bg-gray-800" : "hover:bg-gray-750"
+        } border-b border-gray-700`}
       >
-        <div className="col-span-1 font-bold text-lg sm:text-xl text-center text-gray-400">
-          {index + 1}
-        </div>
-        <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2">
-          <span className="text-white text-sm sm:text-base">{entry.user}</span>
-          <span
-            className={`ml-2 text-xs ${
-              entry.change > 0
-                ? "text-green-400"
+        <div
+          className="grid grid-cols-12 items-center py-3 px-2 sm:px-4 cursor-pointer"
+          onClick={handleRowClick}
+        >
+          <div className="col-span-1 font-bold text-lg sm:text-xl text-center text-gray-400">
+            {index + 1}
+          </div>
+          <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2">
+            <span className="text-white text-sm sm:text-base">
+              {entry.user}
+            </span>
+            <span
+              className={`ml-2 text-xs ${
+                entry.change > 0
+                  ? "text-green-400"
+                  : entry.change < 0
+                  ? "text-red-400"
+                  : "text-gray-400"
+              }`}
+            >
+              {entry.change > 0
+                ? `▲${entry.change}`
                 : entry.change < 0
-                ? "text-red-400"
-                : "text-gray-400"
-            }`}
-          >
-            {entry.change > 0
-              ? `▲${entry.change}`
-              : entry.change < 0
-              ? `▼${Math.abs(entry.change)}`
-              : "−"}
-          </span>
+                ? `▼${Math.abs(entry.change)}`
+                : "−"}
+            </span>
+          </div>
+          <div className="col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl text-emerald-400">
+            {entry.totalScore === 0 ? "E" : entry.totalScore}
+          </div>
+          <div className="col-span-1 flex justify-end">
+            <svg
+              className={`w-4 h-4 sm:w-5 sm:h-5 transform transition-transform duration-300 text-gray-400 ${
+                isExpanded ? "rotate-180" : ""
+              }`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
         </div>
-        <div className="col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl text-emerald-400">
-          {entry.totalScore === 0 ? "E" : entry.totalScore}
-        </div>
-        <div className="col-span-1 flex justify-end">
-          <svg
-            className={`w-4 h-4 sm:w-5 sm:h-5 transform transition-transform duration-300 text-gray-400 ${
-              isExpanded ? "rotate-180" : ""
-            }`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
-          </svg>
-        </div>
-      </div>
-      {isExpanded && (
-        <div className="px-2 sm:px-4 py-3 bg-gray-750 transition-all duration-300 ease-in-out">
-          <h4 className="text-lg font-semibold mb-2 text-gray-300">
-            Picked Golfers
-          </h4>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {entry.golfers.map((golfer, golfIndex) => (
-              <div
-                key={`${entry.id}-${golfIndex}`}
-                className={`p-2 rounded-lg shadow-md flex justify-between items-center border ${
-                  golfIndex === 5
-                    ? "bg-red-200 border-red-300"
-                    : "bg-gray-700 border-gray-600"
-                }`}
-              >
-                <div className="flex-grow">
-                  <p
-                    className={`text-xs sm:text-sm font-medium truncate ${
-                      golfIndex === 5 ? "text-black" : "text-gray-300"
-                    }`}
-                  >
-                    {golfer.name}
-                  </p>
-                  <p
-                    className={`text-xs ${
-                      golfIndex === 5 ? "text-black" : "text-gray-500"
-                    }`}
-                  ></p>
-                </div>
-                <p
-                  className={`text-sm sm:text-base font-bold ${
-                    golfIndex === 5 ? "text-black" : "text-emerald-400"
-                  } ml-2`}
+        {isExpanded && (
+          <div className="px-2 sm:px-4 py-3 bg-gray-750 transition-all duration-300 ease-in-out">
+            <h4 className="text-lg font-semibold mb-2 text-gray-300">
+              Picked Golfers
+            </h4>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {entry.golfers.map((golfer, golfIndex) => (
+                <div
+                  key={`${entry.id}-${golfIndex}`}
+                  className={`p-2 rounded-lg shadow-md flex justify-between items-center border ${
+                    golfIndex === 5
+                      ? "bg-red-200 border-red-300"
+                      : "bg-gray-700 border-gray-600"
+                  }`}
                 >
-                  {golfer.score === 0 ? "E" : golfer.score}
-                </p>
-              </div>
-            ))}
+                  <div className="flex-grow">
+                    <p
+                      className={`text-xs sm:text-sm font-medium truncate ${
+                        golfIndex === 5 ? "text-black" : "text-gray-300"
+                      }`}
+                    >
+                      {golfer.name}
+                    </p>
+                  </div>
+                  <p
+                    className={`text-sm sm:text-base font-bold ${
+                      golfIndex === 5 ? "text-black" : "text-emerald-400"
+                    } ml-2`}
+                  >
+                    {golfer.score === 0 ? "E" : golfer.score}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 text-sm text-gray-300">
+              <span className="font-semibold">Tiebreaker:</span>{" "}
+              {entry.tiebreaker}
+            </div>
+            <button
+              onClick={handleCompare}
+              className={`mt-3 px-3 py-1 text-white text-sm rounded transition-colors duration-300 ${
+                isSelected
+                  ? "bg-red-500 hover:bg-red-600"
+                  : "bg-blue-500 hover:bg-blue-600"
+              } ${
+                compareUsers.length >= 3 && !isSelected
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }`}
+              disabled={compareUsers.length >= 3 && !isSelected}
+            >
+              {isSelected ? "Remove" : "Compare"}
+            </button>
           </div>
-          <div className="mt-3 text-sm text-gray-300">
-            <span className="font-semibold">Tiebreaker:</span>{" "}
-            {entry.tiebreaker}
-          </div>
-          <button
-            onClick={handleCompare}
-            className={`mt-3 px-3 py-1 text-white text-sm rounded transition-colors duration-300 ${
-              isSelected
-                ? "bg-red-500 hover:bg-red-600"
-                : "bg-blue-500 hover:bg-blue-600"
-            } ${
-              compareUsers.length >= 3 && !isSelected
-                ? "opacity-50 cursor-not-allowed"
-                : ""
-            }`}
-            disabled={compareUsers.length >= 3 && !isSelected}
-          >
-            {isSelected ? "Remove" : "Compare"}
-          </button>
-        </div>
+        )}
+      </div>
+      {showPopup && (
+        <PopupMessage
+          message="This feature will be available on July 13, 2024 at 3:45 AM EST."
+          onClose={() => setShowPopup(false)}
+        />
       )}
-    </div>
+    </>
   );
 };
 
@@ -282,105 +313,100 @@ const GolfPoolLeaderboard = () => {
         entriesSheetId,
         "PicksScores!A2:B1000"
       );
+      const leaderboardTotalScores = await fetchGoogleSheetsData(
+        leaderboardSheetId,
+        "Copy%20of%20Leaderboard!A1:Z"
+      );
 
-      if (entriesData && picksScoresData) {
+      console.log("Leaderboard Total Scores:", leaderboardTotalScores);
+
+      if (entriesData && picksScoresData && leaderboardTotalScores) {
         // Create a map of golfer names to their scores
         const scoresMap = new Map();
         picksScoresData.forEach(([golferName, score]) => {
-          scoresMap.set(golferName, score === "E" ? 0 : parseInt(score));
+          scoresMap.set(golferName, score);
         });
 
+        // Create a map of player names to their total scores
+        const totalScoresMap = new Map();
+        leaderboardTotalScores.forEach((row, index) => {
+          if (index > 0 && row.length === 2) {
+            const [playerName, score] = row;
+            totalScoresMap.set(playerName, score);
+          }
+        });
+
+        console.log("Total Scores Map:", Array.from(totalScoresMap.entries()));
+
         const [headers, ...rows] = entriesData;
+
         function customSortScore(a, b) {
           const scoreOrder = {
-            CUT: Infinity,
-            WD: Infinity,
-            DQ: Infinity,
+            CUT: 1000,
+            WD: 1001,
+            DQ: 1002,
             E: 0,
           };
 
           const aScore =
-            scoreOrder[a.score] !== undefined
+            a.score === "E"
+              ? 0
+              : scoreOrder[a.score] !== undefined
               ? scoreOrder[a.score]
               : parseInt(a.score);
           const bScore =
-            scoreOrder[b.score] !== undefined
+            b.score === "E"
+              ? 0
+              : scoreOrder[b.score] !== undefined
               ? scoreOrder[b.score]
               : parseInt(b.score);
-
-          // Handle cases where scores are non-numeric
-          if (isNaN(aScore)) aScore = Infinity;
-          if (isNaN(bScore)) bScore = Infinity;
 
           return aScore - bScore;
         }
 
         const formattedData = rows.map((row, index) => {
           const golfers = [
-            {
-              name: row[1],
-              score: scoresMap.get(row[1]) || "CUT",
-            },
-            {
-              name: row[2],
-              score: scoresMap.get(row[2]) || "CUT",
-            },
-            {
-              name: row[3],
-              score: scoresMap.get(row[3]) || "CUT",
-            },
-            {
-              name: row[4],
-              score: scoresMap.get(row[4]) || "CUT",
-            },
-            {
-              name: row[5],
-              score: scoresMap.get(row[5]) || "CUT",
-            },
-            {
-              name: row[6],
-              score: scoresMap.get(row[6]) || "CUT",
-            },
+            { name: row[1], score: scoresMap.get(row[1]) || "CUT" },
+            { name: row[2], score: scoresMap.get(row[2]) || "CUT" },
+            { name: row[3], score: scoresMap.get(row[3]) || "CUT" },
+            { name: row[4], score: scoresMap.get(row[4]) || "CUT" },
+            { name: row[5], score: scoresMap.get(row[5]) || "CUT" },
+            { name: row[6], score: scoresMap.get(row[6]) || "CUT" },
           ];
 
-          // Sort golfers array using the custom sorting function
           golfers.sort(customSortScore);
+
+          const playerName = row[0];
+          const totalScore = totalScoresMap.get(playerName) || "E";
+
+          console.log(`Player: ${playerName}, Total Score: ${totalScore}`);
 
           return {
             id: index + 1,
-            user: row[0],
-            totalScore: golfers.reduce((total, golfer) => {
-              return (
-                total +
-                (isNaN(golfer.score) ||
-                golfer.score === "CUT" ||
-                golfer.score === "WD" ||
-                golfer.score === "DQ"
-                  ? 0
-                  : parseInt(golfer.score))
-              );
-            }, 0),
-            change: 0, // Placeholder, update as needed
+            user: playerName,
+            totalScore: totalScore,
+            change: 0,
             tiebreaker: row[7],
             golfers,
           };
         });
 
-        // Calculate total scores
-        formattedData.forEach((entry) => {
-          entry.totalScore = entry.golfers.reduce((total, golfer) => {
-            return total + (isNaN(golfer.score) ? 0 : parseInt(golfer.score));
-          }, 0);
-        });
+        function customSortTotalScore(a, b) {
+          const scoreA = a.totalScore === "E" ? 0 : parseInt(a.totalScore);
+          const scoreB = b.totalScore === "E" ? 0 : parseInt(b.totalScore);
+          return scoreA - scoreB;
+        }
 
-        // Sort the data by totalScore (ascending order)
-        formattedData.sort((a, b) => a.totalScore - b.totalScore);
+        formattedData.sort(customSortTotalScore);
+
+        console.log("Formatted Data:", formattedData);
 
         setLeaderboardData(formattedData);
       } else {
         throw new Error("Failed to fetch leaderboard data");
       }
     } catch (err) {
+      console.error("Error in fetchLeaderboardData:", err);
       setError(err.message);
     } finally {
       setLoading(false);

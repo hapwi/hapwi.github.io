@@ -13,7 +13,6 @@ import {
   faCreditCard,
   faClock,
   faUsers,
-  faExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Autocomplete = ({ options, value, onChange, error }) => {
