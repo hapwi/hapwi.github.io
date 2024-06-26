@@ -30,7 +30,13 @@
         padding-right: env(safe-area-inset-right);
         background-color: #1f2937; /* Match your app's background color */
         font-family: Arial, sans-serif;
+        scrollbar-width: none; /* For Firefox */
+        overflow-y: scroll; /* Enable scrolling */
       }
+
+      body::-webkit-scrollbar {
+  display: none;
+}
 
       header {
         position: fixed;
