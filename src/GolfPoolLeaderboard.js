@@ -56,6 +56,9 @@ const LeaderboardRow = ({
     } else if (compareUsers.length < 3) {
       setCompareUsers((prevUsers) => [...prevUsers, entry.id]);
     }
+    setExpandedIds((prevExpandedIds) =>
+      prevExpandedIds.filter((id) => id !== entry.id)
+    );
   };
 
   const handleRowClick = () => {
@@ -84,7 +87,11 @@ const LeaderboardRow = ({
     <>
       <div
         className={`transition-all duration-300 ease-in-out ${
-          isExpanded ? "bg-gray-800" : "hover:bg-gray-750"
+          isExpanded
+            ? "bg-gray-800"
+            : isSelected
+            ? "bg-gray-700"
+            : "hover:bg-gray-750"
         } border-b border-gray-700`}
       >
         <div
@@ -170,11 +177,11 @@ const LeaderboardRow = ({
                 </div>
               ))}
             </div>
-            <div className="mt-3 flex justify-between items-center text-sm text-gray-300">
-              <div>
-                <span className="font-semibold">Tiebreaker:</span>{" "}
-                {entry.tiebreaker}
-              </div>
+            <div className="mt-3 text-sm text-gray-300">
+              <span className="font-semibold">Tiebreaker:</span>{" "}
+              {entry.tiebreaker}
+            </div>
+            <div className="mt-3 flex justify-end">
               <button
                 onClick={handleCompare}
                 className={`px-3 py-1 text-white text-sm rounded transition-colors duration-300 ${
@@ -203,6 +210,7 @@ const LeaderboardRow = ({
     </>
   );
 };
+
 
 const CompareModal = ({ users, closeModal }) => {
   const [activeIndex, setActiveIndex] = useState(0);
