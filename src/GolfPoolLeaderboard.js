@@ -245,7 +245,7 @@ const CompareModal = ({ users, closeModal }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-lg w-full max-w-6xl h-[calc(100vh-8rem)] max-h-[calc(100vh-8rem)] flex flex-col mb-16">
+      <div className="bg-gray-800 rounded-lg w-full max-w-6xl h-[calc(100vh-8rem)] max-h-[calc(100vh-8rem)] flex flex-col mb-16 sm:mb-24">
         <div className="p-4 border-b border-gray-700 flex justify-between items-center">
           <h2 className="text-xl font-bold text-white">Compare Picks</h2>
           <button
@@ -299,8 +299,6 @@ const CompareModal = ({ users, closeModal }) => {
     </div>
   );
 };
-
-
 
 const GolfPoolLeaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -453,7 +451,7 @@ const GolfPoolLeaderboard = () => {
           ))}
         </div>
         {compareUsers.length > 0 && (
-          <div className="fixed bottom-16 left-0 right-0 bg-gray-800 p-4 flex justify-center space-x-4">
+          <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 bg-gray-800 p-4 flex justify-center space-x-4">
             <button
               onClick={() => setCompareUsers([])}
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-300"
