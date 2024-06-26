@@ -170,25 +170,27 @@ const LeaderboardRow = ({
                 </div>
               ))}
             </div>
-            <div className="mt-3 text-sm text-gray-300">
-              <span className="font-semibold">Tiebreaker:</span>{" "}
-              {entry.tiebreaker}
+            <div className="mt-3 flex justify-between items-center text-sm text-gray-300">
+              <div>
+                <span className="font-semibold">Tiebreaker:</span>{" "}
+                {entry.tiebreaker}
+              </div>
+              <button
+                onClick={handleCompare}
+                className={`px-3 py-1 text-white text-sm rounded transition-colors duration-300 ${
+                  isSelected
+                    ? "bg-red-500 hover:bg-red-600"
+                    : "bg-blue-500 hover:bg-blue-600"
+                } ${
+                  compareUsers.length >= 3 && !isSelected
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
+                disabled={compareUsers.length >= 3 && !isSelected}
+              >
+                {isSelected ? "Remove" : "Compare"}
+              </button>
             </div>
-            <button
-              onClick={handleCompare}
-              className={`mt-3 px-3 py-1 text-white text-sm rounded transition-colors duration-300 ${
-                isSelected
-                  ? "bg-red-500 hover:bg-red-600"
-                  : "bg-blue-500 hover:bg-blue-600"
-              } ${
-                compareUsers.length >= 3 && !isSelected
-                  ? "opacity-50 cursor-not-allowed"
-                  : ""
-              }`}
-              disabled={compareUsers.length >= 3 && !isSelected}
-            >
-              {isSelected ? "Remove" : "Compare"}
-            </button>
           </div>
         )}
       </div>
@@ -271,7 +273,6 @@ const CompareModal = ({ users, closeModal }) => {
             </svg>
           </button>
         </div>
-
         <div className="flex-grow overflow-y-auto">
           <div className="flex flex-col md:flex-row gap-4 p-4">
             {users
@@ -279,7 +280,6 @@ const CompareModal = ({ users, closeModal }) => {
               .map(renderUserColumn)}
           </div>
         </div>
-
         {users.length > 3 && (
           <div className="p-4 border-t border-gray-700 flex justify-between items-center">
             <button
@@ -423,7 +423,7 @@ const GolfPoolLeaderboard = () => {
   }, [fetchLeaderboardData]);
 
   if (loading) {
-    return <div className="text-center text-white"></div>;
+    return <div className="text-center text-white">Loading...</div>;
   }
 
   if (error) {
