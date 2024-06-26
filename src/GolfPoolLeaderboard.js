@@ -70,6 +70,13 @@ const LeaderboardRow = ({
     }
   };
 
+  const displayScore = (score) => {
+    if (score === "#VALUE!" || score === 0 || score === "0") {
+      return "E";
+    }
+    return score;
+  };
+
   return (
     <>
       <div
@@ -105,7 +112,7 @@ const LeaderboardRow = ({
             </span>
           </div>
           <div className="col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl text-emerald-400">
-            {entry.totalScore === 0 ? "E" : entry.totalScore}
+            {displayScore(entry.totalScore)}
           </div>
           <div className="col-span-1 flex justify-end">
             <svg
@@ -349,13 +356,13 @@ const GolfPoolLeaderboard = () => {
           };
 
           const aScore =
-            a.score === "E"
+            a.score === "E" || a.score === ""
               ? 0
               : scoreOrder[a.score] !== undefined
               ? scoreOrder[a.score]
               : parseInt(a.score);
           const bScore =
-            b.score === "E"
+            b.score === "E" || b.score === ""
               ? 0
               : scoreOrder[b.score] !== undefined
               ? scoreOrder[b.score]
@@ -366,19 +373,24 @@ const GolfPoolLeaderboard = () => {
 
         const formattedData = rows.map((row, index) => {
           const golfers = [
-            { name: row[1], score: scoresMap.get(row[1]) || "CUT" },
-            { name: row[2], score: scoresMap.get(row[2]) || "CUT" },
-            { name: row[3], score: scoresMap.get(row[3]) || "CUT" },
-            { name: row[4], score: scoresMap.get(row[4]) || "CUT" },
-            { name: row[5], score: scoresMap.get(row[5]) || "CUT" },
-            { name: row[6], score: scoresMap.get(row[6]) || "CUT" },
+            { name: row[1], score: scoresMap.get(row[1]) || "" },
+            { name: row[2], score: scoresMap.get(row[2]) || "" },
+            { name: row[3], score: scoresMap.get(row[3]) || "" },
+            { name: row[4], score: scoresMap.get(row[4]) || "" },
+            { name: row[5], score: scoresMap.get(row[5]) || "" },
+            { name: row[6], score: scoresMap.get(row[6]) || "" },
           ];
+
+          golfers.forEach((golfer) => {
+            if (golfer.name && golfer.score === "") {
+              golfer.score = "E";
+            }
+          });
 
           golfers.sort(customSortScore);
 
           const playerName = row[0];
           const totalScore = totalScoresMap.get(playerName) || "E";
-
           console.log(`Player: ${playerName}, Total Score: ${totalScore}`);
 
           return {
@@ -418,7 +430,7 @@ const GolfPoolLeaderboard = () => {
   }, [fetchLeaderboardData]);
 
   if (loading) {
-    return <div className="text-center text-white">Loading...</div>;
+    return <div className="text-center text-white"></div>;
   }
 
   if (error) {

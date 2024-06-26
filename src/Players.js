@@ -24,7 +24,11 @@ const Players = () => {
         // Filter out the header row and any blank rows
         const filteredPlayers = data.values
           .slice(1)
-          .filter((row) => row[0] && row[1]);
+          .filter((row) => row[0] && row[1])
+          .map(([name, score]) => [
+            name,
+            score === "#VALUE!" || score === "0" ? "E" : score,
+          ]);
         setPlayers(filteredPlayers);
       } catch (err) {
         setError(err.message);
