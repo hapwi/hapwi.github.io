@@ -300,6 +300,8 @@ const CompareModal = ({ users, closeModal }) => {
   );
 };
 
+
+
 const GolfPoolLeaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [expandedId, setExpandedId] = useState(null);
