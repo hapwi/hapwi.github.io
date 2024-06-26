@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import shareIcon from "./share-icon.svg"; // Make sure to place the share icon in your src folder
 
 const AddToHomeScreenPrompt = () => {
   const [showPrompt, setShowPrompt] = useState(false);
@@ -31,8 +30,16 @@ const AddToHomeScreenPrompt = () => {
         <div className="prompt-content">
           <p>
             Enjoy quick access to our app by adding it to your home screen. Just
-            tap <img src={shareIcon} alt="Share" className="share-icon" /> and
-            select <strong>Add to Home Screen</strong>.
+            tap{" "}
+            <i
+              className="bi bi-box-arrow-up"
+              style={{
+                fontSize: "1.2em",
+                verticalAlign: "middle",
+                margin: "0 0.2em",
+              }}
+            ></i>
+            and select <strong>Add to Home Screen</strong>.
           </p>
           <button onClick={handleClose}>Close</button>
         </div>
@@ -51,11 +58,6 @@ const AddToHomeScreenPrompt = () => {
           }
           .prompt-content {
             text-align: center;
-          }
-          .share-icon {
-            vertical-align: middle;
-            width: 1.2em;
-            margin: 0 0.2em;
           }
           button {
             margin-top: 10px;
