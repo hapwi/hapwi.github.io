@@ -31,7 +31,10 @@ const BottomNav = () => {
   const showSubmitPicks = currentDate < cutoffDate;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700">
+    <nav
+      className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div className="max-w-2xl mx-auto px-2">
         <div className="flex justify-around">
           <NavButton
