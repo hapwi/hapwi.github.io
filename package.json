@@ -1,6 +1,6 @@
 {
   "name": "golf-pool-leaderboard",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "https://golf.contact",
   "dependencies": {
