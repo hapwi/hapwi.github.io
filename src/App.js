@@ -5,6 +5,7 @@ import Players from "./Players";
 import Form from "./Form";
 import BottomNav from "./BottomNav";
 import Header from "./Header";
+import AddToHomeScreenPrompt from "./AddToHomeScreenPrompt";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           </div>
         </main>
         <BottomNav />
+        <AddToHomeScreenPrompt />
       </div>
     </Router>
   );
