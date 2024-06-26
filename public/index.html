@@ -21,13 +21,6 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        scrollbar-width: none; /* For Firefox */
-        -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-      }
-      
-      /* For WebKit browsers (Chrome, Safari, etc.) */
-      *::-webkit-scrollbar {
-        display: none;
       }
 
       body {
@@ -37,6 +30,15 @@
         padding-right: env(safe-area-inset-right);
         background-color: #1f2937; /* Match your app's background color */
         font-family: Arial, sans-serif;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background-color: #fff;
       }
 
       main {
@@ -72,4 +74,4 @@
     </script>
   </body>
 </html>
-<!-- this version no -->
+<!-- this version is good -->
