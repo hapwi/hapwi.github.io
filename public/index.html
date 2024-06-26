@@ -16,52 +16,75 @@
     <title>Golf Pool</title>
 
     <style>
-      /* Global reset and safe area insets */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+   /* Global reset and safe area insets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      body {
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-        padding-left: env(safe-area-inset-left);
-        padding-right: env(safe-area-inset-right);
-        background-color: #1f2937; /* Match your app's background color */
-        font-family: Arial, sans-serif;
-        scrollbar-width: none; /* For Firefox */
-        overflow-y: scroll; /* Enable scrolling */
-      }
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  background-color: #1f2937; /* Match your app's background color */
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Hide scrollbars but make content scrollable */
+}
 
-      body::-webkit-scrollbar {
+html, body {
+  height: 100%;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root > div {
+  height: 100%;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+#root > div::-webkit-scrollbar {
   display: none;
 }
 
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        background-color: #fff;
-      }
+/* Hide scrollbar for Firefox */
+#root > div {
+  scrollbar-width: none;
+}
 
-      main {
-        padding-top: calc(1rem + env(safe-area-inset-top)); /* Adjust based on your header height */
-      }
+/* Ensure the inner content is still scrollable */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+}
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-      }
+main {
+  padding-top: calc(1rem + env(safe-area-inset-top)); /* Adjust based on your header height */
+}
 
-      th, td {
-        border: 1px solid #ccc;
-        padding: 0.5rem;
-        text-align: left;
-      }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+
     </style>
   </head>
   <body>
