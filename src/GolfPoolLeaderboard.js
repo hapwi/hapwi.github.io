@@ -474,7 +474,7 @@ const GolfPoolLeaderboard = () => {
           ))}
         </div>
         {compareUsers.length > 0 && (
-          <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 bg-gray-800 p-4 flex justify-center space-x-4">
+          <div className="fixed bottom-16 sm:bottom-20 left-0 right-0 bg-gray-800 p-4 flex justify-center space-x-4 fixed-bottom-bar">
             <button
               onClick={() => setCompareUsers([])}
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-300"
@@ -490,6 +490,7 @@ const GolfPoolLeaderboard = () => {
             </button>
           </div>
         )}
+
         {showCompareModal && (
           <CompareModal
             users={leaderboardData.filter((user) =>
