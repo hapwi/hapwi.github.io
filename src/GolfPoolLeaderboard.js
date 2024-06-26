@@ -212,6 +212,7 @@ const LeaderboardRow = ({
 };
 
 
+
 const CompareModal = ({ users, closeModal }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -414,7 +415,7 @@ const GolfPoolLeaderboard = () => {
 
         formattedData.sort(customSortTotalScore);
 
-        setLeaderboardData(formattedData);
+        setLeaderboardData(formattedData); // Update the state here
       } else {
         throw new Error("Failed to fetch leaderboard data");
       }
@@ -430,8 +431,18 @@ const GolfPoolLeaderboard = () => {
     fetchLeaderboardData();
   }, [fetchLeaderboardData]);
 
+  useEffect(() => {
+    // Set up an interval to refresh data every 1 minute (60000 milliseconds)
+    const intervalId = setInterval(() => {
+      fetchLeaderboardData();
+    }, 60000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, [fetchLeaderboardData]);
+
   if (loading) {
-    return <div className="text-center text-white">Loading...</div>;
+    return;
   }
 
   if (error) {
