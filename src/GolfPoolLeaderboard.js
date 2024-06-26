@@ -37,7 +37,6 @@ const PopupMessage = ({ message, onClose }) => (
   </div>
 );
 
-// Modify the LeaderboardRow component
 const LeaderboardRow = ({
   entry,
   index,
@@ -312,20 +311,15 @@ const GolfPoolLeaderboard = () => {
   const fetchLeaderboardData = useCallback(async () => {
     setLoading(true);
     try {
-      const entriesData = await fetchGoogleSheetsData(
-        entriesSheetId,
-        "Sheet1!A1:K"
-      );
-      const picksScoresData = await fetchGoogleSheetsData(
-        entriesSheetId,
-        "PicksScores!A2:B1000"
-      );
-      const leaderboardTotalScores = await fetchGoogleSheetsData(
-        leaderboardSheetId,
-        "Copy%20of%20Leaderboard!A1:Z"
-      );
-
-      console.log("Leaderboard Total Scores:", leaderboardTotalScores);
+      const [entriesData, picksScoresData, leaderboardTotalScores] =
+        await Promise.all([
+          fetchGoogleSheetsData(entriesSheetId, "Sheet1!A1:K"),
+          fetchGoogleSheetsData(entriesSheetId, "PicksScores!A2:B1000"),
+          fetchGoogleSheetsData(
+            leaderboardSheetId,
+            "Copy%20of%20Leaderboard!A1:Z"
+          ),
+        ]);
 
       if (entriesData && picksScoresData && leaderboardTotalScores) {
         // Create a map of golfer names to their scores
@@ -342,8 +336,6 @@ const GolfPoolLeaderboard = () => {
             totalScoresMap.set(playerName, score);
           }
         });
-
-        console.log("Total Scores Map:", Array.from(totalScoresMap.entries()));
 
         const [headers, ...rows] = entriesData;
 
@@ -391,7 +383,6 @@ const GolfPoolLeaderboard = () => {
 
           const playerName = row[0];
           const totalScore = totalScoresMap.get(playerName) || "E";
-          console.log(`Player: ${playerName}, Total Score: ${totalScore}`);
 
           return {
             id: index + 1,
@@ -411,8 +402,6 @@ const GolfPoolLeaderboard = () => {
 
         formattedData.sort(customSortTotalScore);
 
-        console.log("Formatted Data:", formattedData);
-
         setLeaderboardData(formattedData);
       } else {
         throw new Error("Failed to fetch leaderboard data");
@@ -430,7 +419,7 @@ const GolfPoolLeaderboard = () => {
   }, [fetchLeaderboardData]);
 
   if (loading) {
-    return <div className="text-center text-white"></div>;
+    return <div className="text-center text-white">Loading...</div>;
   }
 
   if (error) {
