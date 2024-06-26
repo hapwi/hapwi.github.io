@@ -21,6 +21,13 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        scrollbar-width: none; /* For Firefox */
+        -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+      }
+      
+      /* For WebKit browsers (Chrome, Safari, etc.) */
+      *::-webkit-scrollbar {
+        display: none;
       }
 
       body {
@@ -38,7 +45,12 @@
         left: 0;
         width: 100%;
         z-index: 1000;
-        background-color: #fff;
+        background-color: #fff; /* Match the header color */
+        background: #ffffff; /* Fallback for older browsers */
+        background: -webkit-linear-gradient(top, #ffffff, #e1e1e1); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(top, #ffffff, #e1e1e1); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(top, #ffffff, #e1e1e1); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to bottom, #ffffff, #e1e1e1); /* Standard syntax */
       }
 
       main {
@@ -74,3 +86,4 @@
     </script>
   </body>
 </html>
+<!-- this version no -->
