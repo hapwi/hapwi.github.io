@@ -40,13 +40,13 @@ const PopupMessage = ({ message, onClose }) => (
 const LeaderboardRow = ({
   entry,
   index,
-  expandedId,
-  setExpandedId,
+  expandedIds,
+  setExpandedIds,
   compareUsers,
   setCompareUsers,
 }) => {
   const [showPopup, setShowPopup] = useState(false);
-  const isExpanded = expandedId === entry.id;
+  const isExpanded = expandedIds.includes(entry.id);
   const isSelected = compareUsers.includes(entry.id);
 
   const handleCompare = (e) => {
@@ -65,7 +65,11 @@ const LeaderboardRow = ({
     if (currentDate < unlockDate) {
       setShowPopup(true);
     } else {
-      setExpandedId(isExpanded ? null : entry.id);
+      setExpandedIds((prevExpandedIds) =>
+        prevExpandedIds.includes(entry.id)
+          ? prevExpandedIds.filter((id) => id !== entry.id)
+          : [...prevExpandedIds, entry.id]
+      );
     }
   };
 
@@ -302,7 +306,7 @@ const CompareModal = ({ users, closeModal }) => {
 
 const GolfPoolLeaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState([]);
-  const [expandedId, setExpandedId] = useState(null);
+  const [expandedIds, setExpandedIds] = useState([]);
   const [compareUsers, setCompareUsers] = useState([]);
   const [showCompareModal, setShowCompareModal] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -443,8 +447,8 @@ const GolfPoolLeaderboard = () => {
               key={entry.id}
               entry={entry}
               index={index}
-              expandedId={expandedId}
-              setExpandedId={setExpandedId}
+              expandedIds={expandedIds}
+              setExpandedIds={setExpandedIds}
               compareUsers={compareUsers}
               setCompareUsers={setCompareUsers}
             />
