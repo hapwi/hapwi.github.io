@@ -419,7 +419,7 @@ const GolfPoolLeaderboard = () => {
   }, [fetchLeaderboardData]);
 
   if (loading) {
-    return <div className="text-center text-white">Loading...</div>;
+    return <div className="text-center text-white"></div>;
   }
 
   if (error) {
