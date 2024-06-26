@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import shareIcon from "./share-icon.svg"; // Make sure to place the share icon in your src folder
 
 const AddToHomeScreenPrompt = () => {
   const [showPrompt, setShowPrompt] = useState(false);
@@ -12,20 +13,28 @@ const AddToHomeScreenPrompt = () => {
     const isInStandaloneMode = () =>
       "standalone" in window.navigator && window.navigator.standalone;
 
-    if (isIOS() && !isInStandaloneMode()) {
+    const hasDismissedPrompt = localStorage.getItem("dismissedAddToHomeScreen");
+
+    if (isIOS() && !isInStandaloneMode() && !hasDismissedPrompt) {
       setShowPrompt(true);
     }
   }, []);
+
+  const handleClose = () => {
+    localStorage.setItem("dismissedAddToHomeScreen", "true");
+    setShowPrompt(false);
+  };
 
   return (
     showPrompt && (
       <div className="add-to-home-screen-prompt">
         <div className="prompt-content">
           <p>
-            To add this app to your home screen: tap <strong>Share</strong> icon
-            and then <strong>Add to Home Screen</strong>.
+            Enjoy quick access to our app by adding it to your home screen. Just
+            tap <img src={shareIcon} alt="Share" className="share-icon" /> and
+            select <strong>Add to Home Screen</strong>.
           </p>
-          <button onClick={() => setShowPrompt(false)}>Close</button>
+          <button onClick={handleClose}>Close</button>
         </div>
         <style jsx>{`
           .add-to-home-screen-prompt {
@@ -42,6 +51,11 @@ const AddToHomeScreenPrompt = () => {
           }
           .prompt-content {
             text-align: center;
+          }
+          .share-icon {
+            vertical-align: middle;
+            width: 1.2em;
+            margin: 0 0.2em;
           }
           button {
             margin-top: 10px;
