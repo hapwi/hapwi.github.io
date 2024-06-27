@@ -190,72 +190,47 @@ const GolfPoolLeaderboard = () => {
         ]);
 
       if (entriesData && picksScoresData && leaderboardTotalScores) {
-        // Create a map of golfer names to their scores
-        const scoresMap = new Map();
-        picksScoresData.forEach(([golferName, score]) => {
-          scoresMap.set(golferName, score);
-        });
-
-        // Create a map of player names to their total scores
-        const totalScoresMap = new Map();
-        leaderboardTotalScores.forEach((row, index) => {
-          if (index > 0 && row.length === 2) {
-            const [playerName, score] = row;
-            totalScoresMap.set(playerName, score);
-          }
-        });
+        // Create maps for scores and total scores (same as before)
+        const scoresMap = new Map(picksScoresData);
+        const totalScoresMap = new Map(
+          leaderboardTotalScores.slice(1).map((row) => [row[0], row[1]])
+        );
 
         const [headers, ...rows] = entriesData;
 
         function customSortScore(a, b) {
           const scoreOrder = {
+            "-": Infinity, // Move "-" to the end
             CUT: 1000,
             WD: 1001,
             DQ: 1002,
             E: 0,
           };
 
-          const aScore =
-            a.score === "E" || a.score === ""
-              ? 0
-              : scoreOrder[a.score] !== undefined
-              ? scoreOrder[a.score]
-              : parseInt(a.score);
-          const bScore =
-            b.score === "E" || b.score === ""
-              ? 0
-              : scoreOrder[b.score] !== undefined
-              ? scoreOrder[b.score]
-              : parseInt(b.score);
+          const getNumericScore = (score) => {
+            if (score in scoreOrder) return scoreOrder[score];
+            if (score === "" || score === "E") return 0;
+            return parseInt(score);
+          };
 
-          return aScore - bScore;
+          return getNumericScore(a.score) - getNumericScore(b.score);
         }
 
         const formattedData = rows.map((row, index) => {
-          const golfers = [
-            { name: row[1], score: scoresMap.get(row[1]) || "" },
-            { name: row[2], score: scoresMap.get(row[2]) || "" },
-            { name: row[3], score: scoresMap.get(row[3]) || "" },
-            { name: row[4], score: scoresMap.get(row[4]) || "" },
-            { name: row[5], score: scoresMap.get(row[5]) || "" },
-            { name: row[6], score: scoresMap.get(row[6]) || "" },
-          ];
-
-          golfers.forEach((golfer) => {
-            if (golfer.name && golfer.score === "") {
-              golfer.score = "E";
-            }
-          });
+          const golfers = row.slice(1, 7).map((name) => ({
+            name,
+            score: scoresMap.get(name) || "-",
+          }));
 
           golfers.sort(customSortScore);
 
           const playerName = row[0];
-          const totalScore = totalScoresMap.get(playerName) || "E";
+          const totalScore = totalScoresMap.get(playerName) || "-";
 
           return {
             id: index + 1,
             user: playerName,
-            totalScore: totalScore,
+            totalScore,
             change: 0,
             tiebreaker: row[7],
             golfers,
@@ -263,14 +238,21 @@ const GolfPoolLeaderboard = () => {
         });
 
         function customSortTotalScore(a, b) {
-          const scoreA = a.totalScore === "E" ? 0 : parseInt(a.totalScore);
-          const scoreB = b.totalScore === "E" ? 0 : parseInt(b.totalScore);
-          return scoreA - scoreB;
+          const getNumericTotalScore = (score) => {
+            if (score === "-") return Infinity;
+            if (score === "E") return 0;
+            return parseInt(score);
+          };
+
+          return (
+            getNumericTotalScore(a.totalScore) -
+            getNumericTotalScore(b.totalScore)
+          );
         }
 
         formattedData.sort(customSortTotalScore);
 
-        setLeaderboardData(formattedData); // Update the state here
+        setLeaderboardData(formattedData);
       } else {
         throw new Error("Failed to fetch leaderboard data");
       }
