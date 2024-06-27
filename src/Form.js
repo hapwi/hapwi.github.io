@@ -304,7 +304,7 @@ const Form = () => {
       formData.append("tiebreaker", data.tiebreaker);
 
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzgT8MN-ayPXXdjWJlJc-NeeCK_j5VTkDdpTxsJuolaKQI8sfA5bDW69jYsoRxrVcACiw/exec",
+        "https://script.google.com/macros/s/AKfycbzVFyA4upODkPcOtBTKqG4IQMSACdSPuXl6tDtyd3shLHAFYzTwmgcLOE3dNfVeXvWbRA/exec",
         {
           method: "POST",
           body: formData,
