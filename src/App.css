@@ -54,14 +54,6 @@ body {
     -webkit-overflow-scrolling: touch;  /* Smooth scrolling on iOS */
 }
 
-/* Additional styling for your app */
-.App {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #1f2937; /* Match your app's background color */
-    font-family: Arial, sans-serif;
-}
 
 /* SimpleBar scrollbar customization */
 .simplebar-scrollbar::before {

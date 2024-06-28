@@ -20,7 +20,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <ScrollToTop />
-        <SimpleBar style={{ maxHeight: "100vh" }}>
+        <SimpleBar>
           <div className="App min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 flex flex-col">
             <Header />
             <main className="flex-grow pt-28 pb-20 px-4">
