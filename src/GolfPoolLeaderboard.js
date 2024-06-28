@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useMemo,
-  useRef,
-  useEffect,
-} from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 
@@ -199,7 +193,6 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
 
 const GolfPoolLeaderboard = () => {
   const [expandedIds, setExpandedIds] = useState([]);
-  const contentRef = useRef(null);
 
   const fetchLeaderboardData = useCallback(async () => {
     const [entriesData, picksScoresData, leaderboardTotalScores] =
@@ -259,24 +252,6 @@ const GolfPoolLeaderboard = () => {
     [leaderboardData]
   );
 
-  useEffect(() => {
-    const updateHeight = () => {
-      if (contentRef.current) {
-        const contentHeight = contentRef.current.scrollHeight;
-        const viewportHeight = window.innerHeight;
-        const maxHeight = viewportHeight - 64; // 64px for top and bottom padding
-        contentRef.current.style.height = `${Math.min(
-          contentHeight,
-          maxHeight
-        )}px`;
-      }
-    };
-
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
-  }, [memoizedLeaderboardData]);
-
   if (isLoading) {
     return null; // Remove the loading spinner
   }
@@ -290,36 +265,26 @@ const GolfPoolLeaderboard = () => {
   }
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-grow overflow-y-auto">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <div className="bg-gray-800 shadow-xl rounded-lg overflow-hidden border border-gray-700">
-            <div className="grid grid-cols-12 items-center py-2 px-2 sm:px-4 bg-gray-750 text-gray-300 font-semibold text-xs uppercase tracking-wider sticky">
-              <div className="col-span-1 text-center">Pos</div>
-              <div className="col-span-7 sm:col-span-8 text-left pl-2">
-                Player
-              </div>
-              <div className="col-span-3 sm:col-span-2 text-right">Score</div>
-              <div className="col-span-1"></div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100">
+      <div className="max-w-2xl mx-auto px-4 pb-28">
+        <div className="bg-gray-800 shadow-xl rounded-lg overflow-hidden border border-gray-700">
+          <div className="grid grid-cols-12 items-center py-2 px-2 sm:px-4 bg-gray-750 text-gray-300 font-semibold text-xs uppercase tracking-wider">
+            <div className="col-span-1 text-center">Pos</div>
+            <div className="col-span-7 sm:col-span-8 text-left pl-2">
+              Player
             </div>
-            <div
-              ref={contentRef}
-              className="overflow-y-auto"
-              style={{
-                maxHeight: "calc(100vh - 64px)",
-              }}
-            >
-              {memoizedLeaderboardData.map((entry, index) => (
-                <LeaderboardRow
-                  key={entry.id}
-                  entry={entry}
-                  index={index}
-                  expandedIds={expandedIds}
-                  setExpandedIds={setExpandedIds}
-                />
-              ))}
-            </div>
+            <div className="col-span-3 sm:col-span-2 text-right">Score</div>
+            <div className="col-span-1"></div>
           </div>
+          {memoizedLeaderboardData.map((entry, index) => (
+            <LeaderboardRow
+              key={entry.id}
+              entry={entry}
+              index={index}
+              expandedIds={expandedIds}
+              setExpandedIds={setExpandedIds}
+            />
+          ))}
         </div>
       </div>
     </div>
