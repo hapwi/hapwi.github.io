@@ -7,7 +7,7 @@ import Form from "./Form";
 import BottomNav from "./BottomNav";
 import Header from "./Header";
 import AddToHomeScreenPrompt from "./AddToHomeScreenPrompt";
-
+import ScrollToTop from "./ScrollToTop";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -18,6 +18,7 @@ function App() {
       <Router>
         <div className="App min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100 flex flex-col">
           <Header />
+          <ScrollToTop />
           <main className="flex-grow pt-28 pb-20 px-4">
             <div className="max-w-2xl mx-auto">
               <Routes>

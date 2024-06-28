@@ -28,11 +28,7 @@ const AddToHomeScreenPrompt = () => {
     showPrompt && (
       <div className="add-to-home-screen-prompt">
         <div className="prompt-content">
-          <img
-            src="%PUBLIC_URL%/logo192.png"
-            alt="App Logo"
-            className="prompt-logo"
-          />
+          <img src="./logo192.png" alt="App Logo" className="prompt-logo" />
           <p>
             Enjoy quick access to our app by adding it to your home screen. Just
             tap{" "}
