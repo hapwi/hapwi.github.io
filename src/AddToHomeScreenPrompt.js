@@ -33,7 +33,7 @@ const AddToHomeScreenPrompt = () => {
             alt="App Logo"
             className="w-16 h-16 mb-4 rounded-2xl border-2 border-white"
           />
-          <h3 className="text-lg font-bold mb-2">Add to Home Screen</h3>
+          <h3 className="text-lg font-bold mb-2">Get the App</h3>
           <p className="text-sm mb-4">
             Enjoy quick access to our app by adding it to your home screen.
           </p>
