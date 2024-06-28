@@ -47,7 +47,7 @@ const AddToHomeScreenPrompt = () => {
               }}
             ></i>
             <p className="text-sm">
-              Tap the share button above, then select{" "}
+              Tap the share button below, then select{" "}
               <strong>Add to Home Screen</strong>.
             </p>
           </div>
