@@ -37,7 +37,7 @@ const Players = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
-        <div className="text-white">Loading players...</div>
+        <div className="text-white"></div>
       </div>
     );
   }
