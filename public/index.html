@@ -22,13 +22,13 @@
         padding: 0;
         box-sizing: border-box;
         -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+    scrollbar-width: none;  /* Firefox */
       }
 
       /* Hide scrollbar for Chrome, Safari and Opera */
-      ::-webkit-scrollbar {
-        display: none;
-      }
+::-webkit-scrollbar {
+    display: none;
+}
 
       body {
         padding-top: env(safe-area-inset-top);
@@ -37,16 +37,6 @@
         padding-right: env(safe-area-inset-right);
         background-color: #1f2937; /* Match your app's background color */
         font-family: Arial, sans-serif;
-        overflow: hidden; /* Disable scrolling initially */
-        position: relative;
-      }
-
-      /* Create a scrolling container */
-      .scroll-container {
-        overflow-y: scroll; /* Enable vertical scrolling */
-        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
-        height: 100vh; /* Make it full screen height */
-        width: 100vw; /* Make it full screen width */
       }
 
       header {
@@ -77,7 +67,7 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" class="scroll-container"></div>
+    <div id="root"></div>
     <script src="%PUBLIC_URL%/index.js"></script>
     <script>
       // Check if there's a redirect query parameter
