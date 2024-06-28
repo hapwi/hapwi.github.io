@@ -85,14 +85,31 @@
       padding: 0.5rem;
       text-align: left;
     }
+
+    /* Bottom navigation styling */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding-bottom: env(safe-area-inset-bottom); /* Ensure it respects the safe area insets */
+      background-color: #fff; /* Or whatever background color you need */
+      z-index: 1000; /* Ensure it is above other elements */
+    }
   </style>
 </head>
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root">
+    <header>
+      <h1>Golf Pool</h1>
+    </header>
     <main>
       <!-- Your React app will be mounted here -->
     </main>
+    <div class="bottom-nav">
+      <!-- BottomNav content will be dynamically rendered here by React -->
+    </div>
   </div>
   <script src="%PUBLIC_URL%/index.js"></script>
   <script>
