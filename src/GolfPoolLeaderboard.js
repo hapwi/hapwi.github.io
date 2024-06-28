@@ -199,7 +199,6 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
 
 const GolfPoolLeaderboard = () => {
   const [expandedIds, setExpandedIds] = useState([]);
-  const [containerHeight, setContainerHeight] = useState("auto");
   const contentRef = useRef(null);
 
   const fetchLeaderboardData = useCallback(async () => {
@@ -266,7 +265,10 @@ const GolfPoolLeaderboard = () => {
         const contentHeight = contentRef.current.scrollHeight;
         const viewportHeight = window.innerHeight;
         const maxHeight = viewportHeight - 64; // 64px for top and bottom padding
-        setContainerHeight(Math.min(contentHeight, maxHeight));
+        contentRef.current.style.height = `${Math.min(
+          contentHeight,
+          maxHeight
+        )}px`;
       }
     };
 
@@ -276,7 +278,7 @@ const GolfPoolLeaderboard = () => {
   }, [memoizedLeaderboardData]);
 
   if (isLoading) {
-    return null;
+    return null; // Remove the loading spinner
   }
 
   if (error) {
@@ -304,7 +306,6 @@ const GolfPoolLeaderboard = () => {
               ref={contentRef}
               className="overflow-y-auto"
               style={{
-                height: containerHeight,
                 maxHeight: "calc(100vh - 64px)",
               }}
             >
