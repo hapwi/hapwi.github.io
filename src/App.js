@@ -12,6 +12,42 @@ import ScrollToTop from "./ScrollToTop";
 // Create a client
 const queryClient = new QueryClient();
 
+// Add CSS directly in JavaScript
+const styles = `
+/* Hide scrollbar for Chrome, Safari, and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Ensure scrolling is still possible */
+body {
+    overflow: -moz-scrollbars-none;
+    overflow-y: scroll;  /* Ensure vertical scrolling is enabled */
+    -webkit-overflow-scrolling: touch;  /* Smooth scrolling on iOS */
+}
+
+/* Additional styling for your app */
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #1f2937; /* Match your app's background color */
+    font-family: Arial, sans-serif;
+}
+`;
+
+// Inject styles into the document head
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
