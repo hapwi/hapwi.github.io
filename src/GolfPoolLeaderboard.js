@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+} from "react";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 
@@ -193,6 +199,8 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
 
 const GolfPoolLeaderboard = () => {
   const [expandedIds, setExpandedIds] = useState([]);
+  const [containerHeight, setContainerHeight] = useState("auto");
+  const contentRef = useRef(null);
 
   const fetchLeaderboardData = useCallback(async () => {
     const [entriesData, picksScoresData, leaderboardTotalScores] =
@@ -252,6 +260,21 @@ const GolfPoolLeaderboard = () => {
     [leaderboardData]
   );
 
+  useEffect(() => {
+    const updateHeight = () => {
+      if (contentRef.current) {
+        const contentHeight = contentRef.current.scrollHeight;
+        const viewportHeight = window.innerHeight;
+        const maxHeight = viewportHeight - 64; // 64px for top and bottom padding
+        setContainerHeight(Math.min(contentHeight, maxHeight));
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [memoizedLeaderboardData]);
+
   if (isLoading) {
     return null;
   }
@@ -277,7 +300,14 @@ const GolfPoolLeaderboard = () => {
               <div className="col-span-3 sm:col-span-2 text-right">Score</div>
               <div className="col-span-1"></div>
             </div>
-            <div className="max-h-[calc(100vh-8rem)] overflow-y-auto">
+            <div
+              ref={contentRef}
+              className="overflow-y-auto"
+              style={{
+                height: containerHeight,
+                maxHeight: "calc(100vh - 64px)",
+              }}
+            >
               {memoizedLeaderboardData.map((entry, index) => (
                 <LeaderboardRow
                   key={entry.id}
