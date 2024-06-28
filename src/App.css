@@ -62,3 +62,24 @@ body {
     background-color: #1f2937; /* Match your app's background color */
     font-family: Arial, sans-serif;
 }
+
+/* SimpleBar scrollbar customization */
+.simplebar-scrollbar::before {
+    background: transparent; 
+}
+
+.simplebar-track.simplebar-vertical {
+    width: 0px; /* Adjust width as needed */
+}
+
+.simplebar-scrollbar::before {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}
+
+.simplebar-scrollbar.simplebar-visible:before {
+    opacity: 1; /* Ensure visibility of the scrollbar */
+}
