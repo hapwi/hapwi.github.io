@@ -28,6 +28,11 @@ const AddToHomeScreenPrompt = () => {
     showPrompt && (
       <div className="add-to-home-screen-prompt">
         <div className="prompt-content">
+          <img
+            src="%PUBLIC_URL%/logo192.png"
+            alt="App Logo"
+            className="prompt-logo"
+          />
           <p>
             Enjoy quick access to our app by adding it to your home screen. Just
             tap{" "}
@@ -41,7 +46,9 @@ const AddToHomeScreenPrompt = () => {
             ></i>
             and select <strong>Add to Home Screen</strong>.
           </p>
-          <button onClick={handleClose}>Close</button>
+          <button onClick={handleClose} className="close-button">
+            Close
+          </button>
         </div>
         <style jsx>{`
           .add-to-home-screen-prompt {
@@ -49,24 +56,53 @@ const AddToHomeScreenPrompt = () => {
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             color: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            max-width: 90%;
+            animation: slideUp 0.5s ease-in-out;
           }
           .prompt-content {
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
           }
-          button {
-            margin-top: 10px;
-            background: white;
-            color: black;
+          .prompt-logo {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+          }
+          p {
+            font-size: 1em;
+            margin: 0;
+          }
+          .close-button {
+            margin-top: 15px;
+            background: #ff4757;
+            color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+          }
+          .close-button:hover {
+            background: #ff6b81;
+          }
+          @keyframes slideUp {
+            from {
+              transform: translateX(-50%) translateY(100px);
+              opacity: 0;
+            }
+            to {
+              transform: translateX(-50%) translateY(0);
+              opacity: 1;
+            }
           }
         `}</style>
       </div>
