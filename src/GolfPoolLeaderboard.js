@@ -286,7 +286,7 @@ const GolfPoolLeaderboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100">
-      <div className="max-w-2xl mx-auto px-4 pb-28">
+      <div className="max-w-2xl mx-auto px-4 pb-28 overflow-hidden">
         <div className="bg-gray-800 shadow-xl rounded-lg overflow-hidden border border-gray-700">
           <div className="grid grid-cols-12 items-center py-2 px-2 sm:px-4 bg-gray-750 text-gray-300 font-semibold text-xs uppercase tracking-wider">
             <div className="col-span-1 text-center">Pos</div>
