@@ -101,6 +101,21 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
     }
   };
 
+  const renderChangeIndicator = () => {
+    const changeValue = Math.abs(entry.change);
+    if (entry.change === 0) {
+      return <span className="ml-2 text-xs text-gray-400">−</span>;
+    }
+
+    const color = entry.change < 0 ? "text-red-400" : "text-green-400";
+    const arrow = entry.change < 0 ? "▼" : "▲";
+    return (
+      <span
+        className={`ml-2 text-xs ${color}`}
+      >{`${arrow}${changeValue}`}</span>
+    );
+  };
+
   return (
     <>
       <div
@@ -115,25 +130,11 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
           <div className="col-span-1 font-bold text-lg sm:text-xl text-center text-gray-400">
             {index + 1}
           </div>
-          <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2">
+          <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2 flex items-center">
             <span className="text-white text-sm sm:text-base">
               {entry.user}
             </span>
-            <span
-              className={`ml-2 text-xs ${
-                entry.change > 0
-                  ? "text-green-400"
-                  : entry.change < 0
-                  ? "text-red-400"
-                  : "text-gray-400"
-              }`}
-            >
-              {entry.change > 0
-                ? `▲${entry.change}`
-                : entry.change < 0
-                ? `▼${Math.abs(entry.change)}`
-                : "−"}
-            </span>
+            {renderChangeIndicator()}
           </div>
           <div className="col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl text-emerald-400">
             {displayScore(entry.totalScore)}
@@ -195,20 +196,36 @@ const GolfPoolLeaderboard = () => {
   const [expandedIds, setExpandedIds] = useState([]);
 
   const fetchLeaderboardData = useCallback(async () => {
-    const [entriesData, picksScoresData, leaderboardTotalScores] =
-      await Promise.all([
-        fetchGoogleSheetsData(ENTRIES_SHEET_ID, "Sheet1!A1:K"),
-        fetchGoogleSheetsData(ENTRIES_SHEET_ID, "PicksScores!A2:B1000"),
-        fetchGoogleSheetsData(
-          LEADERBOARD_SHEET_ID,
-          "Copy%20of%20Leaderboard!A1:Z"
-        ),
-      ]);
+    const [
+      entriesData,
+      picksScoresData,
+      leaderboardTotalScores,
+      changeTrackerData,
+    ] = await Promise.all([
+      fetchGoogleSheetsData(ENTRIES_SHEET_ID, "Sheet1!A1:K"),
+      fetchGoogleSheetsData(ENTRIES_SHEET_ID, "PicksScores!A2:B1000"),
+      fetchGoogleSheetsData(LEADERBOARD_SHEET_ID, "CurrentLeaderboard!A1:Z"),
+      fetchGoogleSheetsData(LEADERBOARD_SHEET_ID, "ChangeTracker!A1:D1000"),
+    ]);
 
     const scoresMap = new Map(picksScoresData);
     const totalScoresMap = new Map(
       leaderboardTotalScores.slice(1).map((row) => [row[0], row[1]])
     );
+
+    const changeMap = new Map(
+      changeTrackerData.slice(1).map((row) => {
+        const changeValue = row[3];
+        if (typeof changeValue === "string" && changeValue.startsWith("+")) {
+          return [row[0], parseInt(changeValue.substring(1))];
+        } else {
+          return [row[0], parseInt(changeValue) || 0];
+        }
+      })
+    );
+
+    console.log("Change Tracker Data:", changeTrackerData);
+    console.log("Change Map:", changeMap);
 
     const [, ...rows] = entriesData;
 
@@ -223,16 +240,19 @@ const GolfPoolLeaderboard = () => {
 
       const playerName = row[0];
       const totalScore = totalScoresMap.get(playerName) || "-";
+      const change = changeMap.get(playerName) || 0;
 
       return {
         id: index + 1,
         user: playerName,
         totalScore,
-        change: 0,
+        change,
         tiebreaker: row[7],
         golfers,
       };
     });
+
+    console.log("Formatted Data:", formattedData);
 
     return formattedData.sort(customSortTotalScore);
   }, []);
