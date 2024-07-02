@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { ThemeContext } from "./themeContext";
 
 const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
 const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
@@ -24,6 +25,8 @@ const fetchPlayers = async () => {
 };
 
 const Players = () => {
+  const theme = useContext(ThemeContext);
+
   const {
     data: players,
     error,
@@ -31,41 +34,49 @@ const Players = () => {
   } = useQuery({
     queryKey: ["players"],
     queryFn: fetchPlayers,
-    refetchInterval: 60000, // Refetch every minute
+    refetchInterval: 60000,
   });
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
-        <div className="text-white"></div>
+      <div
+        className={`min-h-screen ${theme.background} flex items-center justify-center`}
+      >
+        <div className={theme.text}></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
+      <div
+        className={`min-h-screen ${theme.background} flex items-center justify-center`}
+      >
         <div className="text-center text-red-500">Error: {error.message}</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100">
+    <div className={`min-h-screen ${theme.background} ${theme.text}`}>
       <div className="max-w-2xl mx-auto px-4 pb-28">
-        <div className="bg-gray-800 shadow-xl rounded-lg overflow-hidden border border-gray-700">
-          <div className="divide-y divide-gray-700">
+        <div
+          className={`${theme.cardBackground} shadow-xl rounded-lg overflow-hidden border ${theme.cardBorder}`}
+        >
+          <div>
             {players.map((player, index) => (
               <div
                 key={index}
-                className="grid grid-cols-12 items-center py-3 px-4 hover:bg-gray-750"
+                className={`grid grid-cols-12 items-center py-3 px-4 border-b-[1px] ${theme.cardBorder}`}
               >
                 <div className="col-span-9 sm:col-span-10 font-medium">
-                  <span className="text-white text-sm sm:text-base">
+                  <span className={`${theme.text} text-sm sm:text-base`}>
                     {player.name}
                   </span>
                 </div>
-                <div className="col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl text-emerald-400">
+                <div
+                  className={`col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl ${theme.scoreText}`}
+                >
                   {player.score}
                 </div>
               </div>

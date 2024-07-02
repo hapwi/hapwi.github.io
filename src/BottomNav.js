@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ThemeContext } from "./themeContext"; // Import ThemeContext
 
 const NavButton = ({ to, iconClass, label }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
+  const theme = useContext(ThemeContext); // Use ThemeContext
 
   return (
     <Link
       to={to}
       className={`flex-1 py-3 px-2 text-center flex flex-col items-center focus:outline-none ${
-        isActive ? "text-emerald-400" : "text-gray-400 hover:text-gray-200"
+        isActive ? theme.scoreText : `${theme.headerText} hover:${theme.text}`
       }`}
     >
       <i className={`bi ${iconClass} mb-1`} style={{ fontSize: "1.3rem" }}></i>
@@ -19,13 +21,14 @@ const NavButton = ({ to, iconClass, label }) => {
 };
 
 const BottomNav = () => {
+  const theme = useContext(ThemeContext); // Use ThemeContext
   const cutoffDate = new Date("07/13/2024 3:45 AM EST");
   const currentDate = new Date();
   const showSubmitPicks = currentDate < cutoffDate;
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700"
+      className={`fixed bottom-0 left-0 right-0 ${theme.cardBackground} border-t ${theme.cardBorder}`}
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="max-w-2xl mx-auto px-2">

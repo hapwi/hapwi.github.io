@@ -1,6 +1,7 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useContext } from "react";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
+import { ThemeContext } from "./themeContext"; // Import ThemeContext
 
 // Constants
 const API_KEY = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
@@ -45,46 +46,57 @@ const customSortTotalScore = (a, b) => {
 };
 
 // Components
-const PopupMessage = ({ message, onClose }) => (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div className="bg-gray-800 p-6 rounded-lg shadow-xl max-w-sm w-full mx-4">
-      <p className="text-white text-center mb-4">{message}</p>
-      <button
-        onClick={onClose}
-        className="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition-colors duration-300"
+const PopupMessage = ({ message, onClose }) => {
+  const theme = useContext(ThemeContext);
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div
+        className={`${theme.cardBackground} p-6 rounded-lg shadow-xl max-w-sm w-full mx-4`}
       >
-        Close
-      </button>
+        <p className={`${theme.text} text-center mb-4`}>{message}</p>
+        <button
+          onClick={onClose}
+          className={`w-full bg-blue-500 ${theme.text} rounded py-2 hover:bg-blue-600 transition-colors duration-300`}
+        >
+          Close
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-const GolferCard = ({ golfer, index }) => (
-  <div
-    className={`p-2 rounded-lg shadow-md flex justify-between items-center border ${
-      index === 5 ? "bg-red-200 border-red-300" : "bg-gray-700 border-gray-600"
-    }`}
-  >
-    <div className="flex-grow">
+const GolferCard = ({ golfer, index }) => {
+  const theme = useContext(ThemeContext);
+  return (
+    <div
+      className={`p-2 rounded-lg shadow-md flex justify-between items-center border ${
+        index === 5
+          ? "bg-red-200 border-red-300"
+          : `${theme.cardBackground} ${theme.cardBorder} ${theme.golferBackground}`
+      }`}
+    >
+      <div className="flex-grow">
+        <p
+          className={`text-xs sm:text-sm font-medium truncate ${
+            index === 5 ? "text-black" : theme.text
+          }`}
+        >
+          {golfer.name}
+        </p>
+      </div>
       <p
-        className={`text-xs sm:text-sm font-medium truncate ${
-          index === 5 ? "text-black" : "text-gray-300"
-        }`}
+        className={`text-sm sm:text-base font-bold ${
+          index === 5 ? "text-black" : theme.scoreText
+        } ml-2`}
       >
-        {golfer.name}
+        {displayScore(golfer.score)}
       </p>
     </div>
-    <p
-      className={`text-sm sm:text-base font-bold ${
-        index === 5 ? "text-black" : "text-emerald-400"
-      } ml-2`}
-    >
-      {displayScore(golfer.score)}
-    </p>
-  </div>
-);
+  );
+};
 
 const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
+  const theme = useContext(ThemeContext);
   const [showPopup, setShowPopup] = useState(false);
   const isExpanded = expandedIds.includes(entry.id);
 
@@ -104,7 +116,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
   const renderChangeIndicator = () => {
     const changeValue = Math.abs(entry.change);
     if (entry.change === 0) {
-      return <span className="ml-2 text-xs text-gray-400">−</span>;
+      return <span className={`ml-2 text-xs ${theme.headerText}`}>−</span>;
     }
 
     const color = entry.change < 0 ? "text-red-400" : "text-green-400";
@@ -120,28 +132,34 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
     <>
       <div
         className={`transition-all duration-300 ease-in-out ${
-          isExpanded ? "bg-gray-800" : "hover:bg-gray-750"
-        } border-b border-gray-700`}
+          isExpanded
+            ? theme.cardBackground
+            : `hover:${theme.expandedBackground}`
+        } border-b ${theme.cardBorder}`}
       >
         <div
           className="grid grid-cols-12 items-center py-3 px-2 sm:px-4 cursor-pointer"
           onClick={handleRowClick}
         >
-          <div className="col-span-1 font-bold text-lg sm:text-xl text-center text-gray-400">
+          <div
+            className={`col-span-1 font-bold text-lg sm:text-xl text-center ${theme.headerText}`}
+          >
             {index + 1}
           </div>
           <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2 flex items-center">
-            <span className="text-white text-sm sm:text-base">
+            <span className={`${theme.text} text-sm sm:text-base`}>
               {entry.user}
             </span>
             {renderChangeIndicator()}
           </div>
-          <div className="col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl text-emerald-400">
+          <div
+            className={`col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl ${theme.scoreText}`}
+          >
             {displayScore(entry.totalScore)}
           </div>
           <div className="col-span-1 flex justify-end">
             <svg
-              className={`w-4 h-4 sm:w-5 sm:h-5 text-gray-400 transform ${
+              className={`w-4 h-4 sm:w-5 sm:h-5 ${theme.headerText} transform ${
                 isExpanded ? "rotate-180" : ""
               }`}
               fill="none"
@@ -159,8 +177,10 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
           </div>
         </div>
         {isExpanded && (
-          <div className="px-2 sm:px-4 py-3 bg-gray-750 overflow-hidden">
-            <h4 className="text-lg font-semibold mb-2 text-gray-300">
+          <div
+            className={`px-2 sm:px-4 py-3 ${theme.expandedBackground} overflow-hidden`}
+          >
+            <h4 className={`text-lg font-semibold mb-2 ${theme.headerText} `}>
               Picked Golfers
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -172,7 +192,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
                 />
               ))}
             </div>
-            <div className="mt-3 text-sm text-center text-gray-300">
+            <div className={`mt-3 text-sm text-center ${theme.text}`}>
               <span className="font-semibold">Tiebreaker:</span>{" "}
               {entry.tiebreaker}
             </div>
@@ -193,6 +213,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
 };
 
 const GolfPoolLeaderboard = () => {
+  const theme = useContext(ThemeContext);
   const [expandedIds, setExpandedIds] = useState([]);
 
   const fetchLeaderboardData = useCallback(async () => {
@@ -273,22 +294,28 @@ const GolfPoolLeaderboard = () => {
   );
 
   if (isLoading) {
-    return null; // Remove the loading spinner
+    return null;
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
+      <div
+        className={`min-h-screen ${theme.background} flex items-center justify-center`}
+      >
         <div className="text-center text-red-500">Error: {error.message}</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100">
+    <div className={`min-h-screen ${theme.background} ${theme.text}`}>
       <div className="max-w-2xl mx-auto px-4 pb-28">
-        <div className="bg-gray-800 shadow-xl rounded-lg overflow-hidden border border-gray-700">
-          <div className="grid grid-cols-12 items-center py-2 px-2 sm:px-4 bg-gray-750 text-gray-300 font-semibold text-xs uppercase tracking-wider">
+        <div
+          className={`${theme.cardBackground} shadow-xl rounded-lg overflow-hidden border ${theme.cardBorder}`}
+        >
+          <div
+            className={`grid grid-cols-12 items-center py-2 px-2 sm:px-4 ${theme.headerBackground} ${theme.headerText} font-semibold text-xs uppercase tracking-wider`}
+          >
             <div className="col-span-1 text-center">Pos</div>
             <div className="col-span-7 sm:col-span-8 text-left pl-2">
               Player
