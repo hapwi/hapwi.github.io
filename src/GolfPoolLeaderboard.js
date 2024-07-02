@@ -112,7 +112,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
     return (
       <span
         className={`ml-2 text-xs ${color}`}
-      >{`${arrow}${changeValue}`}</span>
+      >{`${arrow} ${changeValue}`}</span>
     );
   };
 
