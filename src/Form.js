@@ -527,7 +527,7 @@ const Form = () => {
       formData.append("tiebreaker", data.tiebreaker);
 
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzVFyA4upODkPcOtBTKqG4IQMSACdSPuXl6tDtyd3shLHAFYzTwmgcLOE3dNfVeXvWbRA/exec",
+        "https://script.google.com/macros/s/AKfycbyDXxpGhb_LjBTEkJnfBzKF2RQsdUkaVVmnNRg-UsAgDy-eVXAb85DBcl0I01d_MlwC0Q/exec",
         {
           method: "POST",
           body: formData,
@@ -692,7 +692,7 @@ const Form = () => {
           </div>
           <button
             type="submit"
-            className={`w-full p-3 ${theme.formButton} rounded-lg text-white font-bold hover:bg-emerald-600 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
+            className={`w-full p-3 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
           >
             Submit
           </button>
