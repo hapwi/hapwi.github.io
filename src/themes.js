@@ -1,35 +1,42 @@
 const themes = {
-  dark: {
-    background: "bg-gradient-to-br from-[#1a1a1a] to-[#2d2d2d]", // Gradient from dark gray to slightly lighter gray
-    cardBackground: "bg-[#27272a]", // Dark gray background
-    cardBorder: "border-[#3f3f3f]", // header and bottom nav and table color
-    text: "text-[#f5f5f5]", // Very light gray text
-    headerBackground: "bg-[#333333]", // Medium gray background for header
-    headerText: "text-[#dedcc5]", // Light gray text for header
-    expandedBackground: "bg-[#333333]", // Same medium gray background for expanded sections
-    scoreText: "text-[#10b981]", // Emerald green text for scores
-    cellBackground: "bg-[#f7fafc]", // Light gray background for cells
-    cellText: "text-[#e5e7eb]", // Light gray text for cells
-    golferBackground: "bg-[#27272a]", // Red background for golfers
-    golferText: "text-[#2e2e2e]", // Darker gray text for golfers
-  },
-
   fourthJulyDarkTheme: {
     background: "bg-gradient-to-br from-[#0a1c3d] to-[#0f2a4a]",
-    // Gradient from dark navy blue to slightly lighter navy
     cardBackground: "bg-[#162a4a]", // Slightly lighter navy for cards
     cardBorder: "border-[#2a3f62]", // Subtle, slightly lighter border
-    text: "text-[#d8d8d8]", // Light gray text for readability
+    text: "text-[#fff]", // Light gray text for readability
     headerBackground: "bg-[#162a4a]", // leaderboard table header - Same as cardBackground for consistency
-    headerText: "text-[#ffffff]", // White for header text
+    headerText: "text-[#9ca3af]", // Light gray for header text
     expandedBackground: "bg-[#162a4a]", // Same as cardBackground
     scoreText: "text-[#ff6b6b]", // Muted red for scores
     cellBackground: "bg-[#2a3f62]", // Same as cardBackground
-    cellText: "text-[#d8d8d8]", // Same as main text
     golferBackground: "bg-[#2a3f62]", // Same as cardBackground
     golferText: "text-[#ffffff]", // White for golfer names
-    accentColor: "text-[#4ca6ff]", // Muted light blue for accents
     headerBg: "bg-[#0a1c3d]", // Same as cardBackground
+    headerTextHeader: "bg-gradient-to-r from-[#ff6b6b] to-[#ffcccb]", // Gradient for header text
+    headerTextForm: "bg-gradient-to-r from-[#ff6b6b] to-[#ffcccb]", // Gradient for form header text
+    formEntry: "bg-[#2a3f62]", // Background for form entries
+    formButton: "bg-[#ff6b6b] hover:bg-[#ff4c4c]", // Red for form button with hover effect
+    rulesIcon: "text-[#ff6b6b]",
+  },
+
+  main: {
+    background: "bg-gradient-to-br from-[#111827] to-[#1f2937]",
+    cardBackground: "bg-[#1f2937]", // will also be color of body in index.html
+    cardBorder: "border-[#374151]", // Subtle, slightly lighter border
+    text: "text-[#fff]", // Light gray text for readability
+    headerBackground: "bg-[#1f2937]", // leaderboard table header - Same as cardBackground for consistency
+    headerText: "text-[#9ca3af]", // White for header text
+    expandedBackground: "bg-[#1f2937]", // Same as cardBackground
+    scoreText: "text-[#34d399]", // Muted red for scores
+    cellBackground: "bg-[#374151]", // Same as cardBackground
+    golferBackground: "bg-[#374151]", // Same as cardBackground
+    golferText: "text-[#ffffff]", // White for golfer names
+    headerBg: "bg-[#111827]", // Same as cardBackground same as theme color in index.html
+    headerTextHeader: "bg-gradient-to-r from-[#34d399] to-[#3b82f6]", // White for header text
+    headerTextForm: "bg-gradient-to-r from-[#34d399] to-[#3b82f6]",
+    formEntry: "bg-[#374151]",
+    formButton: "bg-[#10b981] hover:bg-[#059669]",
+    rulesIcon: "text-[#34d399]",
   },
 };
 

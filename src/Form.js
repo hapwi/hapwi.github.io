@@ -43,7 +43,7 @@ const Autocomplete = ({ options, value, onChange, error }) => {
         type="text"
         value={value}
         onChange={handleInputChange}
-        className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+        className={`w-full p-3 ${theme.formEntry} rounded-lg ${
           theme.text
         } focus:outline-none focus:ring-2 ${
           error ? "ring-red-500" : "focus:ring-emerald-400"
@@ -78,7 +78,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faDollarSign}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -89,7 +89,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faCalendarAlt}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -103,7 +103,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faGolfBall}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -116,7 +116,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faExclamationTriangle}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -127,7 +127,10 @@ const RulesSection = () => {
           </div>
         </div>
         <div className="flex items-start space-x-4">
-          <FontAwesomeIcon icon={faListOl} className="text-emerald-400 mt-1" />
+          <FontAwesomeIcon
+            icon={faListOl}
+            className={`${theme.rulesIcon} mt-1`}
+          />
           <div className="text-left">
             <p className="text-lg">
               The pool runs similar to the game of golf. Your{" "}
@@ -139,7 +142,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faExclamationCircle}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -152,7 +155,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faExclamationCircle}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -164,7 +167,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faExclamationCircle}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -176,7 +179,7 @@ const RulesSection = () => {
         <div className="flex items-start space-x-4">
           <FontAwesomeIcon
             icon={faGolfBall}
-            className="text-emerald-400 mt-1"
+            className={`${theme.rulesIcon} mt-1`}
           />
           <div className="text-left">
             <p className="text-lg">
@@ -189,7 +192,10 @@ const RulesSection = () => {
           </div>
         </div>
         <div className="flex items-start space-x-4">
-          <FontAwesomeIcon icon={faClock} className="text-emerald-400 mt-1" />
+          <FontAwesomeIcon
+            icon={faClock}
+            className={`${theme.rulesIcon} mt-1`}
+          />
           <div className="text-left">
             <p className="text-lg">
               <strong>Leaderboard</strong> will update automatically.
@@ -197,7 +203,10 @@ const RulesSection = () => {
           </div>
         </div>
         <div className="flex items-start space-x-4">
-          <FontAwesomeIcon icon={faClock} className="text-emerald-400 mt-1" />
+          <FontAwesomeIcon
+            icon={faClock}
+            className={`${theme.rulesIcon} mt-1`}
+          />
           <div className="text-left">
             <p className="text-lg">
               Submissions will be accepted all the way up to the first tee time
@@ -206,7 +215,10 @@ const RulesSection = () => {
           </div>
         </div>
         <div className="flex items-start space-x-4">
-          <FontAwesomeIcon icon={faUsers} className="text-emerald-400 mt-1" />
+          <FontAwesomeIcon
+            icon={faUsers}
+            className={`${theme.rulesIcon} mt-1`}
+          />
           <div className="text-left">
             <p className="text-lg">
               Feel free to forward to friends or family that may be interested!
@@ -214,7 +226,10 @@ const RulesSection = () => {
           </div>
         </div>
         <div className="flex items-center space-x-4 bg-emerald-100 p-4 rounded-lg">
-          <FontAwesomeIcon icon={faCreditCard} className="text-emerald-400" />
+          <FontAwesomeIcon
+            icon={faCreditCard}
+            className={`${theme.rulesIcon} mt-1`}
+          />
           <div className="text-center">
             <p className="text-lg text-emerald-900">
               <strong>Venmo</strong> is the preferred payment method (@pblang).
@@ -240,7 +255,7 @@ const VegasTop10Section = ({ topGolfers }) => {
   return (
     <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
       <h2
-        className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerText}`}
+        className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerTextForm}`}
       >
         Vegas Top 10
       </h2>
@@ -558,7 +573,7 @@ const Form = () => {
       <VegasTop10Section topGolfers={topGolfers} />
       <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
         <h2
-          className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerText}`}
+          className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerTextForm}`}
         >
           Submit Your Picks
         </h2>
@@ -570,7 +585,7 @@ const Form = () => {
               </label>
               <input
                 id="email"
-                className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+                className={`w-full p-3 ${theme.formEntry} rounded-lg ${
                   theme.text
                 } focus:outline-none focus:ring-2 ${
                   errors.email ? "ring-red-500" : "focus:ring-emerald-400"
@@ -592,7 +607,7 @@ const Form = () => {
               </label>
               <input
                 id="venmo"
-                className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+                className={`w-full p-3 ${theme.formEntry} rounded-lg ${
                   theme.text
                 } focus:outline-none focus:ring-2 ${
                   errors.venmo ? "ring-red-500" : "focus:ring-emerald-400"
@@ -614,7 +629,7 @@ const Form = () => {
             </label>
             <input
               id="name"
-              className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+              className={`w-full p-3 ${theme.formEntry} rounded-lg ${
                 theme.text
               } focus:outline-none focus:ring-2 ${
                 errors.name ? "ring-red-500" : "focus:ring-emerald-400"
@@ -658,7 +673,7 @@ const Form = () => {
             <input
               id="tiebreaker"
               type="number"
-              className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+              className={`w-full p-3 ${theme.formEntry} rounded-lg ${
                 theme.text
               } focus:outline-none focus:ring-2 ${
                 errors.tiebreaker ? "ring-red-500" : "focus:ring-emerald-400"
@@ -677,7 +692,7 @@ const Form = () => {
           </div>
           <button
             type="submit"
-            className="w-full p-3 bg-emerald-500 rounded-lg text-white font-bold hover:bg-emerald-600 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            className={`w-full p-3 ${theme.formButton} rounded-lg text-white font-bold hover:bg-emerald-600 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
           >
             Submit
           </button>
