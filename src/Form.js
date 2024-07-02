@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -14,8 +14,10 @@ import {
   faClock,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from "./themeContext";
 
 const Autocomplete = ({ options, value, onChange, error }) => {
+  const theme = useContext(ThemeContext);
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
@@ -41,17 +43,21 @@ const Autocomplete = ({ options, value, onChange, error }) => {
         type="text"
         value={value}
         onChange={handleInputChange}
-        className={`w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 ${
+        className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+          theme.text
+        } focus:outline-none focus:ring-2 ${
           error ? "ring-red-500" : "focus:ring-emerald-400"
-        } border ${error ? "border-red-500" : "border-gray-600"}`}
+        } border ${error ? "border-red-500" : theme.cardBorder}`}
       />
       {isDropdownVisible && filteredOptions.length > 0 && (
-        <ul className="absolute z-10 w-full bg-gray-700 border border-gray-600 rounded-lg mt-1 max-h-60 overflow-y-auto">
+        <ul
+          className={`absolute z-10 w-full ${theme.cardBackground} border ${theme.cardBorder} rounded-lg mt-1 max-h-60 overflow-y-auto`}
+        >
           {filteredOptions.map((option) => (
             <li
               key={option}
               onClick={() => handleOptionClick(option)}
-              className="p-2 cursor-pointer hover:bg-gray-600 text-white"
+              className={`p-2 cursor-pointer hover:${theme.expandedBackground} ${theme.text}`}
             >
               {option}
             </li>
@@ -62,182 +68,199 @@ const Autocomplete = ({ options, value, onChange, error }) => {
   );
 };
 
-const RulesSection = () => (
-  <section className="bg-gray-800 shadow-xl rounded-lg p-6 space-y-6">
-    <div className="space-y-6 text-gray-300 leading-relaxed">
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon
-          icon={faDollarSign}
-          className="text-emerald-400 mt-1"
-        />
-        <div className="text-left">
-          <p className="text-lg">
-            <strong>$25 entry fee.</strong> WINNER TAKE ALL
-          </p>
+const RulesSection = () => {
+  const theme = useContext(ThemeContext);
+  return (
+    <section
+      className={`${theme.cardBackground} shadow-xl rounded-lg p-6 space-y-6`}
+    >
+      <div className={`space-y-6 ${theme.text} leading-relaxed`}>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faDollarSign}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              <strong>$25 entry fee.</strong> WINNER TAKE ALL
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faCalendarAlt}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              <strong>
+                Winner will be paid on the Monday after the tournament by 3 PM
+                EST.
+              </strong>
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faGolfBall}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              <strong>Pick 6 golfers</strong> competing in the tournament. Your
+              top 5 golfers will count. That means your worst golfer's score at
+              the end of Sunday will be dropped.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faExclamationTriangle}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              You are allowed to only take{" "}
+              <strong>2 golfers in the Vegas Top 10 odds</strong> favorites to
+              win the tournament (LIST BELOW).
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon icon={faListOl} className="text-emerald-400 mt-1" />
+          <div className="text-left">
+            <p className="text-lg">
+              The pool runs similar to the game of golf. Your{" "}
+              <strong>6 golfer's scores</strong> after their rounds will be
+              added up. The lower the better.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faExclamationCircle}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              If one of your selected golfers{" "}
+              <strong>does not make the cut</strong>, he will be scored an 80 on
+              Saturday and Sunday.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faExclamationCircle}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              If one of your selected golfers <strong>withdraws</strong>, he
+              will be scored an 80 for all four rounds.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faExclamationCircle}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              If one of your selected golfers <strong>is disqualified</strong>,
+              he will be scored an 80 for all four rounds.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faGolfBall}
+            className="text-emerald-400 mt-1"
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              Along with your golfers I will need a <strong>tie breaker</strong>
+              . The tie breaker is your prediction of what the champion's final
+              score to par will be. Example: Scottie Scheffler won last year's
+              Masters shooting -10, meaning a -10 on the total tournament would
+              have been the right tie breaker.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon icon={faClock} className="text-emerald-400 mt-1" />
+          <div className="text-left">
+            <p className="text-lg">
+              <strong>Leaderboard</strong> will update automatically.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon icon={faClock} className="text-emerald-400 mt-1" />
+          <div className="text-left">
+            <p className="text-lg">
+              Submissions will be accepted all the way up to the first tee time
+              on Thursday which is typically at 8:00 am.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon icon={faUsers} className="text-emerald-400 mt-1" />
+          <div className="text-left">
+            <p className="text-lg">
+              Feel free to forward to friends or family that may be interested!
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4 bg-emerald-100 p-4 rounded-lg">
+          <FontAwesomeIcon icon={faCreditCard} className="text-emerald-400" />
+          <div className="text-center">
+            <p className="text-lg text-emerald-900">
+              <strong>Venmo</strong> is the preferred payment method (@pblang).
+              Easy collect, easy send off.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center space-x-4 bg-red-100 p-4 rounded-lg">
+          <div className="text-center">
+            <p className="text-lg text-red-900 font-semibold">
+              IF PAYMENT IS NOT RECEIVED BY FIRST TEE TIME YOU WILL BE
+              DISQUALIFIED
+            </p>
+          </div>
         </div>
       </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon
-          icon={faCalendarAlt}
-          className="text-emerald-400 mt-1"
-        />
-        <div className="text-left">
-          <p className="text-lg">
-            <strong>
-              Winner will be paid on the Monday after the tournament by 3 PM
-              EST.
-            </strong>
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon icon={faGolfBall} className="text-emerald-400 mt-1" />
-        <div className="text-left">
-          <p className="text-lg">
-            <strong>Pick 6 golfers</strong> competing in the tournament. Your
-            top 5 golfers will count. That means your worst golfer's score at
-            the end of Sunday will be dropped.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon
-          icon={faExclamationTriangle}
-          className="text-emerald-400 mt-1"
-        />
-        <div className="text-left">
-          <p className="text-lg">
-            You are allowed to only take{" "}
-            <strong>2 golfers in the Vegas Top 10 odds</strong> favorites to win
-            the tournament (LIST BELOW).
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon icon={faListOl} className="text-emerald-400 mt-1" />
-        <div className="text-left">
-          <p className="text-lg">
-            The pool runs similar to the game of golf. Your{" "}
-            <strong>6 golfer's scores</strong> after their rounds will be added
-            up. The lower the better.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon
-          icon={faExclamationCircle}
-          className="text-emerald-400 mt-1"
-        />
-        <div className="text-left">
-          <p className="text-lg">
-            If one of your selected golfers{" "}
-            <strong>does not make the cut</strong>, he will be scored an 80 on
-            Saturday and Sunday.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon
-          icon={faExclamationCircle}
-          className="text-emerald-400 mt-1"
-        />
-        <div className="text-left">
-          <p className="text-lg">
-            If one of your selected golfers <strong>withdraws</strong>, he will
-            be scored an 80 for all four rounds.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon
-          icon={faExclamationCircle}
-          className="text-emerald-400 mt-1"
-        />
-        <div className="text-left">
-          <p className="text-lg">
-            If one of your selected golfers <strong>is disqualified</strong>, he
-            will be scored an 80 for all four rounds.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon icon={faGolfBall} className="text-emerald-400 mt-1" />
-        <div className="text-left">
-          <p className="text-lg">
-            Along with your golfers I will need a <strong>tie breaker</strong>.
-            The tie breaker is your prediction of what the champion's final
-            score to par will be. Example: Scottie Scheffler won last year's
-            Masters shooting -10, meaning a -10 on the total tournament would
-            have been the right tie breaker.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon icon={faClock} className="text-emerald-400 mt-1" />
-        <div className="text-left">
-          <p className="text-lg">
-            <strong>Leaderboard</strong> will update automatically.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon icon={faClock} className="text-emerald-400 mt-1" />
-        <div className="text-left">
-          <p className="text-lg">
-            Submissions will be accepted all the way up to the first tee time on
-            Thursday which is typically at 8:00 am.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-start space-x-4">
-        <FontAwesomeIcon icon={faUsers} className="text-emerald-400 mt-1" />
-        <div className="text-left">
-          <p className="text-lg">
-            Feel free to forward to friends or family that may be interested!
-          </p>
-        </div>
-      </div>
-      <div className="flex items-center space-x-4 bg-emerald-100 p-4 rounded-lg">
-        <FontAwesomeIcon icon={faCreditCard} className="text-emerald-400" />
-        <div className="text-center">
-          <p className="text-lg text-emerald-900">
-            <strong>Venmo</strong> is the preferred payment method (@pblang).
-            Easy collect, easy send off.
-          </p>
-        </div>
-      </div>
-      <div className="flex items-center space-x-4 bg-red-100 p-4 rounded-lg">
-        <div className="text-center">
-          <p className="text-lg text-red-900 font-semibold">
-            IF PAYMENT IS NOT RECEIVED BY FIRST TEE TIME YOU WILL BE
-            DISQUALIFIED
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-const VegasTop10Section = ({ topGolfers }) => (
-  <section className="bg-gray-800 shadow-xl rounded-lg p-6">
-    <h2 className="text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
-      Vegas Top 10
-    </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {topGolfers.map((golfer) => (
-        <div
-          key={golfer.name}
-          className="p-3 bg-gray-700 rounded-lg shadow-md flex justify-between items-center"
-        >
-          <div className="text-white font-medium">{golfer.name}</div>
-          <div className="text-emerald-400 font-bold">{golfer.odds}</div>
-        </div>
-      ))}
-    </div>
-  </section>
-);
+const VegasTop10Section = ({ topGolfers }) => {
+  const theme = useContext(ThemeContext);
+  return (
+    <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
+      <h2
+        className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerText}`}
+      >
+        Vegas Top 10
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {topGolfers.map((golfer) => (
+          <div
+            key={golfer.name}
+            className={`p-3 ${theme.cellBackground} ${theme.expandedBackground} rounded-lg shadow-md flex justify-between items-center`}
+          >
+            <div className={`${theme.text} font-medium`}>{golfer.name}</div>
+            <div className={`${theme.scoreText} font-bold`}>{golfer.odds}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
 
 const Form = () => {
+  const theme = useContext(ThemeContext);
   const [availableGolfers, setAvailableGolfers] = useState([]);
   const [topGolfers, setTopGolfers] = useState([]);
   const [isSubmissionClosed, setIsSubmissionClosed] = useState(false);
@@ -521,7 +544,9 @@ const Form = () => {
 
   if (isSubmissionClosed) {
     return (
-      <div className="text-center text-red-500 text-xl font-bold mt-8">
+      <div
+        className={`text-center text-red-500 text-xl font-bold mt-8 ${theme.text}`}
+      >
         Sorry, submissions are now closed.
       </div>
     );
@@ -531,23 +556,25 @@ const Form = () => {
     <div className="max-w-4xl mx-auto px-4 space-y-12">
       <RulesSection />
       <VegasTop10Section topGolfers={topGolfers} />
-      <section className="bg-gray-800 shadow-xl rounded-lg p-6">
-        <h2 className="text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
+      <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
+        <h2
+          className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerText}`}
+        >
           Submit Your Picks
         </h2>
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label htmlFor="email" className="text-gray-300 font-medium">
+              <label htmlFor="email" className={`${theme.text} font-medium`}>
                 Email
               </label>
               <input
                 id="email"
-                className={`w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 ${
+                className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+                  theme.text
+                } focus:outline-none focus:ring-2 ${
                   errors.email ? "ring-red-500" : "focus:ring-emerald-400"
-                } border ${
-                  errors.email ? "border-red-500" : "border-gray-600"
-                }`}
+                } border ${errors.email ? "border-red-500" : theme.cardBorder}`}
                 {...register("email", {
                   required: "Email is required",
                   pattern: /^\S+@\S+$/i,
@@ -560,16 +587,16 @@ const Form = () => {
               )}
             </div>
             <div className="space-y-2">
-              <label htmlFor="venmo" className="text-gray-300 font-medium">
+              <label htmlFor="venmo" className={`${theme.text} font-medium`}>
                 Venmo
               </label>
               <input
                 id="venmo"
-                className={`w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 ${
+                className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+                  theme.text
+                } focus:outline-none focus:ring-2 ${
                   errors.venmo ? "ring-red-500" : "focus:ring-emerald-400"
-                } border ${
-                  errors.venmo ? "border-red-500" : "border-gray-600"
-                }`}
+                } border ${errors.venmo ? "border-red-500" : theme.cardBorder}`}
                 {...register("venmo", {
                   required: "Venmo username is required",
                 })}
@@ -582,14 +609,16 @@ const Form = () => {
             </div>
           </div>
           <div className="space-y-2">
-            <label htmlFor="name" className="text-gray-300 font-medium">
+            <label htmlFor="name" className={`${theme.text} font-medium`}>
               Name
             </label>
             <input
               id="name"
-              className={`w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 ${
+              className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+                theme.text
+              } focus:outline-none focus:ring-2 ${
                 errors.name ? "ring-red-500" : "focus:ring-emerald-400"
-              } border ${errors.name ? "border-red-500" : "border-gray-600"}`}
+              } border ${errors.name ? "border-red-500" : theme.cardBorder}`}
               {...register("name", { required: "Name is required" })}
             />
             {errors.name && (
@@ -603,7 +632,7 @@ const Form = () => {
               <div key={`golfer${index}`} className="space-y-2">
                 <label
                   htmlFor={`golfer${index}`}
-                  className="text-gray-300 font-medium"
+                  className={`${theme.text} font-medium`}
                 >
                   Golfer {index}
                 </label>
@@ -612,6 +641,7 @@ const Form = () => {
                   value={watch(`golfer${index}`) || ""}
                   onChange={(value) => setValue(`golfer${index}`, value)}
                   error={errors[`golfer${index}`]}
+                  theme={theme}
                 />
                 {errors[`golfer${index}`] && (
                   <span className="text-red-500 text-sm">
@@ -622,16 +652,18 @@ const Form = () => {
             ))}
           </div>
           <div className="space-y-2">
-            <label htmlFor="tiebreaker" className="text-gray-300 font-medium">
+            <label htmlFor="tiebreaker" className={`${theme.text} font-medium`}>
               Tie Breaker (Score)
             </label>
             <input
               id="tiebreaker"
               type="number"
-              className={`w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 ${
+              className={`w-full p-3 ${theme.expandedBackground} rounded-lg ${
+                theme.text
+              } focus:outline-none focus:ring-2 ${
                 errors.tiebreaker ? "ring-red-500" : "focus:ring-emerald-400"
               } border ${
-                errors.tiebreaker ? "border-red-500" : "border-gray-600"
+                errors.tiebreaker ? "border-red-500" : theme.cardBorder
               }`}
               {...register("tiebreaker", {
                 required: "Tie breaker score is required",

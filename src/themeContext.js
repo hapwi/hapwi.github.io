@@ -2,7 +2,7 @@ import React from "react";
 import themes from "./themes";
 
 // Set the initial theme here
-export const currentTheme = "dark"; // Change this to "light" when you want to switch themes
+export const currentTheme = "fourthJulyDarkTheme"; // Change this to "light" when you want to switch themes
 
 // Create a context with the current theme
 export const ThemeContext = React.createContext(themes[currentTheme]);
