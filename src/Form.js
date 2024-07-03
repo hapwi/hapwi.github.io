@@ -281,7 +281,6 @@ const Form = () => {
   const [isSubmissionClosed, setIsSubmissionClosed] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [uniqueId, setUniqueId] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -318,14 +317,6 @@ const Form = () => {
         ]);
       } catch (error) {
         console.error("Error fetching golfers:", error);
-        Swal.fire(
-          "Error!",
-          "Failed to fetch golfer data. Please try again later.",
-          "error"
-        );
-      } finally {
-        setIsLoading(false);
-        Swal.close();
       }
     };
 
@@ -613,9 +604,6 @@ const Form = () => {
     }
   };
 
-  if (isLoading) {
-    return null;
-  }
 
   if (isSubmissionClosed) {
     return (

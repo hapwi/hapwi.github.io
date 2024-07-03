@@ -6,22 +6,35 @@ const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
 const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
 
 const fetchPlayers = async () => {
-  const response = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A1:B200?key=${apiKey}`
-  );
-  const data = await response.json();
+  try {
+    const response = await fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A1:B200?key=${apiKey}`
+    );
+    const data = await response.json();
 
-  if (data.error) {
-    throw new Error(data.error.message);
+    // Log the raw data for debugging
+    console.log("Raw data from Google Sheets API:", data);
+
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+
+    const players = data.values
+      .slice(1)
+      .filter((row) => row[0] && row[1])
+      .map(([name, score]) => ({
+        name,
+        score: score === "#VALUE!" || score === "0" ? "E" : score,
+      }));
+
+    // Log the processed player data
+    console.log("Processed player data:", players);
+
+    return players;
+  } catch (error) {
+    console.error("Error fetching players:", error);
+    throw error;
   }
-
-  return data.values
-    .slice(1)
-    .filter((row) => row[0] && row[1])
-    .map(([name, score]) => ({
-      name,
-      score: score === "#VALUE!" || score === "0" ? "E" : score,
-    }));
 };
 
 const Players = () => {
