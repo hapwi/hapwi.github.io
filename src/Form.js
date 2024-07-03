@@ -279,6 +279,9 @@ const Form = () => {
   const [availableGolfers, setAvailableGolfers] = useState([]);
   const [topGolfers, setTopGolfers] = useState([]);
   const [isSubmissionClosed, setIsSubmissionClosed] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [uniqueId, setUniqueId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -292,6 +295,17 @@ const Form = () => {
 
   useEffect(() => {
     const fetchGolfers = async () => {
+      setIsLoading(true);
+      Swal.fire({
+        title: "Loading golfers...",
+        text: "Please wait while we fetch the latest golfer data.",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
       const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
       const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
       const range = "Sheet1!A:A";
@@ -315,6 +329,14 @@ const Form = () => {
         ]);
       } catch (error) {
         console.error("Error fetching golfers:", error);
+        Swal.fire(
+          "Error!",
+          "Failed to fetch golfer data. Please try again later.",
+          "error"
+        );
+      } finally {
+        setIsLoading(false);
+        Swal.close();
       }
     };
 
@@ -434,7 +456,7 @@ const Form = () => {
   ]);
 
   const onSubmit = async (data) => {
-    clearErrors(); // Clear any existing errors
+    clearErrors();
 
     const golfersValidation = validateGolfers({
       golfer1: data.golfer1,
@@ -446,69 +468,16 @@ const Form = () => {
     });
 
     if (golfersValidation !== true) {
-      if (golfersValidation.includes("available golfers")) {
-        [
-          "golfer1",
-          "golfer2",
-          "golfer3",
-          "golfer4",
-          "golfer5",
-          "golfer6",
-        ].forEach((golfer) => {
-          if (!availableGolfers.includes(data[golfer])) {
-            setError(golfer, {
-              type: "manual",
-              message: "Invalid golfer selected.",
-            });
-          }
-        });
-      } else if (golfersValidation.includes("top 10")) {
-        [
-          "golfer1",
-          "golfer2",
-          "golfer3",
-          "golfer4",
-          "golfer5",
-          "golfer6",
-        ].forEach((golfer) => {
-          if (topGolfers.map((tg) => tg.name).includes(data[golfer])) {
-            setError(golfer, {
-              type: "manual",
-              message: "Too many top 10 golfers selected.",
-            });
-          }
-        });
-      } else if (golfersValidation.includes("same golfer")) {
-        const golferCounts = {};
-        [
-          "golfer1",
-          "golfer2",
-          "golfer3",
-          "golfer4",
-          "golfer5",
-          "golfer6",
-        ].forEach((golfer) => {
-          if (golferCounts[data[golfer]]) {
-            golferCounts[data[golfer]] += 1;
-            setError(golfer, {
-              type: "manual",
-              message: "Duplicate golfer selected.",
-            });
-          } else {
-            golferCounts[data[golfer]] = 1;
-          }
-        });
-      }
       Swal.fire("Error!", golfersValidation, "error");
       return;
     }
 
     Swal.fire({
-      title: "Submitting your picks...",
+      title: isEditing ? "Updating your picks..." : "Submitting your picks...",
       text: "Please wait while your picks are processed.",
       showConfirmButton: false,
       allowOutsideClick: false,
-      didOpen: () => {
+      willOpen: () => {
         Swal.showLoading();
       },
     });
@@ -526,8 +495,12 @@ const Form = () => {
       formData.append("golfer6", data.golfer6);
       formData.append("tiebreaker", data.tiebreaker);
 
+      if (isEditing) {
+        formData.append("uniqueId", uniqueId);
+      }
+
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyDXxpGhb_LjBTEkJnfBzKF2RQsdUkaVVmnNRg-UsAgDy-eVXAb85DBcl0I01d_MlwC0Q/exec",
+        "https://script.google.com/macros/s/AKfycbx7iYANLwB0lpsL5P85Q1LffAFW2C5qqGxvmPiZe-SQutyJvWQ2pXN1Z_O73GLMN7Exng/exec",
         {
           method: "POST",
           body: formData,
@@ -539,13 +512,29 @@ const Form = () => {
       }
 
       const responseJson = await response.json();
+      console.log("Response JSON:", responseJson); // Log the response JSON
 
-      if (responseJson.row) {
-        const rowNumber = parseInt(responseJson.row) - 1;
-        Swal.fire("Success!", `Submission ID: ${rowNumber}`, "success");
+      if (responseJson.result === "success") {
+        if (isEditing) {
+          Swal.fire("Success!", "Your picks have been updated.", "success");
+        } else {
+          Swal.fire({
+            title: "Success!",
+            html: `
+            <p>Your picks have been submitted. Please check your email.</p>
+            <br>
+            <p><strong>Your golferID is:</strong></p>
+            <p style="font-size: 1.5em; color: #111;"><strong>${responseJson.uniqueId}</strong></p>
+          `,
+            icon: "success",
+          });
+        }
         reset();
+        setIsEditing(false);
+        setUniqueId("");
       } else {
-        throw new Error("Invalid response format");
+        console.error("Unexpected response format:", responseJson);
+        throw new Error("Unexpected response format");
       }
     } catch (error) {
       console.error("Error during submission:", error);
@@ -556,6 +545,92 @@ const Form = () => {
       );
     }
   };
+
+  const handleEditClick = async () => {
+    const { value: enteredUniqueId } = await Swal.fire({
+      title: "Enter your golferID",
+      input: "text",
+      inputPlaceholder: "Enter your golferID here",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "You need to enter a golferID!";
+        }
+      },
+    });
+
+    if (enteredUniqueId) {
+      handleEdit(enteredUniqueId);
+    }
+  };
+
+  const handleEdit = async (enteredUniqueId) => {
+    Swal.fire({
+      title: "Fetching your picks...",
+      text: "Please wait while we retrieve your picks.",
+      allowOutsideClick: false,
+      showConfirmButton: false,
+      willOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const response = await fetch(
+        `https://script.google.com/macros/s/AKfycbx7iYANLwB0lpsL5P85Q1LffAFW2C5qqGxvmPiZe-SQutyJvWQ2pXN1Z_O73GLMN7Exng/exec?uniqueId=${enteredUniqueId}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log("Server response:", data); // Keep this line for debugging
+
+      Swal.close(); // Close the loading indicator
+
+      if (data.result === "success") {
+        setValue("email", data.email);
+        setValue("venmo", data.venmo);
+        setValue("name", data.name);
+        setValue("golfer1", data.golfer1);
+        setValue("golfer2", data.golfer2);
+        setValue("golfer3", data.golfer3);
+        setValue("golfer4", data.golfer4);
+        setValue("golfer5", data.golfer5);
+        setValue("golfer6", data.golfer6);
+        setValue("tiebreaker", data.tiebreaker);
+        setIsEditing(true);
+        setUniqueId(enteredUniqueId);
+        Swal.fire(
+          "Success!",
+          "Your picks have been loaded for editing.",
+          "success"
+        );
+      } else {
+        let errorMessage = "Invalid golferID. Please try again.";
+        Swal.fire("Error!", errorMessage, "error");
+      }
+    } catch (error) {
+      console.error("Error fetching picks:", error);
+      Swal.fire(
+        "Oops!",
+        "Something went wrong. Please try again later.",
+        "error"
+      );
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className={`text-center ${theme.text} text-xl font-bold mt-8`}>
+        Loading...
+      </div>
+    );
+  }
 
   if (isSubmissionClosed) {
     return (
@@ -572,11 +647,21 @@ const Form = () => {
       <RulesSection />
       <VegasTop10Section topGolfers={topGolfers} />
       <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
-        <h2
-          className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerTextForm}`}
-        >
-          Submit Your Picks
-        </h2>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+          <h2
+            className={`text-2xl sm:text-3xl font-bold text-transparent bg-clip-text ${theme.headerTextForm} mb-4 sm:mb-0`}
+          >
+            {isEditing ? "Edit Your Picks" : "Submit Your Picks"}
+          </h2>
+          {!isEditing && (
+            <button
+              onClick={handleEditClick}
+              className={`w-full sm:w-auto px-4 py-2 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
+            >
+              Edit Picks
+            </button>
+          )}
+        </div>
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -656,7 +741,6 @@ const Form = () => {
                   value={watch(`golfer${index}`) || ""}
                   onChange={(value) => setValue(`golfer${index}`, value)}
                   error={errors[`golfer${index}`]}
-                  theme={theme}
                 />
                 {errors[`golfer${index}`] && (
                   <span className="text-red-500 text-sm">
@@ -694,7 +778,7 @@ const Form = () => {
             type="submit"
             className={`w-full p-3 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
           >
-            Submit
+            {isEditing ? "Update Picks" : "Submit Picks"}
           </button>
         </form>
       </section>
