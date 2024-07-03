@@ -295,17 +295,6 @@ const Form = () => {
 
   useEffect(() => {
     const fetchGolfers = async () => {
-      setIsLoading(true);
-      Swal.fire({
-        title: "Loading golfers...",
-        text: "Please wait while we fetch the latest golfer data.",
-        allowOutsideClick: false,
-        showConfirmButton: false,
-        willOpen: () => {
-          Swal.showLoading();
-        },
-      });
-
       const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
       const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
       const range = "Sheet1!A:A";
@@ -625,11 +614,7 @@ const Form = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className={`text-center ${theme.text} text-xl font-bold mt-8`}>
-        Loading...
-      </div>
-    );
+    return null;
   }
 
   if (isSubmissionClosed) {
