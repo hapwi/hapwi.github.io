@@ -294,8 +294,8 @@ const Form = () => {
 
   useEffect(() => {
     const fetchGolfers = async () => {
-      const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
-      const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
+      const apiKey = "YOUR_GOOGLE_SHEETS_API_KEY";
+      const spreadsheetId = "YOUR_SPREADSHEET_ID";
       const range = "Sheet1!A:A";
       try {
         const response = await axios.get(
@@ -496,7 +496,12 @@ const Form = () => {
 
       if (responseJson.result === "success") {
         if (isEditing) {
-          Swal.fire("Success!", "Your picks have been updated.", "success");
+          Swal.fire({
+            title: "Success!",
+            text: "Your picks have been updated.",
+            icon: "success",
+            allowOutsideClick: false,
+          });
         } else {
           Swal.fire({
             title: "Success!",
@@ -507,22 +512,23 @@ const Form = () => {
             <p style="font-size: 1.5em; color: #111;"><strong>${responseJson.uniqueId}</strong></p>
           `,
             icon: "success",
+            allowOutsideClick: false,
           });
         }
         reset();
         setIsEditing(false);
         setUniqueId("");
       } else {
-        console.error("Unexpected response format:", responseJson);
         throw new Error("Unexpected response format");
       }
     } catch (error) {
       console.error("Error during submission:", error);
-      Swal.fire(
-        "Oops!",
-        "Something went wrong. Please try again later.",
-        "error"
-      );
+      Swal.fire({
+        title: "Oops!",
+        text: "Something went wrong. Please try again later.",
+        icon: "error",
+        allowOutsideClick: false,
+      });
     }
   };
 
@@ -532,6 +538,7 @@ const Form = () => {
       input: "text",
       inputPlaceholder: "Enter your golferID here",
       showCancelButton: true,
+      allowOutsideClick: false,
       inputValidator: (value) => {
         if (!value) {
           return "You need to enter a golferID!";
@@ -585,25 +592,43 @@ const Form = () => {
         setValue("tiebreaker", data.tiebreaker);
         setIsEditing(true);
         setUniqueId(enteredUniqueId);
-        Swal.fire(
-          "Success!",
-          "Your picks have been loaded for editing.",
-          "success"
-        );
+        Swal.fire({
+          title: "Success!",
+          text: "Your picks have been loaded for editing.",
+          icon: "success",
+          allowOutsideClick: false,
+        });
       } else {
         let errorMessage = "Invalid golferID. Please try again.";
-        Swal.fire("Error!", errorMessage, "error");
+        Swal.fire({
+          title: "Error!",
+          text: errorMessage,
+          icon: "error",
+          allowOutsideClick: false,
+        });
       }
     } catch (error) {
       console.error("Error fetching picks:", error);
-      Swal.fire(
-        "Oops!",
-        "Something went wrong. Please try again later.",
-        "error"
-      );
+      Swal.fire({
+        title: "Oops!",
+        text: "Something went wrong. Please try again later.",
+        icon: "error",
+        allowOutsideClick: false,
+      });
     }
   };
 
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setUniqueId("");
+    reset(); // Reset the form fields
+    Swal.fire({
+      title: "Editing Cancelled",
+      text: "Your changes have been discarded.",
+      icon: "info",
+      allowOutsideClick: false,
+    });
+  };
 
   if (isSubmissionClosed) {
     return (
@@ -620,16 +645,17 @@ const Form = () => {
       <RulesSection />
       <VegasTop10Section topGolfers={topGolfers} />
       <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+        {/* UPDATED: Centered title and repositioned Edit Picks button */}
+        <div className="flex flex-col items-center mb-6">
           <h2
-            className={`text-2xl sm:text-3xl font-bold text-transparent bg-clip-text ${theme.headerTextForm} mb-4 sm:mb-0`}
+            className={`text-2xl sm:text-3xl font-bold text-center text-transparent bg-clip-text ${theme.headerTextForm} mb-4`}
           >
             {isEditing ? "Edit Your Picks" : "Submit Your Picks"}
           </h2>
           {!isEditing && (
             <button
               onClick={handleEditClick}
-              className={`w-full sm:w-auto px-4 py-2 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
+              className={`px-4 py-2 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
             >
               Edit Picks
             </button>
@@ -715,6 +741,12 @@ const Form = () => {
                   onChange={(value) => setValue(`golfer${index}`, value)}
                   error={errors[`golfer${index}`]}
                 />
+                <input
+                  type="hidden"
+                  {...register(`golfer${index}`, {
+                    required: `Golfer ${index} is required`,
+                  })}
+                />
                 {errors[`golfer${index}`] && (
                   <span className="text-red-500 text-sm">
                     {errors[`golfer${index}`].message}
@@ -747,16 +779,37 @@ const Form = () => {
               </span>
             )}
           </div>
-          <button
-            type="submit"
-            className={`w-full p-3 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
-          >
-            {isEditing ? "Update Picks" : "Submit Picks"}
-          </button>
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            {isEditing ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleCancelEdit}
+                  className={`w-full sm:w-auto px-6 py-3 bg-gray-500 rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
+                >
+                  Cancel Edit
+                </button>
+                <button
+                  type="submit"
+                  className={`w-full sm:w-auto px-6 py-3 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
+                >
+                  Update Picks
+                </button>
+              </>
+            ) : (
+              <button
+                type="submit"
+                className={`w-full sm:w-auto px-6 py-3 ${theme.formButton} rounded-lg text-white font-bold transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2`}
+              >
+                Submit Picks
+              </button>
+            )}
+          </div>
         </form>
       </section>
     </div>
   );
 };
+
 
 export default Form;
