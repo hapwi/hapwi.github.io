@@ -294,8 +294,8 @@ const Form = () => {
 
   useEffect(() => {
     const fetchGolfers = async () => {
-      const apiKey = "YOUR_GOOGLE_SHEETS_API_KEY";
-      const spreadsheetId = "YOUR_SPREADSHEET_ID";
+      const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
+      const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
       const range = "Sheet1!A:A";
       try {
         const response = await axios.get(
