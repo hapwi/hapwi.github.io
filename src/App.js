@@ -23,8 +23,8 @@ function AppContent() {
       >
         <Header />
         <ScrollToTop />
-        <main className="flex-grow pt-28 pb-20 px-4 parent-class">
-          <div className="max-w-2xl mx-auto child-class">
+        <main className="flex-grow pt-28 pb-20 px-4">
+          <div className="max-w-2xl mx-auto">
             <Routes>
               <Route path="/" element={<GolfPoolLeaderboard />} />
               <Route path="/players" element={<Players />} />
