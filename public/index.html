@@ -27,9 +27,15 @@
         font-family: 'Montserrat', sans-serif;
       }
 
-      /* Hide scrollbar for Chrome, Safari and Opera */
+      /* Hide scrollbar for Chrome, Safari, and Opera */
       ::-webkit-scrollbar {
         display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge, and Firefox */
+      body, .parent-class, .child-class {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
       }
 
       body {
@@ -65,6 +71,14 @@
         padding: 0.5rem;
         text-align: left;
       }
+
+      .parent-class {
+        overflow: hidden;
+      }
+
+      .child-class {
+        overflow-y: scroll;
+      }
     </style>
   </head>
   <body>
@@ -80,6 +94,12 @@
         // Use history API to update the URL without reloading the page
         window.history.replaceState({}, '', redirectPath);
       }
+
+      var parent = document.getElementsByClassName('parent-class');
+      var children = document.getElementsByClassName('child-class');
+      Array.from(children).forEach(function(child) {
+        child.style.paddingRight = child.offsetWidth - child.clientWidth + "px";
+      });
     </script>
   </body>
 </html>
