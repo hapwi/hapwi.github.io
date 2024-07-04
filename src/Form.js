@@ -619,17 +619,48 @@ const Form = () => {
     }
   };
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-    setUniqueId("");
-    reset(); // Reset the form fields
-    Swal.fire({
-      title: "Editing Cancelled",
-      text: "Your changes have been discarded.",
-      icon: "info",
-      allowOutsideClick: false,
-    });
-  };
+   const handleCancelEdit = () => {
+     Swal.fire({
+       title: "Are you sure?",
+       text: "You will lose all the changes you've made.",
+       icon: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#3085d6",
+       cancelButtonColor: "#d33",
+       confirmButtonText: "Yes, discard changes",
+       cancelButtonText: "No, keep editing",
+       reverseButtons: true,
+       allowOutsideClick: false,
+     }).then((result) => {
+       if (result.isConfirmed) {
+         // User confirmed, proceed with cancellation
+         reset({
+           email: "",
+           venmo: "",
+           name: "",
+           golfer1: "",
+           golfer2: "",
+           golfer3: "",
+           golfer4: "",
+           golfer5: "",
+           golfer6: "",
+           tiebreaker: "",
+         });
+         clearErrors();
+         setIsEditing(false);
+         setUniqueId("");
+
+         //  Swal.fire({
+         //    title: "Editing Cancelled",
+         //    text: "Your changes have been discarded. You can start a new submission or edit your picks using your golferID.",
+         //    icon: "info",
+         //    confirmButtonText: "OK",
+         //    allowOutsideClick: false,
+         //  });
+       }
+       // If not confirmed, do nothing and let the user continue editing
+     });
+   };
 
   if (isSubmissionClosed) {
     return (
