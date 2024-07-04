@@ -10,7 +10,6 @@ import {
   faExclamationTriangle,
   faListOl,
   faExclamationCircle,
-  faCreditCard,
   faClock,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
@@ -226,10 +225,6 @@ const RulesSection = () => {
           </div>
         </div>
         <div className="flex items-center space-x-4 bg-emerald-100 p-4 rounded-lg">
-          <FontAwesomeIcon
-            icon={faCreditCard}
-            className={`${theme.rulesIcon} mt-1`}
-          />
           <div className="text-center">
             <p className="text-lg text-emerald-900">
               <strong>Venmo</strong> is the preferred payment method (@pblang).

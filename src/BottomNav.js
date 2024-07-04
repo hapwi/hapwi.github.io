@@ -11,7 +11,7 @@ const NavButton = ({ to, iconClass, label }) => {
     <Link
       to={to}
       className={`flex-1 py-3 px-2 text-center flex flex-col items-center focus:outline-none ${
-        isActive ? theme.scoreText : `${theme.headerText} hover:${theme.text}`
+        isActive ? theme.navText : `${theme.headerText} hover:${theme.text}`
       }`}
     >
       <i className={`bi ${iconClass} mb-1`} style={{ fontSize: "1.3rem" }}></i>

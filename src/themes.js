@@ -1,42 +1,128 @@
 const themes = {
   fourthJulyDarkTheme: {
     background: "bg-gradient-to-br from-[#0a1c3d] to-[#0f2a4a]",
-    cardBackground: "bg-[#162a4a]", // Slightly lighter navy for cards
-    cardBorder: "border-[#2a3f62]", // Subtle, slightly lighter border
-    text: "text-[#fff]", // Light gray text for readability
-    headerBackground: "bg-[#162a4a]", // leaderboard table header - Same as cardBackground for consistency
-    headerText: "text-[#9ca3af]", // Light gray for header text
-    expandedBackground: "bg-[#162a4a]", // Same as cardBackground
-    scoreText: "text-[#ff6b6b]", // Muted red for scores
-    cellBackground: "bg-[#2a3f62]", // Same as cardBackground
-    golferBackground: "bg-[#2a3f62]", // Same as cardBackground
-    golferText: "text-[#ffffff]", // White for golfer names
-    headerBg: "bg-[#0a1c3d]", // Same as cardBackground
-    headerTextHeader: "bg-gradient-to-r from-[#ff6b6b] to-[#ffcccb]", // Gradient for header text
-    headerTextForm: "bg-gradient-to-r from-[#ff6b6b] to-[#ffcccb]", // Gradient for form header text
-    formEntry: "bg-[#2a3f62]", // Background for form entries
-    formButton: "bg-[#ff6b6b] hover:bg-[#ff4c4c]", // Red for form button with hover effect
+    cardBackground: "bg-[#162a4a]",
+    cardBorder: "border-[#2a3f62]",
+    text: "text-[#fff]",
+    headerBackground: "bg-[#162a4a]",
+    headerText: "text-[#9ca3af]",
+    expandedBackground: "bg-[#162a4a]",
+    scoreText: "text-[#ff6b6b]",
+    cellBackground: "bg-[#2a3f62]",
+    golferBackground: "bg-[#2a3f62]",
+    golferText: "text-[#ffffff]",
+    headerBg: "bg-[#0a1c3d]",
+    headerTextHeader: "bg-gradient-to-r from-[#ff6b6b] to-[#ffcccb]",
+    headerTextForm: "bg-gradient-to-r from-[#ff6b6b] to-[#ffcccb]",
+    formEntry: "bg-[#2a3f62]",
+    formButton: "bg-[#ff6b6b] hover:bg-[#ff4c4c]",
     rulesIcon: "text-[#ff6b6b]",
+    navText: "text-[#ff6b6b]",
   },
 
   main: {
     background: "bg-gradient-to-br from-[#111827] to-[#1f2937]",
-    cardBackground: "bg-[#1f2937]", // will also be color of body in index.html
-    cardBorder: "border-[#374151]", // Subtle, slightly lighter border
-    text: "text-[#fff]", // Light gray text for readability
-    headerBackground: "bg-[#1f2937]", // leaderboard table header - Same as cardBackground for consistency
-    headerText: "text-[#9ca3af]", // White for header text
-    expandedBackground: "bg-[#1f2937]", // Same as cardBackground
-    scoreText: "text-[#34d399]", // Muted red for scores
-    cellBackground: "bg-[#374151]", // Same as cardBackground
-    golferBackground: "bg-[#374151]", // Same as cardBackground
-    golferText: "text-[#ffffff]", // White for golfer names
-    headerBg: "bg-[#111827]", // Same as cardBackground same as theme color in index.html
-    headerTextHeader: "bg-gradient-to-r from-[#34d399] to-[#3b82f6]", // White for header text
+    cardBackground: "bg-[#1f2937]",
+    cardBorder: "border-[#374151]",
+    text: "text-[#fff]",
+    headerBackground: "bg-[#1f2937]",
+    headerText: "text-[#9ca3af]",
+    expandedBackground: "bg-[#1f2937]",
+    scoreText: "text-[#34d399]",
+    cellBackground: "bg-[#374151]",
+    golferBackground: "bg-[#374151]",
+    golferText: "text-[#ffffff]",
+    headerBg: "bg-[#111827]",
+    headerTextHeader: "bg-gradient-to-r from-[#34d399] to-[#3b82f6]",
     headerTextForm: "bg-gradient-to-r from-[#34d399] to-[#3b82f6]",
     formEntry: "bg-[#374151]",
     formButton: "bg-[#10b981] hover:bg-[#059669]",
     rulesIcon: "text-[#34d399]",
+    navText: "text-[#34d399]",
+  },
+
+  minimalProfessionalDark: {
+    background: "bg-gradient-to-br from-[#1e1e2f] to-[#2b2b40]",
+    cardBackground: "bg-[#2b2b40]",
+    cardBorder: "border-[#3a3a52]",
+    text: "text-[#e0e0e0]",
+    headerBackground: "bg-[#2b2b40]",
+    headerText: "text-[#b0b0b0]",
+    expandedBackground: "bg-[#2b2b40]",
+    scoreText: "text-[#e06666]",
+    cellBackground: "bg-[#3a3a52]",
+    golferBackground: "bg-[#3a3a52]",
+    golferText: "text-[#e0e0e0]",
+    headerBg: "bg-[#1e1e2f]",
+    headerTextHeader: "bg-gradient-to-r from-[#e06666] to-[#ff9999]",
+    headerTextForm: "bg-gradient-to-r from-[#e06666] to-[#ff9999]",
+    formEntry: "bg-[#3a3a52]",
+    formButton: "bg-[#e06666] hover:bg-[#cc5252]",
+    rulesIcon: "text-[#e06666]",
+    navText: "text-[#e06666]",
+  },
+
+  halloween: {
+    background: "bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a]",
+    cardBackground: "bg-[#2a2a2a]",
+    cardBorder: "border-[#3a3a3a]",
+    text: "text-[#d1d1d1]",
+    headerBackground: "bg-[#2a2a2a]",
+    headerText: "text-[#b1b1b1]",
+    expandedBackground: "bg-[#2a2a2a]",
+    scoreText: "text-[#ff7f50]",
+    cellBackground: "bg-[#3a3a3a]",
+    golferBackground: "bg-[#3a3a3a]",
+    golferText: "text-[#d1d1d1]",
+    headerBg: "bg-[#1a1a1a]",
+    headerTextHeader: "bg-gradient-to-r from-[#ff7f50] to-[#ffb347]",
+    headerTextForm: "bg-gradient-to-r from-[#ff7f50] to-[#ffb347]",
+    formEntry: "bg-[#3a3a3a]",
+    formButton: "bg-[#ff7f50] hover:bg-[#ff6347]",
+    rulesIcon: "text-[#ff7f50]",
+    navText: "text-[#ff7f50]",
+  },
+
+  mastersTheme: {
+    background: "bg-gradient-to-br from-[#0a2f1d] to-[#164430]",
+    cardBackground: "bg-[#164430]",
+    cardBorder: "border-[#1e5a3e]",
+    text: "text-[#e0e7d1]",
+    headerBackground: "bg-[#164430]",
+    headerText: "text-[#a8b898]",
+    expandedBackground: "bg-[#164430]",
+    scoreText: "text-[#f9cb40]",
+    cellBackground: "bg-[#1e5a3e]",
+    golferBackground: "bg-[#1e5a3e]",
+    golferText: "text-[#e0e7d1]",
+    headerBg: "bg-[#0a2f1d]",
+    headerTextHeader: "bg-gradient-to-r from-[#f9cb40] to-[#fad980]",
+    headerTextForm: "bg-gradient-to-r from-[#f9cb40] to-[#fad980]",
+    formEntry: "bg-[#1e5a3e]",
+    formButton: "bg-[#3d8b5f] hover:bg-[#4fa778]",
+    rulesIcon: "text-[#f9cb40]",
+    navText: "text-[#f9cb40]",
+  },
+
+  professionalMinimalDark: {
+    background: "bg-gradient-to-br from-[#181818] to-[#282828]",
+    cardBackground: "bg-[#282828]",
+    cardBorder: "border-[#3c3c3c]",
+    text: "text-[#d3d3d3]",
+    headerBackground: "bg-[#282828]",
+    headerText: "text-[#b0b0b0]",
+    expandedBackground: "bg-[#282828]",
+    scoreText: "text-[#b8b8b8]",
+    cellBackground: "bg-[#3c3c3c]",
+    golferBackground: "bg-[#3c3c3c]",
+    golferText: "text-[#d3d3d3]",
+    headerBg: "bg-[#181818]",
+    headerTextHeader: "bg-gradient-to-r from-[#b8b8b8] to-[#d0d0d0]",
+    headerTextForm: "bg-gradient-to-r from-[#b8b8b8] to-[#d0d0d0]",
+    formEntry: "bg-[#3c3c3c]",
+    formButton: "bg-[#5a5a5a] hover:bg-[#707070]",
+    rulesIcon: "text-[#b8b8b8]",
+    navText: "text-[#fffff0]",
   },
 };
 
