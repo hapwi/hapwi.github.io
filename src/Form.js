@@ -539,6 +539,7 @@ const Form = () => {
       inputPlaceholder: "Enter your golferID here",
       showCancelButton: true,
       allowOutsideClick: false,
+      reverseButtons: true,
       inputValidator: (value) => {
         if (!value) {
           return "You need to enter a golferID!";
