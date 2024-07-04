@@ -294,8 +294,8 @@ const Form = () => {
 
   useEffect(() => {
     const fetchGolfers = async () => {
-      const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
-      const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
+      const apiKey = "YOUR_GOOGLE_SHEETS_API_KEY";
+      const spreadsheetId = "YOUR_SPREADSHEET_ID";
       const range = "Sheet1!A:A";
       try {
         const response = await axios.get(
@@ -741,6 +741,12 @@ const Form = () => {
                   onChange={(value) => setValue(`golfer${index}`, value)}
                   error={errors[`golfer${index}`]}
                 />
+                <input
+                  type="hidden"
+                  {...register(`golfer${index}`, {
+                    required: `Golfer ${index} is required`,
+                  })}
+                />
                 {errors[`golfer${index}`] && (
                   <span className="text-red-500 text-sm">
                     {errors[`golfer${index}`].message}
@@ -804,5 +810,6 @@ const Form = () => {
     </div>
   );
 };
+
 
 export default Form;
