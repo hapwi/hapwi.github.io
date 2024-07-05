@@ -285,7 +285,7 @@ const GolfPoolLeaderboard = () => {
       }
       entry.position =
         entry.totalScore === previousTotalScore
-          ? `T${currentPosition}`
+          ? `T\u2009${currentPosition}`
           : currentPosition;
       previousTotalScore = entry.totalScore;
     });
