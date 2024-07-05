@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+.hide-scrollbar {
+  /* For WebKit-based browsers (Chrome, Safari, Opera) */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For Internet Explorer and Edge */
+  -ms-overflow-style: none;
+
+  /* For Firefox */
+  scrollbar-width: none;
+}

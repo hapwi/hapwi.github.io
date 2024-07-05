@@ -9,6 +9,7 @@ import Header from "./Header";
 import AddToHomeScreenPrompt from "./AddToHomeScreenPrompt";
 import ScrollToTop from "./ScrollToTop";
 import { ThemeProvider, ThemeContext } from "./themeContext";
+import "./App.css"; // Import the CSS file here
 
 // Create a client
 const queryClient = new QueryClient();
@@ -19,11 +20,11 @@ function AppContent() {
   return (
     <Router>
       <div
-        className={`App min-h-screen flex flex-col ${theme.background} ${theme.text}`}
+        className={`App min-h-screen flex flex-col ${theme.background} ${theme.text} hide-scrollbar`}
       >
         <Header />
         <ScrollToTop />
-        <main className="flex-grow pt-28 pb-20 px-4">
+        <main className="flex-grow pt-28 pb-20 px-4 hide-scrollbar">
           <div className="max-w-2xl mx-auto">
             <Routes>
               <Route path="/" element={<GolfPoolLeaderboard />} />
