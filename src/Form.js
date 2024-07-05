@@ -97,13 +97,13 @@ const RulesSection = () => {
             </p>
             <ul className="list-disc pl-5">
               <li>
-                <strong>1st place:</strong> Receives remaining prize pool
+                <strong>3rd place:</strong> Receives their entry fee back
               </li>
               <li>
                 <strong>2nd place:</strong> Receives double their entry fee
               </li>
               <li>
-                <strong>3rd place:</strong> Receives their entry fee back
+                <strong>1st place:</strong> Receives remaining prize pool
               </li>
             </ul>
           </div>
