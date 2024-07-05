@@ -68,197 +68,118 @@ const Autocomplete = ({ options, value, onChange, error }) => {
   );
 };
 
-const RulesSection = () => {
+const RuleItem = ({ icon, title, children }) => {
   const theme = useContext(ThemeContext);
   return (
-    <section
-      className={`${theme.cardBackground} shadow-xl rounded-lg p-6 space-y-6`}
-    >
+    <div className="flex items-start space-x-4 p-4 bg-opacity-50 rounded-lg hover:bg-opacity-75 transition-all duration-300">
+      <FontAwesomeIcon
+        icon={icon}
+        className={`${theme.rulesIcon} mt-1 text-2xl`}
+      />
+      <div className="text-left flex-1">
+        <h3 className="text-lg font-bold mb-2">{title}</h3>
+        {children}
+      </div>
+    </div>
+  );
+};
+
+const RulesSection = () => {
+  const theme = useContext(ThemeContext);
+
+  return (
+    <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
       <div className={`space-y-6 ${theme.text} leading-relaxed`}>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faDollarSign}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              <strong>$25 entry fee.</strong>
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faDollarSign}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              <strong>Top 3 winners will receive payouts:</strong>
-            </p>
-            <ul className="list-disc pl-5">
-              <li>
-                <strong>3rd place:</strong> Receives their entry fee back
-              </li>
-              <li>
-                <strong>2nd place:</strong> Receives double their entry fee
-              </li>
-              <li>
-                <strong>1st place:</strong> Receives remaining prize pool
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faCalendarAlt}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              <strong>
-                Winner will be paid on the Wednesday after the tournament by 3
-                PM EST.
-              </strong>
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faGolfBall}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              <strong>Pick 6 golfers</strong> competing in the tournament. Your
-              top 5 golfers will count. That means your worst golfer's score at
-              the end of Sunday will be dropped.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faExclamationTriangle}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              You are allowed to only take{" "}
-              <strong>2 golfers in the Vegas Top 10 odds</strong> favorites to
-              win the tournament (LIST BELOW).
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faListOl}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              The pool runs similar to the game of golf. Your{" "}
-              <strong>6 golfer's scores</strong> after their rounds will be
-              added up. The lower the better.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faExclamationCircle}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              If one of your selected golfers{" "}
-              <strong>does not make the cut</strong>, he will be scored an 80 on
-              Saturday and Sunday.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faExclamationCircle}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              If one of your selected golfers <strong>withdraws</strong>, he
-              will be scored an 80 for all four rounds.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faExclamationCircle}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              If one of your selected golfers <strong>is disqualified</strong>,
-              he will be scored an 80 for all four rounds.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faGolfBall}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              Along with your golfers I will need a <strong>tie breaker</strong>
-              . The tie breaker is your prediction of what the champion's final
-              score to par will be. Example: Scottie Scheffler won last year's
-              Masters shooting -10, meaning a -10 on the total tournament would
-              have been the right tie breaker.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faClock}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              <strong>Leaderboard</strong> will update automatically.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faClock}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              Submissions will be accepted all the way up to the first tee time
-              on Thursday which is typically at 8:00 am.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start space-x-4">
-          <FontAwesomeIcon
-            icon={faUsers}
-            className={`${theme.rulesIcon} mt-1`}
-          />
-          <div className="text-left">
-            <p className="text-lg">
-              Feel free to forward to friends or family that may be interested!
-            </p>
-          </div>
-        </div>
-        {/* <div className="items-center space-x-4 bg-emerald-100 p-4 rounded-lg"> */}
+        <RuleItem icon={faDollarSign} title="Entry Fee and Payouts">
+          <p>
+            <strong>$25 entry fee</strong>
+          </p>
+          <p className="mt-2">
+            <strong>Top 3 winners will receive payouts:</strong>
+          </p>
+          <ul className="list-disc pl-5 mt-1">
+            <li>
+              <strong>3rd place:</strong> Receives their entry fee back
+            </li>
+            <li>
+              <strong>2nd place:</strong> Receives double their entry fee
+            </li>
+            <li>
+              <strong>1st place:</strong> Receives remaining prize pool
+            </li>
+          </ul>
+        </RuleItem>
+
+        <RuleItem icon={faGolfBall} title="Golfer Selection">
+          <p>
+            Pick 6 golfers competing in the tournament. Your top 5 golfers will
+            count. The worst golfer's score at the end of Sunday will be
+            dropped.
+          </p>
+          <p className="mt-2">
+            You are allowed to take only{" "}
+            <strong>2 golfers from the Vegas Top 10 odds</strong> favorites to
+            win the tournament.
+          </p>
+        </RuleItem>
+
+        <RuleItem icon={faListOl} title="Scoring">
+          <p>
+            The pool runs similar to the game of golf. Your 6 golfer's scores
+            after their rounds will be added up. The lower the better.
+          </p>
+        </RuleItem>
+
+        <RuleItem icon={faExclamationCircle} title="Special Circumstances">
+          <ul className="list-disc pl-5">
+            <li>
+              If a golfer <strong>does not make the cut</strong>, they will be
+              scored an 80 on Saturday and Sunday.
+            </li>
+            <li>
+              If a golfer <strong>withdraws</strong>, they will be scored an 80
+              for all four rounds.
+            </li>
+            <li>
+              If a golfer <strong>is disqualified</strong>, they will be scored
+              an 80 for all four rounds.
+            </li>
+          </ul>
+        </RuleItem>
+
+        <RuleItem icon={faGolfBall} title="Tie Breaker">
+          <p>
+            Predict the champion's final score to par. Example: If the winner
+            shoots -10 for the tournament, -10 would be the correct tie breaker.
+          </p>
+        </RuleItem>
+
+        <RuleItem icon={faClock} title="Important Times">
+          <p>
+            <strong>Submissions deadline:</strong> First tee time on Thursday
+            (typically 8:00 AM)
+          </p>
+          <p>
+            <strong>Payout time:</strong> Wednesday after the tournament by 3 PM
+            EST
+          </p>
+        </RuleItem>
+
+        <RuleItem icon={faUsers} title="Invite Others">
+          <p>
+            Feel free to forward to friends or family that may be interested!
+          </p>
+        </RuleItem>
+
         <div className="flex justify-center w-full my-4">
           <VenmoPaymentInfo />
         </div>
-        {/* </div> */}
-        <div className="flex items-center space-x-4 bg-red-100 p-4 rounded-lg">
-          <div className="text-center">
-            <p className="text-lg text-red-900 font-semibold">
-              IF PAYMENT IS NOT RECEIVED BY FIRST TEE TIME YOU WILL BE
-              DISQUALIFIED
-            </p>
-          </div>
+
+        <div className="bg-red-100 p-4 rounded-lg text-center">
+          <p className="text-lg text-red-900 font-semibold">
+            IF PAYMENT IS NOT RECEIVED BY FIRST TEE TIME YOU WILL BE
+            DISQUALIFIED
+          </p>
         </div>
       </div>
     </section>
@@ -274,7 +195,7 @@ const VegasTop10Section = ({ topGolfers }) => {
       >
         Vegas Top 10
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
         {topGolfers.map((golfer) => (
           <div
             key={golfer.name}
