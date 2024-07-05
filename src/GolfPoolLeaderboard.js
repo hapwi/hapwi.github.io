@@ -144,7 +144,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
           <div
             className={`col-span-1 font-bold text-lg sm:text-xl text-center ${theme.headerText}`}
           >
-            {index + 1}
+            {index}
           </div>
           <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2 flex items-center">
             <span className={`${theme.text} text-sm sm:text-base`}>
@@ -273,9 +273,26 @@ const GolfPoolLeaderboard = () => {
       };
     });
 
-    console.log("Formatted Data:", formattedData);
+    // Sort by total score
+    const sortedData = formattedData.sort(customSortTotalScore);
 
-    return formattedData.sort(customSortTotalScore);
+    // Assign positions with handling ties
+    let currentPosition = 1;
+    let previousTotalScore = sortedData[0]?.totalScore || "-";
+    sortedData.forEach((entry, index) => {
+      if (entry.totalScore !== previousTotalScore) {
+        currentPosition = index + 1;
+      }
+      entry.position =
+        entry.totalScore === previousTotalScore
+          ? `T${currentPosition}`
+          : currentPosition;
+      previousTotalScore = entry.totalScore;
+    });
+
+    console.log("Formatted Data with Positions:", sortedData);
+
+    return sortedData;
   }, []);
 
   const {
@@ -327,7 +344,7 @@ const GolfPoolLeaderboard = () => {
             <LeaderboardRow
               key={entry.id}
               entry={entry}
-              index={index}
+              index={entry.position}
               expandedIds={expandedIds}
               setExpandedIds={setExpandedIds}
             />
