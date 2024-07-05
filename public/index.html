@@ -22,14 +22,27 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
         font-family: 'Montserrat', sans-serif;
       }
 
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      ::-webkit-scrollbar {
-        display: none;
+      /* Styling scrollbars for better accessibility */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(155, 155, 155, 0.0) transparent;
+      }
+
+      *::-webkit-scrollbar {
+        width: 1px;
+      }
+
+      *::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      *::-webkit-scrollbar-thumb {
+        background-color: rgba(155, 155, 155, 0.0);
+        border-radius: 20px;
+        border: transparent;
       }
 
       body {
@@ -38,7 +51,6 @@
         padding-left: env(safe-area-inset-left);
         padding-right: env(safe-area-inset-right);
         background-color: #1f2937; /* This will be updated dynamically */
-        font-family: Arial, sans-serif;
       }
 
       header {
