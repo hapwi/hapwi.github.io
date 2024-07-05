@@ -7,7 +7,7 @@ import { ThemeContext } from "./themeContext"; // Import ThemeContext
 const API_KEY = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
 const LEADERBOARD_SHEET_ID = "1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo";
 const ENTRIES_SHEET_ID = "1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg";
-const UNLOCK_DATE = new Date("06/13/2024 3:45 AM EST");
+const UNLOCK_DATE = new Date("06/13/2024 1:45 AM");
 
 // Utility functions
 const fetchGoogleSheetsData = async (spreadsheetId, range) => {
@@ -203,7 +203,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
         <PopupMessage
           message={`This feature will be available on ${format(
             UNLOCK_DATE,
-            "MMMM d, yyyy 'at' h:mm a zzz"
+            "MMMM d, yyyy 'at' h:mm a 'EST'"
           )}.`}
           onClose={() => setShowPopup(false)}
         />

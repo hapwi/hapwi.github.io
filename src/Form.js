@@ -14,6 +14,7 @@ import {
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "./themeContext";
+import VenmoPaymentInfo from "./VenmoPaymentInfo";
 
 const Autocomplete = ({ options, value, onChange, error }) => {
   const theme = useContext(ThemeContext);
@@ -81,8 +82,24 @@ const RulesSection = () => {
           />
           <div className="text-left">
             <p className="text-lg">
-              <strong>$25 entry fee.</strong> WINNER TAKE ALL
+              <strong>$25 entry fee.</strong>
             </p>
+          </div>
+        </div>
+        <div className="flex items-start space-x-4">
+          <FontAwesomeIcon
+            icon={faDollarSign}
+            className={`${theme.rulesIcon} mt-1`}
+          />
+          <div className="text-left">
+            <p className="text-lg">
+              <strong>Top 3 winners will receive payouts:</strong>
+            </p>
+            <ul className="list-disc pl-5">
+              <li>1st place: Receives remaining prize pool</li>
+              <li>2nd place: Receives double their entry fee</li>
+              <li>3rd place: Receives their entry fee back</li>
+            </ul>
           </div>
         </div>
         <div className="flex items-start space-x-4">
@@ -93,8 +110,8 @@ const RulesSection = () => {
           <div className="text-left">
             <p className="text-lg">
               <strong>
-                Winner will be paid on the Monday after the tournament by 3 PM
-                EST.
+                Winner will be paid on the Wednesday after the tournament by 3
+                PM EST.
               </strong>
             </p>
           </div>
@@ -224,14 +241,11 @@ const RulesSection = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-center space-x-4 bg-emerald-100 p-4 rounded-lg">
-          <div className="text-center">
-            <p className="text-lg text-emerald-900">
-              <strong>Venmo</strong> is the preferred payment method (@pblang).
-              Easy collect, easy send off.
-            </p>
-          </div>
+        {/* <div className="items-center space-x-4 bg-emerald-100 p-4 rounded-lg"> */}
+        <div className="flex justify-center w-full my-4">
+          <VenmoPaymentInfo />
         </div>
+        {/* </div> */}
         <div className="flex items-center space-x-4 bg-red-100 p-4 rounded-lg">
           <div className="text-center">
             <p className="text-lg text-red-900 font-semibold">
