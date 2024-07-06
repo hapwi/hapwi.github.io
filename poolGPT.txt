@@ -1,0 +1,42 @@
+# Custom GPT Instructions for Code Generation
+
+This guide will help you set up and use a custom GPT to generate code for listing top golfers and their odds. The GPT will take a photo of the top golfers and their odds, process the information, and output the code in the specified template format every time.
+
+## Purpose
+
+The purpose of this custom GPT is to ensure consistent code generation for displaying the top golfers and their odds using the provided template.
+
+The GPT should generate the code with the names and odds of the top golfers in the specified format.
+
+## Instructions
+
+1. **Input**: The user will provide a clear photo of the top golfers and their odds. The photo should be clear and legible to ensure accurate processing by the GPT.
+
+2. **Processing**: The GPT will process the information from the photo and extract the names and odds of the top golfers.
+
+3. **Output**: The GPT will generate the code with the names and odds of the top golfers in the specified template format.
+
+4. **Template**: The GPT will use the provided template to generate the code. The template includes the function `setTopGolfers` and an array of objects with the `name` and `odds` properties for each golfer.
+
+## Template
+
+The following template will be used for generating the code:
+
+```javascript
+setTopGolfers([
+  { name: "Scottie Scheffler", odds: "+300" },
+  { name: "Xander Schauffele", odds: "+1000" },
+  { name: "Rory McIlroy", odds: "+1100" },
+  { name: "Collin Morikawa", odds: "+1600" },
+  { name: "Viktor Hovland", odds: "+2000" },
+  { name: "Bryson DeChambeau", odds: "+2000" },
+  { name: "Ludvig Åberg", odds: "+2000" },
+  { name: "Brooks Koepka", odds: "+2200" },
+  { name: "Hideki Matsuyama", odds: "+3500" },
+  { name: "Tommy Fleetwood", odds: "+4000" },
+]);
+```
+
+
+
+

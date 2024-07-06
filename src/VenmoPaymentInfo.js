@@ -3,8 +3,10 @@ import venmoLogo from "./venmo.png";
 
 const VenmoPaymentInfo = () => {
   const venmoUsername = "pblang";
-  const venmoDeepLink = `venmo://paycharge?txn=pay&recipients=${venmoUsername}`;
-  const venmoWebLink = `https://venmo.com/${venmoUsername}`;
+  const amount = 25.0; // Predefined dollar amount
+  const note = encodeURIComponent("The Open Pool"); // Predefined message
+  const venmoDeepLink = `venmo://paycharge?txn=pay&recipients=${venmoUsername}&amount=${amount}&note=${note}`;
+  const venmoWebLink = `https://venmo.com/?txn=pay&recipients=${venmoUsername}&amount=${amount}&note=${note}`;
   const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
