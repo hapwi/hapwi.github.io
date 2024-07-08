@@ -5,9 +5,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
-  faCalendarAlt,
   faGolfBall,
-  faExclamationTriangle,
   faListOl,
   faExclamationCircle,
   faClock,
@@ -88,7 +86,7 @@ const RulesSection = () => {
   const theme = useContext(ThemeContext);
 
   return (
-    <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
+    <section className={`${theme.cardBackground} rounded-lg p-6`}>
       <div className={`space-y-6 ${theme.text} leading-relaxed`}>
         <RuleItem icon={faDollarSign} title="Entry Fee and Payouts">
           <p>
@@ -189,7 +187,7 @@ const RulesSection = () => {
 const VegasTop10Section = ({ topGolfers }) => {
   const theme = useContext(ThemeContext);
   return (
-    <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
+    <section className={`${theme.cardBackground} rounded-lg p-6`}>
       <h2
         className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerTextForm}`}
       >
@@ -555,48 +553,48 @@ const Form = () => {
     }
   };
 
-   const handleCancelEdit = () => {
-     Swal.fire({
-       title: "Are you sure?",
-       text: "You will lose all the changes you've made.",
-       icon: "warning",
-       showCancelButton: true,
-       confirmButtonColor: "#d33",
-       cancelButtonColor: "#3085d6",
-       confirmButtonText: "Yes, discard changes",
-       cancelButtonText: "No, keep editing",
-       reverseButtons: true,
-       allowOutsideClick: false,
-     }).then((result) => {
-       if (result.isConfirmed) {
-         // User confirmed, proceed with cancellation
-         reset({
-           email: "",
-           venmo: "",
-           name: "",
-           golfer1: "",
-           golfer2: "",
-           golfer3: "",
-           golfer4: "",
-           golfer5: "",
-           golfer6: "",
-           tiebreaker: "",
-         });
-         clearErrors();
-         setIsEditing(false);
-         setUniqueId("");
+  const handleCancelEdit = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will lose all the changes you've made.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, discard changes",
+      cancelButtonText: "No, keep editing",
+      reverseButtons: true,
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // User confirmed, proceed with cancellation
+        reset({
+          email: "",
+          venmo: "",
+          name: "",
+          golfer1: "",
+          golfer2: "",
+          golfer3: "",
+          golfer4: "",
+          golfer5: "",
+          golfer6: "",
+          tiebreaker: "",
+        });
+        clearErrors();
+        setIsEditing(false);
+        setUniqueId("");
 
-         //  Swal.fire({
-         //    title: "Editing Cancelled",
-         //    text: "Your changes have been discarded. You can start a new submission or edit your picks using your golferID.",
-         //    icon: "info",
-         //    confirmButtonText: "OK",
-         //    allowOutsideClick: false,
-         //  });
-       }
-       // If not confirmed, do nothing and let the user continue editing
-     });
-   };
+        //  Swal.fire({
+        //    title: "Editing Cancelled",
+        //    text: "Your changes have been discarded. You can start a new submission or edit your picks using your golferID.",
+        //    icon: "info",
+        //    confirmButtonText: "OK",
+        //    allowOutsideClick: false,
+        //  });
+      }
+      // If not confirmed, do nothing and let the user continue editing
+    });
+  };
 
   if (isSubmissionClosed) {
     return (
@@ -612,7 +610,7 @@ const Form = () => {
     <div className="max-w-4xl mx-auto px-4 space-y-12">
       <RulesSection />
       <VegasTop10Section topGolfers={topGolfers} />
-      <section className={`${theme.cardBackground} shadow-xl rounded-lg p-6`}>
+      <section className={`${theme.cardBackground} rounded-lg p-6`}>
         {/* UPDATED: Centered title and repositioned Edit Picks button */}
         <div className="flex flex-col items-center mb-6">
           <h2

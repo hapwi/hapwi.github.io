@@ -72,9 +72,9 @@ const Players = () => {
 
   return (
     <div className={`min-h-screen ${theme.background} ${theme.text}`}>
-      <div className="max-w-2xl mx-auto px-4 pb-28">
+      <div className="max-w-4xl mx-auto px-4 pb-28">
         <div
-          className={`${theme.cardBackground} shadow-xl rounded-lg overflow-hidden border ${theme.cardBorder}`}
+          className={`${theme.cardBackground} rounded-lg overflow-hidden border ${theme.cardBorder}`}
         >
           <div>
             {players.map((player, index) => (

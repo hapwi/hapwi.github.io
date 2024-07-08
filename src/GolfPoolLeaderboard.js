@@ -142,12 +142,12 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
           onClick={handleRowClick}
         >
           <div
-            className={`col-span-1 font-bold text-lg sm:text-xl text-center ${theme.headerText}`}
+            className={`col-span-1 font-bold text-sm sm:text-sm text-center ${theme.headerText}`}
           >
             {index}
           </div>
           <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2 flex items-center">
-            <span className={`${theme.text} text-sm sm:text-base`}>
+            <span className={`${theme.text} text-lg sm:text-xl`}>
               {entry.user}
             </span>
             {renderChangeIndicator()}
@@ -326,9 +326,9 @@ const GolfPoolLeaderboard = () => {
 
   return (
     <div className={`min-h-screen ${theme.background} ${theme.text}`}>
-      <div className="max-w-2xl mx-auto px-4 pb-28">
+      <div className="max-w-4xl mx-auto px-4 pb-28">
         <div
-          className={`${theme.cardBackground} shadow-xl rounded-lg overflow-hidden border ${theme.cardBorder}`}
+          className={`${theme.cardBackground} rounded-lg overflow-hidden border ${theme.cardBorder}`}
         >
           <div
             className={`grid grid-cols-12 items-center py-2 px-2 sm:px-4 ${theme.headerBackground} ${theme.headerText} font-semibold text-xs uppercase tracking-wider`}
