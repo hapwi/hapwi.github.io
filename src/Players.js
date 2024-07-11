@@ -2,13 +2,21 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "./themeContext";
 
-const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
-const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
+const fetchKeys = async () => {
+  const response = await fetch("https://servergolfpoolapi.vercel.app/api-keys");
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error("Failed to fetch API keys");
+  }
+  return data;
+};
 
 const fetchPlayers = async () => {
   try {
+    const { apiKey, playersSheetId } = await fetchKeys();
+
     const response = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A1:B200?key=${apiKey}`
+      `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/Sheet1!A1:B200?key=${apiKey}`
     );
     const data = await response.json();
 
@@ -36,6 +44,7 @@ const fetchPlayers = async () => {
     throw error;
   }
 };
+
 
 const Players = () => {
   const theme = useContext(ThemeContext);

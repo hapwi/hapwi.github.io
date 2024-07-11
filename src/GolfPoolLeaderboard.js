@@ -4,20 +4,27 @@ import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "./themeContext"; // Import ThemeContext
 
 // Constants
-const API_KEY = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
-const LEADERBOARD_SHEET_ID = "1iTNStqnadp4ZyR7MRkSmvX5WeialS4WST6Yy-Qv8Reo";
-const ENTRIES_SHEET_ID = "1_bP0NUG6XqrF0XQvKXNm3b07QuHABfvWotsemGToyYg";
 const UNLOCK_DATE = new Date("06/13/2024 1:45 AM");
 
-// Utility functions
+const fetchKeys = async () => {
+  const response = await fetch("https://servergolfpoolapi.vercel.app/api-keys");
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error("Failed to fetch API keys");
+  }
+  return data;
+};
+
 const fetchGoogleSheetsData = async (spreadsheetId, range) => {
+  const { apiKey } = await fetchKeys();
   const response = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${API_KEY}`
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
   );
   const data = await response.json();
   if (data.error) throw new Error(data.error.message);
   return data.values;
 };
+
 
 const displayScore = (score) => {
   if (score === "#VALUE!" || score === 0 || score === "0") return "E";
@@ -217,16 +224,18 @@ const GolfPoolLeaderboard = () => {
   const [expandedIds, setExpandedIds] = useState([]);
 
   const fetchLeaderboardData = useCallback(async () => {
+    const { entriesSheetId, leaderboardSheetId } = await fetchKeys();
+
     const [
       entriesData,
       picksScoresData,
       leaderboardTotalScores,
       changeTrackerData,
     ] = await Promise.all([
-      fetchGoogleSheetsData(ENTRIES_SHEET_ID, "Sheet1!A1:K"),
-      fetchGoogleSheetsData(ENTRIES_SHEET_ID, "PicksScores!A2:B1000"),
-      fetchGoogleSheetsData(LEADERBOARD_SHEET_ID, "CurrentLeaderboard!A1:Z"),
-      fetchGoogleSheetsData(LEADERBOARD_SHEET_ID, "ChangeTracker!A1:D1000"),
+      fetchGoogleSheetsData(entriesSheetId, "Sheet1!A1:K"),
+      fetchGoogleSheetsData(entriesSheetId, "PicksScores!A2:B1000"),
+      fetchGoogleSheetsData(leaderboardSheetId, "CurrentLeaderboard!A1:Z"),
+      fetchGoogleSheetsData(leaderboardSheetId, "ChangeTracker!A1:D1000"),
     ]);
 
     const scoresMap = new Map(picksScoresData);
