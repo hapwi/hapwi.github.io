@@ -228,7 +228,7 @@ const Form = () => {
 
   const fetchKeys = async () => {
     const response = await fetch(
-      "https://api-key-server-ten.vercel.app/api-keys"
+      "https://servergolfpoolapi.vercel.app/api-keys"
     );
     const data = await response.json();
     if (!response.ok) {

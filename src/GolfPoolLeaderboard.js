@@ -7,9 +7,7 @@ import { ThemeContext } from "./themeContext"; // Import ThemeContext
 const UNLOCK_DATE = new Date("06/13/2024 1:45 AM");
 
 const fetchKeys = async () => {
-  const response = await fetch(
-    "https://api-key-server-ten.vercel.app/api-keys"
-  );
+  const response = await fetch("https://servergolfpoolapi.vercel.app/api-keys");
   const data = await response.json();
   if (!response.ok) {
     throw new Error("Failed to fetch API keys");

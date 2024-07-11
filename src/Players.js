@@ -3,9 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "./themeContext";
 
 const fetchKeys = async () => {
-  const response = await fetch(
-    "https://api-key-server-ten.vercel.app/api-keys"
-  );
+  const response = await fetch("https://servergolfpoolapi.vercel.app/api-keys");
   const data = await response.json();
   if (!response.ok) {
     throw new Error("Failed to fetch API keys");
