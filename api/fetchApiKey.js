@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 module.exports = async (req, res) => {
   const apiKey = process.env.API_KEY;
-  const spreadsheetId = process.env.LEADERBOARD_SHEET_ID;
+  const spreadsheetId = process.env.PLAYERS_SHEET_ID;
 
   try {
     const response = await fetch(
