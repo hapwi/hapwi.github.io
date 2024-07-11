@@ -226,16 +226,36 @@ const Form = () => {
     clearErrors,
   } = useForm();
 
-  useEffect(() => {
-    const fetchGolfers = async () => {
-      const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
-      const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
+  const fetchKeys = async () => {
+    const response = await fetch(
+      "https://api-key-server-ten.vercel.app/api-keys"
+    );
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error("Failed to fetch API keys");
+    }
+    return data;
+  };
+
+  const fetchGolfers = useCallback(async () => {
+    try {
+      const { apiKey, playersSheetId } = await fetchKeys();
       const range = "Sheet1!A:A";
+      const response = await axios.get(
+        `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/${range}?key=${apiKey}`
+      );
+      const golfers = response.data.values.flat();
+      return golfers;
+    } catch (error) {
+      console.error("Error fetching golfers:", error);
+      throw error;
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchAndSetGolfers = async () => {
       try {
-        const response = await axios.get(
-          `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
-        );
-        const golfers = response.data.values.flat();
+        const golfers = await fetchGolfers();
         setAvailableGolfers(golfers);
         setTopGolfers([
           { name: "Scottie Scheffler", odds: "+300" },
@@ -250,15 +270,17 @@ const Form = () => {
           { name: "Tommy Fleetwood", odds: "+4000" },
         ]);
       } catch (error) {
-        console.error("Error fetching golfers:", error);
+        console.error("Error setting golfers:", error);
       }
     };
 
-    fetchGolfers();
+    fetchAndSetGolfers();
 
     const deadline = new Date("07/13/24 03:45 AM MST");
     setIsSubmissionClosed(new Date() > deadline);
-  }, []);
+  }, [fetchGolfers]);
+
+
 
   const validateGolfers = useCallback(
     (golfers) => {
