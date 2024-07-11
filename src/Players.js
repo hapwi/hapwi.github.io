@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "./themeContext";
 
-const apiKey = "AIzaSyCTIOtXB0RDa5Y5gubbRn328WIrqHwemrc";
-const spreadsheetId = "1zCKMy2jgG9QoIhxFqRviDm4oxEFK_ixv_tN66GmCXTc";
-
 const fetchPlayers = async () => {
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const spreadsheetId = process.env.REACT_APP_LEADERBOARD_SHEET_ID;
+
   try {
     const response = await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A1:B200?key=${apiKey}`
