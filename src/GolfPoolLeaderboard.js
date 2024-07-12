@@ -25,31 +25,9 @@ const fetchGoogleSheetsData = async (spreadsheetId, range) => {
   return data.values;
 };
 
-
 const displayScore = (score) => {
   if (score === "#VALUE!" || score === 0 || score === "0") return "E";
   return score;
-};
-
-const customSortScore = (a, b) => {
-  const scoreOrder = { "-": Infinity, CUT: 1000, WD: 1001, DQ: 1002, E: 0 };
-  const getNumericScore = (score) => {
-    if (score in scoreOrder) return scoreOrder[score];
-    if (score === "" || score === "E") return 0;
-    return parseInt(score);
-  };
-  return getNumericScore(a.score) - getNumericScore(b.score);
-};
-
-const customSortTotalScore = (a, b) => {
-  const getNumericTotalScore = (score) => {
-    if (score === "-") return Infinity;
-    if (score === "E") return 0;
-    return parseInt(score);
-  };
-  return (
-    getNumericTotalScore(a.totalScore) - getNumericTotalScore(b.totalScore)
-  );
 };
 
 // Components
@@ -223,6 +201,27 @@ const GolfPoolLeaderboard = () => {
   const theme = useContext(ThemeContext);
   const [expandedIds, setExpandedIds] = useState([]);
 
+  const customSortScore = useCallback((a, b) => {
+    const scoreOrder = { "-": Infinity, CUT: 1000, WD: 1001, DQ: 1002, E: 0 };
+    const getNumericScore = (score) => {
+      if (score in scoreOrder) return scoreOrder[score];
+      if (score === "" || score === "E") return 0;
+      return parseInt(score);
+    };
+    return getNumericScore(a.score) - getNumericScore(b.score);
+  }, []);
+
+  const customSortTotalScore = useCallback((a, b) => {
+    const getNumericTotalScore = (score) => {
+      if (score === "-") return Infinity;
+      if (score === "E") return 0;
+      return parseInt(score);
+    };
+    return (
+      getNumericTotalScore(a.totalScore) - getNumericTotalScore(b.totalScore)
+    );
+  }, []);
+
   const fetchLeaderboardData = useCallback(async () => {
     const { entriesSheetId, leaderboardSheetId } = await fetchKeys();
 
@@ -253,9 +252,6 @@ const GolfPoolLeaderboard = () => {
         }
       })
     );
-
-    console.log("Change Tracker Data:", changeTrackerData);
-    console.log("Change Map:", changeMap);
 
     const [, ...rows] = entriesData;
 
@@ -288,21 +284,22 @@ const GolfPoolLeaderboard = () => {
     // Assign positions with handling ties
     let currentPosition = 1;
     let previousTotalScore = sortedData[0]?.totalScore || "-";
+    let tieCounter = 0;
+
     sortedData.forEach((entry, index) => {
       if (entry.totalScore !== previousTotalScore) {
         currentPosition = index + 1;
+        tieCounter = 0;
+      } else {
+        tieCounter += 1;
       }
       entry.position =
-        entry.totalScore === previousTotalScore
-          ? `T\u2009${currentPosition}`
-          : currentPosition;
+        tieCounter > 0 ? `T${currentPosition}` : `${currentPosition}`;
       previousTotalScore = entry.totalScore;
     });
 
-    console.log("Formatted Data with Positions:", sortedData);
-
     return sortedData;
-  }, []);
+  }, [customSortScore, customSortTotalScore]);
 
   const {
     data: leaderboardData,

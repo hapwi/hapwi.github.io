@@ -92,7 +92,7 @@ const Players = () => {
                 className={`grid grid-cols-12 items-center py-3 px-4 border-b-[1px] ${theme.cardBorder}`}
               >
                 <div className="col-span-9 sm:col-span-10 flex items-center font-medium">
-                  <div className="h-8 w-8 rounded-full overflow-hidden mr-3">
+                  <div className="h-12 w-12 rounded-full overflow-hidden mr-3">
                     <img
                       className="h-full w-full object-cover"
                       src={player.imageUrl}
