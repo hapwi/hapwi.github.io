@@ -16,7 +16,7 @@ const fetchPlayers = async () => {
     const { apiKey, playersSheetId } = await fetchKeys();
 
     const response = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/Sheet1!A1:B200?key=${apiKey}`
+      `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/Sheet1!A1:C200?key=${apiKey}`
     );
     const data = await response.json();
 
@@ -29,10 +29,11 @@ const fetchPlayers = async () => {
 
     const players = data.values
       .slice(1)
-      .filter((row) => row[0] && row[1])
-      .map(([name, score]) => ({
+      .filter((row) => row[0] && row[1] && row[2])
+      .map(([name, score, imageUrl]) => ({
         name,
         score: score === "#VALUE!" || score === "0" ? "E" : score,
+        imageUrl,
       }));
 
     // Log the processed player data
@@ -44,7 +45,6 @@ const fetchPlayers = async () => {
     throw error;
   }
 };
-
 
 const Players = () => {
   const theme = useContext(ThemeContext);
@@ -91,7 +91,14 @@ const Players = () => {
                 key={index}
                 className={`grid grid-cols-12 items-center py-3 px-4 border-b-[1px] ${theme.cardBorder}`}
               >
-                <div className="col-span-9 sm:col-span-10 font-medium">
+                <div className="col-span-9 sm:col-span-10 flex items-center font-medium">
+                  <div className="h-8 w-8 rounded-full overflow-hidden mr-3">
+                    <img
+                      className="h-full w-full object-cover"
+                      src={player.imageUrl}
+                      alt={`${player.name}'s avatar`}
+                    />
+                  </div>
                   <span className={`${theme.text} text-sm sm:text-base`}>
                     {player.name}
                   </span>

@@ -86,7 +86,9 @@ const RulesSection = () => {
   const theme = useContext(ThemeContext);
 
   return (
-    <section className={`${theme.cardBackground} rounded-lg p-6`}>
+    <section
+      className={`${theme.cardBackground} border ${theme.cardBorder} rounded-lg p-6`}
+    >
       <div className={`space-y-6 ${theme.text} leading-relaxed`}>
         <RuleItem icon={faDollarSign} title="Entry Fee and Payouts">
           <p>
@@ -187,7 +189,9 @@ const RulesSection = () => {
 const VegasTop10Section = ({ topGolfers }) => {
   const theme = useContext(ThemeContext);
   return (
-    <section className={`${theme.cardBackground} rounded-lg p-6`}>
+    <section
+      className={`${theme.cardBackground} border ${theme.cardBorder} rounded-lg p-6`}
+    >
       <h2
         className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerTextForm}`}
       >
@@ -279,8 +283,6 @@ const Form = () => {
     const deadline = new Date("07/13/24 03:45 AM MST");
     setIsSubmissionClosed(new Date() > deadline);
   }, [fetchGolfers]);
-
-
 
   const validateGolfers = useCallback(
     (golfers) => {
@@ -632,7 +634,9 @@ const Form = () => {
     <div className="max-w-4xl mx-auto px-4 space-y-12">
       <RulesSection />
       <VegasTop10Section topGolfers={topGolfers} />
-      <section className={`${theme.cardBackground} rounded-lg p-6`}>
+      <section
+        className={`${theme.cardBackground} border ${theme.cardBorder} rounded-lg p-6`}
+      >
         {/* UPDATED: Centered title and repositioned Edit Picks button */}
         <div className="flex flex-col items-center mb-6">
           <h2
