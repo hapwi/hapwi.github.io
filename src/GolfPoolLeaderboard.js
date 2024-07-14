@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useContext } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "./themeContext"; // Import ThemeContext
@@ -6,23 +6,15 @@ import { ThemeContext } from "./themeContext"; // Import ThemeContext
 // Constants
 const UNLOCK_DATE = new Date("06/13/2024 1:45 AM");
 
-const fetchKeys = async () => {
-  const response = await fetch("https://servergolfpoolapi.vercel.app/api-keys");
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error("Failed to fetch API keys");
-  }
-  return data;
-};
-
-const fetchGoogleSheetsData = async (spreadsheetId, range) => {
-  const { apiKey } = await fetchKeys();
+const fetchLeaderboardData = async () => {
   const response = await fetch(
-    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`
+    "https://servergolfpoolapi.vercel.app/leaderboard-data"
   );
   const data = await response.json();
-  if (data.error) throw new Error(data.error.message);
-  return data.values;
+  if (!response.ok) {
+    throw new Error("Failed to fetch leaderboard data");
+  }
+  return data;
 };
 
 const displayScore = (score) => {
@@ -129,7 +121,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
           <div
             className={`col-span-1 font-bold text-sm sm:text-sm text-center ${theme.headerText}`}
           >
-            {index}
+            {entry.position}
           </div>
           <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2 flex items-center">
             <span className={`${theme.text} text-lg sm:text-xl`}>
@@ -200,106 +192,6 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
 const GolfPoolLeaderboard = () => {
   const theme = useContext(ThemeContext);
   const [expandedIds, setExpandedIds] = useState([]);
-
-  const customSortScore = useCallback((a, b) => {
-    const scoreOrder = { "-": Infinity, CUT: 1000, WD: 1001, DQ: 1002, E: 0 };
-    const getNumericScore = (score) => {
-      if (score in scoreOrder) return scoreOrder[score];
-      if (score === "" || score === "E") return 0;
-      return parseInt(score);
-    };
-    return getNumericScore(a.score) - getNumericScore(b.score);
-  }, []);
-
-  const customSortTotalScore = useCallback((a, b) => {
-    const getNumericTotalScore = (score) => {
-      if (score === "-") return Infinity;
-      if (score === "E") return 0;
-      return parseInt(score);
-    };
-    return (
-      getNumericTotalScore(a.totalScore) - getNumericTotalScore(b.totalScore)
-    );
-  }, []);
-
-  const fetchLeaderboardData = useCallback(async () => {
-    const { entriesSheetId, leaderboardSheetId } = await fetchKeys();
-
-    const [
-      entriesData,
-      picksScoresData,
-      leaderboardTotalScores,
-      changeTrackerData,
-    ] = await Promise.all([
-      fetchGoogleSheetsData(entriesSheetId, "Sheet1!A1:K"),
-      fetchGoogleSheetsData(entriesSheetId, "PicksScores!A2:B1000"),
-      fetchGoogleSheetsData(leaderboardSheetId, "CurrentLeaderboard!A1:Z"),
-      fetchGoogleSheetsData(leaderboardSheetId, "ChangeTracker!A1:D1000"),
-    ]);
-
-    const scoresMap = new Map(picksScoresData);
-    const totalScoresMap = new Map(
-      leaderboardTotalScores.slice(1).map((row) => [row[0], row[1]])
-    );
-
-    const changeMap = new Map(
-      changeTrackerData.slice(1).map((row) => {
-        const changeValue = row[3];
-        if (typeof changeValue === "string" && changeValue.startsWith("+")) {
-          return [row[0], parseInt(changeValue.substring(1))];
-        } else {
-          return [row[0], parseInt(changeValue) || 0];
-        }
-      })
-    );
-
-    const [, ...rows] = entriesData;
-
-    const formattedData = rows.map((row, index) => {
-      const golfers = row
-        .slice(1, 7)
-        .map((name) => ({
-          name,
-          score: scoresMap.get(name) || "-",
-        }))
-        .sort(customSortScore);
-
-      const playerName = row[0];
-      const totalScore = totalScoresMap.get(playerName) || "-";
-      const change = changeMap.get(playerName) || 0;
-
-      return {
-        id: index + 1,
-        user: playerName,
-        totalScore,
-        change,
-        tiebreaker: row[7],
-        golfers,
-      };
-    });
-
-    // Sort by total score
-    const sortedData = formattedData.sort(customSortTotalScore);
-
-    // Assign positions with handling ties
-    let currentPosition = 1;
-    let previousTotalScore = sortedData[0]?.totalScore || "-";
-    let tieCounter = 0;
-
-    sortedData.forEach((entry, index) => {
-      if (entry.totalScore !== previousTotalScore) {
-        currentPosition = index + 1;
-        tieCounter = 0;
-      } else {
-        tieCounter += 1;
-      }
-      entry.position =
-        tieCounter > 0 ? `T${currentPosition}` : `${currentPosition}`;
-      previousTotalScore = entry.totalScore;
-    });
-
-    return sortedData;
-  }, [customSortScore, customSortTotalScore]);
 
   const {
     data: leaderboardData,

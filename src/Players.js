@@ -2,48 +2,13 @@ import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "./themeContext";
 
-const fetchKeys = async () => {
-  const response = await fetch("https://servergolfpoolapi.vercel.app/api-keys");
+const fetchPlayers = async () => {
+  const response = await fetch("https://servergolfpoolapi.vercel.app/players");
   const data = await response.json();
   if (!response.ok) {
-    throw new Error("Failed to fetch API keys");
+    throw new Error("Failed to fetch players data");
   }
   return data;
-};
-
-const fetchPlayers = async () => {
-  try {
-    const { apiKey, playersSheetId } = await fetchKeys();
-
-    const response = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/Sheet1!A1:C200?key=${apiKey}`
-    );
-    const data = await response.json();
-
-    // Log the raw data for debugging
-    console.log("Raw data from Google Sheets API:", data);
-
-    if (data.error) {
-      throw new Error(data.error.message);
-    }
-
-    const players = data.values
-      .slice(1)
-      .filter((row) => row[0] && row[1] && row[2])
-      .map(([name, score, imageUrl]) => ({
-        name,
-        score: score === "#VALUE!" || score === "0" ? "E" : score,
-        imageUrl,
-      }));
-
-    // Log the processed player data
-    console.log("Processed player data:", players);
-
-    return players;
-  } catch (error) {
-    console.error("Error fetching players:", error);
-    throw error;
-  }
 };
 
 const Players = () => {

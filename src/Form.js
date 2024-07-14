@@ -230,25 +230,12 @@ const Form = () => {
     clearErrors,
   } = useForm();
 
-  const fetchKeys = async () => {
-    const response = await fetch(
-      "https://servergolfpoolapi.vercel.app/api-keys"
-    );
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error("Failed to fetch API keys");
-    }
-    return data;
-  };
-
   const fetchGolfers = useCallback(async () => {
     try {
-      const { apiKey, playersSheetId } = await fetchKeys();
-      const range = "Sheet1!A:A";
       const response = await axios.get(
-        `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/${range}?key=${apiKey}`
+        "https://servergolfpoolapi.vercel.app/golfers"
       );
-      const golfers = response.data.values.flat();
+      const golfers = response.data.map((g) => g.name);
       return golfers;
     } catch (error) {
       console.error("Error fetching golfers:", error);
@@ -280,7 +267,7 @@ const Form = () => {
 
     fetchAndSetGolfers();
 
-    const deadline = new Date("07/13/24 03:45 AM MST");
+    const deadline = new Date("07/26/24 03:45 AM MST");
     setIsSubmissionClosed(new Date() > deadline);
   }, [fetchGolfers]);
 
@@ -802,6 +789,5 @@ const Form = () => {
     </div>
   );
 };
-
 
 export default Form;
