@@ -86,7 +86,9 @@ const RulesSection = () => {
   const theme = useContext(ThemeContext);
 
   return (
-    <section className={`${theme.cardBackground} rounded-lg p-6`}>
+    <section
+      className={`${theme.cardBackground} border ${theme.cardBorder} rounded-lg p-6`}
+    >
       <div className={`space-y-6 ${theme.text} leading-relaxed`}>
         <RuleItem icon={faDollarSign} title="Entry Fee and Payouts">
           <p>
@@ -187,7 +189,9 @@ const RulesSection = () => {
 const VegasTop10Section = ({ topGolfers }) => {
   const theme = useContext(ThemeContext);
   return (
-    <section className={`${theme.cardBackground} rounded-lg p-6`}>
+    <section
+      className={`${theme.cardBackground} border ${theme.cardBorder} rounded-lg p-6`}
+    >
       <h2
         className={`text-3xl font-bold mb-6 text-center text-transparent bg-clip-text ${theme.headerTextForm}`}
       >
@@ -226,25 +230,12 @@ const Form = () => {
     clearErrors,
   } = useForm();
 
-  const fetchKeys = async () => {
-    const response = await fetch(
-      "https://servergolfpoolapi.vercel.app/api-keys"
-    );
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error("Failed to fetch API keys");
-    }
-    return data;
-  };
-
   const fetchGolfers = useCallback(async () => {
     try {
-      const { apiKey, playersSheetId } = await fetchKeys();
-      const range = "Sheet1!A:A";
       const response = await axios.get(
-        `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/${range}?key=${apiKey}`
+        "https://servergolfpoolapi.vercel.app/golfers"
       );
-      const golfers = response.data.values.flat();
+      const golfers = response.data.map((g) => g.name);
       return golfers;
     } catch (error) {
       console.error("Error fetching golfers:", error);
@@ -258,17 +249,18 @@ const Form = () => {
         const golfers = await fetchGolfers();
         setAvailableGolfers(golfers);
         setTopGolfers([
-          { name: "Scottie Scheffler", odds: "+300" },
-          { name: "Xander Schauffele", odds: "+1000" },
-          { name: "Rory McIlroy", odds: "+1100" },
+          { name: "Scottie Scheffler", odds: "+450" },
+          { name: "Rory McIlroy", odds: "+700" },
+          { name: "Xander Schauffele", odds: "+1100" },
+          { name: "Ludvig Aberg", odds: "+1200" },
+          { name: "Bryson DeChambeau", odds: "+1400" },
           { name: "Collin Morikawa", odds: "+1600" },
-          { name: "Viktor Hovland", odds: "+2000" },
-          { name: "Bryson DeChambeau", odds: "+2000" },
-          { name: "Ludvig Åberg", odds: "+2000" },
-          { name: "Brooks Koepka", odds: "+2200" },
-          { name: "Hideki Matsuyama", odds: "+3500" },
-          { name: "Tommy Fleetwood", odds: "+4000" },
+          { name: "Tommy Fleetwood", odds: "+2200" },
+          { name: "Jon Rahm", odds: "+2200" },
+          { name: "Viktor Hovland", odds: "+2500" },
+          { name: "Tyrrell Hatton", odds: "+2500" },
         ]);
+
       } catch (error) {
         console.error("Error setting golfers:", error);
       }
@@ -276,11 +268,9 @@ const Form = () => {
 
     fetchAndSetGolfers();
 
-    const deadline = new Date("07/13/24 03:45 AM MST");
+    const deadline = new Date("07/26/24 03:45 AM MST");
     setIsSubmissionClosed(new Date() > deadline);
   }, [fetchGolfers]);
-
-
 
   const validateGolfers = useCallback(
     (golfers) => {
@@ -632,7 +622,9 @@ const Form = () => {
     <div className="max-w-4xl mx-auto px-4 space-y-12">
       <RulesSection />
       <VegasTop10Section topGolfers={topGolfers} />
-      <section className={`${theme.cardBackground} rounded-lg p-6`}>
+      <section
+        className={`${theme.cardBackground} border ${theme.cardBorder} rounded-lg p-6`}
+      >
         {/* UPDATED: Centered title and repositioned Edit Picks button */}
         <div className="flex flex-col items-center mb-6">
           <h2
@@ -798,6 +790,5 @@ const Form = () => {
     </div>
   );
 };
-
 
 export default Form;

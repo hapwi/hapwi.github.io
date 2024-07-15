@@ -1,0 +1,153 @@
+function updateGolfPool() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet12");
+  
+  // Clear existing data in the range B2:G
+  spreadsheet.getRange('B2:G').clearContent();
+  SpreadsheetApp.flush(); // Ensure changes are applied before setting new data
+
+  // Define the endpoint URL
+  var url = 'https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard?tournamentId';
+  
+  try {
+    // Fetch the JSON data
+    var response = UrlFetchApp.fetch(url);
+    var json = JSON.parse(response.getContentText());
+    
+    // Extract the relevant data
+    var players = json.events[0].competitions[0].competitors;
+    var data = [];
+    for (var i = 0; i < players.length; i++) {
+      var player = players[i];
+      var name = player.athlete.displayName;
+      var status = player.status ? player.status.displayValue : '';
+      var scoreToPar = '';
+
+      // Check for special statuses
+      if (status === 'WD') {
+        scoreToPar = 'WD';
+      } else if (status === 'DQ') {
+        scoreToPar = 'DQ';
+      } else if (status === 'CUT') {
+        scoreToPar = 'CUT';
+      } else {
+        // Retrieve the score to par
+        var scoreStat = player.statistics.find(stat => stat.name === 'scoreToPar');
+        if (scoreStat) {
+          scoreToPar = scoreStat.displayValue;
+        }
+      }
+
+      // Get round scores
+      var round1 = player.linescores[0] ? player.linescores[0].value : '';
+      var round2 = player.linescores[1] ? player.linescores[1].value : '';
+      var round3 = player.linescores[2] ? player.linescores[2].value : '';
+      var round4 = player.linescores[3] ? player.linescores[3].value : '';
+
+      // Push to data array
+      data.push([
+        name,
+        scoreToPar,
+        round1,
+        round2,
+        round3,
+        round4
+      ]);
+    }
+    
+    // Write the extracted data back to the sheet
+    if (data.length > 0) {
+      spreadsheet.getRange(2, 2, data.length, data[0].length).setValues(data);
+    }
+    
+    Logger.log('Data import and processing completed successfully.');
+  } catch (e) {
+    Logger.log('Error importing data: ' + e.message);
+  }
+  
+  SpreadsheetApp.flush(); // Apply changes
+}
+
+
+
+
+######################## new
+
+
+function updateGolfPool() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet12");
+  
+  // Clear existing data in the range B2:G and P2:P
+  spreadsheet.getRange('B2:G').clearContent();
+  spreadsheet.getRange('P2:P').clearContent();
+  SpreadsheetApp.flush(); // Ensure changes are applied before setting new data
+
+  // Define the endpoint URL
+  var url = 'https://site.api.espn.com/apis/site/v2/sports/golf/leaderboard?tournamentId';
+  
+  // Default headshot URL
+  var defaultHeadshotUrl = "https://a.espncdn.com/combiner/i?img=/i/headshots/nophoto.png&w=224&h=146&scale=crop&cquality=40";
+  
+  try {
+    // Fetch the JSON data
+    var response = UrlFetchApp.fetch(url);
+    var json = JSON.parse(response.getContentText());
+    
+    // Extract the relevant data
+    var players = json.events[0].competitions[0].competitors;
+    var data = [];
+    var headshots = []; // Array to store headshot URLs for column P
+    for (var i = 0; i < players.length; i++) {
+      var player = players[i];
+      var name = player.athlete.displayName;
+      var headshot = player.athlete.headshot ? player.athlete.headshot.href : defaultHeadshotUrl; // Headshot URL or default
+      var status = player.status ? player.status.displayValue : '';
+      var scoreToPar = '';
+
+      // Check for special statuses
+      if (status === 'WD') {
+        scoreToPar = 'WD';
+      } else if (status === 'DQ') {
+        scoreToPar = 'DQ';
+      } else if (status === 'CUT') {
+        scoreToPar = 'CUT';
+      } else {
+        // Retrieve the score to par
+        var scoreStat = player.statistics.find(stat => stat.name === 'scoreToPar');
+        if (scoreStat) {
+          scoreToPar = scoreStat.displayValue;
+        }
+      }
+
+      // Get round scores
+      var round1 = player.linescores[0] ? player.linescores[0].value : '';
+      var round2 = player.linescores[1] ? player.linescores[1].value : '';
+      var round3 = player.linescores[2] ? player.linescores[2].value : '';
+      var round4 = player.linescores[3] ? player.linescores[3].value : '';
+
+      // Push to data array
+      data.push([
+        name,
+        scoreToPar,
+        round1,
+        round2,
+        round3,
+        round4
+      ]);
+
+      // Add headshot URL to headshots array
+      headshots.push([headshot]);
+    }
+    
+    // Write the extracted data back to the sheet
+    if (data.length > 0) {
+      spreadsheet.getRange(2, 2, data.length, data[0].length).setValues(data);
+      spreadsheet.getRange(2, 16, headshots.length, 1).setValues(headshots); // Write headshots to column P
+    }
+    
+    Logger.log('Data import and processing completed successfully.');
+  } catch (e) {
+    Logger.log('Error importing data: ' + e.message);
+  }
+  
+  SpreadsheetApp.flush(); // Apply changes
+}

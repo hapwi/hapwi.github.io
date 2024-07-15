@@ -1,50 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { ThemeContext } from "./themeContext";
 
-const fetchKeys = async () => {
-  const response = await fetch("https://servergolfpoolapi.vercel.app/api-keys");
+const fetchPlayers = async () => {
+  const response = await fetch("https://servergolfpoolapi.vercel.app/players");
   const data = await response.json();
   if (!response.ok) {
-    throw new Error("Failed to fetch API keys");
+    throw new Error("Failed to fetch players data");
   }
   return data;
 };
-
-const fetchPlayers = async () => {
-  try {
-    const { apiKey, playersSheetId } = await fetchKeys();
-
-    const response = await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${playersSheetId}/values/Sheet1!A1:B200?key=${apiKey}`
-    );
-    const data = await response.json();
-
-    // Log the raw data for debugging
-    console.log("Raw data from Google Sheets API:", data);
-
-    if (data.error) {
-      throw new Error(data.error.message);
-    }
-
-    const players = data.values
-      .slice(1)
-      .filter((row) => row[0] && row[1])
-      .map(([name, score]) => ({
-        name,
-        score: score === "#VALUE!" || score === "0" ? "E" : score,
-      }));
-
-    // Log the processed player data
-    console.log("Processed player data:", players);
-
-    return players;
-  } catch (error) {
-    console.error("Error fetching players:", error);
-    throw error;
-  }
-};
-
 
 const Players = () => {
   const theme = useContext(ThemeContext);
@@ -59,12 +26,44 @@ const Players = () => {
     refetchInterval: 60000,
   });
 
+  useEffect(() => {
+    if (!isLoading && players) {
+      // Your code here
+    }
+  }, [isLoading, players]);
+
   if (isLoading) {
     return (
       <div
         className={`min-h-screen ${theme.background} flex items-center justify-center`}
       >
-        <div className={theme.text}></div>
+        <div className="max-w-4xl mx-auto px-4 pb-28 w-full">
+          <SkeletonTheme
+            baseColor={theme.skeletonBase}
+            highlightColor={theme.skeletonHighlight}
+          >
+            <div
+              className={`${theme.cardBackground} rounded-lg overflow-hidden border ${theme.cardBorder} p-4`}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 19].map((_, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-12 items-center py-3 px-4 border-b-[1px] pt-4"
+                >
+                  <div className="col-span-9 sm:col-span-10 flex items-center font-medium">
+                    <div className="h-12 w-12 rounded-full overflow-hidden mr-3">
+                      <Skeleton circle={true} height={48} width={48} />
+                    </div>
+                    <Skeleton width="80%" height={20} />
+                  </div>
+                  <div className="col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl">
+                    <Skeleton width="50%" height={20} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </SkeletonTheme>
+        </div>
       </div>
     );
   }
@@ -91,7 +90,14 @@ const Players = () => {
                 key={index}
                 className={`grid grid-cols-12 items-center py-3 px-4 border-b-[1px] ${theme.cardBorder}`}
               >
-                <div className="col-span-9 sm:col-span-10 font-medium">
+                <div className="col-span-9 sm:col-span-10 flex items-center font-medium">
+                  <div className="h-12 w-12 rounded-full overflow-hidden mr-3">
+                    <img
+                      className="h-full w-full object-cover"
+                      src={player.imageUrl}
+                      alt={`${player.name}'s avatar`}
+                    />
+                  </div>
                   <span className={`${theme.text} text-sm sm:text-base`}>
                     {player.name}
                   </span>

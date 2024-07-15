@@ -22,7 +22,7 @@ const NavButton = ({ to, iconClass, label }) => {
 
 const BottomNav = () => {
   const theme = useContext(ThemeContext); // Use ThemeContext
-  const cutoffDate = new Date("07/13/2024 3:45 AM EST");
+  const cutoffDate = new Date("07/26/2024 3:45 AM EST");
   const currentDate = new Date();
   const showSubmitPicks = currentDate < cutoffDate;
 
