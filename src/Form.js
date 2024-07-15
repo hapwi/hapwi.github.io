@@ -249,17 +249,18 @@ const Form = () => {
         const golfers = await fetchGolfers();
         setAvailableGolfers(golfers);
         setTopGolfers([
-          { name: "Scottie Scheffler", odds: "+300" },
-          { name: "Xander Schauffele", odds: "+1000" },
-          { name: "Rory McIlroy", odds: "+1100" },
+          { name: "Scottie Scheffler", odds: "+450" },
+          { name: "Rory McIlroy", odds: "+700" },
+          { name: "Xander Schauffele", odds: "+1100" },
+          { name: "Ludvig Aberg", odds: "+1200" },
+          { name: "Bryson DeChambeau", odds: "+1400" },
           { name: "Collin Morikawa", odds: "+1600" },
-          { name: "Viktor Hovland", odds: "+2000" },
-          { name: "Bryson DeChambeau", odds: "+2000" },
-          { name: "Ludvig Åberg", odds: "+2000" },
-          { name: "Brooks Koepka", odds: "+2200" },
-          { name: "Hideki Matsuyama", odds: "+3500" },
-          { name: "Tommy Fleetwood", odds: "+4000" },
+          { name: "Tommy Fleetwood", odds: "+2200" },
+          { name: "Jon Rahm", odds: "+2200" },
+          { name: "Viktor Hovland", odds: "+2500" },
+          { name: "Tyrrell Hatton", odds: "+2500" },
         ]);
+
       } catch (error) {
         console.error("Error setting golfers:", error);
       }
