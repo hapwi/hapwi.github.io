@@ -15,7 +15,7 @@ const fetchLeaderboardData = async () => {
   );
   const data = await response.json();
   if (!response.ok) {
-    throw new Error("Failed to fetch leaderboard data");
+    throw new Error("There is no data available at this time.");
   }
   return data;
 };
