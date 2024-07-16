@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ThemeContext } from "./themeContext"; // Import ThemeContext
+import { ThemeContext } from "./themeContext";
 
 const NavButton = ({ to, iconClass, label }) => {
   const location = useLocation();
   const isActive = location.pathname === to;
-  const theme = useContext(ThemeContext); // Use ThemeContext
+  const theme = useContext(ThemeContext);
 
   return (
     <Link
@@ -21,10 +21,35 @@ const NavButton = ({ to, iconClass, label }) => {
 };
 
 const BottomNav = () => {
-  const theme = useContext(ThemeContext); // Use ThemeContext
-  const cutoffDate = new Date("07/26/2024 3:45 AM EST");
-  const currentDate = new Date();
-  const showSubmitPicks = currentDate < cutoffDate;
+  const theme = useContext(ThemeContext);
+  const [showSubmitPicks, setShowSubmitPicks] = useState(false);
+
+  useEffect(() => {
+    const checkCutoffTime = () => {
+      // Define the cutoff time in EST -4 for summer and -5 for winter
+      const cutoffTime = new Date("2024-07-18T01:35:00-04:00");
+
+      // Get the current time in the user's local time zone
+      const now = new Date();
+
+      // Convert both times to UTC for comparison
+      const cutoffTimeUTC =
+        cutoffTime.getTime() + cutoffTime.getTimezoneOffset() * 60000;
+      const nowUTC = now.getTime() + now.getTimezoneOffset() * 60000;
+
+      // Compare and set state
+      setShowSubmitPicks(nowUTC < cutoffTimeUTC);
+    };
+
+    // Check immediately
+    checkCutoffTime();
+
+    // Set up an interval to check every minute
+    const intervalId = setInterval(checkCutoffTime, 60000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <nav

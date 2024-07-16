@@ -268,7 +268,7 @@ const Form = () => {
 
     fetchAndSetGolfers();
 
-    const deadline = new Date("07/26/24 03:45 AM MST");
+    const deadline = new Date("07/17/24 10:35 PM MST");
     setIsSubmissionClosed(new Date() > deadline);
   }, [fetchGolfers]);
 
