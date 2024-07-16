@@ -1,13 +1,11 @@
 import React, { useState, useMemo, useContext } from "react";
-import { format } from "date-fns";
 import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "./themeContext"; // Import ThemeContext
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import "react-loading-skeleton/dist/skeleton.css";
 
 // Constants
-const UNLOCK_DATE = new Date("06/13/2024 1:45 AM");
+const UNLOCK_DATE = new Date("2024-07-18T01:35:00-04:00");
 
 const fetchLeaderboardData = async () => {
   const response = await fetch(
@@ -181,10 +179,18 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
       </div>
       {showPopup && (
         <PopupMessage
-          message={`This feature will be available on ${format(
-            UNLOCK_DATE,
-            "MMMM d, yyyy 'at' h:mm a 'EST'"
-          )}.`}
+          message={`This feature will be available on ${new Intl.DateTimeFormat(
+            "en-US",
+            {
+              timeZone: "America/New_York",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            }
+          ).format(UNLOCK_DATE)} EST.`}
           onClose={() => setShowPopup(false)}
         />
       )}
