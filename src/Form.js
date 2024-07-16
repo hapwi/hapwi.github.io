@@ -452,7 +452,7 @@ const Form = () => {
           Swal.fire({
             title: "Success!",
             html: `
-            <p>Your picks have been submitted. Please check your email.</p>
+            <p>Your picks have been submitted. Please check your email. If you don't see the email check your junk folder!</p>
             <br>
             <p><strong>Your golferID is:</strong></p>
             <p style="font-size: 1.5em; color: #111;"><strong>${responseJson.uniqueId}</strong></p>
