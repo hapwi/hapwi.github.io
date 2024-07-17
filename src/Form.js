@@ -252,7 +252,7 @@ const Form = () => {
           { name: "Scottie Scheffler", odds: "+450" },
           { name: "Rory McIlroy", odds: "+700" },
           { name: "Xander Schauffele", odds: "+1100" },
-          { name: "Ludvig Aberg", odds: "+1200" },
+          { name: "Ludvig Åberg", odds: "+1200" },
           { name: "Bryson DeChambeau", odds: "+1400" },
           { name: "Collin Morikawa", odds: "+1600" },
           { name: "Tommy Fleetwood", odds: "+2200" },
