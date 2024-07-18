@@ -100,9 +100,9 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
     const color = entry.change < 0 ? "text-red-400" : "text-green-400";
     const arrow = entry.change < 0 ? "▼" : "▲";
     return (
-      <span
-        className={`ml-2 text-xs ${color}`}
-      >{`${arrow} ${changeValue}`}</span>
+      <span className={`ml-2 text-xs ${color}`}>
+        {`${arrow} ${changeValue}`}
+      </span>
     );
   };
 
@@ -124,14 +124,14 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
           >
             {entry.position}
           </div>
-          <div className="col-span-7 sm:col-span-8 font-medium text-left pl-2 flex items-center">
-            <span className={`${theme.text} text-lg sm:text-xl`}>
+          <div className="col-span-8 sm:col-span-9 font-medium text-left pl-2 flex items-center">
+            <span className={`${theme.text} text-lg sm:text-xl flex-grow`}>
               {entry.user}
             </span>
             {renderChangeIndicator()}
           </div>
           <div
-            className={`col-span-3 sm:col-span-2 text-right font-bold text-lg sm:text-xl ${theme.scoreText}`}
+            className={`col-span-2 sm:col-span-1 text-right font-bold text-lg sm:text-xl ${theme.scoreText}`}
           >
             {displayScore(entry.totalScore)}
           </div>
@@ -197,6 +197,7 @@ const LeaderboardRow = ({ entry, index, expandedIds, setExpandedIds }) => {
     </>
   );
 };
+
 
 const GolfPoolLeaderboard = () => {
   const theme = useContext(ThemeContext);
