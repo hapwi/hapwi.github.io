@@ -29,7 +29,7 @@ export const assetMetadata: Record<string, AssetMetadata> = {
   'discord/themes/equicord.theme.css': {
     title: 'Equicord Starter Theme File',
     description:
-      'Use this as the theme file you add to Equicord. Interchange themes easily by updating the link.',
+      'Use this as the theme file you add to Equicord. Interchange themes easily by updating the link. By default, it is set to the Custom Puccin theme.',
     language: 'CSS',
     order: 0,
   },

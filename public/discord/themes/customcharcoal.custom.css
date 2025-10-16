@@ -322,3 +322,116 @@
     --button-secondary-background-active: #1b2229;
     --button-secondary-background-disabled: #10161c;
 }
+
+/* --- Local rounding customizations (keep overrides here) --- */
+.visual-refresh.theme-dark,
+.visual-refresh .theme-dark,
+.visual-refresh.theme-light,
+.visual-refresh .theme-light {
+    --radius-sm: 10px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-xxl: 24px;
+}
+
+/* General rounded corners for common surfaces */
+.visual-refresh :is([class*="card"],
+    [class*="Card"],
+    [class*="container_"][class*="elevation"],
+    [class*="popout"],
+    [class*="modal"],
+    [class*="menu"],
+    [class*="perksModal"],
+    [class*="tooltip"],
+    [class*="searchBar"],
+    [class*="chip"],
+    [class*="input"],
+    [class*="select"],
+    [class*="attachment"],
+    [class*="embed"],
+    [class*="message_"],
+    [class*="scroller_"],
+    [class*="pill"],
+    [class*="badge"],
+    button,
+    [class*="button_"]) {
+    border-radius: var(--radius-md) !important;
+}
+
+/* Larger rounding for big overlays */
+.visual-refresh :is([class*="modal"],
+    [class*="layer"],
+    [class*="popout"],
+    [class*="container_"][class*="wrapper"]) {
+    border-radius: var(--radius-lg) !important;
+    overflow: hidden;
+}
+
+/* Inputs specifically */
+.visual-refresh :is(input, textarea, select, [class*="input"], [class*="select"]) {
+    border-radius: var(--radius-md) !important;
+}
+
+/* Buttons hover/active keep rounding */
+.visual-refresh :is(button, [class*="button_"]) {
+    border-radius: var(--radius-md) !important;
+}
+
+/* Server/channel pills and badges slightly more pill-like */
+.visual-refresh :is([class*="pill"], [class*="badge"]) {
+    border-radius: var(--radius-xl) !important;
+}
+
+/* --- Gray accent overrides to replace blue brand tones --- */
+.visual-refresh.theme-dark,
+.visual-refresh .theme-dark {
+    /* Brand palette switched to neutral gray */
+    --brand-experiment: #9aa3b2;
+    --bg-brand: #9aa3b2;
+    --brand-400: #b1b8c4;
+    --brand-430: #a6aebb;
+    --brand-460: #9ea6b5;
+    --brand-500: #9aa3b2 !important;
+    --brand-530: #8891a1;
+    --brand-560: #7c8697;
+    --brand-600: #6f7987;
+    --brand-630: #626c78;
+    --brand-660: #565f69;
+    --brand-700: #4a535c;
+    --brand-730: #3e4650;
+    --brand-760: #323a43;
+    --brand-800: #262e36;
+    --brand-830: #1d242b;
+    --brand-860: #161c22;
+    --brand-900: #0f151a;
+
+    /* Link and selection tints */
+    --text-link: #b1b8c4 !important;
+    --text-link-low-saturation: #a6aebb;
+
+    /* Reactions and brand opacities */
+    --message-reacted-background: rgba(154, 163, 178, 0.2) !important;
+    --message-reacted-text: #b1b8c4;
+    --opacity-blurple-8: rgba(154, 163, 178, 0.08);
+    --opacity-blurple-16: rgba(154, 163, 178, 0.16);
+    --opacity-blurple-24: rgba(154, 163, 178, 0.24);
+    --opacity-blurple-32: rgba(154, 163, 178, 0.32);
+    --opacity-blurple-60: rgba(154, 163, 178, 0.6);
+    --blurple-50: #9aa3b2;
+
+    /* Background modifiers that reference brand */
+    --background-modifier-selected: rgba(154, 163, 178, 0.2);
+    --background-modifier-accent: rgba(154, 163, 178, 0.35);
+
+    /* Controls/buttons using brand */
+    --control-brand-foreground: #9aa3b2;
+    --control-brand-foreground-new: #9aa3b2;
+    --button-filled-brand-background: #9aa3b2;
+    --button-filled-brand-background-hover: #a6aebb;
+    --button-filled-brand-background-active: #8891a1;
+    --badge-brand-bg: #9aa3b2;
+    --badge-brand-text: #07090c;
+    --notice-background-info: #9aa3b2;
+    --notice-text-info: #07090c;
+}
