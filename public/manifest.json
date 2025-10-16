@@ -1,6 +1,6 @@
 {
-  "short_name": "Golf Pool",
-  "name": "Golf Pool",
+  "short_name": "TanStack App",
+  "name": "Create TanStack App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#121828",
-  "background_color": "#121828"
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
 }
