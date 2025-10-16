@@ -6,7 +6,6 @@ const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Projects', href: '#projects' },
   { label: 'Code Library', href: '#code-library' },
-  { label: 'Contact', href: '#contact' },
 ]
 
 export default function Header() {

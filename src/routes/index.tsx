@@ -1,13 +1,7 @@
 import type { ReactNode } from 'react'
 import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import {
-  ArrowRight,
-  FileCode2,
-  FolderGit2,
-  LayoutTemplate,
-  Mail,
-} from 'lucide-react'
+import { ArrowRight, FileCode2, FolderGit2, LayoutTemplate } from 'lucide-react'
 
 export const Route = createFileRoute('/')({
   component: HomeRoute,
@@ -52,11 +46,6 @@ const pinnedProjects = [
     cta: 'Browse library',
   },
 ]
-
-const contactDetails = {
-  email: 'contact@hapwi.dev',
-  discord: 'hapwi',
-}
 
 function HomeRoute() {
   const [selectedAssetPath, setSelectedAssetPath] = useState(
@@ -257,32 +246,6 @@ function HomeRoute() {
                 </ul>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section
-          id="contact"
-          className="flex flex-col gap-6 rounded-3xl border border-white/5 bg-gradient-to-br from-cyan-500/10 via-slate-900/40 to-slate-950 p-8 md:flex-row md:items-center md:justify-between"
-        >
-          <div className="space-y-3">
-            <SectionHeading
-              eyebrow="Contact"
-              title="Let’s build something together"
-              description="Whether it’s a Discord theme tweak or a bigger project, reach out and we can jam."
-            />
-          </div>
-          <div className="flex flex-col gap-3 text-sm font-medium text-slate-200">
-            <a
-              href={`mailto:${contactDetails.email}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 transition-colors duration-150 hover:border-cyan-400 hover:text-cyan-300"
-            >
-              <Mail size={16} />
-              {contactDetails.email}
-            </a>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-slate-200">
-              <FileCode2 size={16} />
-              Discord: {contactDetails.discord}
-            </span>
           </div>
         </section>
       </main>
