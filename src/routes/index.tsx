@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import {
   ArrowRight,
@@ -12,6 +13,22 @@ export const Route = createFileRoute('/')({
   component: HomeRoute,
 })
 
+const codeLibrary = [
+  {
+    name: 'custompuccin.custom.css',
+    description:
+      'Custom Puccin theme variant with colors tweaked for higher contrast and softer gradients.',
+    language: 'CSS',
+    path: '/discord/themes/custompuccin.custom.css',
+  },
+  {
+    name: 'equicord.theme.css',
+    description: 'Equicord-ready base theme with variables structured for quick overrides.',
+    language: 'CSS',
+    path: '/discord/themes/equicord.theme.css',
+  },
+]
+
 const pinnedProjects = [
   {
     title: 'hapwi.github.io',
@@ -24,8 +41,8 @@ const pinnedProjects = [
     title: 'Discord Themes',
     description:
       'Curated CSS themes for Discord client mods. Served directly from the code library so they stay easy to share and version.',
-    link: '/discord/themes/custompuccin.custom.css',
-    cta: 'Preview Custom Puccin',
+    link: codeLibrary[0]?.path ?? '#code-library',
+    cta: codeLibrary[0] ? `Open ${codeLibrary[0].name}` : 'Browse themes',
   },
   {
     title: 'Snippet Archive',
@@ -36,22 +53,19 @@ const pinnedProjects = [
   },
 ]
 
-const codeLibrary = [
-  {
-    name: 'custompuccin.custom.css',
-    description:
-      'Custom Puccin theme variant with colors tweaked for higher contrast and softer gradients.',
-    language: 'CSS',
-    path: '/discord/themes/custompuccin.custom.css',
-  },
-]
-
 const contactDetails = {
   email: 'contact@hapwi.dev',
   discord: 'hapwi',
 }
 
 function HomeRoute() {
+  const [selectedAssetPath, setSelectedAssetPath] = useState(
+    codeLibrary[0]?.path ?? '',
+  )
+  const activeAsset =
+    codeLibrary.find((asset) => asset.path === selectedAssetPath) ??
+    codeLibrary[0]
+
   return (
     <div className="relative flex min-h-screen flex-col">
       <div className="absolute inset-x-0 top-0 -z-10 h-64 bg-gradient-to-b from-cyan-500/10 via-slate-900/40 to-slate-950" />
@@ -104,10 +118,39 @@ function HomeRoute() {
                 and ship it straight to the web. Perfect for theming files,
                 release builds, or quick references.
               </p>
+              <div className="space-y-3">
+                <label
+                  htmlFor="asset-select"
+                  className="block text-xs font-semibold uppercase tracking-[0.3em] text-cyan-200/80"
+                >
+                  Select a hosted file
+                </label>
+                <select
+                  id="asset-select"
+                  value={activeAsset?.path ?? ''}
+                  onChange={(event) => setSelectedAssetPath(event.target.value)}
+                  className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-3 py-2 text-sm font-medium text-slate-100 outline-none transition-colors duration-150 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/40"
+                >
+                  {codeLibrary.map((asset) => (
+                    <option key={asset.path} value={asset.path}>
+                      {asset.name}
+                    </option>
+                  ))}
+                </select>
+                {activeAsset ? (
+                  <p className="text-xs text-slate-300/80">
+                    {activeAsset.description}
+                  </p>
+                ) : null}
+              </div>
               <dl className="grid grid-cols-2 gap-4 text-sm text-slate-200/70">
                 <div>
+                  <dt className="font-medium text-slate-100">File name</dt>
+                  <dd className="truncate">{activeAsset?.name ?? 'Not available'}</dd>
+                </div>
+                <div>
                   <dt className="font-medium text-slate-100">Path</dt>
-                  <dd className="truncate">/discord/themes/custompuccin.custom.css</dd>
+                  <dd className="truncate">{activeAsset?.path ?? '—'}</dd>
                 </div>
                 <div>
                   <dt className="font-medium text-slate-100">Content-Type</dt>
@@ -122,6 +165,15 @@ function HomeRoute() {
                   <dd>Public GitHub Pages</dd>
                 </div>
               </dl>
+              {activeAsset ? (
+                <a
+                  href={activeAsset.path}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-cyan-300 transition-colors duration-150 hover:border-cyan-400 hover:text-cyan-200"
+                >
+                  Open {activeAsset.name}
+                  <ArrowRight size={14} />
+                </a>
+              ) : null}
             </div>
           </div>
         </section>
