@@ -1,0 +1,21 @@
+/* *
+ * @name Catppuccin Mocha
+ * @author winston#0001
+ * @authorId 505490445468696576
+ * @version 0.2.0
+ * @description 🎮 Soothing pastel theme for Discord
+ * @website https://github.com/catppuccin/discord
+ * @invite r6Mdz5dpFc
+ * * */
+
+ /* save this file in the equicord themes folder */
+ /* 
+ 1. go to settings -> local themes -> Open themes folder
+ 2. create a new file called equicord.theme.css
+ 3. copy and paste the code below into the file
+ 4. save the file
+ 5. load missing themes button if it doesnt load automatically
+ 6. enjoy!
+ */
+
+ @import url("https://hapwi.github.io/public/discord/themes/custompuccin.custom.css");
