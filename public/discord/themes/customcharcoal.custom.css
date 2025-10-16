@@ -1,0 +1,324 @@
+/**
+ * Local Charcoal Twilight (customized)
+ * Designed to keep Discord in a low-contrast charcoal/black aesthetic.
+ * Inspired by the original Catppuccin embed, but recolored for a neutral palette.
+ */
+
+/* --- Begin charcoal overrides for elements that force white foregrounds --- */
+.visual-refresh.theme-dark div[class^=item_][class*=addFriend_],
+.visual-refresh.theme-dark div[class*=numberBadge_][style*="background-color: var(--status-danger);"],
+.visual-refresh.theme-dark div[class*=iconBadge_][class*=isCurrentUserConnected_],
+.visual-refresh.theme-dark div[class^=bar_][class*=unreadMentionsBar_],
+.visual-refresh.theme-dark span[class*=botTag_],
+.visual-refresh.theme-dark span[class^=unreadPill_],
+.visual-refresh.theme-dark div[class^=listItem_] div[class^=wrapper_] [class*=selected_],
+.visual-refresh.theme-dark button[class^=container_] > div[class^=icon_] > svg,
+.visual-refresh.theme-dark div[class^=newBadge_],
+.visual-refresh.theme-dark div[class^=premiumTab_][class*=selected_],
+.visual-refresh.theme-dark label[class^=checkboxWrapper_],
+.visual-refresh.theme-dark label[class^=checkboxWrapperDisabled_],
+.visual-refresh.theme-dark div[class^=checkbox_][class*=box_],
+.visual-refresh.theme-dark svg[class^=checkmarkCircle],
+.visual-refresh.theme-dark div[class*=checkIcon_],
+.visual-refresh.theme-dark button[class*=button_][class*=lookFilled_][class*=colorRed_],
+.visual-refresh.theme-dark button[class*=button_][class*=lookFilled_][class*=colorGreen_],
+.visual-refresh.theme-dark button[class*=button_][class*=lookFilled_][class*=colorLink_],
+.visual-refresh.theme-dark button[class*=colorable_][class*=join_],
+.visual-refresh.theme-dark svg[class^=status_],
+.visual-refresh.theme-dark svg[class^=dots_],
+.visual-refresh.theme-dark div[class*=textBadge_][class*=base_],
+.visual-refresh.theme-dark svg[class^=descriptionIcon_],
+.visual-refresh.theme-dark div[class*=winButtonClose_]:hover,
+.visual-refresh.theme-dark div[class^=uploadArea_],
+.visual-refresh.theme-dark svg[class^=stepIcon_],
+.visual-refresh.theme-dark svg[class^=activeIcon_],
+.visual-refresh.theme-dark div[class*=tooltipBrand_],
+.visual-refresh.theme-dark div[class*=tooltipGreen_],
+.visual-refresh.theme-dark [class*=notice_][class*=colorBrand_],
+.visual-refresh.theme-dark [class*=colorStreamerMode_],
+.visual-refresh.theme-dark [class*=colorSpotify_],
+.visual-refresh.theme-dark [class*=colorPremium_],
+.visual-refresh.theme-dark [class*=colorPlayStation_],
+.visual-refresh.theme-dark .interactive:hover,
+.visual-refresh .theme-dark div[class^=item_][class*=addFriend_],
+.visual-refresh .theme-dark div[class*=numberBadge_][style*="background-color: var(--status-danger);"],
+.visual-refresh .theme-dark div[class*=iconBadge_][class*=isCurrentUserConnected_],
+.visual-refresh .theme-dark div[class^=bar_][class*=unreadMentionsBar_],
+.visual-refresh .theme-dark span[class*=botTag_],
+.visual-refresh .theme-dark span[class^=unreadPill_],
+.visual-refresh .theme-dark div[class^=listItem_] div[class^=wrapper_] [class*=selected_],
+.visual-refresh .theme-dark button[class^=container_] > div[class^=icon_] > svg,
+.visual-refresh .theme-dark div[class^=newBadge_],
+.visual-refresh .theme-dark div[class^=premiumTab_][class*=selected_],
+.visual-refresh .theme-dark label[class^=checkboxWrapper_],
+.visual-refresh .theme-dark label[class^=checkboxWrapperDisabled_],
+.visual-refresh .theme-dark div[class^=checkbox_][class*=box_],
+.visual-refresh .theme-dark svg[class^=checkmarkCircle],
+.visual-refresh .theme-dark div[class*=checkIcon_],
+.visual-refresh .theme-dark button[class*=button_][class*=lookFilled_][class*=colorRed_],
+.visual-refresh .theme-dark button[class*=button_][class*=lookFilled_][class*=colorGreen_],
+.visual-refresh .theme-dark button[class*=button_][class*=lookFilled_][class*=colorLink_],
+.visual-refresh .theme-dark button[class*=colorable_][class*=join_],
+.visual-refresh .theme-dark svg[class^=status_],
+.visual-refresh .theme-dark svg[class^=dots_],
+.visual-refresh .theme-dark div[class*=textBadge_][class*=base_],
+.visual-refresh .theme-dark svg[class^=descriptionIcon_],
+.visual-refresh .theme-dark div[class*=winButtonClose_]:hover,
+.visual-refresh .theme-dark div[class^=uploadArea_],
+.visual-refresh .theme-dark svg[class^=stepIcon_],
+.visual-refresh .theme-dark svg[class^=activeIcon_],
+.visual-refresh .theme-dark div[class*=tooltipBrand_],
+.visual-refresh .theme-dark div[class*=tooltipGreen_],
+.visual-refresh .theme-dark [class*=notice_][class*=colorBrand_],
+.visual-refresh .theme-dark [class*=colorStreamerMode_],
+.visual-refresh .theme-dark [class*=colorSpotify_],
+.visual-refresh .theme-dark [class*=colorPremium_],
+.visual-refresh .theme-dark [class*=colorPlayStation_],
+.visual-refresh .theme-dark .interactive:hover {
+    --white: #07090c;
+    --white-500: #07090c;
+}
+
+.visual-refresh.theme-dark svg[class^=radioIndicator_] [class*=refreshIcon_],
+.visual-refresh .theme-dark svg[class^=radioIndicator_] [class*=refreshIcon_] {
+    fill: #07090c;
+}
+
+.visual-refresh.theme-dark div[class^=automodText_],
+.visual-refresh .theme-dark div[class^=automodText_] {
+    color: #07090c;
+}
+
+.visual-refresh.theme-dark div[class^=pinIcon_] > svg > path,
+.visual-refresh .theme-dark div[class^=pinIcon_] > svg > path {
+    fill: #07090c;
+}
+
+.visual-refresh.theme-dark div[class^=bannerContainer_] [style*="color: white"],
+.visual-refresh.theme-dark div[class^=friendRequestContainer_] > button[class*=colorGreen_] [style*="color: white"],
+.visual-refresh .theme-dark div[class^=bannerContainer_] [style*="color: white"],
+.visual-refresh .theme-dark div[class^=friendRequestContainer_] > button[class*=colorGreen_] [style*="color: white"] {
+    color: #07090c !important;
+}
+
+.visual-refresh.theme-dark .vcd-screen-picker-option-radio[data-checked=true],
+.visual-refresh .theme-dark .vcd-screen-picker-option-radio[data-checked=true] {
+    --text-default: #07090c;
+}
+
+.visual-refresh.theme-dark button[class*=selectorButtonSelected_] div[class*=selectorText_],
+.visual-refresh.theme-dark button:hover div[class*=selectorText_],
+.visual-refresh .theme-dark button[class*=selectorButtonSelected_] div[class*=selectorText_],
+.visual-refresh .theme-dark button:hover div[class*=selectorText_] {
+    color: #07090c;
+}
+
+.visual-refresh.theme-dark svg[class^=selectedIcon_] > circle[fill=white],
+.visual-refresh .theme-dark svg[class^=selectedIcon_] > circle[fill=white] {
+    fill: #07090c;
+}
+
+.visual-refresh.theme-dark div[class*=textBadge_][class*=base_][style*="background-color: var(--background-accent)"],
+.visual-refresh .theme-dark div[class*=textBadge_][class*=base_][style*="background-color: var(--background-accent)"] {
+    --white: #cdd1d9;
+}
+
+.visual-refresh.theme-dark,
+.visual-refresh .theme-dark {
+    --brand-experiment: #5f7adb;
+    --bg-brand: #5f7adb;
+    --brand-100: #f2f4ff;
+    --brand-130: #e2e7ff;
+    --brand-160: #d1d8ff;
+    --brand-200: #c1cbff;
+    --brand-230: #b2bcff;
+    --brand-260: #a2afff;
+    --brand-300: #94a1ff;
+    --brand-330: #8693fc;
+    --brand-360: #7885f4;
+    --brand-400: #6b78eb;
+    --brand-430: #5f6ce2;
+    --brand-460: #5562d9;
+    --brand-500: #4b58d0 !important;
+    --brand-530: #424ec2;
+    --brand-560: #3945b4;
+    --brand-600: #313da6;
+    --brand-630: #293497;
+    --brand-660: #222c89;
+    --brand-700: #1b2474;
+    --brand-730: #161e62;
+    --brand-760: #111851;
+    --brand-800: #0d123f;
+    --brand-830: #0a0e32;
+    --brand-860: #070a25;
+    --brand-900: #050717;
+    --brand-05a: rgba(95, 122, 219, 0.05);
+    --brand-10a: rgba(95, 122, 219, 0.1);
+    --brand-15a: rgba(95, 122, 219, 0.15);
+    --brand-20a: rgba(95, 122, 219, 0.2);
+    --brand-25a: rgba(95, 122, 219, 0.25);
+    --brand-30a: rgba(95, 122, 219, 0.3);
+    --brand-35a: rgba(95, 122, 219, 0.35);
+    --brand-40a: rgba(95, 122, 219, 0.4);
+    --brand-45a: rgba(95, 122, 219, 0.45);
+    --brand-50a: rgba(95, 122, 219, 0.5);
+    --brand-55a: rgba(95, 122, 219, 0.55);
+    --brand-60a: rgba(95, 122, 219, 0.6);
+    --brand-65a: rgba(95, 122, 219, 0.65);
+    --brand-70a: rgba(95, 122, 219, 0.7);
+    --brand-75a: rgba(95, 122, 219, 0.75);
+    --brand-80a: rgba(95, 122, 219, 0.8);
+    --brand-85a: rgba(95, 122, 219, 0.85);
+    --brand-90a: rgba(95, 122, 219, 0.9);
+    --brand-95a: rgba(95, 122, 219, 0.95);
+    --header-primary: #eff1f5 !important;
+    --header-secondary: #c4cad3 !important;
+    --__header-bar-background: #0f1318 !important;
+    --text-normal: #eff1f5 !important;
+    --text-default: #eff1f5;
+    --text-muted: #9398a2 !important;
+    --text-link: #91a4ff !important;
+    --text-link-low-saturation: #7ca6ff;
+    --text-low-contrast: #7c828c;
+    --text-positive: #53c8a2;
+    --text-warning: #f5c26b;
+    --text-danger: #e86f79;
+    --text-brand: #91a4ff;
+    --text-primary: #eff1f5;
+    --text-secondary: #c4cad3;
+    --text-tertiary: #9398a2 !important;
+    --text-feedback-positive: #53c8a2;
+    --text-feedback-critical: #e86f79;
+    --text-feedback-warning: #f5c26b;
+    --text-feedback-info: #5c9fdd;
+    --background-feedback-positive: rgba(83, 200, 162, 0.12);
+    --background-feedback-critical: rgba(232, 111, 121, 0.12);
+    --background-feedback-warning: rgba(245, 194, 107, 0.12);
+    --background-feedback-info: rgba(92, 159, 221, 0.12);
+    --autocomplete-bg: #07090c;
+    --message-reacted-background: rgba(95, 122, 219, 0.2) !important;
+    --message-reacted-text: #91a4ff;
+    --opacity-blurple-8: rgba(95, 122, 219, 0.08);
+    --opacity-blurple-16: rgba(95, 122, 219, 0.16);
+    --opacity-blurple-24: rgba(95, 122, 219, 0.24);
+    --opacity-blurple-32: rgba(95, 122, 219, 0.32);
+    --opacity-blurple-60: rgba(95, 122, 219, 0.6);
+    --blurple-50: #5f7adb;
+    --app-background-frame: #030405;
+    --background-primary: #11161b !important;
+    --background-secondary: #0d1014 !important;
+    --background-secondary-alt: #13181e !important;
+    --background-tertiary: #07090c !important;
+    --background-accent: #1f2831 !important;
+    --background-floating: #030405 !important;
+    --background-surface-highest: #262f39 !important;
+    --background-surface-higher: #1f2831 !important;
+    --background-surface-high: #161c23 !important;
+    --background-base-lowest: #030405 !important;
+    --background-base-lower: #07090c !important;
+    --background-base-low: #0d1014 !important;
+    --background-nested-floating: #090b0f;
+    --background-mobile-primary: #11161b;
+    --background-mobile-secondary: #0d1014;
+    --bg-base-secondary: #0d1014;
+    --bg-base-tertiary: #07090c !important;
+    --bg-surface-overlay: #1b2229;
+    --bg-surface-raised: #13181e;
+    --bg-overlay-floating: #161c23;
+    --home-background: #11161b;
+    --chat-background: #11161b;
+    --chat-background-default: #11161b;
+    --chat-border: #050608;
+    --chat-input-container-background: #13181e;
+    --chat-text-muted: #9398a2;
+    --checkbox-border-default: #2b3540;
+    --border-faint: #1b2229;
+    --border-strong: #13181e;
+    --border-normal: #0d1014;
+    --border-subtle: #11161b !important;
+    --background-modifier-hover: rgba(255, 255, 255, 0.04);
+    --background-modifier-selected: rgba(95, 122, 219, 0.2);
+    --background-modifier-accent: rgba(95, 122, 219, 0.35);
+    --background-modifier-active: rgba(255, 255, 255, 0.08);
+    --background-mod-faint: rgba(255, 255, 255, 0.02);
+    --background-mod-normal: rgba(255, 255, 255, 0.05);
+    --background-mod-subtle: rgba(255, 255, 255, 0.08) !important;
+    --background-mod-strong: rgba(255, 255, 255, 0.12) !important;
+    --custom-channel-members-bg: #0d1014;
+    --custom-status-bubble-background: #07090c !important;
+    --custom-status-bubble-background-color: #11161b !important;
+    --card-primary-bg: #161c23 !important;
+    --info-positive-background: rgba(83, 200, 162, 0.15);
+    --info-positive-foreground: #53c8a2;
+    --info-positive-text: #eff1f5;
+    --info-warning-background: rgba(245, 194, 107, 0.15);
+    --info-warning-foreground: #f5c26b;
+    --info-warning-text: #eff1f5;
+    --info-danger-background: rgba(232, 111, 121, 0.15);
+    --info-danger-foreground: #e86f79;
+    --info-danger-text: #eff1f5;
+    --info-help-background: rgba(92, 159, 221, 0.15);
+    --info-help-foreground: #5c9fdd;
+    --info-help-text: #eff1f5;
+    --status-positive-background: #53c8a2;
+    --status-positive-text: #06100c;
+    --status-warning-background: #f5c26b;
+    --status-warning-text: #161208;
+    --status-danger-background: #e86f79;
+    --status-danger-text: #16090b;
+    --status-danger: #e86f79;
+    --status-positive: #53c8a2;
+    --status-warning: #f5c26b;
+    --black-500: #050608;
+    --green-360: #53c8a2;
+    --green-300: #53c8a2;
+    --yellow-360: #f5c26b;
+    --yellow-300: #f5c26b;
+    --red-400: #e86f79;
+    --red-430: #dc5f6a;
+    --red-500: #d24d58;
+    --blue-500: #5f7adb;
+    --blue-530: #4c63c8;
+    --primary-100: #c4cad3;
+    --primary-200: #b0b6c1;
+    --primary-300: #c4cad3;
+    --primary-400: #c4cad3;
+    --primary-630: #262f39;
+    --primary-700: #1b2229;
+    --primary-800: #07090c;
+    --white: #eff1f5;
+    --white-400: #eff1f5;
+    --white-500: #eff1f5;
+    --white-600: #d0d5dc;
+    --white-700: #bcc3ce;
+    --guild-boosting-pink: #e8a0c8;
+    --guild-boosting-blue: #5f7adb;
+    --guild-boosting-purple: #a48de8;
+    --premium-perk-yellow: #f5c26b;
+    --premium-perk-purple: #a48de8;
+    --premium-perk-dark-blue: #4c63c8;
+    --premium-perk-light-blue: #91a4ff;
+    --premium-perk-blue: #5f7adb;
+    --premium-perk-green: #53c8a2;
+    --premium-perk-pink: #e8a0c8;
+    --premium-perk-orange: #f1986d;
+    --premium-tier-0-blue: #5f7adb;
+    --premium-tier-0-purple: #a48de8;
+    --premium-tier-1-blue-for-gradients: #91a4ff;
+    --premium-tier-1-dark-blue-for-gradients: #5f7adb;
+    --premium-tier-2-purple-for-gradients: #8d79d6;
+    --premium-tier-2-purple-for-gradients-2: #a48de8;
+    --premium-tier-2-pink-for-gradients: #e8a0c8;
+    --button-danger-background: #e86f79;
+    --button-danger-background-hover: #dd5c69;
+    --button-danger-background-active: #d24d58;
+    --button-danger-background-disabled: #60363c;
+    --button-positive-background: #53c8a2;
+    --button-positive-background-hover: #49b694;
+    --button-positive-background-active: #3fa685;
+    --button-positive-background-disabled: #2a5346;
+    --button-secondary-background: #1f2831 !important;
+    --button-secondary-background-hover: #242f3a;
+    --button-secondary-background-active: #1b2229;
+    --button-secondary-background-disabled: #10161c;
+}
