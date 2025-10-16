@@ -24,8 +24,8 @@ const pinnedProjects = [
     title: 'Discord Themes',
     description:
       'Curated CSS themes for Discord client mods. Served directly from the code library so they stay easy to share and version.',
-    link: '/discord/themes/theme1.custom.css',
-    cta: 'Preview example',
+    link: '/discord/themes/custompuccin.custom.css',
+    cta: 'Preview Custom Puccin',
   },
   {
     title: 'Snippet Archive',
@@ -38,10 +38,11 @@ const pinnedProjects = [
 
 const codeLibrary = [
   {
-    name: 'theme1.custom.css',
-    description: 'Starter Discord theme scaffold with variables and layout notes.',
+    name: 'custompuccin.custom.css',
+    description:
+      'Custom Puccin theme variant with colors tweaked for higher contrast and softer gradients.',
     language: 'CSS',
-    path: '/discord/themes/theme1.custom.css',
+    path: '/discord/themes/custompuccin.custom.css',
   },
 ]
 
@@ -106,7 +107,7 @@ function HomeRoute() {
               <dl className="grid grid-cols-2 gap-4 text-sm text-slate-200/70">
                 <div>
                   <dt className="font-medium text-slate-100">Path</dt>
-                  <dd className="truncate">/discord/themes/theme1.custom.css</dd>
+                  <dd className="truncate">/discord/themes/custompuccin.custom.css</dd>
                 </div>
                 <div>
                   <dt className="font-medium text-slate-100">Content-Type</dt>
