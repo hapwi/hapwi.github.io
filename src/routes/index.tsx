@@ -21,7 +21,7 @@ function HomeRoute() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-16 px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pb-24">
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-4 pb-16 pt-20 sm:gap-16 sm:px-6 sm:pt-24 lg:px-8 lg:pb-24">
         <section className="space-y-6">
           <Badge
             variant="secondary"
@@ -55,7 +55,7 @@ function HomeRoute() {
               published.
             </p>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2">
             {directories.map((folder) => {
               const hrefCandidate =
                 folder.href ?? folder.subfolders[0]?.href ?? '/discord-themes'

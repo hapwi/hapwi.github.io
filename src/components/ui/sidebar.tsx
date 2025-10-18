@@ -44,6 +44,15 @@ type SidebarContextProps = {
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null)
 
+function readSidebarCookie() {
+  if (typeof document === "undefined") return null
+  const match = document.cookie.match(
+    new RegExp(`(?:^|; )${SIDEBAR_COOKIE_NAME}=([^;]*)`)
+  )
+  if (!match) return null
+  return match[1] === "true"
+}
+
 function useSidebar() {
   const context = React.useContext(SidebarContext)
   if (!context) {
@@ -71,7 +80,14 @@ function SidebarProvider({
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
-  const [_open, _setOpen] = React.useState(defaultOpen)
+  const [_open, _setOpen] = React.useState(() => {
+    const cookieValue = readSidebarCookie()
+    if (cookieValue !== null) return cookieValue
+    if (typeof window !== "undefined" && window.innerWidth < 1024) {
+      return false
+    }
+    return defaultOpen
+  })
   const open = openProp ?? _open
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
@@ -83,7 +99,9 @@ function SidebarProvider({
       }
 
       // This sets the cookie to keep the sidebar state.
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+      if (typeof document !== "undefined") {
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
+      }
     },
     [setOpenProp, open]
   )
@@ -108,6 +126,31 @@ function SidebarProvider({
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [toggleSidebar])
+
+  // Collapse sidebar when viewport is below desktop width.
+  React.useEffect(() => {
+    if (typeof window === "undefined") return
+    const media = window.matchMedia("(max-width: 1023px)")
+    const handler = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setOpen(false)
+      }
+    }
+
+    if (media.matches) {
+      setOpen(false)
+    }
+
+    media.addEventListener("change", handler)
+    return () => media.removeEventListener("change", handler)
+  }, [setOpen])
+
+  // Ensure mobile view does not inherit desktop open state.
+  React.useEffect(() => {
+    if (isMobile) {
+      setOpen(false)
+    }
+  }, [isMobile, setOpen])
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
