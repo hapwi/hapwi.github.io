@@ -1,5 +1,5 @@
 import { Link, useRouterState } from '@tanstack/react-router'
-import { BookOpen, Code2, Github, Palette, ShieldCheck } from 'lucide-react'
+import { BookOpen, Code2, Github, Palette, ShieldCheck, GitBranch } from 'lucide-react'
 
 import { ModeToggle } from '@/components/mode-toggle'
 import { SearchCommand } from '@/components/search-command'
@@ -10,6 +10,7 @@ const navItems = [
   { path: '/', label: 'Code', icon: BookOpen },
   { path: '/discord-themes', label: 'Themes', icon: Palette },
   { path: '/tampermonkey', label: 'Tampermonkey', icon: ShieldCheck },
+  { path: '/bbpcn', label: 'BBPCN', icon: GitBranch },
 ]
 
 export default function Header() {

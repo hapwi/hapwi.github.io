@@ -1,13 +1,16 @@
+import { useEffect, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { Folder, GitBranch, BarChart3 } from 'lucide-react'
 
-import { folderGroups, codeLibrary } from '@/lib/library'
+import { folderGroups, codeLibrary, type LibraryFolder } from '@/lib/library'
+import { fetchGitHubRepoInfo } from '@/lib/github'
 
 export const Route = createFileRoute('/')({
   component: HomeRoute,
 })
 
 function formatRelativeTime(timestamp: number): string {
+  if (!timestamp || timestamp <= 0) return ''
   const now = Date.now()
   const diff = now - timestamp
 
@@ -37,7 +40,86 @@ const languageColors: Record<string, string> = {
 }
 
 function HomeRoute() {
-  const directories = folderGroups
+  const [bbpcnUpdatedAt, setBbpcnUpdatedAt] = useState<number>(0)
+
+  useEffect(() => {
+    const OWNER = 'hapwi'
+    const REPO = 'bbpcn'
+    const CACHE_KEY = `github:repo-meta:v1:${OWNER}/${REPO}`
+    const CACHE_TTL_MS = 1000 * 60 * 30
+
+    const readCached = () => {
+      if (typeof window === 'undefined') return 0
+      try {
+        const raw = window.localStorage.getItem(CACHE_KEY)
+        if (!raw) return 0
+        const parsed = JSON.parse(raw) as { updatedAt: number; pushedAt: number }
+        if (typeof parsed?.updatedAt !== 'number' || typeof parsed?.pushedAt !== 'number') {
+          return 0
+        }
+        if (Date.now() - parsed.updatedAt > CACHE_TTL_MS) return 0
+        return parsed.pushedAt
+      } catch {
+        return 0
+      }
+    }
+
+    const cached = readCached()
+    if (cached) setBbpcnUpdatedAt(cached)
+
+    const controller = new AbortController()
+    let cancelled = false
+
+    async function load() {
+      try {
+        const info = await fetchGitHubRepoInfo({
+          owner: OWNER,
+          repo: REPO,
+          signal: controller.signal,
+        })
+        const pushedAt = Date.parse(info.pushed_at ?? info.updated_at ?? '')
+        if (!Number.isFinite(pushedAt) || pushedAt <= 0) return
+
+        if (!cancelled) {
+          setBbpcnUpdatedAt(pushedAt)
+          if (typeof window !== 'undefined') {
+            try {
+              window.localStorage.setItem(
+                CACHE_KEY,
+                JSON.stringify({ updatedAt: Date.now(), pushedAt }),
+              )
+            } catch {
+              // ignore storage quota / serialization issues
+            }
+          }
+        }
+      } catch {
+        // ignore GitHub fetch failures (rate limits / offline)
+      }
+    }
+
+    load()
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
+  }, [])
+
+  const externalDirectories: LibraryFolder[] = [
+    {
+      id: 'bbpcn',
+      title: 'BBPCN',
+      description: 'Live view of hapwi/bbpcn on GitHub.',
+      href: '/bbpcn',
+      totalItems: 0,
+      subfolders: [],
+    },
+  ]
+
+  const directories = [...folderGroups, ...externalDirectories].sort((a, b) =>
+    a.title.localeCompare(b.title),
+  )
   const totalFiles = codeLibrary.length
   const latestUpdate = Math.max(...codeLibrary.map((f) => f.mtime || 0))
   const totalSize = codeLibrary.reduce((acc, f) => acc + (f.size || 0), 0)
@@ -99,13 +181,16 @@ function HomeRoute() {
                       (acc, sub) => acc + sub.items.length,
                       0
                     )
-                    const latestMtime = folder.subfolders.reduce((max, sub) => {
-                      const subLatest = sub.items.reduce(
-                        (subMax, item) => Math.max(subMax, item.mtime ?? 0),
-                        0
-                      )
-                      return Math.max(max, subLatest)
-                    }, 0)
+                    const latestMtime =
+                      folder.id === 'bbpcn'
+                        ? bbpcnUpdatedAt
+                        : folder.subfolders.reduce((max, sub) => {
+                            const subLatest = sub.items.reduce(
+                              (subMax, item) => Math.max(subMax, item.mtime ?? 0),
+                              0
+                            )
+                            return Math.max(max, subLatest)
+                          }, 0)
 
                     return (
                       <Link
@@ -157,6 +242,13 @@ function HomeRoute() {
                       className="rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-600 transition-colors hover:bg-amber-500/20 dark:text-amber-400"
                     >
                       userscripts
+                    </Link>
+                    <Link
+                      to="/bbpcn"
+                      search={{ file: undefined, path: undefined }}
+                      className="rounded-full bg-violet-500/10 px-2.5 py-1 text-xs font-medium text-violet-600 transition-colors hover:bg-violet-500/20 dark:text-violet-400"
+                    >
+                      bbpcn
                     </Link>
                     <span className="rounded-full bg-green-500/10 px-2.5 py-1 text-xs font-medium text-green-600 dark:text-green-400">
                       open-source

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TampermonkeyRouteImport } from './routes/tampermonkey'
 import { Route as DiscordThemesRouteImport } from './routes/discord-themes'
+import { Route as BbpcnRouteImport } from './routes/bbpcn'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TampermonkeyRoute = TampermonkeyRouteImport.update({
@@ -23,6 +24,11 @@ const DiscordThemesRoute = DiscordThemesRouteImport.update({
   path: '/discord-themes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BbpcnRoute = BbpcnRouteImport.update({
+  id: '/bbpcn',
+  path: '/bbpcn',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -31,30 +37,34 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bbpcn': typeof BbpcnRoute
   '/discord-themes': typeof DiscordThemesRoute
   '/tampermonkey': typeof TampermonkeyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bbpcn': typeof BbpcnRoute
   '/discord-themes': typeof DiscordThemesRoute
   '/tampermonkey': typeof TampermonkeyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bbpcn': typeof BbpcnRoute
   '/discord-themes': typeof DiscordThemesRoute
   '/tampermonkey': typeof TampermonkeyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/discord-themes' | '/tampermonkey'
+  fullPaths: '/' | '/bbpcn' | '/discord-themes' | '/tampermonkey'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/discord-themes' | '/tampermonkey'
-  id: '__root__' | '/' | '/discord-themes' | '/tampermonkey'
+  to: '/' | '/bbpcn' | '/discord-themes' | '/tampermonkey'
+  id: '__root__' | '/' | '/bbpcn' | '/discord-themes' | '/tampermonkey'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BbpcnRoute: typeof BbpcnRoute
   DiscordThemesRoute: typeof DiscordThemesRoute
   TampermonkeyRoute: typeof TampermonkeyRoute
 }
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiscordThemesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bbpcn': {
+      id: '/bbpcn'
+      path: '/bbpcn'
+      fullPath: '/bbpcn'
+      preLoaderRoute: typeof BbpcnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BbpcnRoute: BbpcnRoute,
   DiscordThemesRoute: DiscordThemesRoute,
   TampermonkeyRoute: TampermonkeyRoute,
 }
