@@ -3,6 +3,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   ChevronLeft,
   Copy,
+  Download,
   ExternalLink,
   FileText,
   ShieldCheck,
@@ -100,7 +101,7 @@ function writeCachedSource(urlPath: string, text: string) {
   }
 }
 
-function buildAbsoluteAssetUrl(relativePath: string) {
+function buildShareAssetUrl(relativePath: string) {
   const basePath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
   if (typeof window === 'undefined') {
     return new URL(basePath, PRODUCTION_ORIGIN).toString()
@@ -112,6 +113,15 @@ function buildAbsoluteAssetUrl(relativePath: string) {
 
   const origin = shouldForceProduction ? PRODUCTION_ORIGIN : currentOrigin
   return new URL(basePath, origin).toString()
+}
+
+function buildFetchAssetUrl(relativePath: string) {
+  const basePath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
+  if (typeof window === 'undefined') {
+    return new URL(basePath, PRODUCTION_ORIGIN).toString()
+  }
+
+  return new URL(basePath, window.location.origin).toString()
 }
 
 function TampermonkeyRoute() {
@@ -168,7 +178,7 @@ function TampermonkeyRoute() {
       setSourceError(null)
 
       try {
-        const absoluteUrl = buildAbsoluteAssetUrl(url)
+        const absoluteUrl = buildFetchAssetUrl(url)
         const response = await fetch(absoluteUrl, {
           signal: controller.signal,
           cache: 'no-store',
@@ -215,7 +225,7 @@ function TampermonkeyRoute() {
 
   const absoluteAssetUrl = useMemo(() => {
     if (!activeAsset) return null
-    return buildAbsoluteAssetUrl(activeAsset.urlPath)
+    return buildShareAssetUrl(activeAsset.urlPath)
   }, [activeAsset])
 
   const handleCopyUrl = async () => {
@@ -296,10 +306,10 @@ function TampermonkeyRoute() {
               <div className="rounded-xl border bg-card p-5 shadow-sm">
                 <h3 className="flex items-center gap-2 text-sm font-semibold">
                   <div className="size-1.5 rounded-full bg-emerald-500" />
-                  How to install
+                  How to use
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Install the Tampermonkey browser extension, then open a script and click Install.
+                  Install the Tampermonkey browser extension, then open a script to view it and copy the raw URL.
                 </p>
               </div>
               <div className="rounded-xl border bg-card p-5 shadow-sm">
@@ -358,17 +368,6 @@ function TampermonkeyRoute() {
               </div>
               <div className="flex items-center gap-2">
                 <Button
-                  asChild
-                  variant="default"
-                  size="sm"
-                  className="h-8 gap-1.5 text-xs"
-                >
-                  <a href={absoluteAssetUrl ?? activeAsset?.urlPath} target="_blank" rel="noreferrer">
-                    <ShieldCheck className="size-3.5" />
-                    Install
-                  </a>
-                </Button>
-                <Button
                   variant="outline"
                   size="sm"
                   onClick={handleCopyUrl}
@@ -397,6 +396,17 @@ function TampermonkeyRoute() {
                   <a href={activeAsset?.urlPath} target="_blank" rel="noreferrer">
                     <ExternalLink className="size-3.5" />
                     Raw
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="h-8 gap-1.5 text-xs"
+                >
+                  <a href={activeAsset?.urlPath} download>
+                    <Download className="size-3.5" />
+                    <span className="hidden sm:inline">Download</span>
                   </a>
                 </Button>
               </div>
