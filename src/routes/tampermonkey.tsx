@@ -8,6 +8,7 @@ import {
   FileText,
   History,
   Link2,
+  ExternalLink,
   ShieldAlert,
 } from 'lucide-react'
 import { toast } from 'sonner'
@@ -248,6 +249,11 @@ function TampermonkeyRoute() {
     }
   }
 
+  const handleOpenUrl = () => {
+    if (!absoluteAssetUrl) return
+    window.open(absoluteAssetUrl, '_blank', 'noopener,noreferrer')
+  }
+
   const canCopyRaw = Boolean(assetSource) && !sourceError
 
   const handleCopyRaw = async () => {
@@ -346,7 +352,7 @@ function TampermonkeyRoute() {
                     How to use
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Install Tampermonkey, then click on a script to view it. Copy the raw URL and add it as a new script in your manager.
+                    Install Tampermonkey, then click on a script to view it. Use Open URL to install directly, or Copy URL to paste it into your script manager.
                   </p>
                 </div>
 
@@ -450,6 +456,23 @@ function TampermonkeyRoute() {
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
                     Copies the direct raw URL to your clipboard
+                  </TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleOpenUrl}
+                      className="h-7 gap-1.5 text-xs"
+                      aria-label="Open raw file URL"
+                    >
+                      <ExternalLink className="size-3" />
+                      Open URL
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="bottom" sideOffset={6}>
+                    Opens the direct raw URL in a new tab for install
                   </TooltipContent>
                 </Tooltip>
                 <Button
