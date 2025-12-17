@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name         GitHub: Add "repos" and "bbp repos" Links
+// @author       hapwi
 // @version      1.2
 // @description  Inserts "repos" and "bbp repos" links into the GitHub header.
 // @match        https://github.com/*

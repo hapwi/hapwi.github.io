@@ -6,7 +6,7 @@ import { useTheme } from '@/components/theme-provider'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 
-const HIGHLIGHT_CACHE_PREFIX = 'code-viewer-shiki:v1:'
+const HIGHLIGHT_CACHE_PREFIX = 'code-viewer-shiki:v3:'
 const HIGHLIGHT_CACHE_MAX_ENTRIES = 25
 
 type CachedHighlight = {
@@ -15,6 +15,7 @@ type CachedHighlight = {
   fg: string | null
   updatedAt: number
   sourceHash: string
+  lineCount: number
 }
 
 function hashFNV1a(input: string) {
@@ -110,6 +111,7 @@ export function CodeFileViewer({
   const [isRendering, setIsRendering] = useState(false)
   const [shikiBackground, setShikiBackground] = useState<string | null>(null)
   const [shikiForeground, setShikiForeground] = useState<string | null>(null)
+  const [lineCount, setLineCount] = useState<number>(0)
 
   const { theme: themeSetting } = useTheme()
   const [colorMode, setColorMode] = useState<'dark' | 'light'>('dark')
@@ -149,6 +151,7 @@ export function CodeFileViewer({
     setHighlightedHtml(cached?.html ?? null)
     setShikiBackground(cached?.bg ?? null)
     setShikiForeground(cached?.fg ?? null)
+    setLineCount(cached?.lineCount ?? 0)
     setIsRendering(false)
   }, [sourceUrl, safeLanguage, shikiTheme])
 
@@ -160,6 +163,7 @@ export function CodeFileViewer({
       setIsRendering(false)
       setShikiBackground(null)
       setShikiForeground(null)
+      setLineCount(0)
       return
     }
 
@@ -181,6 +185,7 @@ export function CodeFileViewer({
       setHighlightedHtml(cached.html)
       setShikiBackground(cached.bg ?? null)
       setShikiForeground(cached.fg ?? null)
+      setLineCount(cached.lineCount ?? 0)
       setIsRendering(false)
       return
     }
@@ -194,8 +199,12 @@ export function CodeFileViewer({
           theme: shikiTheme,
         })
 
+        // Count lines in source
+        const lines = safeSource.split('\n').length
+
         if (!cancelled) {
           setHighlightedHtml(html)
+          setLineCount(lines)
           if (typeof window !== 'undefined') {
             const parser = document.createElement('div')
             parser.innerHTML = html
@@ -217,6 +226,7 @@ export function CodeFileViewer({
                 fg,
                 updatedAt: Date.now(),
                 sourceHash,
+                lineCount: lines,
               })
             } else {
               setShikiBackground(null)
@@ -228,6 +238,7 @@ export function CodeFileViewer({
                 fg: null,
                 updatedAt: Date.now(),
                 sourceHash,
+                lineCount: lines,
               })
             }
           } else {
@@ -237,6 +248,7 @@ export function CodeFileViewer({
               fg: null,
               updatedAt: Date.now(),
               sourceHash,
+              lineCount: lines,
             })
           }
         }
@@ -244,6 +256,7 @@ export function CodeFileViewer({
         console.error('Failed to render code preview with Shiki:', err)
         if (!cancelled) {
           setHighlightedHtml(null)
+          setLineCount(0)
         }
       } finally {
         if (!cancelled) {
@@ -285,17 +298,39 @@ export function CodeFileViewer({
               </div>
             ) : highlightedHtml ? (
               <div
-                className={cn('code-viewer-shiki font-mono text-sm leading-relaxed')}
+                className={cn('code-viewer-shiki font-mono text-sm flex')}
                 style={
                   {
                     '--code-viewer-bg': shikiBackground ?? undefined,
                     '--code-viewer-fg': shikiForeground ?? undefined,
                   } as CSSProperties
                 }
-                dangerouslySetInnerHTML={{
-                  __html: highlightedHtml,
-                }}
-              />
+              >
+                {/* Line numbers gutter */}
+                {lineCount > 0 && (
+                  <div
+                    className="code-line-numbers select-none border-r border-border/30 text-right"
+                    style={{
+                      backgroundColor: shikiBackground ?? undefined,
+                      color: 'var(--color-muted-foreground)',
+                    }}
+                    aria-hidden="true"
+                  >
+                    {Array.from({ length: lineCount }, (_, i) => (
+                      <div key={i + 1} className="px-3 opacity-50 hover:opacity-100 transition-opacity">
+                        {i + 1}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* Code content */}
+                <div
+                  className="flex-1 overflow-x-auto"
+                  dangerouslySetInnerHTML={{
+                    __html: highlightedHtml,
+                  }}
+                />
+              </div>
             ) : (
               <div className="p-4 text-sm text-muted-foreground">
                 No preview available.

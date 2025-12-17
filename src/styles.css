@@ -198,15 +198,38 @@ body {
   overflow: hidden;
 }
 
+/* Line numbers gutter */
+.code-line-numbers {
+  position: sticky;
+  left: 0;
+  flex-shrink: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  min-width: 3rem;
+  user-select: none;
+}
+
+.code-line-numbers > div {
+  padding-right: 1rem;
+  padding-left: 0.75rem;
+  height: 1.5em;
+}
+
 .code-viewer-shiki pre {
   margin: 0;
-  padding: 1.25rem;
+  padding: 1rem 1.25rem;
   background-color: transparent !important;
   color: inherit !important;
-  white-space: pre-wrap !important;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  overflow-x: hidden;
+  /*
+    Shiki's HTML includes newline text nodes between `.line` spans.
+    If the parent preserves whitespace, those newlines render as extra blank lines.
+  */
+  white-space: normal !important;
+  overflow-x: auto;
 }
 
 .code-viewer-shiki code {
@@ -214,8 +237,15 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
   font-size: 0.8125rem;
-  line-height: 1.6;
-  white-space: inherit;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+/* Ensure code lines match line number height */
+.code-viewer-shiki code .line {
+  display: block;
+  height: 1.5em;
+  white-space: pre;
 }
 
 /* Focus ring improvements */
