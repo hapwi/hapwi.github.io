@@ -20,7 +20,7 @@ export const assetMetadata: Record<string, AssetMetadata> = {
     order: 2,
   },
   'discord/themes/customcharcoal.custom.css': {
-    title: 'Charcoal Twilight Theme (Beta)',
+    title: 'Charcoal Twilight Theme',
     description:
       'Low-contrast charcoal and blue Discord theme tailored for darker workspaces.',
     language: 'CSS',

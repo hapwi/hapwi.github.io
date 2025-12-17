@@ -1,15 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
+import { ChevronRight, Clock, FileCode2, FolderOpen } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { folderGroups } from '@/lib/library'
 
 export const Route = createFileRoute('/')({
@@ -20,79 +11,91 @@ function HomeRoute() {
   const directories = folderGroups
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-12 px-4 pb-16 pt-20 sm:gap-16 sm:px-6 sm:pt-24 lg:px-8 lg:pb-24">
-        <section className="space-y-6">
-          <Badge
-            variant="secondary"
-            className="w-fit rounded-full px-3 py-1 text-[0.7rem] font-medium uppercase tracking-[0.2em] sm:text-xs sm:tracking-[0.3em]"
-          >
-            Hapwi HQ
-          </Badge>
-          <h1 className="text-pretty text-4xl font-semibold leading-tight sm:text-5xl">
-            Open-source assets served straight from GitHub Pages.
-          </h1>
-          <p className="max-w-2xl text-balance text-base text-muted-foreground sm:text-lg">
-            Explore hosted directories for Discord themes and future UI kits. Each section mirrors
-            the folder structure inside <code>public/</code>, so you can link to raw files or browse
-            curated previews without digging through the repo.
-          </p>
-          <div>
-            <Button asChild size="lg" className="gap-2">
-              <Link to="/discord-themes">
-                <span>Browse Discord themes</span>
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-          </div>
-        </section>
+    <div className="flex min-h-screen flex-col">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="space-y-6">
+          {/* File browser */}
+          <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
+            {/* Header bar */}
+            <div className="flex items-center justify-between border-b bg-muted/40 px-4 py-3">
+              <div className="flex items-center gap-2">
+                <FileCode2 className="size-4 text-muted-foreground" />
+                <span className="text-sm font-medium">{directories.length} directories</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Clock className="size-3.5" />
+                <span>Recently updated</span>
+              </div>
+            </div>
 
-        <section className="space-y-6">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-semibold tracking-tight">Available directories</h2>
-            <p className="max-w-2xl text-sm text-muted-foreground sm:text-base">
-              Jump into a folder to see rendered previews and raw links for every asset currently
-              published.
-            </p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {directories.map((folder) => {
-              const hrefCandidate =
-                folder.href ?? folder.subfolders[0]?.href ?? '/discord-themes'
-              const primaryHref = hrefCandidate.split('#')[0] || '/'
+            {/* Directory list */}
+            <div className="divide-y divide-border/50">
+              {directories.map((folder, index) => {
+                const hrefCandidate =
+                  folder.href ?? folder.subfolders[0]?.href ?? '/discord-themes'
+                const primaryHref = hrefCandidate.split('#')[0] || '/'
+                const itemCount = folder.subfolders.reduce(
+                  (acc, sub) => acc + sub.items.length,
+                  0
+                )
 
-              return (
-                <Card
-                  key={folder.id}
-                  className="group flex h-full flex-col border bg-card shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md"
-                >
-                  <CardHeader className="space-y-2">
-                    <CardTitle className="text-xl font-semibold">
-                      {folder.title}
-                    </CardTitle>
-                    {folder.description ? (
-                      <CardDescription className="text-sm text-muted-foreground">
-                        {folder.description}
-                      </CardDescription>
-                    ) : null}
-                  </CardHeader>
-                  <CardFooter className="mt-auto pt-0">
-                    <Button
-                      asChild
-                      variant="ghost"
-                      className="group/link px-0 text-sm font-semibold text-primary"
-                    >
-                      <Link to={primaryHref}>
-                        Open {folder.title}
-                        <ArrowRight className="ml-2 size-4 transition-transform group-hover/link:translate-x-1" />
-                      </Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              )
-            })}
+                return (
+                  <Link
+                    key={folder.id}
+                    to={primaryHref}
+                    className="group flex items-center gap-4 px-4 py-3 transition-colors hover:bg-muted/50"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-blue-500/10 to-blue-600/5 ring-1 ring-blue-500/20">
+                      <FolderOpen className="size-4 text-blue-500" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {folder.title}
+                        </span>
+                        {itemCount > 0 && (
+                          <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                            {itemCount} files
+                          </span>
+                        )}
+                      </div>
+                      {folder.description && (
+                        <p className="mt-0.5 text-sm text-muted-foreground line-clamp-1">
+                          {folder.description}
+                        </p>
+                      )}
+                    </div>
+                    <ChevronRight className="size-4 text-muted-foreground/50 transition-all group-hover:text-muted-foreground group-hover:translate-x-0.5" />
+                  </Link>
+                )
+              })}
+            </div>
           </div>
-        </section>
+
+          {/* About section */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-xl border bg-card p-5 shadow-sm">
+              <h3 className="flex items-center gap-2 text-sm font-semibold">
+                <div className="size-1.5 rounded-full bg-green-500" />
+                About this repository
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                This repository hosts static assets including Discord themes and UI kits.
+                Files are served directly from GitHub Pages, making it easy to link to raw files or browse previews.
+              </p>
+            </div>
+            <div className="rounded-xl border bg-card p-5 shadow-sm">
+              <h3 className="flex items-center gap-2 text-sm font-semibold">
+                <div className="size-1.5 rounded-full bg-blue-500" />
+                Quick start
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Browse the directories above to find assets. Click on any file to view its contents and copy the direct URL for use in your projects.
+              </p>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   )
