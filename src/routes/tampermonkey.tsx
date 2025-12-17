@@ -48,8 +48,8 @@ function formatRelativeTime(timestamp: number): string {
   if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`
   if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`
   if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`
-  if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`
-  if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`
+  if (hours > 0) return `${hours} hr ago`
+  if (minutes > 0) return `${minutes} min ago`
   return 'just now'
 }
 
