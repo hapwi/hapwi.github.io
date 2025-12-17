@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   ChevronLeft,
-  Clock,
   Copy,
   Download,
   ExternalLink,
@@ -12,6 +11,11 @@ import {
 import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
+import {
+  LibraryMetaHeader,
+  LibraryMetaValues,
+  formatFileSize,
+} from '@/components/library/meta-columns'
 import { Button } from '@/components/ui/button'
 import { folderGroups } from '@/lib/library'
 
@@ -21,31 +25,6 @@ export const Route = createFileRoute('/discord-themes')({
   }),
   component: DiscordThemesRoute,
 })
-
-const fileSizeUnits = ['B', 'KB', 'MB', 'GB', 'TB']
-
-function formatFileSize(bytes: number) {
-  if (!Number.isFinite(bytes) || bytes <= 0) return '0 B'
-  let size = bytes
-  let unitIndex = 0
-
-  while (size >= 1024 && unitIndex < fileSizeUnits.length - 1) {
-    size /= 1024
-    unitIndex += 1
-  }
-
-  const precision = size >= 10 || unitIndex === 0 ? 0 : 1
-  return `${size.toFixed(precision)} ${fileSizeUnits[unitIndex]}`
-}
-
-function formatLastUpdated(timestamp: number) {
-  if (!Number.isFinite(timestamp) || timestamp <= 0) return '—'
-  return new Intl.DateTimeFormat(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
-  }).format(new Date(timestamp))
-}
 
 const THEMES_FOLDER_ID = 'discord/themes'
 const PRODUCTION_ORIGIN = 'https://hapwi.github.io'
@@ -261,7 +240,7 @@ function DiscordThemesRoute() {
   // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-0 flex-1 flex-col">
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           <div className="space-y-6">
             {/* File browser */}
@@ -272,13 +251,7 @@ function DiscordThemesRoute() {
                   <FileText className="size-4 text-muted-foreground" />
                   <span className="text-sm font-medium">{themeAssets.length} theme files</span>
                 </div>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="hidden sm:flex items-center gap-1.5">
-                    <Clock className="size-3.5" />
-                    Last updated
-                  </span>
-                  <span className="hidden sm:block">Size</span>
-                </div>
+                <LibraryMetaHeader />
               </div>
 
               {/* File list */}
@@ -309,17 +282,7 @@ function DiscordThemesRoute() {
                         </p>
                       )}
                     </div>
-                    <div className="shrink-0 flex items-center gap-4 text-right">
-                      <div
-                        className="hidden sm:block text-xs font-medium text-muted-foreground tabular-nums"
-                        title={new Date(item.mtime).toLocaleString()}
-                      >
-                        {formatLastUpdated(item.mtime)}
-                      </div>
-                      <div className="text-xs font-medium text-muted-foreground tabular-nums">
-                        {formatFileSize(item.size)}
-                      </div>
-                    </div>
+                    <LibraryMetaValues mtime={item.mtime} size={item.size} />
                   </Link>
                 ))}
               </div>
@@ -358,20 +321,29 @@ function DiscordThemesRoute() {
       <main className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="flex min-h-0 flex-1 flex-col gap-4">
           {/* Breadcrumb navigation */}
-          <div className="flex shrink-0 items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-1.5 text-muted-foreground hover:text-foreground"
-              asChild
-            >
-              <Link to="/discord-themes" search={{ file: undefined }}>
-                <ChevronLeft className="size-4" />
-                <span>Themes</span>
-              </Link>
-            </Button>
-            <span className="text-muted-foreground/50">/</span>
-            <span className="text-sm font-medium truncate">{activeAsset?.displayName}</span>
+          <div className="flex shrink-0 flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-1.5 text-muted-foreground hover:text-foreground"
+                asChild
+              >
+                <Link to="/discord-themes" search={{ file: undefined }}>
+                  <ChevronLeft className="size-4" />
+                  <span>Themes</span>
+                </Link>
+              </Button>
+              <span className="text-muted-foreground/50">/</span>
+              <span className="text-sm font-medium truncate">
+                {activeAsset?.displayName}
+              </span>
+            </div>
+            {activeAsset?.description ? (
+              <p className="pl-1 text-sm text-muted-foreground line-clamp-2">
+                {activeAsset.description}
+              </p>
+            ) : null}
           </div>
 
           {/* File viewer card */}

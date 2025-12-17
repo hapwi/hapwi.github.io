@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ChevronRight, Clock, FileCode2, FolderOpen } from 'lucide-react'
+import { ChevronRight, FileCode2, FolderOpen } from 'lucide-react'
 
+import { LibraryUpdatedHeader, LibraryUpdatedValue } from '@/components/library/meta-columns'
 import { folderGroups } from '@/lib/library'
 
 export const Route = createFileRoute('/')({
@@ -11,7 +12,7 @@ function HomeRoute() {
   const directories = folderGroups
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-0 flex-1 flex-col">
       <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="space-y-6">
           {/* File browser */}
@@ -22,10 +23,7 @@ function HomeRoute() {
                 <FileCode2 className="size-4 text-muted-foreground" />
                 <span className="text-sm font-medium">{directories.length} directories</span>
               </div>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Clock className="size-3.5" />
-                <span>Recently updated</span>
-              </div>
+              <LibraryUpdatedHeader className="pr-7" />
             </div>
 
             {/* Directory list */}
@@ -38,6 +36,13 @@ function HomeRoute() {
                   (acc, sub) => acc + sub.items.length,
                   0
                 )
+                const latestMtime = folder.subfolders.reduce((max, sub) => {
+                  const subLatest = sub.items.reduce(
+                    (subMax, item) => Math.max(subMax, item.mtime ?? 0),
+                    0,
+                  )
+                  return Math.max(max, subLatest)
+                }, 0)
 
                 return (
                   <Link
@@ -66,7 +71,10 @@ function HomeRoute() {
                         </p>
                       )}
                     </div>
-                    <ChevronRight className="size-4 text-muted-foreground/50 transition-all group-hover:text-muted-foreground group-hover:translate-x-0.5" />
+                    <div className="shrink-0 flex items-center gap-3">
+                      <LibraryUpdatedValue mtime={latestMtime} />
+                      <ChevronRight className="size-4 text-muted-foreground/50 transition-all group-hover:text-muted-foreground group-hover:translate-x-0.5" />
+                    </div>
                   </Link>
                 )
               })}

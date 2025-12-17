@@ -11,6 +11,7 @@ import {
 import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
+import { LibraryMetaHeader, LibraryMetaValues, formatFileSize } from '@/components/library/meta-columns'
 import { Button } from '@/components/ui/button'
 import { folderGroups } from '@/lib/library'
 
@@ -20,22 +21,6 @@ export const Route = createFileRoute('/tampermonkey')({
   }),
   component: TampermonkeyRoute,
 })
-
-const fileSizeUnits = ['B', 'KB', 'MB', 'GB', 'TB']
-
-function formatFileSize(bytes: number) {
-  if (!Number.isFinite(bytes) || bytes <= 0) return '0 B'
-  let size = bytes
-  let unitIndex = 0
-
-  while (size >= 1024 && unitIndex < fileSizeUnits.length - 1) {
-    size /= 1024
-    unitIndex += 1
-  }
-
-  const precision = size >= 10 || unitIndex === 0 ? 0 : 1
-  return `${size.toFixed(precision)} ${fileSizeUnits[unitIndex]}`
-}
 
 const SCRIPTS_FOLDER_ID = 'tampermonkey/scripts'
 const PRODUCTION_ORIGIN = 'https://hapwi.github.io'
@@ -254,7 +239,7 @@ function TampermonkeyRoute() {
 
   if (!selectedAssetPath) {
     return (
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-0 flex-1 flex-col">
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           <div className="space-y-6">
             <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
@@ -263,6 +248,7 @@ function TampermonkeyRoute() {
                   <FileText className="size-4 text-muted-foreground" />
                   <span className="text-sm font-medium">{scripts.length} scripts</span>
                 </div>
+                <LibraryMetaHeader />
               </div>
 
               <div className="divide-y divide-border/50">
@@ -292,11 +278,7 @@ function TampermonkeyRoute() {
                         </p>
                       )}
                     </div>
-                    <div className="shrink-0 text-right">
-                      <div className="text-xs font-medium text-muted-foreground tabular-nums">
-                        {formatFileSize(item.size)}
-                      </div>
-                    </div>
+                    <LibraryMetaValues mtime={item.mtime} size={item.size} />
                   </Link>
                 ))}
               </div>
@@ -332,20 +314,29 @@ function TampermonkeyRoute() {
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <main className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="flex min-h-0 flex-1 flex-col gap-4">
-          <div className="flex shrink-0 items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-1.5 text-muted-foreground hover:text-foreground"
-              asChild
-            >
-              <Link to="/tampermonkey" search={{ file: undefined }}>
-                <ChevronLeft className="size-4" />
-                <span>Scripts</span>
-              </Link>
-            </Button>
-            <span className="text-muted-foreground/50">/</span>
-            <span className="text-sm font-medium truncate">{activeAsset?.displayName}</span>
+          <div className="flex shrink-0 flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-1.5 text-muted-foreground hover:text-foreground"
+                asChild
+              >
+                <Link to="/tampermonkey" search={{ file: undefined }}>
+                  <ChevronLeft className="size-4" />
+                  <span>Scripts</span>
+                </Link>
+              </Button>
+              <span className="text-muted-foreground/50">/</span>
+              <span className="text-sm font-medium truncate">
+                {activeAsset?.displayName}
+              </span>
+            </div>
+            {activeAsset?.description ? (
+              <p className="pl-1 text-sm text-muted-foreground line-clamp-2">
+                {activeAsset.description}
+              </p>
+            ) : null}
           </div>
 
           <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-xl border bg-card shadow-sm">
