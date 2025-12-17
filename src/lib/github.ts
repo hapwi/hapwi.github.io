@@ -21,8 +21,6 @@ export type GitHubTreeResponse = {
 
 export type GitHubRepoResponse = {
   default_branch: string
-  pushed_at?: string
-  updated_at?: string
 }
 
 function encodePathPreservingSlashes(path: string) {
@@ -101,37 +99,6 @@ export async function fetchGitHubRepoDefaultBranch({
   return json.default_branch
 }
 
-export async function fetchGitHubRepoInfo({
-  owner,
-  repo,
-  signal,
-}: {
-  owner: string
-  repo: string
-  signal?: AbortSignal
-}) {
-  const response = await fetch(
-    buildGitHubApiUrl(`/repos/${owner}/${repo}`),
-    {
-      signal,
-      headers: {
-        Accept: 'application/vnd.github+json',
-      },
-    },
-  )
-
-  if (!response.ok) {
-    throw new Error(`GitHub repo request failed (${response.status})`)
-  }
-
-  const json = (await response.json()) as GitHubRepoResponse
-  if (!json?.default_branch) {
-    throw new Error('GitHub repo response missing default_branch')
-  }
-
-  return json
-}
-
 export async function fetchGitHubRepoTree({
   owner,
   repo,
@@ -166,3 +133,4 @@ export async function fetchGitHubRepoTree({
 
   return json
 }
+

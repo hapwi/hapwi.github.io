@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { Folder, GitBranch, BarChart3 } from 'lucide-react'
 
 import { folderGroups, codeLibrary, type LibraryFolder } from '@/lib/library'
-import { fetchGitHubRepoInfo } from '@/lib/github'
 
 export const Route = createFileRoute('/')({
   component: HomeRoute,
@@ -40,72 +38,6 @@ const languageColors: Record<string, string> = {
 }
 
 function HomeRoute() {
-  const [bbpcnUpdatedAt, setBbpcnUpdatedAt] = useState<number>(0)
-
-  useEffect(() => {
-    const OWNER = 'hapwi'
-    const REPO = 'bbpcn'
-    const CACHE_KEY = `github:repo-meta:v1:${OWNER}/${REPO}`
-    const CACHE_TTL_MS = 1000 * 60 * 30
-
-    const readCached = () => {
-      if (typeof window === 'undefined') return 0
-      try {
-        const raw = window.localStorage.getItem(CACHE_KEY)
-        if (!raw) return 0
-        const parsed = JSON.parse(raw) as { updatedAt: number; pushedAt: number }
-        if (typeof parsed?.updatedAt !== 'number' || typeof parsed?.pushedAt !== 'number') {
-          return 0
-        }
-        if (Date.now() - parsed.updatedAt > CACHE_TTL_MS) return 0
-        return parsed.pushedAt
-      } catch {
-        return 0
-      }
-    }
-
-    const cached = readCached()
-    if (cached) setBbpcnUpdatedAt(cached)
-
-    const controller = new AbortController()
-    let cancelled = false
-
-    async function load() {
-      try {
-        const info = await fetchGitHubRepoInfo({
-          owner: OWNER,
-          repo: REPO,
-          signal: controller.signal,
-        })
-        const pushedAt = Date.parse(info.pushed_at ?? info.updated_at ?? '')
-        if (!Number.isFinite(pushedAt) || pushedAt <= 0) return
-
-        if (!cancelled) {
-          setBbpcnUpdatedAt(pushedAt)
-          if (typeof window !== 'undefined') {
-            try {
-              window.localStorage.setItem(
-                CACHE_KEY,
-                JSON.stringify({ updatedAt: Date.now(), pushedAt }),
-              )
-            } catch {
-              // ignore storage quota / serialization issues
-            }
-          }
-        }
-      } catch {
-        // ignore GitHub fetch failures (rate limits / offline)
-      }
-    }
-
-    load()
-
-    return () => {
-      cancelled = true
-      controller.abort()
-    }
-  }, [])
-
   const externalDirectories: LibraryFolder[] = [
     {
       id: 'bbpcn',
@@ -181,16 +113,13 @@ function HomeRoute() {
                       (acc, sub) => acc + sub.items.length,
                       0
                     )
-                    const latestMtime =
-                      folder.id === 'bbpcn'
-                        ? bbpcnUpdatedAt
-                        : folder.subfolders.reduce((max, sub) => {
-                            const subLatest = sub.items.reduce(
-                              (subMax, item) => Math.max(subMax, item.mtime ?? 0),
-                              0
-                            )
-                            return Math.max(max, subLatest)
-                          }, 0)
+                    const latestMtime = folder.subfolders.reduce((max, sub) => {
+                      const subLatest = sub.items.reduce(
+                        (subMax, item) => Math.max(subMax, item.mtime ?? 0),
+                        0
+                      )
+                      return Math.max(max, subLatest)
+                    }, 0)
 
                     return (
                       <Link
