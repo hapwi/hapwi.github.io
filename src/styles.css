@@ -224,6 +224,13 @@ body {
   outline-offset: 2px;
 }
 
+/* Remove focus ring from command palette input */
+[data-slot="command-input"]:focus-visible,
+[data-slot="command-input"]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* Subtle fade-in animation for content */
 @keyframes fade-in {
   from {

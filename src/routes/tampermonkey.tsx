@@ -2,12 +2,10 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   ChevronLeft,
-  Clock,
   Copy,
-  Download,
   ExternalLink,
-  FileCode2,
   FileText,
+  ShieldCheck,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -15,11 +13,11 @@ import { CodeFileViewer } from '@/components/code-file-viewer'
 import { Button } from '@/components/ui/button'
 import { folderGroups } from '@/lib/library'
 
-export const Route = createFileRoute('/discord-themes')({
+export const Route = createFileRoute('/tampermonkey')({
   validateSearch: (search: Record<string, unknown>) => ({
     file: typeof search.file === 'string' ? search.file : undefined,
   }),
-  component: DiscordThemesRoute,
+  component: TampermonkeyRoute,
 })
 
 const fileSizeUnits = ['B', 'KB', 'MB', 'GB', 'TB']
@@ -38,19 +36,10 @@ function formatFileSize(bytes: number) {
   return `${size.toFixed(precision)} ${fileSizeUnits[unitIndex]}`
 }
 
-function formatLastUpdated(timestamp: number) {
-  if (!Number.isFinite(timestamp) || timestamp <= 0) return '—'
-  return new Intl.DateTimeFormat(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
-  }).format(new Date(timestamp))
-}
-
-const THEMES_FOLDER_ID = 'discord/themes'
+const SCRIPTS_FOLDER_ID = 'tampermonkey/scripts'
 const PRODUCTION_ORIGIN = 'https://hapwi.github.io'
 
-const SOURCE_CACHE_PREFIX = 'discord-themes:raw-source:v1:'
+const SOURCE_CACHE_PREFIX = 'tampermonkey:raw-source:v1:'
 const SOURCE_CACHE_MAX_ENTRIES = 25
 
 type CachedSource = {
@@ -125,20 +114,22 @@ function buildAbsoluteAssetUrl(relativePath: string) {
   return new URL(basePath, origin).toString()
 }
 
-function DiscordThemesRoute() {
-  const discordFolder =
-    folderGroups.find((folder) => folder.id === 'discord') ?? null
-  const themeSubfolder =
-    discordFolder?.subfolders.find((sub) => sub.id === THEMES_FOLDER_ID) ?? null
-  const themeAssets = themeSubfolder?.items ?? []
+function TampermonkeyRoute() {
+  const tmFolder =
+    folderGroups.find((folder) => folder.id === 'tampermonkey') ?? null
+  const scriptsSubfolder =
+    tmFolder?.subfolders.find((sub) => sub.id === SCRIPTS_FOLDER_ID) ??
+    tmFolder?.subfolders[0] ??
+    null
+  const scripts = scriptsSubfolder?.items ?? []
 
   const { file } = Route.useSearch()
 
   const selectedAssetPath =
-    file && themeAssets.some((asset) => asset.urlPath === file) ? file : null
+    file && scripts.some((asset) => asset.urlPath === file) ? file : null
 
   const activeAsset = selectedAssetPath
-    ? themeAssets.find((asset) => asset.urlPath === selectedAssetPath) ?? null
+    ? scripts.find((asset) => asset.urlPath === selectedAssetPath) ?? null
     : null
 
   const assetUrl = activeAsset?.urlPath ?? null
@@ -173,31 +164,34 @@ function DiscordThemesRoute() {
     const controller = new AbortController()
 
     async function fetchSource(url: string) {
-      if (!hasCachedSource) {
-        setIsLoadingSource(true)
-        setSourceError(null)
-      }
+      setIsLoadingSource(true)
+      setSourceError(null)
 
       try {
-        const response = await fetch(url, { signal: controller.signal })
+        const absoluteUrl = buildAbsoluteAssetUrl(url)
+        const response = await fetch(absoluteUrl, {
+          signal: controller.signal,
+          cache: 'no-store',
+        })
         if (!response.ok) {
-          throw new Error(`Request failed with status ${response.status}`)
+          throw new Error(`Failed to load script (${response.status})`)
         }
+
         const text = await response.text()
         if (!cancelled) {
           setAssetSource(text)
           writeCachedSource(resolvedAssetUrl, text)
         }
       } catch (err) {
-        if (cancelled || controller.signal.aborted) return
-        console.error('Failed to load asset source:', err)
-        if (!hasCachedSource) {
-          setAssetSource(null)
-          setSourceError('Unable to load a highlighted preview for this file.')
-        }
+        if (cancelled) return
+        if (err instanceof DOMException && err.name === 'AbortError') return
+        console.error('Failed to fetch source:', err)
+        setSourceError(
+          err instanceof Error ? err.message : 'Failed to load script source',
+        )
       } finally {
         if (!cancelled) {
-          if (!hasCachedSource) setIsLoadingSource(false)
+          setIsLoadingSource(false)
         }
       }
     }
@@ -212,19 +206,9 @@ function DiscordThemesRoute() {
 
   const highlightLanguage = useMemo(() => {
     if (!activeAsset) return 'txt'
-
-    const normalizedLabel = activeAsset.language.toLowerCase().replace(/\s+/g, '-')
     const extension = activeAsset.extension.toLowerCase()
-
-    if (normalizedLabel && normalizedLabel !== 'file') {
-      return normalizedLabel
-    }
-
-    if (extension) {
-      return extension
-    }
-
-    return 'txt'
+    if (extension === 'js') return 'javascript'
+    return extension || 'txt'
   }, [activeAsset])
 
   const languageLabel = activeAsset?.language ?? 'FILE'
@@ -258,49 +242,38 @@ function DiscordThemesRoute() {
     }
   }
 
-  // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
       <div className="flex min-h-screen flex-col">
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
           <div className="space-y-6">
-            {/* File browser */}
             <div className="overflow-hidden rounded-xl border bg-card shadow-sm">
-              {/* Header bar */}
               <div className="flex items-center justify-between border-b bg-muted/40 px-4 py-3">
                 <div className="flex items-center gap-2">
                   <FileText className="size-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">{themeAssets.length} theme files</span>
-                </div>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="hidden sm:flex items-center gap-1.5">
-                    <Clock className="size-3.5" />
-                    Last updated
-                  </span>
-                  <span className="hidden sm:block">Size</span>
+                  <span className="text-sm font-medium">{scripts.length} scripts</span>
                 </div>
               </div>
 
-              {/* File list */}
               <div className="divide-y divide-border/50">
-                {themeAssets.map((item, index) => (
+                {scripts.map((item, index) => (
                   <Link
                     key={item.urlPath}
-                    to="/discord-themes"
+                    to="/tampermonkey"
                     search={{ file: item.urlPath }}
                     className="group w-full flex items-center gap-4 px-4 py-3 transition-all hover:bg-muted/50 text-left"
                     style={{ animationDelay: `${index * 30}ms` }}
                   >
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-purple-500/10 to-pink-500/5 ring-1 ring-purple-500/20">
-                      <FileCode2 className="size-4 text-purple-500" />
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-emerald-500/10 to-teal-500/5 ring-1 ring-emerald-500/20">
+                      <ShieldCheck className="size-4 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-foreground group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors truncate">
+                        <span className="text-sm font-medium text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate">
                           {item.displayName}
                         </span>
-                        <span className="hidden sm:inline-flex shrink-0 rounded-full bg-purple-500/10 px-2 py-0.5 text-xs font-medium text-purple-600 dark:text-purple-400 ring-1 ring-purple-500/20">
-                          CSS
+                        <span className="hidden sm:inline-flex shrink-0 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-500/20">
+                          {item.language ?? 'SCRIPT'}
                         </span>
                       </div>
                       {item.description && (
@@ -309,13 +282,7 @@ function DiscordThemesRoute() {
                         </p>
                       )}
                     </div>
-                    <div className="shrink-0 flex items-center gap-4 text-right">
-                      <div
-                        className="hidden sm:block text-xs font-medium text-muted-foreground tabular-nums"
-                        title={new Date(item.mtime).toLocaleString()}
-                      >
-                        {formatLastUpdated(item.mtime)}
-                      </div>
+                    <div className="shrink-0 text-right">
                       <div className="text-xs font-medium text-muted-foreground tabular-nums">
                         {formatFileSize(item.size)}
                       </div>
@@ -325,24 +292,23 @@ function DiscordThemesRoute() {
               </div>
             </div>
 
-            {/* Info cards */}
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-xl border bg-card p-5 shadow-sm">
                 <h3 className="flex items-center gap-2 text-sm font-semibold">
-                  <div className="size-1.5 rounded-full bg-purple-500" />
-                  How to use
+                  <div className="size-1.5 rounded-full bg-emerald-500" />
+                  How to install
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Click on any theme to view its source code. Copy the URL and paste it into your Discord client mod's custom CSS settings.
+                  Install the Tampermonkey browser extension, then open a script and click Install.
                 </p>
               </div>
               <div className="rounded-xl border bg-card p-5 shadow-sm">
                 <h3 className="flex items-center gap-2 text-sm font-semibold">
-                  <div className="size-1.5 rounded-full bg-pink-500" />
-                  Compatibility
+                  <div className="size-1.5 rounded-full bg-teal-500" />
+                  Notes
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  These themes work with BetterDiscord, Vencord, Equicord, and other CSS-injection based Discord mods.
+                  Scripts are served from GitHub Pages, so you can also copy the direct URL for sharing.
                 </p>
               </div>
             </div>
@@ -352,12 +318,10 @@ function DiscordThemesRoute() {
     )
   }
 
-  // Show file viewer when a file is selected
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <main className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <div className="flex min-h-0 flex-1 flex-col gap-4">
-          {/* Breadcrumb navigation */}
           <div className="flex shrink-0 items-center gap-2">
             <Button
               variant="ghost"
@@ -365,28 +329,26 @@ function DiscordThemesRoute() {
               className="gap-1.5 text-muted-foreground hover:text-foreground"
               asChild
             >
-              <Link to="/discord-themes" search={{ file: undefined }}>
+              <Link to="/tampermonkey" search={{ file: undefined }}>
                 <ChevronLeft className="size-4" />
-                <span>Themes</span>
+                <span>Scripts</span>
               </Link>
             </Button>
             <span className="text-muted-foreground/50">/</span>
             <span className="text-sm font-medium truncate">{activeAsset?.displayName}</span>
           </div>
 
-          {/* File viewer card */}
           <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-xl border bg-card shadow-sm">
-            {/* File header */}
             <div className="flex shrink-0 flex-col gap-3 border-b bg-muted/40 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-3">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-purple-500/10 to-pink-500/5 ring-1 ring-purple-500/20">
-                  <FileCode2 className="size-4 text-purple-500" />
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-emerald-500/10 to-teal-500/5 ring-1 ring-emerald-500/20">
+                  <ShieldCheck className="size-4 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-semibold">{activeAsset?.displayName}</span>
-                    <span className="rounded-full bg-purple-500/10 px-2 py-0.5 text-xs font-medium text-purple-600 dark:text-purple-400 ring-1 ring-purple-500/20">
-                      CSS
+                    <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-500/20">
+                      {languageLabel}
                     </span>
                   </div>
                   <div className="mt-0.5 text-xs text-muted-foreground">
@@ -395,6 +357,17 @@ function DiscordThemesRoute() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
+                <Button
+                  asChild
+                  variant="default"
+                  size="sm"
+                  className="h-8 gap-1.5 text-xs"
+                >
+                  <a href={absoluteAssetUrl ?? activeAsset?.urlPath} target="_blank" rel="noreferrer">
+                    <ShieldCheck className="size-3.5" />
+                    Install
+                  </a>
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"
@@ -426,21 +399,9 @@ function DiscordThemesRoute() {
                     Raw
                   </a>
                 </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="h-8 gap-1.5 text-xs"
-                >
-                  <a href={activeAsset?.urlPath} download>
-                    <Download className="size-3.5" />
-                    <span className="hidden sm:inline">Download</span>
-                  </a>
-                </Button>
               </div>
             </div>
 
-            {/* Code viewer */}
             <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
               {activeAsset ? (
                 <CodeFileViewer

@@ -1,13 +1,15 @@
 import { Link, useRouterState } from '@tanstack/react-router'
-import { BookOpen, Code2, Github, Palette, Search } from 'lucide-react'
+import { BookOpen, Code2, Github, Palette, ShieldCheck } from 'lucide-react'
 
 import { ModeToggle } from '@/components/mode-toggle'
+import { SearchCommand } from '@/components/search-command'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 const navItems = [
   { path: '/', label: 'Code', icon: BookOpen },
   { path: '/discord-themes', label: 'Themes', icon: Palette },
+  { path: '/tampermonkey', label: 'Tampermonkey', icon: ShieldCheck },
 ]
 
 export default function Header() {
@@ -88,15 +90,7 @@ export default function Header() {
 
           {/* Right side actions */}
           <div className="ml-auto flex items-center gap-1">
-            {/* Search button placeholder */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden h-8 w-8 p-0 text-muted-foreground hover:text-foreground sm:flex"
-              aria-label="Search"
-            >
-              <Search className="size-4" />
-            </Button>
+            <SearchCommand />
 
             <Button
               asChild

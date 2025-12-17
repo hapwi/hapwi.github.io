@@ -33,6 +33,13 @@ export const assetMetadata: Record<string, AssetMetadata> = {
     language: 'CSS',
     order: 0,
   },
+  'tampermonkey/scripts/github-repos-links.user.js': {
+    title: 'GitHub Repos Quick Links',
+    description:
+      'Adds "repos" and "bbp repos" shortcuts to the GitHub header.',
+    language: 'JavaScript',
+    order: 0,
+  },
 }
 
 export const folderMetadata: Record<string, FolderMetadata> = {
@@ -47,5 +54,15 @@ export const folderMetadata: Record<string, FolderMetadata> = {
     description:
       'Drop-in CSS themes compatible with Vencord, Equicord, and other Discord mod loaders.',
     href: '/discord-themes',
+  },
+  tampermonkey: {
+    title: 'Tampermonkey',
+    description: 'Browser userscripts for small quality-of-life tweaks.',
+    href: '/tampermonkey',
+  },
+  'tampermonkey/scripts': {
+    title: 'Scripts',
+    description: 'Installable userscripts for Tampermonkey.',
+    href: '/tampermonkey',
   },
 }

@@ -32,7 +32,7 @@ function HomeRoute() {
             <div className="divide-y divide-border/50">
               {directories.map((folder, index) => {
                 const hrefCandidate =
-                  folder.href ?? folder.subfolders[0]?.href ?? '/discord-themes'
+                  folder.href ?? folder.subfolders[0]?.href ?? '/'
                 const primaryHref = hrefCandidate.split('#')[0] || '/'
                 const itemCount = folder.subfolders.reduce(
                   (acc, sub) => acc + sub.items.length,
