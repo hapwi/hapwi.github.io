@@ -97,7 +97,7 @@ export function SearchForm({
     if (results.length > 0) {
       selectAsset(results[0]!)
     }
-    onSubmit?.(event)
+    onSubmit?.(event as unknown as React.SubmitEvent<HTMLFormElement>)
   }
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {

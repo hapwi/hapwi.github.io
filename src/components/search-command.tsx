@@ -62,21 +62,20 @@ export function SearchCommand() {
         variant="ghost"
         size="sm"
         onClick={() => setOpen(true)}
-        className="hidden h-8 gap-2 px-2 text-muted-foreground hover:text-foreground sm:flex"
+        className="hidden h-9 gap-2.5 rounded-md border border-border/50 bg-muted/30 px-3 text-muted-foreground hover:bg-muted hover:text-foreground md:flex"
         aria-label="Search"
       >
         <Search className="size-4" />
-        <span className="text-xs text-muted-foreground">
-          <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-            <span className="text-xs">⌘</span>K
-          </kbd>
-        </span>
+        <span className="text-sm">Search</span>
+        <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-0.5 rounded border border-border/60 bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+          <span className="text-xs">⌘</span>K
+        </kbd>
       </Button>
       <Button
         variant="ghost"
         size="sm"
         onClick={() => setOpen(true)}
-        className="flex h-8 w-8 p-0 text-muted-foreground hover:text-foreground sm:hidden"
+        className="flex h-8 w-8 p-0 text-muted-foreground hover:text-foreground md:hidden"
         aria-label="Search"
       >
         <Search className="size-4" />
@@ -89,18 +88,23 @@ export function SearchCommand() {
       >
         <CommandInput placeholder="Search files and folders..." />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty className="py-8 text-center text-sm text-muted-foreground">
+            No results found.
+          </CommandEmpty>
           <CommandGroup heading="Folders">
             {folderGroups.map((folder) => (
               <CommandItem
                 key={folder.id}
                 value={`folder:${folder.id}`}
                 onSelect={handleSelect}
+                className="gap-3"
               >
-                <FolderOpen className="size-4 text-blue-500" />
-                <span>{folder.title}</span>
+                <div className="flex size-6 items-center justify-center rounded bg-primary/10">
+                  <FolderOpen className="size-3.5 text-primary" />
+                </div>
+                <span className="font-medium">{folder.title}</span>
                 {folder.description && (
-                  <span className="ml-2 text-xs text-muted-foreground truncate">
+                  <span className="ml-auto text-xs text-muted-foreground truncate max-w-[40%]">
                     {folder.description}
                   </span>
                 )}
@@ -113,10 +117,13 @@ export function SearchCommand() {
                 key={asset.urlPath}
                 value={`file:${asset.urlPath}`}
                 onSelect={handleSelect}
+                className="gap-3"
               >
-                <FileCode2 className="size-4 text-purple-500" />
-                <span>{asset.displayName}</span>
-                <span className="ml-2 text-xs text-muted-foreground truncate">
+                <div className="flex size-6 items-center justify-center rounded bg-violet-500/10">
+                  <FileCode2 className="size-3.5 text-violet-600 dark:text-violet-400" />
+                </div>
+                <span className="font-medium">{asset.displayName}</span>
+                <span className="ml-auto text-xs text-muted-foreground truncate max-w-[40%]">
                   {asset.folderSegments.join('/')}
                 </span>
               </CommandItem>
