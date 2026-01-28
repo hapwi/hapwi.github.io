@@ -1,6 +1,17 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { Folder, GitBranch, BarChart3 } from 'lucide-react'
+import { Folder, BarChart3, Sparkles, ArrowRight } from 'lucide-react'
 
+import {
+  PageLayout,
+  PageHeader,
+  PageContent,
+  PageGrid,
+  PageMain,
+  PageSidebar,
+  SidebarCard,
+  SidebarCardHeader,
+  FileListCard,
+} from '@/components/page-layout'
 import { folderGroups, codeLibrary, type LibraryFolder } from '@/lib/library'
 
 export const Route = createFileRoute('/')({
@@ -19,22 +30,22 @@ function formatRelativeTime(timestamp: number): string {
   const months = Math.floor(days / 30)
   const years = Math.floor(days / 365)
 
-  if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`
-  if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`
-  if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`
-  if (hours > 0) return `${hours} hr ago`
-  if (minutes > 0) return `${minutes} min ago`
-  return 'just now'
+  if (years > 0) return `${years}y ago`
+  if (months > 0) return `${months}mo ago`
+  if (days > 0) return `${days}d ago`
+  if (hours > 0) return `${hours}h ago`
+  if (minutes > 0) return `${minutes}m ago`
+  return 'now'
 }
 
-// Language colors matching GitHub's language colors
+// Language colors - refined editorial palette
 const languageColors: Record<string, string> = {
-  css: '#563d7c',
-  javascript: '#f1e05a',
-  typescript: '#3178c6',
-  html: '#e34c26',
-  json: '#292929',
-  markdown: '#083fa1',
+  css: '#7c3aed',
+  javascript: '#eab308',
+  typescript: '#3b82f6',
+  html: '#f97316',
+  json: '#6b7280',
+  markdown: '#2563eb',
 }
 
 function HomeRoute() {
@@ -42,7 +53,7 @@ function HomeRoute() {
     {
       id: 'bbpcn',
       title: 'BBPCN',
-      description: 'Live view of hapwi/bbpcn on GitHub.',
+      description: 'Live GitHub repository view',
       href: '/bbpcn',
       totalItems: 0,
       subfolders: [],
@@ -74,190 +85,189 @@ function HomeRoute() {
       key: lang,
       size,
       percentage: (size / totalSize) * 100,
-      color: languageColors[lang] || '#6e7681',
+      color: languageColors[lang] || '#94a3b8',
     }))
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col">
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="space-y-6">
-          {/* Repository description */}
-          <p className="text-sm text-muted-foreground max-w-2xl">
-            A collection of open source projects, Discord themes, and browser userscripts.
-            Browse the source code directly or copy raw URLs for use in your projects.
+    <PageLayout>
+      <PageContent>
+        {/* Editorial Hero Section */}
+        <PageHeader>
+          <div className="editorial-accent-line" />
+          <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+            Open Source Code Library
+          </h1>
+          <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            A curated collection of Discord themes, browser userscripts, and open source projects.
+            Browse source code directly or copy raw URLs for your projects.
           </p>
+        </PageHeader>
 
-          {/* Main content area */}
-          <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-            {/* File browser */}
-            <div className="space-y-4">
-              <div className="overflow-hidden rounded-lg border bg-card">
-                {/* Branch bar */}
-                <div className="flex items-center justify-between border-b bg-muted/30 px-4 py-2.5">
-                  <div className="flex items-center gap-2 text-sm">
-                    <GitBranch className="size-4 text-muted-foreground" />
-                    <span className="font-medium">master</span>
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    <span className="font-medium text-foreground">{totalFiles}</span> files
-                  </div>
-                </div>
-
-                {/* Directory list */}
-                <div className="divide-y divide-border/50">
-                  {directories.map((folder) => {
-                    const hrefCandidate =
-                      folder.href ?? folder.subfolders[0]?.href ?? '/'
-                    const primaryHref = hrefCandidate.split('#')[0] || '/'
-                    const itemCount = folder.subfolders.reduce(
-                      (acc, sub) => acc + sub.items.length,
-                      0
-                    )
-                    const latestMtime = folder.subfolders.reduce((max, sub) => {
-                      const subLatest = sub.items.reduce(
-                        (subMax, item) => Math.max(subMax, item.mtime ?? 0),
-                        0
-                      )
-                      return Math.max(max, subLatest)
-                    }, 0)
-
-                    return (
-                      <Link
-                        key={folder.id}
-                        to={primaryHref}
-                        className="group flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-muted/40"
-                      >
-                        <Folder className="size-4 shrink-0 text-blue-400" />
-                        <span className="min-w-0 flex-1 truncate text-sm text-foreground group-hover:text-blue-500 group-hover:underline">
-                          {folder.title.toLowerCase().replace(/\s+/g, '-')}
-                        </span>
-                        <span className="hidden flex-shrink-0 text-sm text-muted-foreground md:block max-w-[45%] truncate text-right">
-                          {folder.description || `${itemCount} files`}
-                        </span>
-                        <span className="shrink-0 text-xs text-muted-foreground tabular-nums w-20 text-right">
-                          {formatRelativeTime(latestMtime)}
-                        </span>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
+        <PageGrid>
+          <PageMain>
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="font-display text-base sm:text-lg font-medium">Directories</h2>
+              <span className="text-xs sm:text-sm tabular-nums text-muted-foreground shrink-0">
+                {totalFiles} files
+              </span>
             </div>
 
-            {/* Sidebar */}
-            <div className="space-y-4">
-              {/* About */}
-              <div className="rounded-lg border bg-card">
-                <div className="border-b px-4 py-3">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
-                    About
-                  </h3>
-                </div>
-                <div className="p-4">
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    Open source code library for Discord customization and browser automation.
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    <Link
-                      to="/discord-themes"
-                      search={{ file: undefined }}
-                      className="rounded-full bg-blue-500/10 px-2.5 py-1 text-xs font-medium text-blue-600 transition-colors hover:bg-blue-500/20 dark:text-blue-400"
-                    >
-                      discord-themes
-                    </Link>
-                    <Link
-                      to="/tampermonkey"
-                      search={{ file: undefined }}
-                      className="rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-600 transition-colors hover:bg-amber-500/20 dark:text-amber-400"
-                    >
-                      userscripts
-                    </Link>
-                    <Link
-                      to="/bbpcn"
-                      search={{ file: undefined, path: undefined }}
-                      className="rounded-full bg-violet-500/10 px-2.5 py-1 text-xs font-medium text-violet-600 transition-colors hover:bg-violet-500/20 dark:text-violet-400"
-                    >
-                      bbpcn
-                    </Link>
-                    <span className="rounded-full bg-green-500/10 px-2.5 py-1 text-xs font-medium text-green-600 dark:text-green-400">
-                      open-source
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <FileListCard>
+              {directories.map((folder) => {
+                const hrefCandidate = folder.href ?? folder.subfolders[0]?.href ?? '/'
+                const primaryHref = hrefCandidate.split('#')[0] || '/'
+                const itemCount = folder.subfolders.reduce(
+                  (acc, sub) => acc + sub.items.length,
+                  0
+                )
+                const latestMtime = folder.subfolders.reduce((max, sub) => {
+                  const subLatest = sub.items.reduce(
+                    (subMax, item) => Math.max(subMax, item.mtime ?? 0),
+                    0
+                  )
+                  return Math.max(max, subLatest)
+                }, 0)
 
-              {/* Languages */}
-              <div className="rounded-lg border bg-card">
-                <div className="border-b px-4 py-3">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
-                    Languages
-                  </h3>
-                </div>
-                <div className="p-4">
-                  {/* Language bar */}
-                  <div className="flex h-2 overflow-hidden rounded-full">
-                    {sortedLanguages.map((lang, i) => (
-                      <div
-                        key={lang.key}
-                        className="h-full transition-all"
-                        style={{
-                          width: `${lang.percentage}%`,
-                          backgroundColor: lang.color,
-                          marginLeft: i > 0 ? '2px' : 0,
-                        }}
-                        title={`${lang.name}: ${lang.percentage.toFixed(1)}%`}
-                      />
-                    ))}
-                  </div>
-                  {/* Language list */}
-                  <div className="mt-3 space-y-2">
-                    {sortedLanguages.map((lang) => (
-                      <div key={lang.key} className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="size-3 rounded-full"
-                            style={{ backgroundColor: lang.color }}
-                          />
-                          <span className="text-foreground">{lang.name}</span>
-                        </div>
-                        <span className="text-muted-foreground tabular-nums">
-                          {lang.percentage.toFixed(1)}%
+                return (
+                  <Link
+                    key={folder.id}
+                    to={primaryHref}
+                    className="group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-4 transition-colors hover:bg-muted/50"
+                  >
+                    <div className="flex size-9 sm:size-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary transition-colors group-hover:bg-primary/15">
+                      <Folder className="size-4 sm:size-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium text-foreground group-hover:text-primary transition-colors truncate">
+                          {folder.title}
                         </span>
+                        <ArrowRight className="size-3.5 shrink-0 opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0 text-primary hidden sm:block" />
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                      <p className="mt-0.5 truncate text-xs sm:text-sm text-muted-foreground">
+                        {folder.description || `${itemCount} files`}
+                      </p>
+                    </div>
+                    <span className="shrink-0 text-xs tabular-nums text-muted-foreground hidden xs:block">
+                      {formatRelativeTime(latestMtime)}
+                    </span>
+                  </Link>
+                )
+              })}
+            </FileListCard>
+          </PageMain>
 
-              {/* Stats */}
-              <div className="rounded-lg border bg-card">
-                <div className="border-b px-4 py-3">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
-                    <BarChart3 className="size-4 text-muted-foreground" />
-                    Stats
-                  </h3>
-                </div>
-                <div className="p-4 space-y-3">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Files</span>
-                    <span className="font-medium tabular-nums">{totalFiles}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Total size</span>
-                    <span className="font-medium tabular-nums">
-                      {(totalSize / 1024).toFixed(1)} KB
+          <PageSidebar>
+            {/* About Card */}
+            <SidebarCard>
+              <SidebarCardHeader icon={<Sparkles className="size-4" />} title="About" />
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Open source code library for Discord customization and browser automation tools.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Link
+                  to="/discord-themes"
+                  search={{ file: undefined }}
+                  className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/10"
+                >
+                  Themes
+                </Link>
+                <Link
+                  to="/tampermonkey"
+                  search={{ file: undefined }}
+                  className="inline-flex items-center rounded-full border border-amber-500/20 bg-amber-500/5 px-2.5 py-1 text-xs font-medium text-amber-600 dark:text-amber-400 transition-colors hover:bg-amber-500/10"
+                >
+                  Scripts
+                </Link>
+                <Link
+                  to="/bbpcn"
+                  search={{ file: undefined, path: undefined }}
+                  className="inline-flex items-center rounded-full border border-violet-500/20 bg-violet-500/5 px-2.5 py-1 text-xs font-medium text-violet-600 dark:text-violet-400 transition-colors hover:bg-violet-500/10"
+                >
+                  BBPCN
+                </Link>
+              </div>
+            </SidebarCard>
+
+            {/* Languages Card */}
+            <SidebarCard>
+              <SidebarCardHeader title="Languages" />
+              <div className="flex h-2 sm:h-2.5 overflow-hidden rounded-full bg-muted">
+                {sortedLanguages.map((lang) => (
+                  <div
+                    key={lang.key}
+                    className="h-full transition-all first:rounded-l-full last:rounded-r-full"
+                    style={{
+                      width: `${lang.percentage}%`,
+                      backgroundColor: lang.color,
+                    }}
+                    title={`${lang.name}: ${lang.percentage.toFixed(1)}%`}
+                  />
+                ))}
+              </div>
+              <div className="mt-3 space-y-2">
+                {sortedLanguages.map((lang) => (
+                  <div key={lang.key} className="flex items-center justify-between text-sm">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span
+                        className="size-2.5 shrink-0 rounded-full ring-2 ring-background"
+                        style={{ backgroundColor: lang.color }}
+                      />
+                      <span className="font-medium text-foreground truncate">{lang.name}</span>
+                    </div>
+                    <span className="tabular-nums text-muted-foreground shrink-0 ml-2">
+                      {lang.percentage.toFixed(1)}%
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-muted-foreground">Last updated</span>
-                    <span className="font-medium">{formatRelativeTime(latestUpdate)}</span>
-                  </div>
-                </div>
+                ))}
               </div>
-            </div>
-          </div>
+            </SidebarCard>
+
+            {/* Stats Card */}
+            <SidebarCard>
+              <SidebarCardHeader icon={<BarChart3 className="size-4" />} title="Statistics" />
+              <dl className="space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <dt className="text-sm text-muted-foreground">Total files</dt>
+                  <dd className="font-mono text-sm font-medium tabular-nums">{totalFiles}</dd>
+                </div>
+                <div className="editorial-divider" />
+                <div className="flex items-center justify-between">
+                  <dt className="text-sm text-muted-foreground">Total size</dt>
+                  <dd className="font-mono text-sm font-medium tabular-nums">
+                    {(totalSize / 1024).toFixed(1)} KB
+                  </dd>
+                </div>
+                <div className="editorial-divider" />
+                <div className="flex items-center justify-between">
+                  <dt className="text-sm text-muted-foreground">Last updated</dt>
+                  <dd className="text-sm font-medium">{formatRelativeTime(latestUpdate)}</dd>
+                </div>
+              </dl>
+            </SidebarCard>
+          </PageSidebar>
+        </PageGrid>
+      </PageContent>
+
+      {/* Footer */}
+      <footer className="mt-8 sm:mt-12 pt-6 border-t border-border/50">
+        <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4">
+          <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
+            <span className="font-display font-medium text-foreground">hapwi</span>
+            {' '}&middot;{' '}Open source code library
+          </p>
+          <nav className="flex items-center gap-4 sm:gap-6">
+            <a
+              href="https://github.com/hapwi"
+              target="_blank"
+              rel="noreferrer"
+              className="editorial-link text-xs sm:text-sm text-muted-foreground hover:text-foreground"
+            >
+              GitHub
+            </a>
+          </nav>
         </div>
-      </main>
-    </div>
+      </footer>
+    </PageLayout>
   )
 }

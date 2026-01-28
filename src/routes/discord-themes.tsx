@@ -3,16 +3,28 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   Copy,
   Download,
-  GitBranch,
   Code,
   FileText,
-  History,
   Link2,
+  ArrowLeft,
+  Palette,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
 import { FileIcon } from '@/components/file-icon'
+import {
+  PageLayout,
+  PageHeader,
+  PageContent,
+  PageGrid,
+  PageMain,
+  PageSidebar,
+  PageTitle,
+  SidebarCard,
+  SidebarCardHeader,
+  FileListCard,
+} from '@/components/page-layout'
 import { RepoBreadcrumb } from '@/components/repo-breadcrumb'
 import { formatFileSize } from '@/components/library/meta-columns'
 import { Button } from '@/components/ui/button'
@@ -43,12 +55,12 @@ function formatRelativeTime(timestamp: number): string {
   const months = Math.floor(days / 30)
   const years = Math.floor(days / 365)
 
-  if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`
-  if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`
-  if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`
-  if (hours > 0) return `${hours} hr ago`
-  if (minutes > 0) return `${minutes} min ago`
-  return 'just now'
+  if (years > 0) return `${years}y ago`
+  if (months > 0) return `${months}mo ago`
+  if (days > 0) return `${days}d ago`
+  if (hours > 0) return `${hours}h ago`
+  if (minutes > 0) return `${minutes}m ago`
+  return 'now'
 }
 
 type CachedSource = {
@@ -264,141 +276,142 @@ function DiscordThemesRoute() {
   // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
-      <div className="flex min-h-0 flex-1 flex-col">
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-          <div className="space-y-6">
-            {/* Breadcrumb */}
-            <RepoBreadcrumb
-              segments={[
-                { label: 'themes' },
-              ]}
+      <PageLayout>
+        <PageContent>
+          <PageHeader>
+            <RepoBreadcrumb segments={[{ label: 'themes' }]} />
+            <PageTitle
+              icon={<Palette className="size-5 sm:size-6" />}
+              iconClassName="bg-primary/10 text-primary"
+              title="Discord Themes"
+              description="Custom CSS themes for BetterDiscord, Vencord, and Equicord"
             />
+          </PageHeader>
 
-            {/* Main content */}
-            <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
-              {/* File browser */}
-              <div className="overflow-hidden rounded-lg border bg-card">
-                {/* Branch bar */}
-                <div className="flex items-center gap-3 border-b bg-muted/30 px-4 py-2.5">
-                  <div className="flex items-center gap-2 rounded-md bg-muted px-2.5 py-1 text-sm">
-                    <GitBranch className="size-3.5 text-muted-foreground" />
-                    <span className="font-medium">master</span>
-                  </div>
-                  <span className="text-sm text-muted-foreground">
-                    {themeAssets.length} files
-                  </span>
-                </div>
-
-                {/* File list */}
-                <div className="divide-y divide-border/50">
-                  {themeAssets.map((item) => (
-                    <Link
-                      key={item.urlPath}
-                      to="/discord-themes"
-                      search={{ file: item.urlPath }}
-                      className="group flex items-center gap-3 px-4 py-2 transition-colors hover:bg-muted/40"
-                    >
-                      <FileIcon filename={item.name} extension={item.extension} size="sm" />
-                      <span className="flex-1 truncate text-sm text-foreground group-hover:text-blue-500 group-hover:underline">
+          <PageGrid>
+            <PageMain>
+              <FileListCard
+                header={
+                  <>
+                    <span className="text-sm font-medium">
+                      {themeAssets.length} theme{themeAssets.length !== 1 ? 's' : ''}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Updated {formatRelativeTime(latestMtime)}
+                    </span>
+                  </>
+                }
+              >
+                {themeAssets.map((item) => (
+                  <Link
+                    key={item.urlPath}
+                    to="/discord-themes"
+                    search={{ file: item.urlPath }}
+                    className="group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-3.5 transition-colors hover:bg-muted/50"
+                  >
+                    <FileIcon filename={item.name} extension={item.extension} size="sm" />
+                    <div className="min-w-0 flex-1">
+                      <span className="font-medium text-foreground group-hover:text-primary transition-colors truncate block text-sm sm:text-base">
                         {item.name}
                       </span>
-                      <span className="hidden text-sm text-muted-foreground sm:block truncate max-w-[40%]">
-                        {item.description || ''}
-                      </span>
-                      <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                        {formatRelativeTime(item.mtime)}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Sidebar */}
-              <div className="space-y-4">
-                {/* About */}
-                <div className="rounded-lg border bg-card p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
-                    <FileText className="size-4 text-muted-foreground" />
-                    About
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Custom CSS themes for Discord clients like BetterDiscord, Vencord, and Equicord.
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-purple-500/10 px-2.5 py-1 text-xs font-medium text-purple-600 dark:text-purple-400">
-                      CSS
-                    </span>
-                    <span className="rounded-full bg-blue-500/10 px-2.5 py-1 text-xs font-medium text-blue-600 dark:text-blue-400">
-                      themes
-                    </span>
-                  </div>
-                </div>
-
-                {/* How to use */}
-                <div className="rounded-lg border bg-card p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
-                    <Code className="size-4 text-muted-foreground" />
-                    How to use
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Click on any theme to view its source code. Copy the raw URL and paste it into your Discord client mod's custom CSS settings.
-                  </p>
-                </div>
-
-                {/* Stats */}
-                <div className="rounded-lg border bg-card p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
-                    <History className="size-4 text-muted-foreground" />
-                    Activity
-                  </h3>
-                  <div className="mt-3 space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Files</span>
-                      <span className="font-medium">{themeAssets.length}</span>
+                      {item.description && (
+                        <p className="mt-0.5 truncate text-xs sm:text-sm text-muted-foreground hidden sm:block">
+                          {item.description}
+                        </p>
+                      )}
                     </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Last updated</span>
-                      <span className="font-medium">{formatRelativeTime(latestMtime)}</span>
-                    </div>
-                  </div>
+                    <span className="shrink-0 text-xs tabular-nums text-muted-foreground hidden xs:block">
+                      {formatRelativeTime(item.mtime)}
+                    </span>
+                  </Link>
+                ))}
+              </FileListCard>
+            </PageMain>
+
+            <PageSidebar>
+              <SidebarCard>
+                <SidebarCardHeader icon={<FileText className="size-4" />} title="About" />
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  Custom CSS themes for Discord clients. Compatible with BetterDiscord, Vencord, and Equicord.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-purple-500/20 bg-purple-500/5 px-2.5 py-0.5 text-xs font-medium text-purple-600 dark:text-purple-400">
+                    CSS
+                  </span>
+                  <span className="rounded-full border border-blue-500/20 bg-blue-500/5 px-2.5 py-0.5 text-xs font-medium text-blue-600 dark:text-blue-400">
+                    themes
+                  </span>
                 </div>
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
+              </SidebarCard>
+
+              <SidebarCard>
+                <SidebarCardHeader icon={<Code className="size-4" />} title="How to use" />
+                <ol className="text-sm leading-relaxed text-muted-foreground space-y-2">
+                  <li className="flex gap-2">
+                    <span className="font-mono text-xs text-primary">1.</span>
+                    Click on any theme to view source
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-mono text-xs text-primary">2.</span>
+                    Copy the raw URL
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="font-mono text-xs text-primary">3.</span>
+                    Paste into your client's CSS settings
+                  </li>
+                </ol>
+              </SidebarCard>
+            </PageSidebar>
+          </PageGrid>
+        </PageContent>
+      </PageLayout>
     )
   }
 
   // Show file viewer when a file is selected
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <main className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="flex min-h-0 flex-1 flex-col gap-4">
-          {/* Breadcrumb navigation */}
-          <RepoBreadcrumb
-            segments={[
-              { label: 'themes', href: '/discord-themes', search: { file: undefined } },
-              { label: activeAsset?.name || '', isFile: true, filename: activeAsset?.name },
-            ]}
-          />
+      <main className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="flex min-h-0 flex-1 flex-col gap-4 sm:gap-5">
+          {/* Header */}
+          <header className="flex items-center gap-3 sm:gap-4">
+            <Button
+              asChild
+              variant="ghost"
+              size="sm"
+              className="h-8 gap-1.5 text-muted-foreground hover:text-foreground shrink-0"
+            >
+              <Link to="/discord-themes" search={{ file: undefined }}>
+                <ArrowLeft className="size-4" />
+                <span className="hidden sm:inline">Back</span>
+              </Link>
+            </Button>
+            <div className="h-5 w-px bg-border shrink-0" />
+            <div className="min-w-0 flex-1">
+              <RepoBreadcrumb
+                segments={[
+                  { label: 'themes', href: '/discord-themes', search: { file: undefined } },
+                  { label: activeAsset?.name || '', isFile: true, filename: activeAsset?.name },
+                ]}
+              />
+            </div>
+          </header>
 
           {/* File viewer card */}
-          <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-lg border bg-card">
+          <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-lg border bg-card shadow-sm">
             {/* File header */}
-            <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-4 py-2">
-              <div className="flex items-center gap-3 min-w-0">
+            <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-3 sm:px-5 py-2.5 sm:py-3">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <FileIcon filename={activeAsset?.name || ''} extension={activeAsset?.extension} size="sm" />
-                <span className="text-sm font-medium truncate">{activeAsset?.name}</span>
+                <div className="min-w-0">
+                  <span className="font-medium truncate block text-sm sm:text-base">{activeAsset?.name}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {assetSource ? `${assetSource.split('\n').length} lines` : ''}
+                    {activeAsset && ` · ${formatFileSize(activeAsset.size)}`}
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="hidden sm:inline text-xs text-muted-foreground tabular-nums">
-                  {assetSource ? `${assetSource.split('\n').length} lines` : ''}
-                </span>
-                <span className="text-xs text-muted-foreground tabular-nums">
-                  {activeAsset && formatFileSize(activeAsset.size)}
-                </span>
-                <div className="hidden sm:block h-4 w-px bg-border mx-1" />
+              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <span className="inline-flex">
@@ -407,16 +420,16 @@ function DiscordThemesRoute() {
                         size="sm"
                         onClick={handleCopyRaw}
                         disabled={!canCopyRaw}
-                        className="h-7 gap-1.5 text-xs"
+                        className="h-8 gap-1.5 text-xs px-2 sm:px-3"
                         aria-label="Copy file contents"
                       >
-                        <Copy className="size-3" />
-                        Copy code
+                        <Copy className="size-3.5" />
+                        <span className="hidden sm:inline">Copy</span>
                       </Button>
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Copies the file contents to your clipboard
+                    Copy file contents
                   </TooltipContent>
                 </Tooltip>
                 <Tooltip>
@@ -425,25 +438,25 @@ function DiscordThemesRoute() {
                       variant="ghost"
                       size="sm"
                       onClick={handleCopyUrl}
-                      className="h-7 gap-1.5 text-xs"
+                      className="h-8 gap-1.5 text-xs px-2 sm:px-3"
                       aria-label="Copy raw file URL"
                     >
-                      <Link2 className="size-3" />
-                      Copy URL
+                      <Link2 className="size-3.5" />
+                      <span className="hidden sm:inline">URL</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Copies the direct raw URL to your clipboard
+                    Copy raw URL for CSS import
                   </TooltipContent>
                 </Tooltip>
                 <Button
                   asChild
                   variant="ghost"
                   size="sm"
-                  className="h-7 gap-1.5 text-xs"
+                  className="h-8 px-2"
                 >
-                  <a href={activeAsset?.urlPath} download>
-                    <Download className="size-3" />
+                  <a href={activeAsset?.urlPath} download aria-label="Download file">
+                    <Download className="size-3.5" />
                   </a>
                 </Button>
               </div>

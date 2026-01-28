@@ -3,13 +3,13 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import {
   Copy,
   Download,
-  GitBranch,
   Code,
   FileText,
-  History,
   Link2,
   ExternalLink,
   ShieldAlert,
+  ArrowLeft,
+  Terminal,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -45,12 +45,12 @@ function formatRelativeTime(timestamp: number): string {
   const months = Math.floor(days / 30)
   const years = Math.floor(days / 365)
 
-  if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`
-  if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`
-  if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`
-  if (hours > 0) return `${hours} hr ago`
-  if (minutes > 0) return `${minutes} min ago`
-  return 'just now'
+  if (years > 0) return `${years}y ago`
+  if (months > 0) return `${months}mo ago`
+  if (days > 0) return `${days}d ago`
+  if (hours > 0) return `${hours}h ago`
+  if (minutes > 0) return `${minutes}m ago`
+  return 'now'
 }
 
 type CachedSource = {
@@ -276,115 +276,128 @@ function TampermonkeyRoute() {
   if (!selectedAssetPath) {
     return (
       <div className="flex min-h-0 flex-1 flex-col">
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-          <div className="space-y-6">
-            {/* Breadcrumb */}
-            <RepoBreadcrumb
-              segments={[
-                { label: 'scripts' },
-              ]}
-            />
-
-            {/* Main content */}
-            <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
-              {/* File browser */}
-              <div className="overflow-hidden rounded-lg border bg-card">
-                {/* Branch bar */}
-                <div className="flex items-center gap-3 border-b bg-muted/30 px-4 py-2.5">
-                  <div className="flex items-center gap-2 rounded-md bg-muted px-2.5 py-1 text-sm">
-                    <GitBranch className="size-3.5 text-muted-foreground" />
-                    <span className="font-medium">master</span>
-                  </div>
-                  <span className="text-sm text-muted-foreground">
-                    {scripts.length} files
-                  </span>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <div className="space-y-8">
+            {/* Header */}
+            <header className="space-y-4">
+              <RepoBreadcrumb
+                segments={[
+                  { label: 'scripts' },
+                ]}
+              />
+              <div className="flex items-start gap-4">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                  <Terminal className="size-6" />
                 </div>
-
-                {/* File list */}
-                <div className="divide-y divide-border/50">
-                  {scripts.map((item) => (
-                    <Link
-                      key={item.urlPath}
-                      to="/tampermonkey"
-                      search={{ file: item.urlPath }}
-                      className="group flex items-center gap-3 px-4 py-2 transition-colors hover:bg-muted/40"
-                    >
-                      <FileIcon filename={item.name} extension={item.extension} size="sm" />
-                      <span className="flex-1 truncate text-sm text-foreground group-hover:text-blue-500 group-hover:underline">
-                        {item.name}
-                      </span>
-                      <span className="hidden text-sm text-muted-foreground sm:block truncate max-w-[40%]">
-                        {item.description || ''}
-                      </span>
-                      <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                        {formatRelativeTime(item.mtime)}
-                      </span>
-                    </Link>
-                  ))}
+                <div>
+                  <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+                    Browser Userscripts
+                  </h1>
+                  <p className="mt-1 text-muted-foreground">
+                    Scripts for Tampermonkey, Greasemonkey, and other managers
+                  </p>
                 </div>
               </div>
+            </header>
+
+            {/* Main content */}
+            <div className="grid gap-8 lg:grid-cols-[1fr_280px] lg:gap-12">
+              {/* File browser */}
+              <section>
+                <div className="overflow-hidden rounded-lg border bg-card shadow-sm">
+                  {/* Header */}
+                  <div className="flex items-center justify-between border-b bg-muted/30 px-5 py-3">
+                    <span className="text-sm font-medium">
+                      {scripts.length} script{scripts.length !== 1 ? 's' : ''}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      Updated {formatRelativeTime(latestMtime)}
+                    </span>
+                  </div>
+
+                  {/* File list */}
+                  <div className="divide-y divide-border/50 editorial-stagger">
+                    {scripts.map((item) => (
+                      <Link
+                        key={item.urlPath}
+                        to="/tampermonkey"
+                        search={{ file: item.urlPath }}
+                        className="group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted/50"
+                      >
+                        <FileIcon filename={item.name} extension={item.extension} size="sm" />
+                        <div className="min-w-0 flex-1">
+                          <span className="font-medium text-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                            {item.name}
+                          </span>
+                          {item.description && (
+                            <p className="mt-0.5 truncate text-sm text-muted-foreground">
+                              {item.description}
+                            </p>
+                          )}
+                        </div>
+                        <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+                          {formatRelativeTime(item.mtime)}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </section>
 
               {/* Sidebar */}
-              <div className="space-y-4">
+              <aside className="space-y-6">
                 {/* About */}
-                <div className="rounded-lg border bg-card p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
+                <div className="rounded-lg border bg-card p-5 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3">
                     <FileText className="size-4 text-muted-foreground" />
-                    About
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Userscripts for Tampermonkey, Greasemonkey, and other script managers.
+                    <h3 className="font-display text-sm font-semibold">About</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Userscripts for Tampermonkey, Greasemonkey, and other browser script managers.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="rounded-full bg-amber-500/10 px-2.5 py-1 text-xs font-medium text-amber-600 dark:text-amber-400">
+                    <span className="rounded-full border border-amber-500/20 bg-amber-500/5 px-2.5 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
                       JavaScript
                     </span>
-                    <span className="rounded-full bg-blue-500/10 px-2.5 py-1 text-xs font-medium text-blue-600 dark:text-blue-400">
+                    <span className="rounded-full border border-blue-500/20 bg-blue-500/5 px-2.5 py-0.5 text-xs font-medium text-blue-600 dark:text-blue-400">
                       userscripts
                     </span>
                   </div>
                 </div>
 
                 {/* How to use */}
-                <div className="rounded-lg border bg-card p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
+                <div className="rounded-lg border bg-card p-5 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3">
                     <Code className="size-4 text-muted-foreground" />
-                    How to use
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Install Tampermonkey, then click on a script to view it. Use Open URL to install directly, or Copy URL to paste it into your script manager.
-                  </p>
+                    <h3 className="font-display text-sm font-semibold">How to use</h3>
+                  </div>
+                  <ol className="text-sm leading-relaxed text-muted-foreground space-y-2">
+                    <li className="flex gap-2">
+                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">1.</span>
+                      Install Tampermonkey extension
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">2.</span>
+                      Click on a script to view it
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">3.</span>
+                      Use Open URL to install directly
+                    </li>
+                  </ol>
                 </div>
 
                 {/* Security notice */}
-                <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold text-amber-600 dark:text-amber-400">
-                    <ShieldAlert className="size-4" />
-                    Security
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-5 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3">
+                    <ShieldAlert className="size-4 text-amber-600 dark:text-amber-400" />
+                    <h3 className="font-display text-sm font-semibold text-amber-600 dark:text-amber-400">Security Notice</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
                     Always review userscript code before installing. Scripts run with elevated permissions on web pages.
                   </p>
                 </div>
-
-                {/* Stats */}
-                <div className="rounded-lg border bg-card p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
-                    <History className="size-4 text-muted-foreground" />
-                    Activity
-                  </h3>
-                  <div className="mt-3 space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Files</span>
-                      <span className="font-medium">{scripts.length}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Last updated</span>
-                      <span className="font-medium">{formatRelativeTime(latestMtime)}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </aside>
             </div>
           </div>
         </main>
@@ -395,32 +408,47 @@ function TampermonkeyRoute() {
   // Show file viewer when a file is selected
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <main className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="flex min-h-0 flex-1 flex-col gap-4">
-          {/* Breadcrumb navigation */}
-          <RepoBreadcrumb
-            segments={[
-              { label: 'scripts', href: '/tampermonkey', search: { file: undefined } },
-              { label: activeAsset?.name || '', isFile: true, filename: activeAsset?.name },
-            ]}
-          />
+      <main className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col overflow-hidden px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <div className="flex min-h-0 flex-1 flex-col gap-5">
+          {/* Header */}
+          <header className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4 min-w-0">
+              <Button
+                asChild
+                variant="ghost"
+                size="sm"
+                className="h-8 gap-1.5 text-muted-foreground hover:text-foreground"
+              >
+                <Link to="/tampermonkey" search={{ file: undefined }}>
+                  <ArrowLeft className="size-4" />
+                  <span className="hidden sm:inline">Back</span>
+                </Link>
+              </Button>
+              <div className="h-5 w-px bg-border" />
+              <RepoBreadcrumb
+                segments={[
+                  { label: 'scripts', href: '/tampermonkey', search: { file: undefined } },
+                  { label: activeAsset?.name || '', isFile: true, filename: activeAsset?.name },
+                ]}
+              />
+            </div>
+          </header>
 
           {/* File viewer card */}
-          <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-lg border bg-card">
+          <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-lg border bg-card shadow-sm">
             {/* File header */}
-            <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-4 py-2">
+            <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-5 py-3">
               <div className="flex items-center gap-3 min-w-0">
                 <FileIcon filename={activeAsset?.name || ''} extension={activeAsset?.extension} size="sm" />
-                <span className="text-sm font-medium truncate">{activeAsset?.name}</span>
+                <div className="min-w-0">
+                  <span className="font-medium truncate block">{activeAsset?.name}</span>
+                  <span className="text-xs text-muted-foreground">
+                    {assetSource ? `${assetSource.split('\n').length} lines` : ''}
+                    {activeAsset && ` · ${formatFileSize(activeAsset.size)}`}
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="hidden sm:inline text-xs text-muted-foreground tabular-nums">
-                  {assetSource ? `${assetSource.split('\n').length} lines` : ''}
-                </span>
-                <span className="text-xs text-muted-foreground tabular-nums">
-                  {activeAsset && formatFileSize(activeAsset.size)}
-                </span>
-                <div className="hidden sm:block h-4 w-px bg-border mx-1" />
+              <div className="flex items-center gap-1.5 shrink-0">
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <span className="inline-flex">
@@ -429,16 +457,16 @@ function TampermonkeyRoute() {
                         size="sm"
                         onClick={handleCopyRaw}
                         disabled={!canCopyRaw}
-                        className="h-7 gap-1.5 text-xs"
+                        className="h-8 gap-1.5 text-xs"
                         aria-label="Copy file contents"
                       >
-                        <Copy className="size-3" />
-                        Copy code
+                        <Copy className="size-3.5" />
+                        <span className="hidden sm:inline">Copy</span>
                       </Button>
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Copies the file contents to your clipboard
+                    Copy file contents
                   </TooltipContent>
                 </Tooltip>
                 <Tooltip>
@@ -447,15 +475,15 @@ function TampermonkeyRoute() {
                       variant="ghost"
                       size="sm"
                       onClick={handleCopyUrl}
-                      className="h-7 gap-1.5 text-xs"
+                      className="h-8 gap-1.5 text-xs"
                       aria-label="Copy raw file URL"
                     >
-                      <Link2 className="size-3" />
-                      Copy URL
+                      <Link2 className="size-3.5" />
+                      <span className="hidden sm:inline">URL</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Copies the direct raw URL to your clipboard
+                    Copy raw URL
                   </TooltipContent>
                 </Tooltip>
                 <Tooltip>
@@ -464,25 +492,25 @@ function TampermonkeyRoute() {
                       variant="ghost"
                       size="sm"
                       onClick={handleOpenUrl}
-                      className="h-7 gap-1.5 text-xs"
+                      className="h-8 gap-1.5 text-xs"
                       aria-label="Open raw file URL"
                     >
-                      <ExternalLink className="size-3" />
-                      Open URL
+                      <ExternalLink className="size-3.5" />
+                      <span className="hidden sm:inline">Install</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Opens the direct raw URL in a new tab for install
+                    Open URL to install in Tampermonkey
                   </TooltipContent>
                 </Tooltip>
                 <Button
                   asChild
                   variant="ghost"
                   size="sm"
-                  className="h-7 gap-1.5 text-xs"
+                  className="h-8 gap-1.5 text-xs"
                 >
-                  <a href={activeAsset?.urlPath} download>
-                    <Download className="size-3" />
+                  <a href={activeAsset?.urlPath} download aria-label="Download file">
+                    <Download className="size-3.5" />
                   </a>
                 </Button>
               </div>

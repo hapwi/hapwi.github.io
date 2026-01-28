@@ -3,36 +3,38 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Modern system font stack with better weights */
-body {
-  @apply m-0;
-  font-family:
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Roboto",
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
-  text-rendering: optimizeLegibility;
+/* Extra small breakpoint */
+@custom-variant xs (@media (min-width: 475px));
+
+/* Editorial Typography System */
+:root {
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
 }
 
-code {
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    "SF Mono",
-    Menlo,
-    Monaco,
-    Consolas,
-    "Liberation Mono",
-    "Courier New",
-    monospace;
+body {
+  @apply m-0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.01em;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Editorial Headings */
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
 }
 
 /* Smooth scrolling */
@@ -52,13 +54,14 @@ body {
   overflow: hidden;
 }
 
-/* Selection styling */
+/* Selection styling - deep ink blue */
 ::selection {
-  background-color: oklch(0.6 0.15 260 / 30%);
+  background-color: oklch(0.35 0.12 250 / 35%);
+  color: oklch(0.98 0 0);
 }
 
 .dark ::selection {
-  background-color: oklch(0.6 0.15 260 / 40%);
+  background-color: oklch(0.55 0.14 250 / 45%);
 }
 
 @theme inline {
@@ -99,77 +102,119 @@ body {
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* ===== LIGHT MODE: Warm Paper Editorial ===== */
 :root {
-  --radius: 0.625rem;
-  /* Increase contrast in light mode */
-  --background: oklch(0.99 0 0);
-  --foreground: oklch(0.18 0 0);
-  --card: oklch(0.985 0 0);
-  --card-foreground: oklch(0.18 0 0);
+  --radius: 0.5rem;
+
+  /* Warm paper tones */
+  --background: oklch(0.985 0.005 85);
+  --foreground: oklch(0.15 0.01 260);
+
+  /* Slightly cream cards */
+  --card: oklch(0.995 0.003 85);
+  --card-foreground: oklch(0.15 0.01 260);
+
+  /* Pure white popovers for contrast */
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0 0);
-  --primary: oklch(0.28 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.24 0 0);
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.5 0 0);
-  --accent: oklch(0.955 0 0);
-  --accent-foreground: oklch(0.24 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0 0);
-  --input: oklch(0.9 0 0);
-  --ring: oklch(0.62 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.18 0 0);
-  --sidebar-primary: oklch(0.28 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.955 0 0);
-  --sidebar-accent-foreground: oklch(0.24 0 0);
-  --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0.62 0 0);
-  --code-surface: color-mix(in oklab, var(--muted) 82%, white);
+  --popover-foreground: oklch(0.15 0.01 260);
+
+  /* Deep ink blue primary */
+  --primary: oklch(0.30 0.10 260);
+  --primary-foreground: oklch(0.98 0 0);
+
+  /* Subtle warm grays */
+  --secondary: oklch(0.94 0.005 85);
+  --secondary-foreground: oklch(0.25 0.01 260);
+
+  --muted: oklch(0.95 0.005 85);
+  --muted-foreground: oklch(0.45 0.01 260);
+
+  --accent: oklch(0.96 0.005 85);
+  --accent-foreground: oklch(0.20 0.01 260);
+
+  /* Warm destructive */
+  --destructive: oklch(0.55 0.22 25);
+
+  /* Subtle warm borders */
+  --border: oklch(0.88 0.008 85);
+  --input: oklch(0.90 0.005 85);
+  --ring: oklch(0.35 0.10 260);
+
+  /* Refined chart colors */
+  --chart-1: oklch(0.45 0.12 260);
+  --chart-2: oklch(0.55 0.14 180);
+  --chart-3: oklch(0.60 0.16 45);
+  --chart-4: oklch(0.50 0.15 320);
+  --chart-5: oklch(0.55 0.12 140);
+
+  /* Sidebar - slightly darker cream */
+  --sidebar: oklch(0.975 0.008 85);
+  --sidebar-foreground: oklch(0.15 0.01 260);
+  --sidebar-primary: oklch(0.30 0.10 260);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.94 0.008 85);
+  --sidebar-accent-foreground: oklch(0.20 0.01 260);
+  --sidebar-border: oklch(0.88 0.008 85);
+  --sidebar-ring: oklch(0.35 0.10 260);
+
+  /* Code surface */
+  --code-surface: oklch(0.97 0.006 85);
 }
 
+/* ===== DARK MODE: Rich Editorial Noir ===== */
 .dark {
-  /* Lift background slightly and deepen surfaces for clearer separation */
-  --background: oklch(0.14 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.19 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.19 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.92 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.26 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.26 0 0);
-  --muted-foreground: oklch(0.74 0 0);
-  --accent: oklch(0.26 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 16%);
-  --input: oklch(1 0 0 / 20%);
-  --ring: oklch(0.62 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.2 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.52 0.2 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.26 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 16%);
-  --sidebar-ring: oklch(0.62 0 0);
-  --code-surface: color-mix(in oklab, var(--muted) 88%, black);
+  /* Deep warm charcoal */
+  --background: oklch(0.14 0.008 280);
+  --foreground: oklch(0.92 0.005 85);
+
+  /* Elevated surfaces */
+  --card: oklch(0.18 0.010 280);
+  --card-foreground: oklch(0.92 0.005 85);
+
+  --popover: oklch(0.20 0.010 280);
+  --popover-foreground: oklch(0.92 0.005 85);
+
+  /* Soft cream primary in dark mode */
+  --primary: oklch(0.88 0.015 85);
+  --primary-foreground: oklch(0.12 0.008 280);
+
+  /* Muted surfaces */
+  --secondary: oklch(0.22 0.008 280);
+  --secondary-foreground: oklch(0.88 0.005 85);
+
+  --muted: oklch(0.24 0.008 280);
+  --muted-foreground: oklch(0.60 0.008 85);
+
+  --accent: oklch(0.22 0.010 280);
+  --accent-foreground: oklch(0.90 0.005 85);
+
+  /* Warm destructive */
+  --destructive: oklch(0.65 0.20 25);
+
+  /* Subtle glowing borders */
+  --border: oklch(0.30 0.010 280);
+  --input: oklch(0.28 0.008 280);
+  --ring: oklch(0.70 0.08 250);
+
+  /* Dark mode charts */
+  --chart-1: oklch(0.60 0.14 260);
+  --chart-2: oklch(0.65 0.15 180);
+  --chart-3: oklch(0.70 0.16 45);
+  --chart-4: oklch(0.60 0.16 320);
+  --chart-5: oklch(0.65 0.14 140);
+
+  /* Sidebar */
+  --sidebar: oklch(0.16 0.010 280);
+  --sidebar-foreground: oklch(0.90 0.005 85);
+  --sidebar-primary: oklch(0.70 0.10 250);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.22 0.008 280);
+  --sidebar-accent-foreground: oklch(0.88 0.005 85);
+  --sidebar-border: oklch(0.28 0.010 280);
+  --sidebar-ring: oklch(0.65 0.10 250);
+
+  /* Code surface */
+  --code-surface: oklch(0.12 0.008 280);
 }
 
 @layer base {
@@ -181,91 +226,82 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
+/* ===== Code Viewer Styles ===== */
 .code-viewer-shiki {
   background-color: var(--code-viewer-bg, var(--code-surface));
   color: var(--code-viewer-fg, inherit);
-  border-radius: calc(var(--radius) - 6px);
+  border-radius: calc(var(--radius) - 4px);
   max-width: 100%;
   overflow: hidden;
 }
 
-/* Line numbers gutter */
 .code-line-numbers {
   position: sticky;
   left: 0;
   flex-shrink: 0;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
-  line-height: 1.5;
-  min-width: 3rem;
+  line-height: 1.625;
+  min-width: 3.5rem;
   user-select: none;
+  color: var(--muted-foreground);
+  opacity: 0.6;
 }
 
 .code-line-numbers > div {
-  padding-right: 1rem;
-  padding-left: 0.75rem;
-  height: 1.5em;
+  padding-right: 1.25rem;
+  padding-left: 1rem;
+  height: 1.625em;
+  text-align: right;
 }
 
 .code-viewer-shiki pre {
   margin: 0;
-  padding: 1rem 1.25rem;
+  padding: 1rem 1.5rem;
   background-color: transparent !important;
   color: inherit !important;
-  /*
-    Shiki's HTML includes newline text nodes between `.line` spans.
-    If the parent preserves whitespace, those newlines render as extra blank lines.
-  */
   white-space: normal !important;
   overflow-x: auto;
 }
 
 .code-viewer-shiki code {
   display: block;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  font-family: var(--font-mono);
   font-size: 0.8125rem;
-  line-height: 1.5;
+  line-height: 1.625;
   white-space: normal;
+  font-weight: 450;
 }
 
-/* Ensure code lines match line number height */
 .code-viewer-shiki code .line {
   display: block;
-  height: 1.5em;
+  height: 1.625em;
   white-space: pre;
 }
 
-/* Focus ring improvements */
+/* ===== Focus Ring ===== */
 *:focus-visible {
-  outline: 2px solid oklch(0.6 0.15 260 / 60%);
+  outline: 2px solid oklch(0.45 0.12 260 / 70%);
   outline-offset: 2px;
 }
 
-/* Remove focus ring from command palette input */
+.dark *:focus-visible {
+  outline-color: oklch(0.65 0.12 250 / 70%);
+}
+
 [data-slot="command-input"]:focus-visible,
 [data-slot="command-input"]:focus {
   outline: none !important;
   box-shadow: none !important;
 }
 
-/* Subtle fade-in animation for content */
+/* ===== Editorial Animations ===== */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -276,7 +312,7 @@ body {
 @keyframes fade-in-scale {
   from {
     opacity: 0;
-    transform: scale(0.98);
+    transform: scale(0.97);
   }
   to {
     opacity: 1;
@@ -284,26 +320,68 @@ body {
   }
 }
 
-/* Smooth transitions on interactive elements */
+@keyframes editorial-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Staggered reveal for list items */
+.editorial-stagger > * {
+  animation: editorial-reveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.editorial-stagger > *:nth-child(1) { animation-delay: 0ms; }
+.editorial-stagger > *:nth-child(2) { animation-delay: 40ms; }
+.editorial-stagger > *:nth-child(3) { animation-delay: 80ms; }
+.editorial-stagger > *:nth-child(4) { animation-delay: 120ms; }
+.editorial-stagger > *:nth-child(5) { animation-delay: 160ms; }
+.editorial-stagger > *:nth-child(6) { animation-delay: 200ms; }
+.editorial-stagger > *:nth-child(7) { animation-delay: 240ms; }
+.editorial-stagger > *:nth-child(8) { animation-delay: 280ms; }
+.editorial-stagger > *:nth-child(9) { animation-delay: 320ms; }
+.editorial-stagger > *:nth-child(10) { animation-delay: 360ms; }
+
+/* Smooth transitions */
 a,
 button {
   transition-property: color, background-color, border-color, box-shadow, opacity, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-duration: 200ms;
 }
 
-/* Card hover effects */
+/* Editorial Card hover */
 .card-hover {
-  transition: box-shadow 200ms ease, transform 200ms ease;
+  transition: box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .card-hover:hover {
-  box-shadow: 0 4px 20px -4px oklch(0 0 0 / 12%);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 30px -8px oklch(0.30 0.10 260 / 12%);
+  transform: translateY(-2px);
+  border-color: oklch(0.30 0.10 260 / 20%);
 }
 
 .dark .card-hover:hover {
-  box-shadow: 0 4px 20px -4px oklch(0 0 0 / 40%);
+  box-shadow: 0 8px 30px -8px oklch(0 0 0 / 50%);
+  border-color: oklch(0.88 0.015 85 / 15%);
 }
 
 /* Line clamp utilities */
@@ -321,15 +399,14 @@ button {
   overflow: hidden;
 }
 
-/* Tabular numbers for consistent sizing */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Better scrollbars */
+/* ===== Editorial Scrollbars ===== */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -337,26 +414,83 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.7 0 0 / 30%);
-  border-radius: 5px;
+  background: oklch(0.30 0.10 260 / 20%);
+  border-radius: 4px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.6 0 0 / 50%);
+  background: oklch(0.30 0.10 260 / 35%);
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: oklch(0.4 0 0 / 40%);
+  background: oklch(0.88 0.015 85 / 15%);
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.5 0 0 / 60%);
+  background: oklch(0.88 0.015 85 / 28%);
   border: 2px solid transparent;
   background-clip: padding-box;
+}
+
+/* ===== Editorial Decorative Elements ===== */
+.editorial-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border) 15%,
+    var(--border) 85%,
+    transparent
+  );
+}
+
+.editorial-accent-line {
+  width: 40px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* Subtle paper texture overlay */
+.paper-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.dark .paper-texture::before {
+  opacity: 0.03;
+}
+
+/* Editorial link underline effect */
+.editorial-link {
+  position: relative;
+  text-decoration: none;
+}
+
+.editorial-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.editorial-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }

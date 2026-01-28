@@ -8,7 +8,8 @@ import {
   Folder,
   GitBranch,
   Link2,
-  ShieldAlert,
+  AlertCircle,
+  ArrowLeft,
 } from 'lucide-react'
 import { toast } from 'sonner'
 
@@ -495,81 +496,102 @@ function BbpcnRoute() {
   if (!selectedPath) {
     return (
       <div className="flex min-h-0 flex-1 flex-col">
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-          <div className="space-y-6">
-            <RepoBreadcrumb segments={breadcrumbSegments} />
-
-            <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
-              <div className="overflow-hidden rounded-lg border bg-card">
-                <div className="flex items-center gap-3 border-b bg-muted/30 px-4 py-2.5">
-                  <div className="flex items-center gap-2 rounded-md bg-muted px-2.5 py-1 text-sm">
-                    <GitBranch className="size-3.5 text-muted-foreground" />
-                    <span className="font-medium">{branch}</span>
-                  </div>
-                  <span className="text-sm text-muted-foreground">
-                    {isLoadingTree
-                      ? 'Loading…'
-                      : `${listing.folders.length + listing.files.length} items`}
-                  </span>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+          <div className="space-y-8">
+            {/* Header */}
+            <header className="space-y-4">
+              <RepoBreadcrumb segments={breadcrumbSegments} />
+              <div className="flex items-start gap-4">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400">
+                  <GitBranch className="size-6" />
                 </div>
-
-                {treeError ? (
-                  <div className="p-4 text-sm text-destructive">
-                    {treeError}
-                  </div>
-                ) : (
-                  <div className="divide-y divide-border/50">
-                    {listing.folders.map((folder) => (
-                      <Link
-                        key={folder.path}
-                        to="/bbpcn"
-                        search={{ file: undefined, path: folder.path }}
-                        className="group flex items-center gap-3 px-4 py-2 transition-colors hover:bg-muted/40"
-                      >
-                        <Folder className="size-4 shrink-0 text-blue-400" />
-                        <span className="flex-1 truncate text-sm text-foreground group-hover:text-blue-500 group-hover:underline">
-                          {folder.name}
-                        </span>
-                        <span className="hidden text-sm text-muted-foreground sm:block truncate max-w-[40%]">
-                          {folder.path}
-                        </span>
-                        <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                          folder
-                        </span>
-                      </Link>
-                    ))}
-                    {listing.files.map((item) => (
-                      <Link
-                        key={item.path}
-                        to="/bbpcn"
-                        search={{ file: item.path, path: undefined }}
-                        className="group flex items-center gap-3 px-4 py-2 transition-colors hover:bg-muted/40"
-                      >
-                        <FileIcon filename={item.name} extension={item.extension} size="sm" />
-                        <span className="flex-1 truncate text-sm text-foreground group-hover:text-blue-500 group-hover:underline">
-                          {item.name}
-                        </span>
-                        <span className="hidden text-sm text-muted-foreground sm:block truncate max-w-[40%]">
-                          {item.path}
-                        </span>
-                        <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                          {item.size != null ? formatFileSize(item.size) : ''}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                <div>
+                  <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+                    BBPCN Repository
+                  </h1>
+                  <p className="mt-1 text-muted-foreground">
+                    Live view of <span className="font-medium text-foreground">{OWNER}/{REPO}</span> on GitHub
+                  </p>
+                </div>
               </div>
+            </header>
 
-              <div className="space-y-4">
-                <div className="rounded-lg border bg-card p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold">
+            {/* Main content */}
+            <div className="grid gap-8 lg:grid-cols-[1fr_280px] lg:gap-12">
+              {/* File browser */}
+              <section>
+                <div className="overflow-hidden rounded-lg border bg-card shadow-sm">
+                  {/* Header */}
+                  <div className="flex items-center justify-between border-b bg-muted/30 px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 rounded-md bg-muted px-2.5 py-1 text-sm">
+                        <GitBranch className="size-3.5 text-muted-foreground" />
+                        <span className="font-medium">{branch}</span>
+                      </div>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      {isLoadingTree
+                        ? 'Loading...'
+                        : `${listing.folders.length + listing.files.length} items`}
+                    </span>
+                  </div>
+
+                  {treeError ? (
+                    <div className="flex items-center gap-3 p-5 text-sm text-destructive">
+                      <AlertCircle className="size-4 shrink-0" />
+                      {treeError}
+                    </div>
+                  ) : (
+                    <div className="divide-y divide-border/50 editorial-stagger">
+                      {listing.folders.map((folder) => (
+                        <Link
+                          key={folder.path}
+                          to="/bbpcn"
+                          search={{ file: undefined, path: folder.path }}
+                          className="group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted/50"
+                        >
+                          <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+                            <Folder className="size-4" />
+                          </div>
+                          <span className="flex-1 font-medium text-foreground group-hover:text-primary transition-colors">
+                            {folder.name}
+                          </span>
+                          <span className="shrink-0 text-xs text-muted-foreground">
+                            folder
+                          </span>
+                        </Link>
+                      ))}
+                      {listing.files.map((item) => (
+                        <Link
+                          key={item.path}
+                          to="/bbpcn"
+                          search={{ file: item.path, path: undefined }}
+                          className="group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted/50"
+                        >
+                          <FileIcon filename={item.name} extension={item.extension} size="sm" />
+                          <span className="flex-1 font-medium text-foreground group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
+                            {item.name}
+                          </span>
+                          <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+                            {item.size != null ? formatFileSize(item.size) : ''}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              {/* Sidebar */}
+              <aside className="space-y-6">
+                {/* About */}
+                <div className="rounded-lg border bg-card p-5 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3">
                     <FileText className="size-4 text-muted-foreground" />
-                    About
-                  </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                    Live view of the public GitHub repository <span className="font-medium text-foreground">{OWNER}/{REPO}</span>.
-                    Files and highlighted previews are fetched on demand and cached in your browser.
+                    <h3 className="font-display text-sm font-semibold">About</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    Live view of the public GitHub repository. Files and previews are fetched on demand and cached in your browser.
                   </p>
                   <div className="mt-4">
                     <Button
@@ -579,21 +601,22 @@ function BbpcnRoute() {
                       className="gap-1.5"
                     >
                       <ExternalLink className="size-4" />
-                      Open on GitHub
+                      View on GitHub
                     </Button>
                   </div>
                 </div>
 
-                <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-4">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold text-amber-600 dark:text-amber-400">
-                    <ShieldAlert className="size-4" />
-                    Note
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    GitHub’s unauthenticated API is rate-limited. If this list fails to load, try again later or refresh.
+                {/* Rate limit notice */}
+                <div className="rounded-lg border border-violet-500/30 bg-violet-500/5 p-5 shadow-sm">
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertCircle className="size-4 text-violet-600 dark:text-violet-400" />
+                    <h3 className="font-display text-sm font-semibold text-violet-600 dark:text-violet-400">API Note</h3>
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    GitHub's unauthenticated API is rate-limited. If the list fails to load, try again later.
                   </p>
                 </div>
-              </div>
+              </aside>
             </div>
           </div>
         </main>
@@ -604,22 +627,43 @@ function BbpcnRoute() {
   // File viewer when a file is selected
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <main className="mx-auto flex min-h-0 w-full max-w-7xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="flex min-h-0 flex-1 flex-col gap-4">
-          <RepoBreadcrumb segments={breadcrumbSegments} />
+      <main className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col overflow-hidden px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <div className="flex min-h-0 flex-1 flex-col gap-5">
+          {/* Header */}
+          <header className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4 min-w-0">
+              <Button
+                asChild
+                variant="ghost"
+                size="sm"
+                className="h-8 gap-1.5 text-muted-foreground hover:text-foreground"
+              >
+                <Link to="/bbpcn" search={{ file: undefined, path: currentPath || undefined }}>
+                  <ArrowLeft className="size-4" />
+                  <span className="hidden sm:inline">Back</span>
+                </Link>
+              </Button>
+              <div className="h-5 w-px bg-border" />
+              <RepoBreadcrumb segments={breadcrumbSegments} />
+            </div>
+          </header>
 
-          <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-lg border bg-card">
-            <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-4 py-2">
+          {/* File viewer card */}
+          <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-lg border bg-card shadow-sm">
+            {/* File header */}
+            <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-5 py-3">
               <div className="flex items-center gap-3 min-w-0">
                 <FileIcon filename={activeFile?.name || ''} extension={activeFile?.extension} size="sm" />
-                <span className="text-sm font-medium truncate">{activeFile?.name}</span>
-                <span className="hidden sm:inline text-xs text-muted-foreground truncate">
-                  {activeFile?.path}
-                </span>
+                <div className="min-w-0">
+                  <span className="font-medium truncate block">{activeFile?.name}</span>
+                  <span className="text-xs text-muted-foreground truncate block">
+                    {activeFile?.path}
+                  </span>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
-                <span className="text-xs text-muted-foreground tabular-nums">
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="hidden sm:inline text-xs text-muted-foreground tabular-nums">
                   {activeFile?.size != null ? formatFileSize(activeFile.size) : ''}
                 </span>
                 <div className="hidden sm:block h-4 w-px bg-border mx-1" />
@@ -631,16 +675,16 @@ function BbpcnRoute() {
                         size="sm"
                         onClick={handleCopyRaw}
                         disabled={!fileSource}
-                        className="h-7 gap-1.5 text-xs"
+                        className="h-8 gap-1.5 text-xs"
                         aria-label="Copy file contents"
                       >
-                        <Copy className="size-3" />
-                        Copy code
+                        <Copy className="size-3.5" />
+                        <span className="hidden sm:inline">Copy</span>
                       </Button>
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Copies the file contents to your clipboard
+                    Copy file contents
                   </TooltipContent>
                 </Tooltip>
 
@@ -651,15 +695,15 @@ function BbpcnRoute() {
                       size="sm"
                       onClick={handleCopyUrl}
                       disabled={!rawUrl}
-                      className="h-7 gap-1.5 text-xs"
+                      className="h-8 gap-1.5 text-xs"
                       aria-label="Copy raw file URL"
                     >
-                      <Link2 className="size-3" />
-                      Copy URL
+                      <Link2 className="size-3.5" />
+                      <span className="hidden sm:inline">URL</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Copies the direct raw URL to your clipboard
+                    Copy raw URL
                   </TooltipContent>
                 </Tooltip>
 
@@ -669,15 +713,15 @@ function BbpcnRoute() {
                       variant="ghost"
                       size="sm"
                       onClick={handleOpenGitHub}
-                      className="h-7 gap-1.5 text-xs"
+                      className="h-8 gap-1.5 text-xs"
                       aria-label="Open file on GitHub"
                     >
-                      <ExternalLink className="size-3" />
-                      GitHub
+                      <ExternalLink className="size-3.5" />
+                      <span className="hidden sm:inline">GitHub</span>
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent side="bottom" sideOffset={6}>
-                    Opens the file on GitHub
+                    View on GitHub
                   </TooltipContent>
                 </Tooltip>
 
@@ -685,15 +729,16 @@ function BbpcnRoute() {
                   asChild
                   variant="ghost"
                   size="sm"
-                  className="h-7 gap-1.5 text-xs"
+                  className="h-8 gap-1.5 text-xs"
                 >
-                  <a href={rawUrl ?? undefined} download>
-                    <Download className="size-3" />
+                  <a href={rawUrl ?? undefined} download aria-label="Download file">
+                    <Download className="size-3.5" />
                   </a>
                 </Button>
               </div>
             </div>
 
+            {/* Code viewer */}
             <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
               {activeFile ? (
                 <CodeFileViewer

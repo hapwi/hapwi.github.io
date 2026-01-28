@@ -7,13 +7,33 @@
     <meta name="theme-color" content="#0f172a" />
     <meta
       name="description"
-      content="hapwi’s home base for projects, Discord themes, and hosted code snippets."
+      content="hapwi's home base for projects, Discord themes, and hosted code snippets."
     />
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>hapwi · Projects & Code Library</title>
+    <!-- Editorial Typography: Fraunces (display) + Instrument Sans (body) + JetBrains Mono (code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <script>
+      (function() {
+        var theme = localStorage.getItem('vite-ui-theme');
+        var isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        var d = document.documentElement;
+        if (isDark) {
+          d.classList.add('dark');
+          d.style.colorScheme = 'dark';
+          d.style.backgroundColor = '#1f1f24';
+        } else {
+          d.classList.add('light');
+          d.style.colorScheme = 'light';
+          d.style.backgroundColor = '#faf9f7';
+        }
+      })();
+    </script>
     <div id="app"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
