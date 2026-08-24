@@ -36,6 +36,8 @@ async function walkPublicDir(baseDir: string, currentDir = baseDir) {
     const absolutePath = join(currentDir, entry.name)
 
     if (entry.isDirectory()) {
+      const relativeDir = toPosixPath(relative(baseDir, absolutePath))
+      if (relativeDir === 'install') continue
       manifest.push(...(await walkPublicDir(baseDir, absolutePath)))
       continue
     }

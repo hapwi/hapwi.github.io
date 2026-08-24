@@ -75,7 +75,9 @@ const extensionConfig: Record<string, { icon: typeof File; color: string }> = {
   ps1: { icon: Terminal, color: 'text-blue-400' },
 
   // Languages
-  py: { icon: FileCode, color: 'text-blue-500' },
+  py: { icon: FileCode, color: 'text-sky-600' },
+  m: { icon: FileCode, color: 'text-sky-600' },
+  mm: { icon: FileCode, color: 'text-sky-600' },
   rb: { icon: FileCode, color: 'text-red-500' },
   go: { icon: FileCode, color: 'text-cyan-500' },
   rs: { icon: FileCode, color: 'text-orange-600' },

@@ -1,16 +1,17 @@
 import { Link, useRouterState } from '@tanstack/react-router'
-import { BookOpen, Github, Palette, ShieldCheck, GitBranch } from 'lucide-react'
+import { BookOpen, Github, GitBranch, Palette, Terminal } from 'lucide-react'
 
 import { ModeToggle } from '@/components/mode-toggle'
 import { SearchCommand } from '@/components/search-command'
 import { Button } from '@/components/ui/button'
+import { GITHUB_OWNER } from '@/lib/github'
 import { cn } from '@/lib/utils'
 
 const navItems = [
-  { path: '/', label: 'Library', icon: BookOpen },
+  { path: '/', label: 'Work', icon: BookOpen },
   { path: '/discord-themes', label: 'Themes', icon: Palette },
-  { path: '/tampermonkey', label: 'Scripts', icon: ShieldCheck },
-  { path: '/bbpcn', label: 'BBPCN', icon: GitBranch },
+  { path: '/tampermonkey', label: 'Scripts', icon: Terminal },
+  { path: '/repos', label: 'Repos', icon: GitBranch },
 ]
 
 export default function Header() {
@@ -19,73 +20,72 @@ export default function Header() {
 
   const isActive = (path: string) => {
     if (path === '/') return pathname === '/'
+    if (path === '/repos') {
+      return pathname.startsWith('/repos')
+    }
     return pathname.startsWith(path)
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/90 backdrop-blur-xl supports-backdrop-filter:bg-background/80">
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl supports-backdrop-filter:bg-background/80">
       <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
-        <div className="flex h-14 sm:h-16 items-center gap-2 sm:gap-6">
-          {/* Logo - Editorial Typography */}
+        <div className="flex h-14 items-center gap-2 sm:h-16 sm:gap-6">
           <Link
             to="/"
-            className="group flex items-center gap-2 sm:gap-3 transition-opacity hover:opacity-70 shrink-0"
+            className="group flex shrink-0 items-center gap-2.5"
             aria-label="hapwi home"
           >
-            {/* Monogram mark */}
-            <div className="flex size-8 sm:size-9 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-sm">
-              <span className="font-display text-base sm:text-lg font-semibold tracking-tight">h</span>
-            </div>
-            <div className="hidden xs:flex flex-col">
-              <span className="font-display text-base sm:text-lg font-semibold tracking-tight leading-none">
+            <span className="flex size-8 items-center justify-center rounded-md bg-primary font-mono text-sm font-semibold text-primary-foreground sm:size-9">
+              ▸
+            </span>
+            <span className="hidden flex-col leading-none xs:flex">
+              <span className="font-display text-base font-semibold tracking-tight sm:text-lg">
                 hapwi
               </span>
-              <span className="text-[9px] sm:text-[10px] font-medium uppercase tracking-[0.15em] sm:tracking-[0.2em] text-muted-foreground">
-                Code Library
+              <span className="font-mono text-[10px] text-muted-foreground">
+                ~/projects
               </span>
-            </div>
+            </span>
           </Link>
 
-          {/* Editorial Separator */}
-          <div className="hidden h-8 w-px bg-border/50 lg:block" />
+          <div className="hidden h-6 w-px bg-border lg:block" />
 
-          {/* Navigation - Desktop */}
           <nav className="hidden items-center gap-1 lg:flex">
             {navItems.map(({ path, label, icon: Icon }) => (
               <Link
                 key={path}
                 to={path}
                 className={cn(
-                  'editorial-link group relative flex items-center gap-2 px-4 py-2 text-sm font-medium tracking-wide transition-colors',
+                  'relative flex items-center gap-2 px-3 py-2 text-sm font-medium tracking-wide',
                   isActive(path)
                     ? 'text-foreground'
-                    : 'text-muted-foreground hover:text-foreground'
+                    : 'text-muted-foreground hover:text-foreground',
                 )}
               >
-                <Icon className={cn(
-                  'size-4 transition-colors',
-                  isActive(path) ? 'text-primary' : 'text-muted-foreground/70 group-hover:text-foreground'
-                )} />
+                <Icon
+                  className={cn(
+                    'size-4',
+                    isActive(path) ? 'text-primary' : 'text-muted-foreground/70',
+                  )}
+                />
                 {label}
-                {/* Active indicator - refined underline */}
-                {isActive(path) && (
-                  <span className="absolute inset-x-4 -bottom-[17px] h-[2px] bg-primary" />
-                )}
+                {isActive(path) ? (
+                  <span className="absolute inset-x-3 -bottom-[13px] h-0.5 bg-primary sm:-bottom-[17px]" />
+                ) : null}
               </Link>
             ))}
           </nav>
 
-          {/* Mobile nav - icon only */}
-          <nav className="flex items-center gap-0.5 lg:hidden ml-auto">
+          <nav className="ml-auto flex items-center gap-0.5 lg:hidden">
             {navItems.map(({ path, label, icon: Icon }) => (
               <Link
                 key={path}
                 to={path}
                 className={cn(
-                  'flex items-center justify-center rounded-md p-2 transition-colors',
+                  'flex items-center justify-center rounded-md p-2',
                   isActive(path)
                     ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                 )}
                 aria-label={label}
               >
@@ -94,7 +94,6 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right side actions */}
           <div className="flex items-center gap-1 sm:gap-2 lg:ml-auto">
             <SearchCommand />
 
@@ -104,16 +103,16 @@ export default function Header() {
               asChild
               variant="ghost"
               size="sm"
-              className="hidden sm:flex h-9 gap-2 px-3 text-muted-foreground hover:text-foreground"
+              className="hidden h-9 px-3 text-muted-foreground hover:text-foreground sm:flex"
             >
               <a
-                href="https://github.com/hapwi"
+                href={`https://github.com/${GITHUB_OWNER}`}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub profile"
               >
-                <Github className="size-4" />
-                <span className="hidden md:inline text-sm font-medium">GitHub</span>
+                <Github />
+                <span className="hidden text-sm font-medium md:inline">GitHub</span>
               </a>
             </Button>
 
@@ -121,9 +120,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-
-      {/* Bottom border accent */}
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
     </header>
   )
 }

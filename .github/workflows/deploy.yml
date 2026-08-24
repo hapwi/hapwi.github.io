@@ -3,6 +3,10 @@ name: Deploy static content to Pages
 on:
   push:
     branches: ['master']
+  schedule:
+    - cron: '17 8 * * *'
+  repository_dispatch:
+    types: [hub-sync]
   workflow_dispatch:
 
 permissions:
@@ -38,7 +42,14 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Sync catalog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bun run sync
+
       - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bun run build
 
       - name: Setup Pages

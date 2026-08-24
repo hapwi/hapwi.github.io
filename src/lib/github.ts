@@ -1,3 +1,5 @@
+export const GITHUB_OWNER = 'hapwi'
+
 export type GitHubRepoRef = {
   owner: string
   repo: string

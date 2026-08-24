@@ -11,8 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TampermonkeyRouteImport } from './routes/tampermonkey'
 import { Route as DiscordThemesRouteImport } from './routes/discord-themes'
-import { Route as BbpcnRouteImport } from './routes/bbpcn'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReposIndexRouteImport } from './routes/repos.index'
+import { Route as ReposRepoRouteImport } from './routes/repos.$repo'
 
 const TampermonkeyRoute = TampermonkeyRouteImport.update({
   id: '/tampermonkey',
@@ -24,49 +25,69 @@ const DiscordThemesRoute = DiscordThemesRouteImport.update({
   path: '/discord-themes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BbpcnRoute = BbpcnRouteImport.update({
-  id: '/bbpcn',
-  path: '/bbpcn',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReposIndexRoute = ReposIndexRouteImport.update({
+  id: '/repos/',
+  path: '/repos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReposRepoRoute = ReposRepoRouteImport.update({
+  id: '/repos/$repo',
+  path: '/repos/$repo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/bbpcn': typeof BbpcnRoute
   '/discord-themes': typeof DiscordThemesRoute
   '/tampermonkey': typeof TampermonkeyRoute
+  '/repos/$repo': typeof ReposRepoRoute
+  '/repos/': typeof ReposIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/bbpcn': typeof BbpcnRoute
   '/discord-themes': typeof DiscordThemesRoute
   '/tampermonkey': typeof TampermonkeyRoute
+  '/repos/$repo': typeof ReposRepoRoute
+  '/repos': typeof ReposIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/bbpcn': typeof BbpcnRoute
   '/discord-themes': typeof DiscordThemesRoute
   '/tampermonkey': typeof TampermonkeyRoute
+  '/repos/$repo': typeof ReposRepoRoute
+  '/repos/': typeof ReposIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bbpcn' | '/discord-themes' | '/tampermonkey'
+  fullPaths:
+    | '/'
+    | '/discord-themes'
+    | '/tampermonkey'
+    | '/repos/$repo'
+    | '/repos/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bbpcn' | '/discord-themes' | '/tampermonkey'
-  id: '__root__' | '/' | '/bbpcn' | '/discord-themes' | '/tampermonkey'
+  to: '/' | '/discord-themes' | '/tampermonkey' | '/repos/$repo' | '/repos'
+  id:
+    | '__root__'
+    | '/'
+    | '/discord-themes'
+    | '/tampermonkey'
+    | '/repos/$repo'
+    | '/repos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BbpcnRoute: typeof BbpcnRoute
   DiscordThemesRoute: typeof DiscordThemesRoute
   TampermonkeyRoute: typeof TampermonkeyRoute
+  ReposRepoRoute: typeof ReposRepoRoute
+  ReposIndexRoute: typeof ReposIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,13 +106,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiscordThemesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bbpcn': {
-      id: '/bbpcn'
-      path: '/bbpcn'
-      fullPath: '/bbpcn'
-      preLoaderRoute: typeof BbpcnRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -99,14 +113,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/repos/': {
+      id: '/repos/'
+      path: '/repos'
+      fullPath: '/repos/'
+      preLoaderRoute: typeof ReposIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/repos/$repo': {
+      id: '/repos/$repo'
+      path: '/repos/$repo'
+      fullPath: '/repos/$repo'
+      preLoaderRoute: typeof ReposRepoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BbpcnRoute: BbpcnRoute,
   DiscordThemesRoute: DiscordThemesRoute,
   TampermonkeyRoute: TampermonkeyRoute,
+  ReposRepoRoute: ReposRepoRoute,
+  ReposIndexRoute: ReposIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
