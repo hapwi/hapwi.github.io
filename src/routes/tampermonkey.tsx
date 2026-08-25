@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { Copy, Download, Link2, ExternalLink, ShieldAlert } from 'lucide-react'
+import { Copy, Download, Link2, ExternalLink } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
@@ -13,7 +13,6 @@ import {
   PageMain,
 } from '@/components/page-layout'
 import { formatFileSize } from '@/components/library/meta-columns'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -329,15 +328,6 @@ function TampermonkeyRoute() {
               ))}
             </div>
           </PageMain>
-
-          <Alert className="max-w-3xl">
-            <ShieldAlert />
-            <AlertTitle>Review before installing</AlertTitle>
-            <AlertDescription>
-              Userscripts can read and change matching pages. Inspect the code
-              and permissions before adding one to your browser.
-            </AlertDescription>
-          </Alert>
         </PageContent>
       </PageLayout>
     )

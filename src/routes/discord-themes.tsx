@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { Copy, Download, Code, Link2 } from 'lucide-react'
+import { Copy, Download, Link2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
@@ -13,7 +13,6 @@ import {
   PageMain,
 } from '@/components/page-layout'
 import { formatFileSize } from '@/components/library/meta-columns'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -398,15 +397,6 @@ function DiscordThemesRoute() {
               ))}
             </div>
           </PageMain>
-
-          <Alert className="max-w-3xl">
-            <Code />
-            <AlertTitle>Use a hosted theme</AlertTitle>
-            <AlertDescription>
-              Open a theme to review its CSS, then copy the raw URL into your
-              Discord client&apos;s custom theme settings.
-            </AlertDescription>
-          </Alert>
         </PageContent>
       </PageLayout>
     )
