@@ -123,6 +123,8 @@ export const curatedProjects: CatalogProject[] = [
     browseable: true,
     githubName: 'mmf-golden-gate-fixer',
     githubUrl: `https://github.com/${GITHUB_OWNER}/mmf-golden-gate-fixer`,
+    installCommand:
+      'curl -fsSL https://hapwi.github.io/install/mmf-golden-gate-fixer.sh | bash',
   },
   {
     id: 'hapcord',

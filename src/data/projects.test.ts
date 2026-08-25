@@ -32,4 +32,20 @@ describe('getWorkProjects', () => {
         'curl -fsSL https://hapwi.github.io/install/pastebridge.sh | bash',
     })
   })
+
+  it('includes MMF Golden Gate Fixer with its verified installer', () => {
+    const mmf = getWorkProjects(curatedProjects).find(
+      (project) => project.id === 'mmf-golden-gate-fixer',
+    )
+
+    expect(mmf).toMatchObject({
+      name: 'mmf-golden-gate-fixer',
+      language: 'Objective-C',
+      to: '/repos/$repo',
+      repo: 'mmf-golden-gate-fixer',
+      githubUrl: 'https://github.com/hapwi/mmf-golden-gate-fixer',
+      installCommand:
+        'curl -fsSL https://hapwi.github.io/install/mmf-golden-gate-fixer.sh | bash',
+    })
+  })
 })

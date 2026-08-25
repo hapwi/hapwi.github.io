@@ -15,6 +15,7 @@
     {
       "repo": "hapwi/mmf-golden-gate-fixer",
       "group": "tools",
+      "install": "install.sh",
       "tagline": "Restores Mac Mouse Fix button-drag Spaces on macOS 27 Golden Gate."
     }
   ]
