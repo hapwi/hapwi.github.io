@@ -106,31 +106,6 @@ export const curatedProjects: CatalogProject[] = [
     githubUrl: `https://github.com/${GITHUB_OWNER}/mmf-golden-gate-fixer`,
   },
   {
-    id: 'codex-cleaner',
-    name: 'codex-cleaner',
-    description:
-      'Guided cleanup for local Codex Desktop and CLI state without deleting history by default.',
-    group: 'tools',
-    language: 'Python',
-    to: '/repos/$repo',
-    repo: 'codex-cleaner',
-    browseable: true,
-    githubName: 'codex-cleaner',
-    githubUrl: `https://github.com/${GITHUB_OWNER}/codex-cleaner`,
-  },
-  {
-    id: 'bettergit',
-    name: 'bettergit',
-    description: 'Public TypeScript git tooling.',
-    group: 'tools',
-    language: 'TypeScript',
-    to: '/repos/$repo',
-    repo: 'bettergit',
-    browseable: true,
-    githubName: 'bettergit',
-    githubUrl: `https://github.com/${GITHUB_OWNER}/bettergit`,
-  },
-  {
     id: 'hapcord',
     name: 'hapcord',
     description: 'Personal Equicord fork — the other Discord client mod.',
@@ -161,6 +136,8 @@ export const hiddenAutoImportRepos = new Set([
   'CodexBar',
   'devcloud-releases',
   'custom-scripts',
+  'codex-cleaner',
+  'bettergit',
 ])
 
 export function isValidRepoName(name: string) {

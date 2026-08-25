@@ -117,52 +117,6 @@ function MouseFixScene() {
   )
 }
 
-function CodexCleanerScene() {
-  return (
-    <MiniWindow title="codex-cleaner">
-      <div className="flex h-full flex-col gap-1.5 px-3 py-2 font-mono text-[11px] leading-5">
-        <p className="text-muted-foreground">$ codex-cleaner</p>
-        <p>keep chats</p>
-        <p>archive clutter</p>
-        <p className="text-primary">rotate logs</p>
-        <p className="text-muted-foreground">skip history</p>
-      </div>
-    </MiniWindow>
-  )
-}
-
-function BettergitScene() {
-  return (
-    <MiniWindow title="bettergit graph">
-      <div className="flex h-full items-center justify-center px-3">
-        <svg
-          viewBox="0 0 200 88"
-          className="h-16 w-full text-primary"
-          aria-hidden
-        >
-          <path
-            d="M16 70 C48 70, 48 22, 88 22 S136 70, 184 70"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          />
-          <path
-            d="M88 22 C88 48, 120 48, 148 48"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            opacity="0.45"
-          />
-          <circle cx="16" cy="70" r="5" fill="currentColor" />
-          <circle cx="88" cy="22" r="5" fill="currentColor" />
-          <circle cx="148" cy="48" r="4" fill="currentColor" opacity="0.7" />
-          <circle cx="184" cy="70" r="5" fill="currentColor" />
-        </svg>
-      </div>
-    </MiniWindow>
-  )
-}
-
 function HapcordScene() {
   return (
     <MiniWindow title="hapcord">
@@ -198,8 +152,6 @@ export const PROJECT_SCENES: Record<string, () => ReactNode> = {
   'discord-themes': DiscordThemesScene,
   tampermonkey: TampermonkeyScene,
   'mmf-golden-gate-fixer': MouseFixScene,
-  'codex-cleaner': CodexCleanerScene,
-  bettergit: BettergitScene,
   hapcord: HapcordScene,
 }
 

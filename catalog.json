@@ -10,16 +10,6 @@
       "repo": "hapwi/mmf-golden-gate-fixer",
       "group": "tools",
       "tagline": "Restores Mac Mouse Fix button-drag Spaces on macOS 27 Golden Gate."
-    },
-    {
-      "repo": "hapwi/codex-cleaner",
-      "group": "tools",
-      "tagline": "Guided cleanup for local Codex Desktop and CLI state."
-    },
-    {
-      "repo": "hapwi/bettergit",
-      "group": "tools",
-      "tagline": "Public TypeScript git tooling."
     }
   ]
 }
