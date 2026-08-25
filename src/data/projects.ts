@@ -131,29 +131,6 @@ export const curatedProjects: CatalogProject[] = [
     githubUrl: `https://github.com/${GITHUB_OWNER}/bettergit`,
   },
   {
-    id: 'custom-scripts',
-    name: 'custom-scripts',
-    description: 'Public scripts repository mirrored into the hosted userscripts library.',
-    group: 'source',
-    language: 'JavaScript',
-    to: '/repos/$repo',
-    repo: 'custom-scripts',
-    browseable: true,
-    githubName: 'custom-scripts',
-    githubUrl: `https://github.com/${GITHUB_OWNER}/custom-scripts`,
-  },
-  {
-    id: 'devcloud-releases',
-    name: 'devcloud-releases',
-    description: 'Public checksummed DevCloud binaries. Source stays private.',
-    group: 'source',
-    to: '/repos/$repo',
-    repo: 'devcloud-releases',
-    browseable: true,
-    githubName: 'devcloud-releases',
-    githubUrl: `https://github.com/${GITHUB_OWNER}/devcloud-releases`,
-  },
-  {
     id: 'hapcord',
     name: 'hapcord',
     description: 'Personal Equicord fork — the other Discord client mod.',
@@ -163,17 +140,6 @@ export const curatedProjects: CatalogProject[] = [
     githubName: 'hapcord',
     githubUrl: `https://github.com/${GITHUB_OWNER}/hapcord`,
     homepageUrl: 'https://equicord.org',
-  },
-  {
-    id: 'codexbar',
-    name: 'CodexBar',
-    description: 'Usage stats for OpenAI Codex and Claude Code without logging in.',
-    group: 'forks',
-    language: 'Swift',
-    href: `https://github.com/${GITHUB_OWNER}/CodexBar`,
-    githubName: 'CodexBar',
-    githubUrl: `https://github.com/${GITHUB_OWNER}/CodexBar`,
-    homepageUrl: 'https://codexbar.app',
   },
 ]
 
@@ -192,6 +158,9 @@ export const hiddenAutoImportRepos = new Set([
   'hapwi.github.io',
   'devbox-test',
   'bbpcn',
+  'CodexBar',
+  'devcloud-releases',
+  'custom-scripts',
 ])
 
 export function isValidRepoName(name: string) {

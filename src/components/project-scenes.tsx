@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 
 import { Badge } from '@/components/ui/badge'
 import { Kbd, KbdGroup } from '@/components/ui/kbd'
-import { Progress } from '@/components/ui/progress'
 import { cn } from '@/lib/utils'
 
 function MiniWindow({
@@ -164,33 +163,6 @@ function BettergitScene() {
   )
 }
 
-function ScriptsScene() {
-  return (
-    <MiniWindow title="github-repos-links.user.js">
-      <div className="flex h-full flex-col gap-0.5 px-3 py-2 font-mono text-[11px] leading-5">
-        <p className="text-muted-foreground">// ==UserScript==</p>
-        <p>// @name github-repos-links</p>
-        <p className="text-muted-foreground">// @match github.com/*</p>
-        <p className="text-muted-foreground">// ==/UserScript==</p>
-        <p className="text-primary">injectHeaderLinks()</p>
-      </div>
-    </MiniWindow>
-  )
-}
-
-function ReleasesScene() {
-  return (
-    <MiniWindow title="checksums.txt">
-      <div className="flex h-full flex-col gap-1.5 px-3 py-2 font-mono text-[11px] leading-5">
-        <p className="text-muted-foreground">SHA256</p>
-        <p className="truncate">3f2c…b91a  devcloud</p>
-        <p className="truncate text-muted-foreground">9aa1…00e4  checksums.txt</p>
-        <p className="truncate text-muted-foreground">c81e…44d0  notes.md</p>
-      </div>
-    </MiniWindow>
-  )
-}
-
 function HapcordScene() {
   return (
     <MiniWindow title="hapcord">
@@ -206,25 +178,6 @@ function HapcordScene() {
           <span className="h-2 w-16 rounded-full bg-primary/70" />
           <span className="mt-1 h-8 rounded-md border bg-muted/40" />
         </div>
-      </div>
-    </MiniWindow>
-  )
-}
-
-function CodexBarScene() {
-  return (
-    <MiniWindow title="CodexBar">
-      <div className="flex h-full flex-col justify-center gap-3 px-3">
-        <div className="flex items-center justify-between font-mono text-[11px]">
-          <span>Codex</span>
-          <span className="text-muted-foreground">64%</span>
-        </div>
-        <Progress value={64} />
-        <div className="flex items-center justify-between font-mono text-[11px]">
-          <span>Claude</span>
-          <span className="text-muted-foreground">28%</span>
-        </div>
-        <Progress value={28} />
       </div>
     </MiniWindow>
   )
@@ -247,10 +200,7 @@ export const PROJECT_SCENES: Record<string, () => ReactNode> = {
   'mmf-golden-gate-fixer': MouseFixScene,
   'codex-cleaner': CodexCleanerScene,
   bettergit: BettergitScene,
-  'custom-scripts': ScriptsScene,
-  'devcloud-releases': ReleasesScene,
   hapcord: HapcordScene,
-  codexbar: CodexBarScene,
 }
 
 export function ProjectScene({ id }: { id: string }) {
