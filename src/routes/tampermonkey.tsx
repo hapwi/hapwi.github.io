@@ -6,10 +6,14 @@ import { toast } from 'sonner'
 import { CodeFileViewer } from '@/components/code-file-viewer'
 import { CollectionDetailShell } from '@/components/collection-detail-shell'
 import { FileIcon } from '@/components/file-icon'
-import { PageContent, PageHero, PageLayout } from '@/components/page-layout'
+import {
+  PageContent,
+  PageHero,
+  PageLayout,
+  PageMain,
+} from '@/components/page-layout'
 import { formatFileSize } from '@/components/library/meta-columns'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -251,8 +255,14 @@ function TampermonkeyRoute() {
             description="Small, focused browser automations hosted as installable userscripts. Review the code, then install directly in Tampermonkey or another compatible manager."
           />
 
-          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-            <div className="grid gap-5">
+          <PageMain>
+            <div>
+              <h2 className="text-xl font-semibold">Available userscripts</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Review each script, inspect its source, or install it directly.
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {scripts.map((item) => (
                 <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
                   <div className="bg-muted/40 p-3">
@@ -271,12 +281,9 @@ function TampermonkeyRoute() {
                     </div>
                   </div>
                   <CardHeader className="gap-2 px-5 pt-5 pb-4">
-                    <div className="flex flex-wrap items-start justify-between gap-3">
-                      <CardTitle className="text-xl">
-                        {item.displayName}
-                      </CardTitle>
-                      <Badge variant="outline">GitHub</Badge>
-                    </div>
+                    <CardTitle className="text-xl">
+                      {item.displayName}
+                    </CardTitle>
                     <CardDescription className="text-base leading-relaxed">
                       {item.description ??
                         'A focused userscript for improving everyday browsing workflows.'}
@@ -321,16 +328,16 @@ function TampermonkeyRoute() {
                 </Card>
               ))}
             </div>
+          </PageMain>
 
-            <Alert>
-              <ShieldAlert />
-              <AlertTitle>Review before installing</AlertTitle>
-              <AlertDescription>
-                Userscripts can read and change matching pages. Inspect the code
-                and permissions before adding one to your browser.
-              </AlertDescription>
-            </Alert>
-          </div>
+          <Alert className="max-w-3xl">
+            <ShieldAlert />
+            <AlertTitle>Review before installing</AlertTitle>
+            <AlertDescription>
+              Userscripts can read and change matching pages. Inspect the code
+              and permissions before adding one to your browser.
+            </AlertDescription>
+          </Alert>
         </PageContent>
       </PageLayout>
     )

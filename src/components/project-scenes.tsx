@@ -47,6 +47,36 @@ function PeriodSpaceScene() {
   )
 }
 
+function PastebridgeScene() {
+  return (
+    <MiniWindow title="Pastebridge · connected">
+      <div className="flex h-full items-center justify-center gap-2 px-3">
+        <div className="flex h-16 flex-1 flex-col rounded-md border bg-background p-2">
+          <span className="font-mono text-[9px] text-muted-foreground">
+            macOS
+          </span>
+          <span className="mt-auto h-5 rounded-sm bg-primary/15 px-1.5 font-mono text-[9px] leading-5">
+            copied
+          </span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-primary">
+          <span className="font-mono text-[10px]">→</span>
+          <Badge variant="outline">TLS</Badge>
+          <span className="font-mono text-[10px]">←</span>
+        </div>
+        <div className="flex h-16 flex-1 flex-col rounded-md border bg-background p-2">
+          <span className="font-mono text-[9px] text-muted-foreground">
+            Linux
+          </span>
+          <span className="mt-auto h-5 rounded-sm bg-primary/15 px-1.5 font-mono text-[9px] leading-5">
+            pasted
+          </span>
+        </div>
+      </div>
+    </MiniWindow>
+  )
+}
+
 function DiscordThemesScene() {
   return (
     <MiniWindow title="vencord · mocha">
@@ -149,6 +179,7 @@ function DefaultScene() {
 
 export const PROJECT_SCENES: Record<string, () => ReactNode> = {
   'period-space': PeriodSpaceScene,
+  pastebridge: PastebridgeScene,
   'discord-themes': DiscordThemesScene,
   tampermonkey: TampermonkeyScene,
   'mmf-golden-gate-fixer': MouseFixScene,

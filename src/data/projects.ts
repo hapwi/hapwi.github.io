@@ -74,6 +74,22 @@ export const curatedProjects: CatalogProject[] = [
     featured: true,
   },
   {
+    id: 'pastebridge',
+    name: 'Pastebridge',
+    description:
+      'Encrypted local clipboard sync between macOS and Linux, with no cloud or account.',
+    group: 'tools',
+    language: 'Rust',
+    to: '/repos/$repo',
+    repo: 'pastebridge',
+    browseable: true,
+    githubName: 'pastebridge',
+    githubUrl: `https://github.com/${GITHUB_OWNER}/pastebridge`,
+    installCommand:
+      'curl -fsSL https://hapwi.github.io/install/pastebridge.sh | bash',
+    featured: true,
+  },
+  {
     id: 'discord-themes',
     name: 'discord/themes',
     description:

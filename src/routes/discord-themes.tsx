@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { Copy, Download, Code, FileText, Link2 } from 'lucide-react'
+import { Copy, Download, Code, Link2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
@@ -10,13 +10,10 @@ import {
   PageLayout,
   PageHero,
   PageContent,
-  PageGrid,
   PageMain,
-  PageSidebar,
-  SidebarCard,
-  SidebarCardHeader,
 } from '@/components/page-layout'
 import { formatFileSize } from '@/components/library/meta-columns'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -339,110 +336,77 @@ function DiscordThemesRoute() {
             description="Curated themes for Vencord, Equicord, and BetterDiscord—ready to preview, inspect, and use from a stable hosted URL."
           />
 
-          <PageGrid>
-            <PageMain>
-              <div>
-                <h2 className="text-xl font-semibold">Hosted themes</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Preview a theme, inspect its CSS, or copy its hosted URL.
-                </p>
-              </div>
-              <div className="grid gap-5 md:grid-cols-2">
-                {themeAssets.map((item) => (
-                  <Card
-                    key={item.urlPath}
-                    className="gap-0 overflow-hidden py-0"
-                  >
-                    <div className="bg-muted/40 p-3">
-                      <ThemePreview name={item.name} />
-                    </div>
-                    <CardHeader className="gap-2 px-5 pt-5 pb-4">
-                      <CardTitle className="text-lg">
-                        {getThemePresentation(item.name).label}
-                      </CardTitle>
-                      <CardDescription className="line-clamp-2 leading-relaxed">
-                        {item.description ??
-                          'Hosted custom CSS for Vencord-family Discord clients.'}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-wrap gap-2 px-5 pb-4">
-                      <Badge variant="secondary">Vencord</Badge>
-                      <Badge variant="secondary">Equicord</Badge>
-                      <span className="ml-auto self-center text-xs text-muted-foreground">
-                        Updated {formatRelativeTime(item.mtime)}
-                      </span>
-                    </CardContent>
-                    <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
-                      <Button asChild size="sm">
-                        <Link
-                          {...getCollectionDetailLocation(
-                            'themes',
-                            item.urlPath,
-                          )}
-                        >
-                          View CSS
-                        </Link>
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={async () => {
-                          try {
-                            await navigator.clipboard.writeText(
-                              buildHostedAssetUrl(
-                                item.urlPath,
-                                window.location.origin,
-                              ),
-                            )
-                            toast.success('Raw theme URL copied')
-                          } catch {
-                            toast.error('Failed to copy raw theme URL')
-                          }
-                        }}
+          <PageMain>
+            <div>
+              <h2 className="text-xl font-semibold">Hosted themes</h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Preview a theme, inspect its CSS, or copy its hosted URL.
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {themeAssets.map((item) => (
+                <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
+                  <div className="bg-muted/40 p-3">
+                    <ThemePreview name={item.name} />
+                  </div>
+                  <CardHeader className="gap-2 px-5 pt-5 pb-4">
+                    <CardTitle className="text-lg">
+                      {getThemePresentation(item.name).label}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-2 leading-relaxed">
+                      {item.description ??
+                        'Hosted custom CSS for Vencord-family Discord clients.'}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex flex-wrap gap-2 px-5 pb-4">
+                    <Badge variant="secondary">Vencord</Badge>
+                    <Badge variant="secondary">Equicord</Badge>
+                    <span className="ml-auto self-center text-xs text-muted-foreground">
+                      Updated {formatRelativeTime(item.mtime)}
+                    </span>
+                  </CardContent>
+                  <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
+                    <Button asChild size="sm">
+                      <Link
+                        {...getCollectionDetailLocation('themes', item.urlPath)}
                       >
-                        <Link2 data-icon="inline-start" />
-                        Copy URL
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </PageMain>
+                        View CSS
+                      </Link>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={async () => {
+                        try {
+                          await navigator.clipboard.writeText(
+                            buildHostedAssetUrl(
+                              item.urlPath,
+                              window.location.origin,
+                            ),
+                          )
+                          toast.success('Raw theme URL copied')
+                        } catch {
+                          toast.error('Failed to copy raw theme URL')
+                        }
+                      }}
+                    >
+                      <Link2 data-icon="inline-start" />
+                      Copy URL
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </PageMain>
 
-            <PageSidebar>
-              <SidebarCard>
-                <SidebarCardHeader
-                  icon={<FileText className="size-4" />}
-                  title="About"
-                />
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Custom CSS themes for Discord clients. Compatible with
-                  BetterDiscord, Vencord, and Equicord.
-                </p>
-              </SidebarCard>
-
-              <SidebarCard>
-                <SidebarCardHeader
-                  icon={<Code className="size-4" />}
-                  title="How to use"
-                />
-                <ol className="flex flex-col gap-2 text-sm leading-relaxed text-muted-foreground">
-                  <li className="flex gap-2">
-                    <span className="font-mono text-xs text-primary">1.</span>
-                    Click on any theme to view source
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="font-mono text-xs text-primary">2.</span>
-                    Copy the raw URL
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="font-mono text-xs text-primary">3.</span>
-                    Paste into your client's CSS settings
-                  </li>
-                </ol>
-              </SidebarCard>
-            </PageSidebar>
-          </PageGrid>
+          <Alert className="max-w-3xl">
+            <Code />
+            <AlertTitle>Use a hosted theme</AlertTitle>
+            <AlertDescription>
+              Open a theme to review its CSS, then copy the raw URL into your
+              Discord client&apos;s custom theme settings.
+            </AlertDescription>
+          </Alert>
         </PageContent>
       </PageLayout>
     )

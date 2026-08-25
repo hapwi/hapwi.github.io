@@ -12,7 +12,11 @@ import { GITHUB_OWNER } from '@/lib/github'
 function hubInstallCommand(project: CatalogProject) {
   const key = project.githubName ?? project.repo
   if (!key) return project.installCommand ?? null
-  return hubProjects.find((item) => item.slug === key)?.installCommand ?? null
+  return (
+    hubProjects.find((item) => item.slug === key)?.installCommand ??
+    project.installCommand ??
+    null
+  )
 }
 
 function mergeCatalog(remote: GitHubPublicRepo[] | null): CatalogProject[] {
