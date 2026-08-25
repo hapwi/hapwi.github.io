@@ -96,22 +96,8 @@ export function SearchCommand() {
     <>
       <Button
         variant="ghost"
-        size="sm"
+        size="icon-sm"
         onClick={() => setOpen(true)}
-        className="hidden h-9 gap-2.5 rounded-md border border-border/50 bg-muted/30 px-3 text-muted-foreground hover:bg-muted hover:text-foreground md:flex"
-        aria-label="Search"
-      >
-        <Search />
-        <span className="text-sm">Search</span>
-        <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-0.5 rounded border border-border/60 bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </Button>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => setOpen(true)}
-        className="flex size-8 p-0 text-muted-foreground hover:text-foreground md:hidden"
         aria-label="Search"
       >
         <Search />

@@ -15,7 +15,7 @@ export function GitHubStarsButton({
       <a href={href} target="_blank" rel="noreferrer">
         <Star data-icon="inline-start" />
         Star
-        <NumberTicker value={stars} className="font-mono text-xs tracking-normal" />
+        <NumberTicker value={stars} />
       </a>
     </Button>
   )

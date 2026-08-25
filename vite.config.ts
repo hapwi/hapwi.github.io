@@ -118,6 +118,14 @@ function codeLibraryManifestPlugin() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    host: true,
+    allowedHosts: [
+      'haplinux.taild451ec.ts.net',
+      '.taild451ec.ts.net',
+      '.ts.net',
+    ],
+  },
   plugins: [
     TanStackRouterVite({ autoCodeSplitting: true }),
     viteReact(),

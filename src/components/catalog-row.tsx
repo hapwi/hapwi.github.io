@@ -1,30 +1,51 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowUpRight, Check, Copy } from 'lucide-react'
-import { useState, type ReactNode } from 'react'
+import {
+  Children,
+  Fragment,
+  forwardRef,
+  useState,
+  type ComponentPropsWithoutRef,
+  type ReactNode,
+} from 'react'
 import { toast } from 'sonner'
 
 import type { CatalogProject } from '@/data/projects'
-import { languageColor } from '@/lib/languages'
 import { formatRelativeTime } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group'
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemGroup,
+  ItemSeparator,
+  ItemTitle,
+} from '@/components/ui/item'
 
-export function ProjectLink({
-  project,
-  className,
-  children,
-}: {
-  project: CatalogProject
-  className?: string
-  children: ReactNode
-}) {
+export const ProjectLink = forwardRef<
+  HTMLAnchorElement,
+  {
+    project: CatalogProject
+    children: ReactNode
+  } & Omit<ComponentPropsWithoutRef<'a'>, 'href'>
+>(function ProjectLink({ project, className, children, ...props }, ref) {
   if (project.to === '/repos/$repo' && project.repo) {
     return (
       <Link
+        ref={ref}
         to="/repos/$repo"
         params={{ repo: project.repo }}
         search={{ file: undefined, path: undefined }}
         className={className}
+        {...props}
       >
         {children}
       </Link>
@@ -33,7 +54,13 @@ export function ProjectLink({
 
   if (project.to === '/discord-themes') {
     return (
-      <Link to="/discord-themes" search={{ file: undefined }} className={className}>
+      <Link
+        ref={ref}
+        to="/discord-themes"
+        search={{ file: undefined }}
+        className={className}
+        {...props}
+      >
         {children}
       </Link>
     )
@@ -41,7 +68,13 @@ export function ProjectLink({
 
   if (project.to === '/tampermonkey') {
     return (
-      <Link to="/tampermonkey" search={{ file: undefined }} className={className}>
+      <Link
+        ref={ref}
+        to="/tampermonkey"
+        search={{ file: undefined }}
+        className={className}
+        {...props}
+      >
         {children}
       </Link>
     )
@@ -49,61 +82,65 @@ export function ProjectLink({
 
   if (project.to === '/') {
     return (
-      <Link to="/" className={className}>
+      <Link ref={ref} to="/" className={className} {...props}>
         {children}
       </Link>
     )
   }
 
   const href = project.href ?? project.githubUrl
-  if (!href) return <div className={className}>{children}</div>
+  if (!href) {
+    return (
+      <span ref={ref} className={className} {...props}>
+        {children}
+      </span>
+    )
+  }
 
   return (
-    <a href={href} target="_blank" rel="noreferrer" className={className}>
+    <a
+      ref={ref}
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className={className}
+      {...props}
+    >
       {children}
     </a>
   )
-}
+})
 
 export function CatalogRow({ project }: { project: CatalogProject }) {
   const isExternal = !project.to
 
   return (
-    <div>
-      <ProjectLink project={project} className="catalog-row group">
-        <span className="catalog-caret" aria-hidden />
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <span className="truncate font-mono text-sm font-medium text-foreground group-hover:text-primary">
+    <div className="flex flex-col gap-2">
+      <Item asChild size="sm">
+        <ProjectLink project={project}>
+          <ItemContent>
+            <ItemTitle>
               {project.name}
-            </span>
-            {isExternal ? (
-              <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+              {isExternal ? <ArrowUpRight /> : null}
+            </ItemTitle>
+            <ItemDescription>{project.description}</ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            {project.language ? (
+              <Badge variant="secondary">{project.language}</Badge>
             ) : null}
-          </div>
-          <p className="mt-0.5 truncate text-sm text-muted-foreground">
-            {project.description}
-          </p>
-        </div>
-        <div className="hidden shrink-0 items-center gap-3 sm:flex">
-          {project.language ? (
-            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span
-                className="size-2 rounded-full"
-                style={{ backgroundColor: languageColor(project.language) }}
-              />
-              {project.language}
-            </span>
-          ) : null}
-          {project.updatedAt ? (
-            <span className="w-16 text-right font-mono text-xs tabular-nums text-muted-foreground">
-              {formatRelativeTime(project.updatedAt)}
-            </span>
-          ) : null}
-        </div>
-      </ProjectLink>
+            {project.updatedAt ? (
+              <Badge variant="outline">
+                {formatRelativeTime(project.updatedAt)}
+              </Badge>
+            ) : null}
+          </ItemActions>
+        </ProjectLink>
+      </Item>
       {project.installCommand ? (
-        <InstallCommand command={project.installCommand} />
+        <div className="px-4 pb-3">
+          <InstallCommand command={project.installCommand} />
+        </div>
       ) : null}
     </div>
   )
@@ -113,27 +150,32 @@ export function InstallCommand({ command }: { command: string }) {
   const [copied, setCopied] = useState(false)
 
   return (
-    <div className="flex items-stretch gap-2 border-t border-border/60 bg-muted/30 px-3 py-2 sm:px-4">
-      <code className="min-w-0 flex-1 overflow-x-auto py-1 font-mono text-[12px] text-foreground">
-        {command}
-      </code>
-      <Button
-        type="button"
-        variant="ghost"
-        size="icon-sm"
-        aria-label="Copy install command"
-        onClick={async (event) => {
-          event.preventDefault()
-          event.stopPropagation()
-          await navigator.clipboard.writeText(command)
-          toast.success('Install command copied')
-          setCopied(true)
-          window.setTimeout(() => setCopied(false), 1500)
+    <InputGroup>
+      <InputGroupInput
+        readOnly
+        value={command}
+        aria-label="Install command"
+        onClick={(event) => {
+          event.currentTarget.select()
         }}
-      >
-        {copied ? <Check /> : <Copy />}
-      </Button>
-    </div>
+      />
+      <InputGroupAddon align="inline-end">
+        <InputGroupButton
+          size="icon-xs"
+          aria-label="Copy install command"
+          onClick={async (event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            await navigator.clipboard.writeText(command)
+            toast.success('Install command copied')
+            setCopied(true)
+            window.setTimeout(() => setCopied(false), 1500)
+          }}
+        >
+          {copied ? <Check /> : <Copy />}
+        </InputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
   )
 }
 
@@ -148,17 +190,26 @@ export function CatalogSection({
   children: ReactNode
   className?: string
 }) {
+  const items = Children.toArray(children)
+
   return (
-    <section className={cn('min-w-0', className)}>
-      <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h2 className="font-mono text-sm font-medium text-primary">{path}</h2>
-        {description ? (
-          <p className="text-sm text-muted-foreground">{description}</p>
-        ) : null}
-      </div>
-      <div className="overflow-hidden rounded-md border bg-card">
-        <div className="divide-y divide-border/60">{children}</div>
-      </div>
+    <section className={cn('flex min-w-0 flex-col gap-2', className)}>
+      <Item size="sm">
+        <ItemContent>
+          <ItemTitle>{path}</ItemTitle>
+          {description ? (
+            <ItemDescription>{description}</ItemDescription>
+          ) : null}
+        </ItemContent>
+      </Item>
+      <ItemGroup className="overflow-hidden rounded-md border">
+        {items.map((child, index) => (
+          <Fragment key={index}>
+            {child}
+            {index < items.length - 1 ? <ItemSeparator /> : null}
+          </Fragment>
+        ))}
+      </ItemGroup>
     </section>
   )
 }
