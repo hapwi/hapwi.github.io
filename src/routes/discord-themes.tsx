@@ -6,12 +6,7 @@ import { toast } from 'sonner'
 import { CodeFileViewer } from '@/components/code-file-viewer'
 import { CollectionDetailShell } from '@/components/collection-detail-shell'
 import { FileIcon } from '@/components/file-icon'
-import {
-  PageLayout,
-  PageHero,
-  PageContent,
-  PageMain,
-} from '@/components/page-layout'
+import { PageContent, PageLayout } from '@/components/page-layout'
 import { formatFileSize } from '@/components/library/meta-columns'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -327,76 +322,65 @@ function DiscordThemesRoute() {
   // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
-      <PageLayout>
-        <PageContent>
-          <PageHero
-            label="Hosted CSS collection"
-            title="Discord themes"
-            description="Curated themes for Vencord, Equicord, and BetterDiscord—ready to preview, inspect, and use from a stable hosted URL."
-          />
-
-          <PageMain>
-            <div>
-              <h2 className="text-xl font-semibold">Hosted themes</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Preview a theme, inspect its CSS, or copy its hosted URL.
-              </p>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {themeAssets.map((item) => (
-                <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
-                  <div className="bg-muted/40 p-3">
-                    <ThemePreview name={item.name} />
-                  </div>
-                  <CardHeader className="gap-2 px-5 pt-5 pb-4">
-                    <CardTitle className="text-lg">
-                      {getThemePresentation(item.name).label}
-                    </CardTitle>
-                    <CardDescription className="line-clamp-2 leading-relaxed">
-                      {item.description ??
-                        'Hosted custom CSS for Vencord-family Discord clients.'}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex flex-wrap gap-2 px-5 pb-4">
-                    <Badge variant="secondary">Vencord</Badge>
-                    <Badge variant="secondary">Equicord</Badge>
-                    <span className="ml-auto self-center text-xs text-muted-foreground">
-                      Updated {formatRelativeTime(item.mtime)}
-                    </span>
-                  </CardContent>
-                  <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
-                    <Button asChild size="sm">
-                      <Link
-                        {...getCollectionDetailLocation('themes', item.urlPath)}
-                      >
-                        View CSS
-                      </Link>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={async () => {
-                        try {
-                          await navigator.clipboard.writeText(
-                            buildHostedAssetUrl(
-                              item.urlPath,
-                              window.location.origin,
-                            ),
-                          )
-                          toast.success('Raw theme URL copied')
-                        } catch {
-                          toast.error('Failed to copy raw theme URL')
-                        }
-                      }}
+      <PageLayout className="py-0 sm:py-0 lg:py-0">
+        <PageContent className="gap-0">
+          <section
+            aria-label="Hosted themes"
+            className="grid gap-5 py-7 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {themeAssets.map((item) => (
+              <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
+                <div className="bg-muted/40 p-3">
+                  <ThemePreview name={item.name} />
+                </div>
+                <CardHeader className="gap-2 px-5 pt-5 pb-4">
+                  <CardTitle className="text-lg">
+                    {getThemePresentation(item.name).label}
+                  </CardTitle>
+                  <CardDescription className="line-clamp-2 leading-relaxed">
+                    {item.description ??
+                      'Hosted custom CSS for Vencord-family Discord clients.'}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-wrap gap-2 px-5 pb-4">
+                  <Badge variant="secondary">Vencord</Badge>
+                  <Badge variant="secondary">Equicord</Badge>
+                  <span className="ml-auto self-center text-xs text-muted-foreground">
+                    Updated {formatRelativeTime(item.mtime)}
+                  </span>
+                </CardContent>
+                <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
+                  <Button asChild size="sm">
+                    <Link
+                      {...getCollectionDetailLocation('themes', item.urlPath)}
                     >
-                      <Link2 data-icon="inline-start" />
-                      Copy URL
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </PageMain>
+                      View CSS
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(
+                          buildHostedAssetUrl(
+                            item.urlPath,
+                            window.location.origin,
+                          ),
+                        )
+                        toast.success('Raw theme URL copied')
+                      } catch {
+                        toast.error('Failed to copy raw theme URL')
+                      }
+                    }}
+                  >
+                    <Link2 data-icon="inline-start" />
+                    Copy URL
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </section>
         </PageContent>
       </PageLayout>
     )

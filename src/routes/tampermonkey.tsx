@@ -6,12 +6,7 @@ import { toast } from 'sonner'
 import { CodeFileViewer } from '@/components/code-file-viewer'
 import { CollectionDetailShell } from '@/components/collection-detail-shell'
 import { FileIcon } from '@/components/file-icon'
-import {
-  PageContent,
-  PageHero,
-  PageLayout,
-  PageMain,
-} from '@/components/page-layout'
+import { PageContent, PageLayout } from '@/components/page-layout'
 import { formatFileSize } from '@/components/library/meta-columns'
 import { Button } from '@/components/ui/button'
 import {
@@ -246,88 +241,72 @@ function TampermonkeyRoute() {
   // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
-      <PageLayout>
-        <PageContent>
-          <PageHero
-            label="Curated browser tools"
-            title="Userscripts"
-            description="Small, focused browser automations hosted as installable userscripts. Review the code, then install directly in Tampermonkey or another compatible manager."
-          />
-
-          <PageMain>
-            <div>
-              <h2 className="text-xl font-semibold">Available userscripts</h2>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Review each script, inspect its source, or install it directly.
-              </p>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {scripts.map((item) => (
-                <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
-                  <div className="bg-muted/40 p-3">
-                    <div className="flex h-28 flex-col justify-center gap-2 overflow-hidden rounded-xl border bg-background px-5 font-mono text-xs sm:h-32">
-                      <span className="text-muted-foreground">
-                        // ==UserScript==
-                      </span>
-                      <span>
-                        <span className="text-primary">@name</span>{' '}
-                        {item.displayName}
-                      </span>
-                      <span>
-                        <span className="text-primary">@match</span>{' '}
-                        https://github.com/*
-                      </span>
-                    </div>
-                  </div>
-                  <CardHeader className="gap-2 px-5 pt-5 pb-4">
-                    <CardTitle className="text-xl">
+      <PageLayout className="py-0 sm:py-0 lg:py-0">
+        <PageContent className="gap-0">
+          <section
+            aria-label="Available userscripts"
+            className="grid gap-5 py-7 md:grid-cols-2 xl:grid-cols-3"
+          >
+            {scripts.map((item) => (
+              <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
+                <div className="bg-muted/40 p-3">
+                  <div className="flex h-28 flex-col justify-center gap-2 overflow-hidden rounded-xl border bg-background px-5 font-mono text-xs sm:h-32">
+                    <span className="text-muted-foreground">
+                      // ==UserScript==
+                    </span>
+                    <span>
+                      <span className="text-primary">@name</span>{' '}
                       {item.displayName}
-                    </CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
-                      {item.description ??
-                        'A focused userscript for improving everyday browsing workflows.'}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
-                    <Button asChild size="sm">
-                      <Link
-                        {...getCollectionDetailLocation(
-                          'scripts',
-                          item.urlPath,
-                        )}
-                      >
-                        View code
-                      </Link>
-                    </Button>
-                    <Button asChild variant="secondary" size="sm">
-                      <a
-                        href={buildHostedAssetUrl(
-                          item.urlPath,
-                          typeof window === 'undefined'
-                            ? undefined
-                            : window.location.origin,
-                        )}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <ExternalLink data-icon="inline-start" />
-                        Install
-                      </a>
-                    </Button>
-                    <Button asChild variant="outline" size="sm">
-                      <a
-                        href={USERSCRIPT_SOURCE_URL}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Source
-                      </a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </PageMain>
+                    </span>
+                    <span>
+                      <span className="text-primary">@match</span>{' '}
+                      https://github.com/*
+                    </span>
+                  </div>
+                </div>
+                <CardHeader className="gap-2 px-5 pt-5 pb-4">
+                  <CardTitle className="text-xl">{item.displayName}</CardTitle>
+                  <CardDescription className="text-base leading-relaxed">
+                    {item.description ??
+                      'A focused userscript for improving everyday browsing workflows.'}
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
+                  <Button asChild size="sm">
+                    <Link
+                      {...getCollectionDetailLocation('scripts', item.urlPath)}
+                    >
+                      View code
+                    </Link>
+                  </Button>
+                  <Button asChild variant="secondary" size="sm">
+                    <a
+                      href={buildHostedAssetUrl(
+                        item.urlPath,
+                        typeof window === 'undefined'
+                          ? undefined
+                          : window.location.origin,
+                      )}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ExternalLink data-icon="inline-start" />
+                      Install
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" size="sm">
+                    <a
+                      href={USERSCRIPT_SOURCE_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Source
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </section>
         </PageContent>
       </PageLayout>
     )

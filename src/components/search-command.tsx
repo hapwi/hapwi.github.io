@@ -56,7 +56,7 @@ export function SearchCommand() {
             navigate({
               to: '/repos/$repo',
               params: { repo: project.repo },
-              search: { file: undefined, path: undefined },
+              search: { file: undefined, path: undefined, source: undefined },
             }),
           )
           return

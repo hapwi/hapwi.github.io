@@ -113,7 +113,7 @@ export const curatedProjects: CatalogProject[] = [
   },
   {
     id: 'mmf-golden-gate-fixer',
-    name: 'mmf-golden-gate-fixer',
+    name: 'MMF Golden Gate Fixer',
     description:
       'Restores Mac Mouse Fix button-drag Spaces on macOS 27 Golden Gate.',
     group: 'tools',
@@ -125,17 +125,6 @@ export const curatedProjects: CatalogProject[] = [
     githubUrl: `https://github.com/${GITHUB_OWNER}/mmf-golden-gate-fixer`,
     installCommand:
       'curl -fsSL https://hapwi.github.io/install/mmf-golden-gate-fixer.sh | bash',
-  },
-  {
-    id: 'hapcord',
-    name: 'hapcord',
-    description: 'Personal Equicord fork — the other Discord client mod.',
-    group: 'forks',
-    language: 'TypeScript',
-    href: `https://github.com/${GITHUB_OWNER}/hapcord`,
-    githubName: 'hapcord',
-    githubUrl: `https://github.com/${GITHUB_OWNER}/hapcord`,
-    homepageUrl: 'https://equicord.org',
   },
 ]
 

@@ -56,7 +56,7 @@ function ReposIndexRoute() {
               description={group.description}
             >
               {items.map((project) => (
-                <CatalogRow key={project.id} project={project} />
+                <CatalogRow key={project.id} project={project} source />
               ))}
             </CatalogSection>
           ))}

@@ -7,13 +7,15 @@ export const Route = createFileRoute('/repos/$repo')({
   validateSearch: (search: Record<string, unknown>) => ({
     file: typeof search.file === 'string' ? search.file : undefined,
     path: typeof search.path === 'string' ? search.path : undefined,
+    source:
+      search.source === true || search.source === 'true' ? true : undefined,
   }),
   component: RepoRoute,
 })
 
 function RepoRoute() {
   const { repo } = Route.useParams()
-  const { file, path } = Route.useSearch()
+  const { file, path, source } = Route.useSearch()
 
   if (!isValidRepoName(repo)) {
     return (
@@ -29,5 +31,13 @@ function RepoRoute() {
     )
   }
 
-  return <GitHubRepoBrowser key={repo} repo={repo} file={file} path={path} />
+  return (
+    <GitHubRepoBrowser
+      key={repo}
+      repo={repo}
+      file={file}
+      path={path}
+      source={source}
+    />
+  )
 }

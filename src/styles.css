@@ -253,6 +253,211 @@ body,
   white-space: pre;
 }
 
+/* ===== Project README ===== */
+.project-readme {
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.project-readme > :first-child {
+  margin-top: 0;
+}
+
+.project-readme > :last-child {
+  margin-bottom: 0;
+}
+
+.project-readme [align='center'],
+.project-readme [align='right'] {
+  text-align: left;
+}
+
+.project-readme p:has(img) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.project-readme p:has(img) a {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.project-readme p:has(img) img {
+  display: block;
+  border-radius: 0;
+}
+
+.project-readme [align] > p:has(kbd) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project-readme [align] > p:has(kbd) code {
+  display: inline-flex;
+  min-height: 1.75rem;
+  align-items: center;
+  padding: 0 0.5rem;
+  line-height: 1;
+}
+
+.project-readme h1,
+.project-readme h2,
+.project-readme h3,
+.project-readme h4 {
+  margin-top: 2em;
+  margin-bottom: 0.65em;
+  color: var(--foreground);
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.project-readme h1 {
+  padding-bottom: 0.55em;
+  border-bottom: 1px solid var(--border);
+  font-size: clamp(1.75rem, 4vw, 2.35rem);
+}
+
+.project-readme h2 {
+  padding-bottom: 0.45em;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.5rem;
+}
+
+.project-readme h3 {
+  font-size: 1.2rem;
+}
+
+.project-readme h4 {
+  font-size: 1rem;
+}
+
+.project-readme p,
+.project-readme ul,
+.project-readme ol,
+.project-readme blockquote,
+.project-readme pre,
+.project-readme table,
+.project-readme details {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.project-readme p,
+.project-readme ul,
+.project-readme ol,
+.project-readme blockquote {
+  max-width: 72ch;
+}
+
+.project-readme ul,
+.project-readme ol {
+  padding-left: 1.5rem;
+}
+
+.project-readme ul {
+  list-style: disc;
+}
+
+.project-readme ol {
+  list-style: decimal;
+}
+
+.project-readme li + li {
+  margin-top: 0.3em;
+}
+
+.project-readme a {
+  color: var(--primary);
+  font-weight: 550;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--primary) 40%, transparent);
+  text-underline-offset: 0.2em;
+}
+
+.project-readme a:hover {
+  text-decoration-color: currentColor;
+}
+
+.project-readme blockquote {
+  padding-left: 1rem;
+  border-left: 3px solid var(--primary);
+  color: var(--muted-foreground);
+}
+
+.project-readme code {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  padding: 0.12em 0.35em;
+  font-size: 0.875em;
+}
+
+.project-readme pre {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--code-surface);
+  padding: 1rem;
+}
+
+.project-readme pre code {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+}
+
+.project-readme-code {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.project-readme-code pre {
+  margin: 0;
+  padding-right: 3.5rem;
+}
+
+.project-readme table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.project-readme th,
+.project-readme td {
+  min-width: 8rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.project-readme th {
+  background: var(--muted);
+  font-weight: 600;
+}
+
+.project-readme img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+.project-readme hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
 /* ===== Focus Ring ===== */
 *:focus-visible {
   outline: 2px solid oklch(0.55 0.12 70 / 70%);

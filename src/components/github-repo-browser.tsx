@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 import {
   AlertCircle,
   ArrowLeft,
+  BookOpen,
   Copy,
   Download,
   ExternalLink,
@@ -14,9 +15,11 @@ import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
 import { FileIcon } from '@/components/file-icon'
+import { ProjectReadme } from '@/components/project-readme'
 import { RepoBreadcrumb } from '@/components/repo-breadcrumb'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import {
   Tooltip,
   TooltipContent,
@@ -45,12 +48,14 @@ type GitHubRepoBrowserProps = {
   repo: string
   file?: string
   path?: string
+  source?: boolean
 }
 
 export function GitHubRepoBrowser({
   repo,
   file,
   path,
+  source,
 }: GitHubRepoBrowserProps) {
   const owner = GITHUB_OWNER
   const curated = findCuratedProject(repo)
@@ -120,6 +125,15 @@ export function GitHubRepoBrowser({
   const listing = useMemo(
     () => buildRepoListing(files, currentPath),
     [files, currentPath],
+  )
+  const readmeFile = useMemo(
+    () =>
+      files.find(
+        (candidate) =>
+          !candidate.path.includes('/') &&
+          /^readme(?:\.(?:md|mdx|markdown))?$/i.test(candidate.name),
+      ) ?? null,
+    [files],
   )
 
   const rawUrl = useMemo(() => {
@@ -270,7 +284,11 @@ export function GitHubRepoBrowser({
         label: repo,
         href: '/repos/$repo',
         params: { repo },
-        search: { file: undefined, path: undefined },
+        search: {
+          file: undefined,
+          path: undefined,
+          source: source ? true : undefined,
+        },
       },
     ]
 
@@ -284,7 +302,7 @@ export function GitHubRepoBrowser({
         label: part,
         href: '/repos/$repo',
         params: { repo },
-        search: { file: undefined, path: runningPath },
+        search: { file: undefined, path: runningPath, source: true },
       })
     }
 
@@ -297,7 +315,83 @@ export function GitHubRepoBrowser({
     }
 
     return segments
-  }, [currentPath, activeFile, repo])
+  }, [currentPath, activeFile, repo, source])
+
+  if (!source && !selectedPath) {
+    return (
+      <div className="flex min-h-0 flex-1 flex-col">
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+          <div className="flex flex-col gap-4">
+            <header className="grid gap-3 border-b border-border/70 pb-3 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
+              <div className="flex min-w-0 items-start gap-2">
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="icon-sm"
+                  className="mt-0.5 text-muted-foreground"
+                >
+                  <Link to="/" aria-label="Back to work">
+                    <ArrowLeft />
+                  </Link>
+                </Button>
+                <div className="min-w-0">
+                  <h1 className="font-display text-2xl font-semibold tracking-tight text-balance">
+                    {title}
+                  </h1>
+                  <p className="mt-1 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+                    {description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex shrink-0">
+                <Button asChild size="sm">
+                  <a href={githubRepoUrl} target="_blank" rel="noreferrer">
+                    <ExternalLink data-icon="inline-start" />
+                    View source
+                  </a>
+                </Button>
+              </div>
+            </header>
+
+            <section className="mx-auto flex w-full max-w-3xl flex-col gap-6">
+              {treeError ? (
+                <Alert>
+                  <AlertTitle>Project details unavailable</AlertTitle>
+                  <AlertDescription>{treeError}</AlertDescription>
+                </Alert>
+              ) : isLoadingTree ? (
+                <div
+                  className="flex flex-col gap-4 py-4"
+                  aria-label="Loading project details"
+                >
+                  <Skeleton className="h-8 w-2/3" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-5/6" />
+                  <Skeleton className="h-24 w-full" />
+                </div>
+              ) : readmeFile ? (
+                <ProjectReadme
+                  owner={owner}
+                  repo={repo}
+                  branch={branch}
+                  path={readmeFile.path}
+                  title={title}
+                />
+              ) : (
+                <Alert>
+                  <AlertTitle>No project details found</AlertTitle>
+                  <AlertDescription>
+                    Use View source to open this project on GitHub.
+                  </AlertDescription>
+                </Alert>
+              )}
+            </section>
+          </div>
+        </main>
+      </div>
+    )
+  }
 
   if (!selectedPath) {
     return (
@@ -305,7 +399,23 @@ export function GitHubRepoBrowser({
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
           <div className="flex flex-col gap-8">
             <header className="flex flex-col gap-4">
-              <RepoBreadcrumb segments={breadcrumbSegments} />
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <RepoBreadcrumb segments={breadcrumbSegments} />
+                <Button asChild variant="outline" size="sm">
+                  <Link
+                    to="/repos/$repo"
+                    params={{ repo }}
+                    search={{
+                      file: undefined,
+                      path: undefined,
+                      source: undefined,
+                    }}
+                  >
+                    <BookOpen data-icon="inline-start" />
+                    Project overview
+                  </Link>
+                </Button>
+              </div>
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center gap-3">
                   <h1 className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -349,7 +459,11 @@ export function GitHubRepoBrowser({
                           key={folder.path}
                           to="/repos/$repo"
                           params={{ repo }}
-                          search={{ file: undefined, path: folder.path }}
+                          search={{
+                            file: undefined,
+                            path: folder.path,
+                            source: true,
+                          }}
                           className="catalog-row group"
                         >
                           <span className="catalog-caret" aria-hidden />
@@ -369,7 +483,11 @@ export function GitHubRepoBrowser({
                           key={item.path}
                           to="/repos/$repo"
                           params={{ repo }}
-                          search={{ file: item.path, path: undefined }}
+                          search={{
+                            file: item.path,
+                            path: undefined,
+                            source: true,
+                          }}
                           className="catalog-row group"
                         >
                           <span className="catalog-caret" aria-hidden />
@@ -429,7 +547,11 @@ export function GitHubRepoBrowser({
               <Link
                 to="/repos/$repo"
                 params={{ repo }}
-                search={{ file: undefined, path: currentPath || undefined }}
+                search={{
+                  file: undefined,
+                  path: currentPath || undefined,
+                  source: true,
+                }}
               >
                 <ArrowLeft />
                 <span className="hidden sm:inline">Back</span>

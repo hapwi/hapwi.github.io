@@ -68,7 +68,7 @@ describe('SearchCommand navigation', () => {
     expect(mocks.navigate).toHaveBeenCalledWith({
       to: '/repos/$repo',
       params: { repo: 'period-space' },
-      search: { file: undefined, path: undefined },
+      search: { file: undefined, path: undefined, source: undefined },
     })
   })
 

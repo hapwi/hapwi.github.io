@@ -13,7 +13,6 @@ describe('getWorkProjects', () => {
       'period-space',
       'pastebridge',
       'mmf-golden-gate-fixer',
-      'hapcord',
     ])
   })
 
@@ -39,7 +38,7 @@ describe('getWorkProjects', () => {
     )
 
     expect(mmf).toMatchObject({
-      name: 'mmf-golden-gate-fixer',
+      name: 'MMF Golden Gate Fixer',
       language: 'Objective-C',
       to: '/repos/$repo',
       repo: 'mmf-golden-gate-fixer',

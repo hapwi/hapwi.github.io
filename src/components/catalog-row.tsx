@@ -35,15 +35,23 @@ export const ProjectLink = forwardRef<
   {
     project: CatalogProject
     children: ReactNode
+    source?: boolean
   } & Omit<ComponentPropsWithoutRef<'a'>, 'href'>
->(function ProjectLink({ project, className, children, ...props }, ref) {
+>(function ProjectLink(
+  { project, source, className, children, ...props },
+  ref,
+) {
   if (project.to === '/repos/$repo' && project.repo) {
     return (
       <Link
         ref={ref}
         to="/repos/$repo"
         params={{ repo: project.repo }}
-        search={{ file: undefined, path: undefined }}
+        search={{
+          file: undefined,
+          path: undefined,
+          source: source ? true : undefined,
+        }}
         className={className}
         {...props}
       >
@@ -111,13 +119,19 @@ export const ProjectLink = forwardRef<
   )
 })
 
-export function CatalogRow({ project }: { project: CatalogProject }) {
+export function CatalogRow({
+  project,
+  source,
+}: {
+  project: CatalogProject
+  source?: boolean
+}) {
   const isExternal = !project.to
 
   return (
     <div className="flex flex-col gap-2">
       <Item asChild size="sm">
-        <ProjectLink project={project}>
+        <ProjectLink project={project} source={source}>
           <ItemContent>
             <ItemTitle>
               {project.name}

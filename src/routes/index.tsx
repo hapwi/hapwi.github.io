@@ -2,8 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { AlertCircle, FolderGit2 } from 'lucide-react'
 
 import { ProjectPreviewCard } from '@/components/project-preview-card'
-import { StarOnGitHub } from '@/components/star-on-github'
-import { PageContent, PageHero, PageLayout } from '@/components/page-layout'
+import { PageContent, PageLayout } from '@/components/page-layout'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import {
   Empty,
@@ -14,7 +13,6 @@ import {
 } from '@/components/ui/empty'
 import { getWorkProjects } from '@/data/projects'
 import { useCatalog } from '@/hooks/use-catalog'
-import { GITHUB_OWNER } from '@/lib/github'
 
 export const Route = createFileRoute('/')({
   component: HomeRoute,
@@ -25,22 +23,10 @@ function HomeRoute() {
   const workProjects = getWorkProjects(projects)
 
   return (
-    <PageLayout>
-      <PageContent>
-        <PageHero
-          label="Open-source portfolio"
-          title="Tools, themes, and source."
-          description="A working collection of Linux, macOS, browser, and Discord projects. Everything here links back to its source."
-          actions={
-            <StarOnGitHub
-              className="max-sm:w-full"
-              href={`https://github.com/${GITHUB_OWNER}`}
-            />
-          }
-        />
-
+    <PageLayout className="py-0 sm:py-0 lg:py-0">
+      <PageContent className="gap-0">
         {error ? (
-          <Alert>
+          <Alert className="my-4">
             <AlertCircle />
             <AlertTitle>GitHub is rate-limited or unreachable</AlertTitle>
             <AlertDescription>
@@ -50,17 +36,9 @@ function HomeRoute() {
           </Alert>
         ) : null}
 
-        <section className="flex flex-col gap-4">
-          <div>
-            <h2 className="font-display text-2xl font-semibold tracking-tight">
-              Selected work
-            </h2>
-            <p className="mt-1 text-base text-muted-foreground">
-              Explore each project or go directly to its source.
-            </p>
-          </div>
+        <section aria-label="Projects">
           {workProjects.length > 0 ? (
-            <div className="grid gap-6 lg:grid-cols-2">
+            <div className="grid gap-5 py-5">
               {workProjects.map((project) => (
                 <ProjectPreviewCard key={project.id} project={project} />
               ))}
