@@ -7,6 +7,12 @@
       "tagline": "Double-space becomes a period, everywhere on Linux."
     },
     {
+      "repo": "hapwi/pastebridge",
+      "group": "tools",
+      "install": "install.sh",
+      "tagline": "Copy on macOS, paste on Linux. Encrypted local clipboard sync."
+    },
+    {
       "repo": "hapwi/mmf-golden-gate-fixer",
       "group": "tools",
       "tagline": "Restores Mac Mouse Fix button-drag Spaces on macOS 27 Golden Gate."
