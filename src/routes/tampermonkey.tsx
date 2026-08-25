@@ -18,7 +18,11 @@ import { FileIcon } from '@/components/file-icon'
 import { RepoBreadcrumb } from '@/components/repo-breadcrumb'
 import { formatFileSize } from '@/components/library/meta-columns'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { folderGroups } from '@/lib/library'
 
 export const Route = createFileRoute('/tampermonkey')({
@@ -112,7 +116,9 @@ function writeCachedSource(urlPath: string, text: string) {
 }
 
 function buildShareAssetUrl(relativePath: string) {
-  const basePath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
+  const basePath = relativePath.startsWith('/')
+    ? relativePath
+    : `/${relativePath}`
   if (typeof window === 'undefined') {
     return new URL(basePath, PRODUCTION_ORIGIN).toString()
   }
@@ -126,7 +132,9 @@ function buildShareAssetUrl(relativePath: string) {
 }
 
 function buildFetchAssetUrl(relativePath: string) {
-  const basePath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
+  const basePath = relativePath.startsWith('/')
+    ? relativePath
+    : `/${relativePath}`
   if (typeof window === 'undefined') {
     return new URL(basePath, PRODUCTION_ORIGIN).toString()
   }
@@ -149,7 +157,7 @@ function TampermonkeyRoute() {
     file && scripts.some((asset) => asset.urlPath === file) ? file : null
 
   const activeAsset = selectedAssetPath
-    ? scripts.find((asset) => asset.urlPath === selectedAssetPath) ?? null
+    ? (scripts.find((asset) => asset.urlPath === selectedAssetPath) ?? null)
     : null
 
   const assetUrl = activeAsset?.urlPath ?? null
@@ -216,7 +224,7 @@ function TampermonkeyRoute() {
       }
     }
 
-    fetchSource(resolvedAssetUrl)
+    void fetchSource(resolvedAssetUrl)
 
     return () => {
       cancelled = true
@@ -269,7 +277,7 @@ function TampermonkeyRoute() {
 
   const latestMtime = scripts.reduce(
     (max, item) => Math.max(max, item.mtime ?? 0),
-    0
+    0,
   )
 
   // Show file list view when no file is selected
@@ -280,11 +288,7 @@ function TampermonkeyRoute() {
           <div className="space-y-8">
             {/* Header */}
             <header className="space-y-4">
-              <RepoBreadcrumb
-                segments={[
-                  { label: 'scripts' },
-                ]}
-              />
+              <RepoBreadcrumb segments={[{ label: 'scripts' }]} />
               <div className="flex items-start gap-4">
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
                   <Terminal className="size-6" />
@@ -324,7 +328,11 @@ function TampermonkeyRoute() {
                         search={{ file: item.urlPath }}
                         className="group flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-muted/50"
                       >
-                        <FileIcon filename={item.name} extension={item.extension} size="sm" />
+                        <FileIcon
+                          filename={item.name}
+                          extension={item.extension}
+                          size="sm"
+                        />
                         <div className="min-w-0 flex-1">
                           <span className="font-medium text-foreground group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
                             {item.name}
@@ -350,10 +358,13 @@ function TampermonkeyRoute() {
                 <div className="rounded-lg border bg-card p-5 shadow-sm">
                   <div className="flex items-center gap-2 mb-3">
                     <FileText className="size-4 text-muted-foreground" />
-                    <h3 className="font-display text-sm font-semibold">About</h3>
+                    <h3 className="font-display text-sm font-semibold">
+                      About
+                    </h3>
                   </div>
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    Userscripts for Tampermonkey, Greasemonkey, and other browser script managers.
+                    Userscripts for Tampermonkey, Greasemonkey, and other
+                    browser script managers.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     <span className="rounded-full border border-amber-500/20 bg-amber-500/5 px-2.5 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
@@ -369,19 +380,27 @@ function TampermonkeyRoute() {
                 <div className="rounded-lg border bg-card p-5 shadow-sm">
                   <div className="flex items-center gap-2 mb-3">
                     <Code className="size-4 text-muted-foreground" />
-                    <h3 className="font-display text-sm font-semibold">How to use</h3>
+                    <h3 className="font-display text-sm font-semibold">
+                      How to use
+                    </h3>
                   </div>
                   <ol className="text-sm leading-relaxed text-muted-foreground space-y-2">
                     <li className="flex gap-2">
-                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">1.</span>
+                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">
+                        1.
+                      </span>
                       Install Tampermonkey extension
                     </li>
                     <li className="flex gap-2">
-                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">2.</span>
+                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">
+                        2.
+                      </span>
                       Click on a script to view it
                     </li>
                     <li className="flex gap-2">
-                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">3.</span>
+                      <span className="font-mono text-xs text-amber-600 dark:text-amber-400">
+                        3.
+                      </span>
                       Use Open URL to install directly
                     </li>
                   </ol>
@@ -391,10 +410,13 @@ function TampermonkeyRoute() {
                 <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-5 shadow-sm">
                   <div className="flex items-center gap-2 mb-3">
                     <ShieldAlert className="size-4 text-amber-600 dark:text-amber-400" />
-                    <h3 className="font-display text-sm font-semibold text-amber-600 dark:text-amber-400">Security Notice</h3>
+                    <h3 className="font-display text-sm font-semibold text-amber-600 dark:text-amber-400">
+                      Security Notice
+                    </h3>
                   </div>
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    Always review userscript code before installing. Scripts run with elevated permissions on web pages.
+                    Always review userscript code before installing. Scripts run
+                    with elevated permissions on web pages.
                   </p>
                 </div>
               </aside>
@@ -427,8 +449,16 @@ function TampermonkeyRoute() {
               <div className="h-5 w-px bg-border" />
               <RepoBreadcrumb
                 segments={[
-                  { label: 'scripts', href: '/tampermonkey', search: { file: undefined } },
-                  { label: activeAsset?.name || '', isFile: true, filename: activeAsset?.name },
+                  {
+                    label: 'scripts',
+                    href: '/tampermonkey',
+                    search: { file: undefined },
+                  },
+                  {
+                    label: activeAsset?.name || '',
+                    isFile: true,
+                    filename: activeAsset?.name,
+                  },
                 ]}
               />
             </div>
@@ -439,11 +469,19 @@ function TampermonkeyRoute() {
             {/* File header */}
             <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-5 py-3">
               <div className="flex items-center gap-3 min-w-0">
-                <FileIcon filename={activeAsset?.name || ''} extension={activeAsset?.extension} size="sm" />
+                <FileIcon
+                  filename={activeAsset?.name || ''}
+                  extension={activeAsset?.extension}
+                  size="sm"
+                />
                 <div className="min-w-0">
-                  <span className="font-medium truncate block">{activeAsset?.name}</span>
+                  <span className="font-medium truncate block">
+                    {activeAsset?.name}
+                  </span>
                   <span className="text-xs text-muted-foreground">
-                    {assetSource ? `${assetSource.split('\n').length} lines` : ''}
+                    {assetSource
+                      ? `${assetSource.split('\n').length} lines`
+                      : ''}
                     {activeAsset && ` · ${formatFileSize(activeAsset.size)}`}
                   </span>
                 </div>
@@ -509,7 +547,11 @@ function TampermonkeyRoute() {
                   size="sm"
                   className="h-8 gap-1.5 text-xs"
                 >
-                  <a href={activeAsset?.urlPath} download aria-label="Download file">
+                  <a
+                    href={activeAsset?.urlPath}
+                    download
+                    aria-label="Download file"
+                  >
                     <Download className="size-3.5" />
                   </a>
                 </Button>

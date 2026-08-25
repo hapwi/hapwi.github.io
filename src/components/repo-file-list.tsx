@@ -51,7 +51,8 @@ export function RepoFileList({
         <div className="flex items-center gap-3 border-b bg-muted/30 px-4 py-2.5">
           <div className="flex items-center gap-2 text-sm">
             <span className="font-medium text-foreground">
-              {headerTitle || `${totalCount} item${totalCount !== 1 ? 's' : ''}`}
+              {headerTitle ||
+                `${totalCount} item${totalCount !== 1 ? 's' : ''}`}
             </span>
           </div>
         </div>
@@ -66,7 +67,7 @@ export function RepoFileList({
           const latestMtime = folder.subfolders.reduce((max, sub) => {
             const subLatest = sub.items.reduce(
               (subMax, item) => Math.max(subMax, item.mtime ?? 0),
-              0
+              0,
             )
             return Math.max(max, subLatest)
           }, 0)
@@ -99,7 +100,11 @@ export function RepoFileList({
             search={{ file: item.urlPath }}
             className="group flex items-center gap-3 px-4 py-2 transition-colors hover:bg-muted/40"
           >
-            <FileIcon filename={item.name} extension={item.extension} size="sm" />
+            <FileIcon
+              filename={item.name}
+              extension={item.extension}
+              size="sm"
+            />
             <span className="flex-1 truncate text-sm text-foreground group-hover:text-blue-500 group-hover:underline">
               {item.name}
             </span>

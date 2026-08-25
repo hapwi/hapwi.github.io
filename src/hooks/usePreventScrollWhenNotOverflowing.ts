@@ -11,10 +11,7 @@ function elementCanScrollY(element: HTMLElement) {
   return element.scrollHeight - element.clientHeight > 1
 }
 
-function findScrollableAncestor(
-  start: HTMLElement,
-  stopAt: HTMLElement,
-) {
+function findScrollableAncestor(start: HTMLElement, stopAt: HTMLElement) {
   let current: HTMLElement | null = start
   while (current && current !== stopAt) {
     if (elementCanScrollY(current)) return current
@@ -60,4 +57,3 @@ export function usePreventScrollWhenNotOverflowing(
     }
   }, [ref])
 }
-

@@ -27,7 +27,8 @@ export function formatLastUpdated(timestamp: number) {
   }).format(new Date(timestamp))
 }
 
-const metaGrid = 'grid grid-cols-[8rem_3.25rem] items-center justify-items-end gap-2'
+const metaGrid =
+  'grid grid-cols-[8rem_3.25rem] items-center justify-items-end gap-2'
 
 export function LibraryMetaHeader({ className }: { className?: string }) {
   return (

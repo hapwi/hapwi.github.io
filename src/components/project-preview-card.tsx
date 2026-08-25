@@ -17,11 +17,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import type { CatalogProject } from '@/data/projects'
 
-export function ProjectPreviewCard({
-  project,
-}: {
-  project: CatalogProject
-}) {
+export function ProjectPreviewCard({ project }: { project: CatalogProject }) {
   const githubUrl = project.githubUrl ?? project.href
   const hasInSiteOpen = Boolean(project.to)
 
@@ -32,19 +28,19 @@ export function ProjectPreviewCard({
           <ProjectScene id={project.id} />
         </div>
       </div>
-      <CardHeader>
+      <CardHeader className="px-4 sm:px-6">
         <CardTitle>{project.name}</CardTitle>
-        <CardDescription className="line-clamp-2 min-h-10">
+        <CardDescription className="line-clamp-2 min-h-10 text-pretty">
           {project.description}
         </CardDescription>
       </CardHeader>
       {project.installCommand ? (
-        <CardContent>
+        <CardContent className="min-w-0 px-4 sm:px-6">
           <InstallCommand command={project.installCommand} />
         </CardContent>
       ) : null}
       <Separator className="mt-auto" />
-      <CardFooter className="gap-2 pb-6">
+      <CardFooter className="flex-wrap gap-2 px-4 pb-6 sm:px-6">
         {project.language ? (
           <Badge variant="outline">{project.language}</Badge>
         ) : null}

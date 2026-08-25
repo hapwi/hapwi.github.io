@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { Link, useRouterState } from '@tanstack/react-router'
-import { GalleryVerticalEnd, Minus, Plus } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 
+import { HapwiMark } from '@/components/hapwi-mark'
 import { SearchForm } from '@/components/search-form'
 import {
   Sidebar,
@@ -28,9 +29,7 @@ import { folderGroups } from '@/lib/library'
 
 const overviewLinks = [{ title: 'Home', href: '/' }]
 
-export function AppSidebar({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const folders = React.useMemo(() => folderGroups, [])
   const routerState = useRouterState()
   const pathname = routerState.location.pathname
@@ -42,9 +41,7 @@ export function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link to="/">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <GalleryVerticalEnd className="size-4" />
-                </div>
+                <HapwiMark className="size-8" />
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-medium">hapwi library</span>
                   <span className="text-xs text-sidebar-foreground/70">
@@ -85,8 +82,7 @@ export function AppSidebar({
                   const normalizedHref =
                     subfolder.href?.split('#')[0] ?? undefined
                   const isActive =
-                    normalizedHref !== undefined &&
-                    pathname === normalizedHref
+                    normalizedHref !== undefined && pathname === normalizedHref
                   return (
                     <Collapsible
                       key={subfolder.id}

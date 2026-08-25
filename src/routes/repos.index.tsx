@@ -14,7 +14,8 @@ export const Route = createFileRoute('/repos/')({
 function ReposIndexRoute() {
   const { projects, error } = useCatalog()
   const browseable = projects.filter(
-    (project) => project.browseable && project.repo && isBrowsableRepo(project.repo),
+    (project) =>
+      project.browseable && project.repo && isBrowsableRepo(project.repo),
   )
 
   const grouped = projectGroups
@@ -32,8 +33,8 @@ function ReposIndexRoute() {
             Repositories
           </h1>
           <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Browse public hapwi source in this site. Trees are fetched from GitHub and
-            cached locally.
+            Browse public hapwi source in this site. Trees are fetched from
+            GitHub and cached locally.
           </p>
         </PageHeader>
 
@@ -64,4 +65,3 @@ function ReposIndexRoute() {
     </PageLayout>
   )
 }
-

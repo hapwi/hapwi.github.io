@@ -25,6 +25,6 @@ so people can run:
 curl -fsSL https://hapwi.github.io/install/your-tool.sh | bash
 ```
 
-3. Push this repo (or run `bun run sync` locally). Deploy fetches live GitHub descriptions, dates, and install scripts before it builds.
+3. Push this repo (or run `vp run sync` locally). Deploy fetches live GitHub descriptions, dates, and install scripts before it builds.
 
 Optional fields: `slug`, `name`, `description`. Everything else comes from GitHub.

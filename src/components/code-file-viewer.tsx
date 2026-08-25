@@ -69,7 +69,10 @@ function pruneHighlightCache() {
       .filter((entry) => entry.cached)
       .sort((a, b) => (a.cached!.updatedAt ?? 0) - (b.cached!.updatedAt ?? 0))
 
-    const removeCount = Math.max(0, entries.length - HIGHLIGHT_CACHE_MAX_ENTRIES)
+    const removeCount = Math.max(
+      0,
+      entries.length - HIGHLIGHT_CACHE_MAX_ENTRIES,
+    )
     for (let index = 0; index < removeCount; index += 1) {
       window.localStorage.removeItem(entries[index]!.key)
     }
@@ -137,7 +140,9 @@ export function CodeFileViewer({
 
   const shikiTheme = useMemo(() => {
     if (themeOverride) return themeOverride
-    return colorMode === 'light' ? 'github-light-default' : 'github-dark-default'
+    return colorMode === 'light'
+      ? 'github-light-default'
+      : 'github-dark-default'
   }, [themeOverride, colorMode])
 
   useEffect(() => {
@@ -265,14 +270,15 @@ export function CodeFileViewer({
       }
     }
 
-    renderHighlight()
+    void renderHighlight()
 
     return () => {
       cancelled = true
     }
   }, [source, safeLanguage, shikiTheme, error, sourceUrl])
 
-  const showSkeleton = (isLoading && !highlightedHtml) || (isRendering && !highlightedHtml)
+  const showSkeleton =
+    (isLoading && !highlightedHtml) || (isRendering && !highlightedHtml)
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
@@ -317,7 +323,10 @@ export function CodeFileViewer({
                     aria-hidden="true"
                   >
                     {Array.from({ length: lineCount }, (_, i) => (
-                      <div key={i + 1} className="px-3 opacity-50 hover:opacity-100 transition-opacity">
+                      <div
+                        key={i + 1}
+                        className="px-3 opacity-50 hover:opacity-100 transition-opacity"
+                      >
                         {i + 1}
                       </div>
                     ))}

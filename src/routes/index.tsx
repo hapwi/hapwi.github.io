@@ -5,11 +5,7 @@ import { ProjectPreviewCard } from '@/components/project-preview-card'
 import { StarOnGitHub } from '@/components/star-on-github'
 import { PageContent, PageLayout } from '@/components/page-layout'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
   Empty,
@@ -40,7 +36,7 @@ function HomeRoute() {
   return (
     <PageLayout>
       <PageContent className="flex flex-col gap-10 space-y-0 sm:space-y-0">
-        <Item variant="outline">
+        <Item variant="outline" className="items-start sm:items-center">
           <ItemMedia>
             <Avatar className="size-12 rounded-md">
               <AvatarImage
@@ -50,15 +46,18 @@ function HomeRoute() {
               <AvatarFallback className="rounded-md">ha</AvatarFallback>
             </Avatar>
           </ItemMedia>
-          <ItemContent>
+          <ItemContent className="min-w-0">
             <ItemTitle>hapwi</ItemTitle>
-            <ItemDescription>
+            <ItemDescription className="line-clamp-none">
               Linux, macOS, and Discord tools I actually run. Source lives on
               GitHub.
             </ItemDescription>
           </ItemContent>
-          <ItemActions>
-            <StarOnGitHub href={`https://github.com/${GITHUB_OWNER}`} />
+          <ItemActions className="max-sm:mt-1 max-sm:w-full max-sm:basis-full">
+            <StarOnGitHub
+              className="max-sm:w-full"
+              href={`https://github.com/${GITHUB_OWNER}`}
+            />
           </ItemActions>
         </Item>
 
@@ -67,7 +66,8 @@ function HomeRoute() {
             <AlertCircle />
             <AlertTitle>GitHub is rate-limited or unreachable</AlertTitle>
             <AlertDescription>
-              Showing the curated list. Star counts return when the API responds.
+              Showing the curated list. Star counts return when the API
+              responds.
             </AlertDescription>
           </Alert>
         ) : null}
@@ -99,13 +99,11 @@ function HomeRoute() {
       </PageContent>
 
       <Separator className="mt-10" />
-      <Item size="sm">
+      <Item size="sm" className="items-start sm:items-center">
         <ItemContent>
-          <ItemTitle>
-            {GITHUB_OWNER}/github.io
-          </ItemTitle>
+          <ItemTitle>{GITHUB_OWNER}/github.io</ItemTitle>
         </ItemContent>
-        <ItemActions>
+        <ItemActions className="max-sm:basis-full">
           <Button asChild variant="link" size="sm">
             <a
               href={`https://github.com/${GITHUB_OWNER}`}

@@ -1,7 +1,4 @@
-import {
-  fetchGitHubRepoDefaultBranch,
-  fetchGitHubRepoTree,
-} from '@/lib/github'
+import { fetchGitHubRepoDefaultBranch, fetchGitHubRepoTree } from '@/lib/github'
 
 export type RepoFile = {
   path: string
@@ -101,10 +98,17 @@ export function readCachedTree(owner: string, repo: string) {
   }
 }
 
-export function writeCachedTree(owner: string, repo: string, value: CachedTree) {
+export function writeCachedTree(
+  owner: string,
+  repo: string,
+  value: CachedTree,
+) {
   if (typeof window === 'undefined') return
   try {
-    window.localStorage.setItem(treeCacheKey(owner, repo), JSON.stringify(value))
+    window.localStorage.setItem(
+      treeCacheKey(owner, repo),
+      JSON.stringify(value),
+    )
   } catch {
     // ignore storage quota / serialization issues
   }
@@ -201,7 +205,7 @@ export async function loadRepoTree({
     .filter((entry) => entry.type === 'blob' && entry.path)
     .map((entry) => {
       const name = entry.path.split('/').pop() ?? entry.path
-      const extension = name.includes('.') ? name.split('.').pop() ?? '' : ''
+      const extension = name.includes('.') ? (name.split('.').pop() ?? '') : ''
       return {
         path: entry.path,
         name,
@@ -220,13 +224,17 @@ export async function loadRepoTree({
   return value
 }
 
-export function buildRepoListing(files: RepoFile[], currentPath: string): RepoListing {
+export function buildRepoListing(
+  files: RepoFile[],
+  currentPath: string,
+): RepoListing {
   const normalizedPrefix = currentPath ? `${currentPath}/` : ''
   const folderSet = new Set<string>()
   const directFiles: RepoFile[] = []
 
   for (const repoFile of files) {
-    if (normalizedPrefix && !repoFile.path.startsWith(normalizedPrefix)) continue
+    if (normalizedPrefix && !repoFile.path.startsWith(normalizedPrefix))
+      continue
     const remainder = normalizedPrefix
       ? repoFile.path.slice(normalizedPrefix.length)
       : repoFile.path

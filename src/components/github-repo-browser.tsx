@@ -17,7 +17,11 @@ import { FileIcon } from '@/components/file-icon'
 import { RepoBreadcrumb } from '@/components/repo-breadcrumb'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { findCuratedProject } from '@/data/projects'
 import { formatFileSize } from '@/lib/format'
 import {
@@ -43,7 +47,11 @@ type GitHubRepoBrowserProps = {
   path?: string
 }
 
-export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) {
+export function GitHubRepoBrowser({
+  repo,
+  file,
+  path,
+}: GitHubRepoBrowserProps) {
   const owner = GITHUB_OWNER
   const curated = findCuratedProject(repo)
   const title = curated?.name ?? repo
@@ -76,13 +84,15 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
       } catch (err) {
         if (cancelled) return
         if (err instanceof DOMException && err.name === 'AbortError') return
-        setTreeError(err instanceof Error ? err.message : 'Failed to load repo files')
+        setTreeError(
+          err instanceof Error ? err.message : 'Failed to load repo files',
+        )
       } finally {
         if (!cancelled) setIsLoadingTree(false)
       }
     }
 
-    loadTree()
+    void loadTree()
 
     return () => {
       cancelled = true
@@ -206,7 +216,7 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
       }
     }
 
-    fetchSource()
+    void fetchSource()
 
     return () => {
       cancelled = true
@@ -214,7 +224,9 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
     }
   }, [activeFile, rawUrl, previewable, owner, repo])
 
-  const highlightLanguage = highlightLanguageFromExtension(activeFile?.extension)
+  const highlightLanguage = highlightLanguageFromExtension(
+    activeFile?.extension,
+  )
   const languageLabel = activeFile?.extension
     ? activeFile.extension.toUpperCase()
     : 'FILE'
@@ -262,7 +274,9 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
       },
     ]
 
-    const folderParts = currentPath ? currentPath.split('/').filter(Boolean) : []
+    const folderParts = currentPath
+      ? currentPath.split('/').filter(Boolean)
+      : []
     let runningPath = ''
     for (const part of folderParts) {
       runningPath = runningPath ? `${runningPath}/${part}` : part
@@ -379,10 +393,12 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
 
               <aside className="flex flex-col gap-4">
                 <div className="rounded-md border bg-card p-4">
-                  <h2 className="font-mono text-xs text-muted-foreground">github</h2>
+                  <h2 className="font-mono text-xs text-muted-foreground">
+                    github
+                  </h2>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Files are fetched from GitHub and cached in this browser. Unauthenticated
-                    API access is rate-limited.
+                    Files are fetched from GitHub and cached in this browser.
+                    Unauthenticated API access is rate-limited.
                   </p>
                   <Button asChild variant="outline" size="sm" className="mt-4">
                     <a href={githubRepoUrl} target="_blank" rel="noreferrer">
@@ -443,7 +459,9 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
 
               <div className="flex shrink-0 items-center gap-1.5">
                 <span className="hidden font-mono text-xs tabular-nums text-muted-foreground sm:inline">
-                  {activeFile?.size != null ? formatFileSize(activeFile.size) : ''}
+                  {activeFile?.size != null
+                    ? formatFileSize(activeFile.size)
+                    : ''}
                 </span>
                 <div className="mx-1 hidden h-4 w-px bg-border sm:block" />
                 <Tooltip>
@@ -488,7 +506,12 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="ghost" size="sm" className="h-8 text-xs" asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 text-xs"
+                      asChild
+                    >
                       <a
                         href={blobUrl ?? githubRepoUrl}
                         target="_blank"
@@ -505,8 +528,17 @@ export function GitHubRepoBrowser({ repo, file, path }: GitHubRepoBrowserProps) 
                   </TooltipContent>
                 </Tooltip>
 
-                <Button variant="ghost" size="sm" className="h-8 text-xs" asChild>
-                  <a href={rawUrl ?? undefined} download aria-label="Download file">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 text-xs"
+                  asChild
+                >
+                  <a
+                    href={rawUrl ?? undefined}
+                    download
+                    aria-label="Download file"
+                  >
                     <Download />
                   </a>
                 </Button>

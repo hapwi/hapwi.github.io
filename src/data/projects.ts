@@ -33,19 +33,22 @@ export const projectGroups: Array<{
     id: 'hosted',
     path: 'hosted/',
     title: 'Hosted here',
-    description: 'Raw files this site serves so you can copy a URL into a client.',
+    description:
+      'Raw files this site serves so you can copy a URL into a client.',
   },
   {
     id: 'tools',
     path: 'tools/',
     title: 'Tools',
-    description: 'Original utilities for Linux, macOS, and local AI coding setup.',
+    description:
+      'Original utilities for Linux, macOS, and local AI coding setup.',
   },
   {
     id: 'source',
     path: 'source/',
     title: 'Source',
-    description: 'Public repositories you can browse in this site or open on GitHub.',
+    description:
+      'Public repositories you can browse in this site or open on GitHub.',
   },
   {
     id: 'forks',

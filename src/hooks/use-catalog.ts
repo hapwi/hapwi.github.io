@@ -1,9 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import {
-  curatedProjects,
-  type CatalogProject,
-} from '@/data/projects'
+import { curatedProjects, type CatalogProject } from '@/data/projects'
 import { hubProjects } from '@/data/hub'
 import {
   fetchPublicRepos,
@@ -70,7 +67,11 @@ export function useCatalog() {
         if (cancelled) return
         if (err instanceof DOMException && err.name === 'AbortError') return
         if (!cached) {
-          setError(err instanceof Error ? err.message : 'Failed to load GitHub projects')
+          setError(
+            err instanceof Error
+              ? err.message
+              : 'Failed to load GitHub projects',
+          )
         }
       })
       .finally(() => {

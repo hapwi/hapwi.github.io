@@ -53,7 +53,10 @@ function buildCodeLibrary(): LibraryAsset[] {
           `Raw ${fallbackLabel} asset served from /${entry.relativePath}.`,
         language: metadata.language ?? fallbackLabel,
         folderSegments: entry.segments.slice(0, -1),
-        order: typeof metadata.order === 'number' ? metadata.order : Number.POSITIVE_INFINITY,
+        order:
+          typeof metadata.order === 'number'
+            ? metadata.order
+            : Number.POSITIVE_INFINITY,
       }
     })
     .filter((entry) => entry.folderSegments.length > 0)
@@ -120,14 +123,12 @@ function buildFolderGroups(library: LibraryAsset[]): LibraryFolder[] {
       const subfolders = Array.from(folder.subfolders.values()).map(
         (subfolder) => ({
           ...subfolder,
-          items: subfolder.items
-            .slice()
-            .sort((a, b) => {
-              if (a.order !== b.order) {
-                return a.order - b.order
-              }
-              return a.displayName.localeCompare(b.displayName)
-            }),
+          items: subfolder.items.slice().sort((a, b) => {
+            if (a.order !== b.order) {
+              return a.order - b.order
+            }
+            return a.displayName.localeCompare(b.displayName)
+          }),
         }),
       )
 
@@ -136,9 +137,7 @@ function buildFolderGroups(library: LibraryAsset[]): LibraryFolder[] {
         title: folder.title,
         description: folder.description,
         href: folder.href,
-        subfolders: subfolders.sort((a, b) =>
-          a.title.localeCompare(b.title),
-        ),
+        subfolders: subfolders.sort((a, b) => a.title.localeCompare(b.title)),
         totalItems: subfolders.reduce(
           (total, subfolder) => total + subfolder.items.length,
           0,

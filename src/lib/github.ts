@@ -9,7 +9,7 @@ export type GitHubRepoRef = {
 export type GitHubTreeEntry = {
   path: string
   mode: string
-  type: 'blob' | 'tree' | string
+  type: string
   sha: string
   size?: number
   url: string
@@ -79,15 +79,12 @@ export async function fetchGitHubRepoDefaultBranch({
   repo: string
   signal?: AbortSignal
 }) {
-  const response = await fetch(
-    buildGitHubApiUrl(`/repos/${owner}/${repo}`),
-    {
-      signal,
-      headers: {
-        Accept: 'application/vnd.github+json',
-      },
+  const response = await fetch(buildGitHubApiUrl(`/repos/${owner}/${repo}`), {
+    signal,
+    headers: {
+      Accept: 'application/vnd.github+json',
     },
-  )
+  })
 
   if (!response.ok) {
     throw new Error(`GitHub repo request failed (${response.status})`)
@@ -135,4 +132,3 @@ export async function fetchGitHubRepoTree({
 
   return json
 }
-

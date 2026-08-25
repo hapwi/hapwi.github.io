@@ -1,37 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <meta name="theme-color" content="#c47d1a" />
     <meta
       name="description"
       content="Previews of hapwi open-source tools, with GitHub repos and install commands."
     />
-    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>hapwi · projects</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <script>
-      (function() {
-        var theme = localStorage.getItem('vite-ui-theme');
-        var isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        var d = document.documentElement;
+      ;(function () {
+        var theme = localStorage.getItem('vite-ui-theme')
+        var isDark =
+          theme === 'dark' ||
+          (theme === 'system' &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches) ||
+          (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        var d = document.documentElement
         if (isDark) {
-          d.classList.add('dark');
-          d.style.colorScheme = 'dark';
-          d.style.backgroundColor = '#12141a';
+          d.classList.add('dark')
+          d.style.colorScheme = 'dark'
+          d.style.backgroundColor = '#12141a'
         } else {
-          d.classList.add('light');
-          d.style.colorScheme = 'light';
-          d.style.backgroundColor = '#f3f5f7';
+          d.classList.add('light')
+          d.style.colorScheme = 'light'
+          d.style.backgroundColor = '#f3f5f7'
         }
-      })();
+      })()
     </script>
     <div id="app"></div>
     <script type="module" src="/src/main.tsx"></script>

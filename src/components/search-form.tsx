@@ -100,7 +100,9 @@ export function SearchForm({
     onSubmit?.(event as unknown as React.SubmitEvent<HTMLFormElement>)
   }
 
-  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
     if (!isOpen) return
 
     if (event.key === 'Escape') {
@@ -188,7 +190,9 @@ export function SearchForm({
                         onClick={() => selectAsset(asset)}
                       >
                         <div className="flex items-baseline justify-between gap-2">
-                          <span className="font-medium">{asset.displayName}</span>
+                          <span className="font-medium">
+                            {asset.displayName}
+                          </span>
                           <span className="shrink-0 text-xs text-muted-foreground">
                             {asset.language}
                           </span>

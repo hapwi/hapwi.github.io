@@ -30,16 +30,16 @@ That file is copied from the source repo on each deploy, so it stays in sync wit
 `install` is optional. When it is set, deploy copies that script to `/install/<name>.sh`.
 
 3. If it should also appear in a homepage group with extra routing, add it to `src/data/projects.ts`.
-4. Push this repo (or run `bun run sync` locally). GitHub Pages rebuilds on push, on a daily schedule, and when another repo dispatches `hub-sync`.
+4. Push this repo (or run `vp run sync` locally). GitHub Pages rebuilds on push, on a daily schedule, and when another repo dispatches `hub-sync`.
 
 See [catalog.md](catalog.md) for the full notes.
 
 ## Local
 
 ```bash
-bun install
-bun run sync
-bun run dev
+vp install
+vp run sync
+vp dev
 ```
 
 `sync` needs network access to GitHub. Deploy runs it automatically.

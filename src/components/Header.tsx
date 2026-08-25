@@ -1,6 +1,14 @@
 import { Link, useNavigate, useRouterState } from '@tanstack/react-router'
-import { BookOpen, Github, GitBranch, Menu, Palette, Terminal } from 'lucide-react'
+import {
+  BookOpen,
+  Github,
+  GitBranch,
+  Menu,
+  Palette,
+  Terminal,
+} from 'lucide-react'
 
+import { HapwiMark } from '@/components/hapwi-mark'
 import { ModeToggle } from '@/components/mode-toggle'
 import { SearchCommand } from '@/components/search-command'
 import { Button } from '@/components/ui/button'
@@ -33,7 +41,17 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b bg-background">
-      <div className="mx-auto flex h-12 max-w-6xl items-center px-4 sm:h-14 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-12 max-w-6xl items-center gap-2 px-4 sm:h-14 sm:px-6 lg:px-8">
+        <Link
+          to="/"
+          className="flex shrink-0 items-center gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          <HapwiMark className="size-7" />
+          <span className="font-display text-sm font-semibold tracking-tight max-sm:sr-only">
+            hapwi
+          </span>
+        </Link>
+
         <nav className="hidden md:block" aria-label="Primary">
           <ButtonGroup>
             {navItems.map(({ path, label }) => (

@@ -18,9 +18,12 @@ function RepoRoute() {
   if (!isValidRepoName(repo)) {
     return (
       <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-16">
-        <h1 className="font-display text-2xl font-semibold">Unknown repository</h1>
+        <h1 className="font-display text-2xl font-semibold">
+          Unknown repository
+        </h1>
         <p className="mt-2 text-muted-foreground">
-          Repository names can only contain letters, numbers, dots, underscores, and hyphens.
+          Repository names can only contain letters, numbers, dots, underscores,
+          and hyphens.
         </p>
       </div>
     )

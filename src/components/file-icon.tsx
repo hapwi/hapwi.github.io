@@ -145,19 +145,28 @@ const filenameConfig: Record<string, { icon: typeof File; color: string }> = {
   '.env.example': { icon: Lock, color: 'text-yellow-600' },
   'readme.md': { icon: FileText, color: 'text-blue-500' },
   'README.md': { icon: FileText, color: 'text-blue-500' },
-  'license': { icon: FileText, color: 'text-yellow-500' },
-  'LICENSE': { icon: FileText, color: 'text-yellow-500' },
+  license: { icon: FileText, color: 'text-yellow-500' },
+  LICENSE: { icon: FileText, color: 'text-yellow-500' },
 }
 
-export function FileIcon({ filename, extension, className, size = 'md' }: FileIconProps) {
+export function FileIcon({
+  filename,
+  extension,
+  className,
+  size = 'md',
+}: FileIconProps) {
   const lowerFilename = filename.toLowerCase()
-  const ext = extension?.toLowerCase() || filename.split('.').pop()?.toLowerCase() || ''
+  const ext =
+    extension?.toLowerCase() || filename.split('.').pop()?.toLowerCase() || ''
 
   // Check for special filename first
-  const filenameMatch = filenameConfig[filename] || filenameConfig[lowerFilename]
+  const filenameMatch =
+    filenameConfig[filename] || filenameConfig[lowerFilename]
   if (filenameMatch) {
     const Icon = filenameMatch.icon
-    return <Icon className={cn(sizeClasses[size], filenameMatch.color, className)} />
+    return (
+      <Icon className={cn(sizeClasses[size], filenameMatch.color, className)} />
+    )
   }
 
   // Check for extension
@@ -169,7 +178,11 @@ export function FileIcon({ filename, extension, className, size = 'md' }: FileIc
 
   // Check for user script pattern
   if (filename.endsWith('.user.js')) {
-    return <Terminal className={cn(sizeClasses[size], 'text-amber-500', className)} />
+    return (
+      <Terminal
+        className={cn(sizeClasses[size], 'text-amber-500', className)}
+      />
+    )
   }
 
   // Default file icon
@@ -178,9 +191,11 @@ export function FileIcon({ filename, extension, className, size = 'md' }: FileIc
 
 export function getFileIconColor(filename: string, extension?: string): string {
   const lowerFilename = filename.toLowerCase()
-  const ext = extension?.toLowerCase() || filename.split('.').pop()?.toLowerCase() || ''
+  const ext =
+    extension?.toLowerCase() || filename.split('.').pop()?.toLowerCase() || ''
 
-  const filenameMatch = filenameConfig[filename] || filenameConfig[lowerFilename]
+  const filenameMatch =
+    filenameConfig[filename] || filenameConfig[lowerFilename]
   if (filenameMatch) {
     return filenameMatch.color
   }

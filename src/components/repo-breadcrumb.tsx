@@ -18,10 +18,7 @@ type RepoBreadcrumbProps = {
   className?: string
 }
 
-export function RepoBreadcrumb({
-  segments,
-  className,
-}: RepoBreadcrumbProps) {
+export function RepoBreadcrumb({ segments, className }: RepoBreadcrumbProps) {
   return (
     <nav
       className={cn(
@@ -42,7 +39,10 @@ export function RepoBreadcrumb({
         const isLast = index === segments.length - 1
 
         return (
-          <div key={`${segment.label}-${index}`} className="flex min-w-0 items-center gap-1.5">
+          <div
+            key={`${segment.label}-${index}`}
+            className="flex min-w-0 items-center gap-1.5"
+          >
             <ChevronRight className="size-4 shrink-0 text-muted-foreground/50" />
             {segment.href && !isLast ? (
               <Link
@@ -70,7 +70,9 @@ export function RepoBreadcrumb({
                 <span
                   className={cn(
                     'truncate',
-                    isLast && segment.isFile ? 'text-muted-foreground' : 'font-mono',
+                    isLast && segment.isFile
+                      ? 'text-muted-foreground'
+                      : 'font-mono',
                   )}
                 >
                   {segment.label}

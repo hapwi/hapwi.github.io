@@ -125,7 +125,7 @@ export function CatalogRow({ project }: { project: CatalogProject }) {
             </ItemTitle>
             <ItemDescription>{project.description}</ItemDescription>
           </ItemContent>
-          <ItemActions>
+          <ItemActions className="max-sm:basis-full">
             {project.language ? (
               <Badge variant="secondary">{project.language}</Badge>
             ) : null}
@@ -155,6 +155,7 @@ export function InstallCommand({ command }: { command: string }) {
         readOnly
         value={command}
         aria-label="Install command"
+        className="min-w-0 font-mono text-xs"
         onClick={(event) => {
           event.currentTarget.select()
         }}

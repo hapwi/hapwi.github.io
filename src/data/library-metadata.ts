@@ -14,8 +14,7 @@ type FolderMetadata = {
 export const assetMetadata: Record<string, AssetMetadata> = {
   'discord/themes/custompuccin.custom.css': {
     title: 'Custom Puccin Theme',
-    description:
-      'Catppuccin Mocha-inspired Discord theme.',
+    description: 'Catppuccin Mocha-inspired Discord theme.',
     language: 'CSS',
     order: 2,
   },
@@ -35,8 +34,7 @@ export const assetMetadata: Record<string, AssetMetadata> = {
   },
   'tampermonkey/scripts/github-repos-links.user.js': {
     title: 'GitHub Repos Quick Links',
-    description:
-      'Adds "repos" and "bbp repos" shortcuts to the GitHub header.',
+    description: 'Adds "repos" and "bbp repos" shortcuts to the GitHub header.',
     language: 'JavaScript',
     order: 0,
   },

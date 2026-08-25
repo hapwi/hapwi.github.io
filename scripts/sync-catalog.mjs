@@ -74,7 +74,9 @@ async function main() {
       throw new Error(`catalog entry is missing repo: ${JSON.stringify(entry)}`)
     }
     const [owner, repo] = entry.repo.split('/')
-    const data = await githubJson(`https://api.github.com/repos/${owner}/${repo}`)
+    const data = await githubJson(
+      `https://api.github.com/repos/${owner}/${repo}`,
+    )
     const slug = toSlug(entry.repo, entry.slug)
     let installUrl = null
     if (entry.install) {

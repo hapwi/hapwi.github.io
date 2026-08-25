@@ -43,7 +43,7 @@ export function SearchCommand() {
         if (!project) return
 
         if (project.to === '/repos/$repo' && project.repo) {
-          navigate({
+          void navigate({
             to: '/repos/$repo',
             params: { repo: project.repo },
             search: { file: undefined, path: undefined },
@@ -51,15 +51,15 @@ export function SearchCommand() {
           return
         }
         if (project.to === '/discord-themes') {
-          navigate({ to: '/discord-themes', search: { file: undefined } })
+          void navigate({ to: '/discord-themes', search: { file: undefined } })
           return
         }
         if (project.to === '/tampermonkey') {
-          navigate({ to: '/tampermonkey', search: { file: undefined } })
+          void navigate({ to: '/tampermonkey', search: { file: undefined } })
           return
         }
         if (project.to === '/') {
-          navigate({ to: '/' })
+          void navigate({ to: '/' })
           return
         }
         const href = project.href ?? project.githubUrl
@@ -71,14 +71,15 @@ export function SearchCommand() {
         const folderId = value.replace('folder:', '')
         const folder = folderGroups.find((item) => item.id === folderId)
         if (folder?.href) {
-          navigate({ to: folder.href })
+          void navigate({ to: folder.href })
         }
         return
       }
 
       if (value.startsWith('file:')) {
         const filePath = value.replace('file:', '')
-        const asset = codeLibrary.find((entry) => entry.urlPath === filePath) ?? null
+        const asset =
+          codeLibrary.find((entry) => entry.urlPath === filePath) ?? null
         const topFolderId = asset?.folderSegments[0] ?? null
         const targetFolder =
           (topFolderId
@@ -86,7 +87,7 @@ export function SearchCommand() {
             : null) ?? null
 
         const targetPath = targetFolder?.href ?? '/discord-themes'
-        navigate({ to: targetPath, search: { file: filePath } })
+        void navigate({ to: targetPath, search: { file: filePath } })
       }
     },
     [catalog, navigate],

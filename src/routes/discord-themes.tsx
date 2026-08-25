@@ -28,7 +28,11 @@ import {
 import { RepoBreadcrumb } from '@/components/repo-breadcrumb'
 import { formatFileSize } from '@/components/library/meta-columns'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { folderGroups } from '@/lib/library'
 
 export const Route = createFileRoute('/discord-themes')({
@@ -122,7 +126,9 @@ function writeCachedSource(urlPath: string, text: string) {
 }
 
 function buildAbsoluteAssetUrl(relativePath: string) {
-  const basePath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
+  const basePath = relativePath.startsWith('/')
+    ? relativePath
+    : `/${relativePath}`
   if (typeof window === 'undefined') {
     return new URL(basePath, PRODUCTION_ORIGIN).toString()
   }
@@ -148,7 +154,7 @@ function DiscordThemesRoute() {
     file && themeAssets.some((asset) => asset.urlPath === file) ? file : null
 
   const activeAsset = selectedAssetPath
-    ? themeAssets.find((asset) => asset.urlPath === selectedAssetPath) ?? null
+    ? (themeAssets.find((asset) => asset.urlPath === selectedAssetPath) ?? null)
     : null
 
   const assetUrl = activeAsset?.urlPath ?? null
@@ -212,7 +218,7 @@ function DiscordThemesRoute() {
       }
     }
 
-    fetchSource(resolvedAssetUrl)
+    void fetchSource(resolvedAssetUrl)
 
     return () => {
       cancelled = true
@@ -223,7 +229,9 @@ function DiscordThemesRoute() {
   const highlightLanguage = useMemo(() => {
     if (!activeAsset) return 'txt'
 
-    const normalizedLabel = activeAsset.language.toLowerCase().replace(/\s+/g, '-')
+    const normalizedLabel = activeAsset.language
+      .toLowerCase()
+      .replace(/\s+/g, '-')
     const extension = activeAsset.extension.toLowerCase()
 
     if (normalizedLabel && normalizedLabel !== 'file') {
@@ -270,7 +278,7 @@ function DiscordThemesRoute() {
 
   const latestMtime = themeAssets.reduce(
     (max, item) => Math.max(max, item.mtime ?? 0),
-    0
+    0,
   )
 
   // Show file list view when no file is selected
@@ -294,7 +302,8 @@ function DiscordThemesRoute() {
                 header={
                   <>
                     <span className="text-sm font-medium">
-                      {themeAssets.length} theme{themeAssets.length !== 1 ? 's' : ''}
+                      {themeAssets.length} theme
+                      {themeAssets.length !== 1 ? 's' : ''}
                     </span>
                     <span className="text-xs text-muted-foreground">
                       Updated {formatRelativeTime(latestMtime)}
@@ -309,7 +318,11 @@ function DiscordThemesRoute() {
                     search={{ file: item.urlPath }}
                     className="group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-3.5 transition-colors hover:bg-muted/50"
                   >
-                    <FileIcon filename={item.name} extension={item.extension} size="sm" />
+                    <FileIcon
+                      filename={item.name}
+                      extension={item.extension}
+                      size="sm"
+                    />
                     <div className="min-w-0 flex-1">
                       <span className="font-medium text-foreground group-hover:text-primary transition-colors truncate block text-sm sm:text-base">
                         {item.name}
@@ -330,9 +343,13 @@ function DiscordThemesRoute() {
 
             <PageSidebar>
               <SidebarCard>
-                <SidebarCardHeader icon={<FileText className="size-4" />} title="About" />
+                <SidebarCardHeader
+                  icon={<FileText className="size-4" />}
+                  title="About"
+                />
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  Custom CSS themes for Discord clients. Compatible with BetterDiscord, Vencord, and Equicord.
+                  Custom CSS themes for Discord clients. Compatible with
+                  BetterDiscord, Vencord, and Equicord.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className="rounded-full border border-purple-500/20 bg-purple-500/5 px-2.5 py-0.5 text-xs font-medium text-purple-600 dark:text-purple-400">
@@ -345,7 +362,10 @@ function DiscordThemesRoute() {
               </SidebarCard>
 
               <SidebarCard>
-                <SidebarCardHeader icon={<Code className="size-4" />} title="How to use" />
+                <SidebarCardHeader
+                  icon={<Code className="size-4" />}
+                  title="How to use"
+                />
                 <ol className="text-sm leading-relaxed text-muted-foreground space-y-2">
                   <li className="flex gap-2">
                     <span className="font-mono text-xs text-primary">1.</span>
@@ -390,8 +410,16 @@ function DiscordThemesRoute() {
             <div className="min-w-0 flex-1">
               <RepoBreadcrumb
                 segments={[
-                  { label: 'themes', href: '/discord-themes', search: { file: undefined } },
-                  { label: activeAsset?.name || '', isFile: true, filename: activeAsset?.name },
+                  {
+                    label: 'themes',
+                    href: '/discord-themes',
+                    search: { file: undefined },
+                  },
+                  {
+                    label: activeAsset?.name || '',
+                    isFile: true,
+                    filename: activeAsset?.name,
+                  },
                 ]}
               />
             </div>
@@ -402,11 +430,19 @@ function DiscordThemesRoute() {
             {/* File header */}
             <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-3 sm:px-5 py-2.5 sm:py-3">
               <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                <FileIcon filename={activeAsset?.name || ''} extension={activeAsset?.extension} size="sm" />
+                <FileIcon
+                  filename={activeAsset?.name || ''}
+                  extension={activeAsset?.extension}
+                  size="sm"
+                />
                 <div className="min-w-0">
-                  <span className="font-medium truncate block text-sm sm:text-base">{activeAsset?.name}</span>
+                  <span className="font-medium truncate block text-sm sm:text-base">
+                    {activeAsset?.name}
+                  </span>
                   <span className="text-xs text-muted-foreground">
-                    {assetSource ? `${assetSource.split('\n').length} lines` : ''}
+                    {assetSource
+                      ? `${assetSource.split('\n').length} lines`
+                      : ''}
                     {activeAsset && ` · ${formatFileSize(activeAsset.size)}`}
                   </span>
                 </div>
@@ -449,13 +485,12 @@ function DiscordThemesRoute() {
                     Copy raw URL for CSS import
                   </TooltipContent>
                 </Tooltip>
-                <Button
-                  asChild
-                  variant="ghost"
-                  size="sm"
-                  className="h-8 px-2"
-                >
-                  <a href={activeAsset?.urlPath} download aria-label="Download file">
+                <Button asChild variant="ghost" size="sm" className="h-8 px-2">
+                  <a
+                    href={activeAsset?.urlPath}
+                    download
+                    aria-label="Download file"
+                  >
                     <Download className="size-3.5" />
                   </a>
                 </Button>

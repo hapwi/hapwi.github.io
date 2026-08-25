@@ -1,9 +1,4 @@
-import {
-  Code,
-  Clock,
-  FileCode2,
-  ExternalLink,
-} from 'lucide-react'
+import { Code, Clock, FileCode2, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -73,11 +68,13 @@ export function RepoHeader({
                 className={cn(
                   'size-3 rounded-full',
                   stats.language.toLowerCase() === 'css' && 'bg-purple-500',
-                  stats.language.toLowerCase() === 'javascript' && 'bg-yellow-400',
-                  stats.language.toLowerCase() === 'typescript' && 'bg-blue-500',
+                  stats.language.toLowerCase() === 'javascript' &&
+                    'bg-yellow-400',
+                  stats.language.toLowerCase() === 'typescript' &&
+                    'bg-blue-500',
                   !['css', 'javascript', 'typescript'].includes(
-                    stats.language.toLowerCase()
-                  ) && 'bg-gray-400'
+                    stats.language.toLowerCase(),
+                  ) && 'bg-gray-400',
                 )}
               />
               <span>{stats.language}</span>
@@ -113,7 +110,7 @@ export function RepoSubHeader({
     <div
       className={cn(
         'flex items-center justify-between border-b bg-muted/30 px-4 py-2.5',
-        className
+        className,
       )}
     >
       <div className="flex items-center gap-2 text-sm">

@@ -1,9 +1,7 @@
 import { readdir, stat } from 'node:fs/promises'
 import { extname, join, relative, resolve, sep } from 'node:path'
-import { defineConfig } from 'vitest/config'
-import viteReact from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import type { HmrContext } from 'vite-plus'
+import { defineConfig, lazyPlugins } from 'vite-plus'
 
 type CodeLibraryManifestEntry = {
   name: string
@@ -97,7 +95,7 @@ function codeLibraryManifestPlugin() {
         return `export default ${JSON.stringify(cachedManifest)};`
       }
     },
-    async handleHotUpdate(ctx: { file: string; server: any }) {
+    async handleHotUpdate(ctx: HmrContext) {
       if (!publicDir || !ctx.file.startsWith(publicDir)) return
 
       await regenerateManifest()
@@ -118,23 +116,67 @@ function codeLibraryManifestPlugin() {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  staged: {
+    '*': 'vp check --fix',
+  },
+  lint: {
+    ignorePatterns: ['dist/**', 'src/routeTree.gen.ts'],
+    jsPlugins: [{ name: 'vite-plus', specifier: 'vite-plus/oxlint-plugin' }],
+    rules: { 'vite-plus/prefer-vite-plus-imports': 'error' },
+    options: { typeAware: true, typeCheck: true },
+  },
+  fmt: {
+    semi: false,
+    singleQuote: true,
+    trailingComma: 'all',
+    printWidth: 80,
+    sortPackageJson: false,
+    ignorePatterns: [
+      'bun.lock',
+      'bun.lockb',
+      'package-lock.json',
+      'pnpm-lock.yaml',
+      'yarn.lock',
+      'dist/**',
+      'public/**',
+      'src/routeTree.gen.ts',
+      'src/data/hub.generated.ts',
+      '.cta.json',
+      '.mcp.json',
+      'catalog.json',
+    ],
+  },
   server: {
     host: true,
+    port: 3000,
     allowedHosts: [
       'haplinux.taild451ec.ts.net',
       '.taild451ec.ts.net',
       '.ts.net',
     ],
   },
-  plugins: [
-    TanStackRouterVite({ autoCodeSplitting: true }),
-    viteReact(),
-    tailwindcss(),
-    codeLibraryManifestPlugin(),
-  ],
+  plugins: lazyPlugins(async () => {
+    const [
+      { default: viteReact },
+      { default: tailwindcss },
+      { TanStackRouterVite },
+    ] = await Promise.all([
+      import('@vitejs/plugin-react'),
+      import('@tailwindcss/vite'),
+      import('@tanstack/router-plugin/vite'),
+    ])
+
+    return [
+      TanStackRouterVite({ autoCodeSplitting: true }),
+      viteReact(),
+      tailwindcss(),
+      codeLibraryManifestPlugin(),
+    ]
+  }),
   test: {
     globals: true,
     environment: 'jsdom',
+    passWithNoTests: true,
   },
   resolve: {
     alias: {
