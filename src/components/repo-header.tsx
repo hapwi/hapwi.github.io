@@ -8,7 +8,6 @@ type RepoHeaderProps = {
   stats?: {
     files?: number
     lastUpdated?: number
-    language?: string
   }
   externalUrl?: string
   className?: string
@@ -60,24 +59,6 @@ export function RepoHeader({
             <div className="flex items-center gap-1.5">
               <Code className="size-4" />
               <span>{stats.files} files</span>
-            </div>
-          )}
-          {stats.language && (
-            <div className="flex items-center gap-1.5">
-              <span
-                className={cn(
-                  'size-3 rounded-full',
-                  stats.language.toLowerCase() === 'css' && 'bg-purple-500',
-                  stats.language.toLowerCase() === 'javascript' &&
-                    'bg-yellow-400',
-                  stats.language.toLowerCase() === 'typescript' &&
-                    'bg-blue-500',
-                  !['css', 'javascript', 'typescript'].includes(
-                    stats.language.toLowerCase(),
-                  ) && 'bg-gray-400',
-                )}
-              />
-              <span>{stats.language}</span>
             </div>
           )}
           {stats.lastUpdated && (

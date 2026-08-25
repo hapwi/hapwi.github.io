@@ -189,14 +189,7 @@ export function SearchForm({
                         onMouseEnter={() => setActiveIndex(index)}
                         onClick={() => selectAsset(asset)}
                       >
-                        <div className="flex items-baseline justify-between gap-2">
-                          <span className="font-medium">
-                            {asset.displayName}
-                          </span>
-                          <span className="shrink-0 text-xs text-muted-foreground">
-                            {asset.language}
-                          </span>
-                        </div>
+                        <div className="font-medium">{asset.displayName}</div>
                         <div className="mt-0.5 text-xs text-muted-foreground">
                           {asset.relativePath}
                         </div>

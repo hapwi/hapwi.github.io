@@ -126,9 +126,6 @@ export function CatalogRow({ project }: { project: CatalogProject }) {
             <ItemDescription>{project.description}</ItemDescription>
           </ItemContent>
           <ItemActions className="max-sm:basis-full">
-            {project.language ? (
-              <Badge variant="secondary">{project.language}</Badge>
-            ) : null}
             {project.updatedAt ? (
               <Badge variant="outline">
                 {formatRelativeTime(project.updatedAt)}

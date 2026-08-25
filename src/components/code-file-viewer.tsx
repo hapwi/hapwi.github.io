@@ -1,9 +1,9 @@
-import { Loader2 } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 
 import { useTheme } from '@/components/theme-provider'
 import { Skeleton } from '@/components/ui/skeleton'
+import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/utils'
 
 const HIGHLIGHT_CACHE_PREFIX = 'code-viewer-shiki:v3:'
@@ -292,7 +292,7 @@ export function CodeFileViewer({
             {showSkeleton ? (
               <div className="space-y-3 p-4">
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Loader2 className="size-4 animate-spin" />
+                  <Spinner />
                   <span>Loading syntax highlighting…</span>
                 </div>
                 <Skeleton className="h-3 w-[95%]" />

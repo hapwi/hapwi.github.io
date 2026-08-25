@@ -10,7 +10,7 @@ export function StarOnGitHub({
   className?: string
 }) {
   return (
-    <Button asChild variant="outline" size="sm" className={className}>
+    <Button asChild variant="outline" className={className}>
       <a href={href} target="_blank" rel="noreferrer">
         {children}
       </a>

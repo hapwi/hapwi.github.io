@@ -121,6 +121,14 @@ export const curatedProjects: CatalogProject[] = [
   },
 ]
 
+const hostedCollectionProjectIds = new Set(['discord-themes', 'tampermonkey'])
+
+export function getWorkProjects(projects: CatalogProject[]) {
+  return projects.filter(
+    (project) => !hostedCollectionProjectIds.has(project.id),
+  )
+}
+
 /** Repos too large or circular to browse in the in-site tree viewer. */
 export const unbrowsableRepos = new Set([
   'hapcord',

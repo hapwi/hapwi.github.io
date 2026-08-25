@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
+import { Card } from '@/components/ui/card'
 
 interface PageLayoutProps {
   children: React.ReactNode
@@ -11,7 +12,7 @@ export function PageLayout({ children, className }: PageLayoutProps) {
     <div className="flex min-h-0 flex-1 flex-col overflow-x-hidden">
       <main
         className={cn(
-          'mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:py-10 lg:px-8',
+          'mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 sm:py-10 lg:px-10 lg:py-14',
           className,
         )}
       >
@@ -28,7 +29,12 @@ interface PageHeaderProps {
 
 export function PageHeader({ children, className }: PageHeaderProps) {
   return (
-    <header className={cn('space-y-3 sm:space-y-4', className)}>
+    <header
+      className={cn(
+        'flex flex-col gap-3 border-b border-border/70 pb-5 sm:gap-4 sm:pb-6',
+        className,
+      )}
+    >
       {children}
     </header>
   )
@@ -48,11 +54,11 @@ export function PageTitle({
   description,
 }: PageTitleProps) {
   return (
-    <div className="flex items-start gap-3 sm:gap-4">
+    <div className="flex items-start gap-4 sm:gap-5">
       {icon && (
         <div
           className={cn(
-            'flex size-10 sm:size-12 shrink-0 items-center justify-center rounded-lg',
+            'flex size-12 shrink-0 items-center justify-center rounded-2xl sm:size-14',
             iconClassName,
           )}
         >
@@ -60,16 +66,58 @@ export function PageTitle({
         </div>
       )}
       <div className="min-w-0 flex-1">
-        <h1 className="font-display text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">
+        <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">
           {title}
         </h1>
         {description && (
-          <p className="mt-1 text-sm sm:text-base text-muted-foreground">
+          <p className="mt-2 text-base leading-relaxed text-muted-foreground sm:text-lg">
             {description}
           </p>
         )}
       </div>
     </div>
+  )
+}
+
+interface PageHeroProps {
+  label?: string
+  title: string
+  description?: string
+  actions?: React.ReactNode
+  className?: string
+}
+
+export function PageHero({
+  label,
+  title,
+  description,
+  actions,
+  className,
+}: PageHeroProps) {
+  return (
+    <header
+      className={cn(
+        'flex flex-col gap-5 border-b border-border/70 pb-7 sm:flex-row sm:items-end sm:justify-between sm:pb-8',
+        className,
+      )}
+    >
+      <div className="min-w-0">
+        {label ? (
+          <p className="mb-2 font-mono text-xs uppercase tracking-[0.16em] text-primary">
+            {label}
+          </p>
+        ) : null}
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          {title}
+        </h1>
+        {description ? (
+          <p className="mt-3 max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {description}
+          </p>
+        ) : null}
+      </div>
+      {actions ? <div className="flex shrink-0">{actions}</div> : null}
+    </header>
   )
 }
 
@@ -80,7 +128,9 @@ interface PageContentProps {
 
 export function PageContent({ children, className }: PageContentProps) {
   return (
-    <div className={cn('space-y-6 sm:space-y-8', className)}>{children}</div>
+    <div className={cn('flex flex-col gap-6 sm:gap-8', className)}>
+      {children}
+    </div>
   )
 }
 
@@ -93,7 +143,7 @@ export function PageGrid({ children, className }: PageGridProps) {
   return (
     <div
       className={cn(
-        'grid gap-6 sm:gap-8 lg:grid-cols-[1fr_280px] lg:gap-10',
+        'grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10',
         className,
       )}
     >
@@ -109,7 +159,7 @@ interface PageMainProps {
 
 export function PageMain({ children, className }: PageMainProps) {
   return (
-    <section className={cn('min-w-0 space-y-4 sm:space-y-5', className)}>
+    <section className={cn('flex min-w-0 flex-col gap-4 sm:gap-5', className)}>
       {children}
     </section>
   )
@@ -122,7 +172,7 @@ interface PageSidebarProps {
 
 export function PageSidebar({ children, className }: PageSidebarProps) {
   return (
-    <aside className={cn('space-y-4 sm:space-y-5 min-w-0', className)}>
+    <aside className={cn('flex min-w-0 flex-col gap-4 sm:gap-5', className)}>
       {children}
     </aside>
   )
@@ -140,21 +190,15 @@ export function SidebarCard({
   variant = 'default',
 }: SidebarCardProps) {
   const variantClasses = {
-    default: 'border bg-card',
-    warning: 'border border-amber-500/30 bg-amber-500/5',
-    info: 'border border-violet-500/30 bg-violet-500/5',
+    default: '',
+    warning: 'border border-destructive/25 bg-destructive/5',
+    info: 'border border-primary/25 bg-primary/5',
   }
 
   return (
-    <div
-      className={cn(
-        'rounded-lg p-4 sm:p-5 shadow-sm overflow-hidden',
-        variantClasses[variant],
-        className,
-      )}
-    >
+    <Card className={cn('gap-0 p-5', variantClasses[variant], className)}>
       {children}
-    </div>
+    </Card>
   )
 }
 
@@ -173,8 +217,8 @@ export function SidebarCardHeader({
 }: SidebarCardHeaderProps) {
   const variantClasses = {
     default: '',
-    warning: 'text-amber-600 dark:text-amber-400',
-    info: 'text-violet-600 dark:text-violet-400',
+    warning: 'text-destructive',
+    info: 'text-primary',
   }
 
   return (
@@ -215,12 +259,7 @@ export function FileListCard({
   className,
 }: FileListCardProps) {
   return (
-    <div
-      className={cn(
-        'overflow-hidden rounded-lg border bg-card shadow-sm',
-        className,
-      )}
-    >
+    <Card className={cn('gap-0 overflow-hidden py-0', className)}>
       {header && (
         <div className="flex items-center justify-between border-b bg-muted/30 px-3 sm:px-5 py-2.5 sm:py-3">
           {header}
@@ -229,7 +268,7 @@ export function FileListCard({
       <div className="divide-y divide-border/50 editorial-stagger">
         {children}
       </div>
-    </div>
+    </Card>
   )
 }
 

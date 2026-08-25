@@ -1,38 +1,41 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import {
-  Copy,
-  Download,
-  Code,
-  FileText,
-  Link2,
-  ArrowLeft,
-  Palette,
-} from 'lucide-react'
+import { Copy, Download, Code, FileText, Link2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 import { CodeFileViewer } from '@/components/code-file-viewer'
+import { CollectionDetailShell } from '@/components/collection-detail-shell'
 import { FileIcon } from '@/components/file-icon'
 import {
   PageLayout,
-  PageHeader,
+  PageHero,
   PageContent,
   PageGrid,
   PageMain,
   PageSidebar,
-  PageTitle,
   SidebarCard,
   SidebarCardHeader,
-  FileListCard,
 } from '@/components/page-layout'
-import { RepoBreadcrumb } from '@/components/repo-breadcrumb'
 import { formatFileSize } from '@/components/library/meta-columns'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import {
+  buildHostedAssetUrl,
+  getCollectionDetailLocation,
+} from '@/lib/collection-links'
 import { folderGroups } from '@/lib/library'
 
 export const Route = createFileRoute('/discord-themes')({
@@ -43,10 +46,72 @@ export const Route = createFileRoute('/discord-themes')({
 })
 
 const THEMES_FOLDER_ID = 'discord/themes'
-const PRODUCTION_ORIGIN = 'https://hapwi.github.io'
 
 const SOURCE_CACHE_PREFIX = 'discord-themes:raw-source:v1:'
 const SOURCE_CACHE_MAX_ENTRIES = 25
+
+function getThemePresentation(name: string) {
+  const normalized = name.toLowerCase()
+
+  if (normalized.includes('puccin')) {
+    return {
+      label: 'Catppuccin',
+      palette: ['#1e1e2e', '#313244', '#cba6f7', '#89b4fa'],
+    }
+  }
+
+  if (normalized.includes('charcoal')) {
+    return {
+      label: 'Charcoal',
+      palette: ['#17191c', '#25282d', '#8e949e', '#d7dae0'],
+    }
+  }
+
+  return {
+    label: 'Equicord',
+    palette: ['#17192b', '#25284a', '#8b7cf6', '#67d4d0'],
+  }
+}
+
+function ThemePreview({ name }: { name: string }) {
+  const { palette } = getThemePresentation(name)
+
+  return (
+    <div
+      className="grid h-28 grid-cols-[3.5rem_1fr] overflow-hidden rounded-xl border"
+      style={{ backgroundColor: palette[0] }}
+      aria-hidden="true"
+    >
+      <div
+        className="flex flex-col items-center gap-2 py-3"
+        style={{ backgroundColor: palette[1] }}
+      >
+        <span
+          className="size-7 rounded-full"
+          style={{ backgroundColor: palette[2] }}
+        />
+        <span
+          className="size-7 rounded-full opacity-60"
+          style={{ backgroundColor: palette[3] }}
+        />
+      </div>
+      <div className="flex flex-col justify-end gap-2 p-4">
+        <span
+          className="h-3 w-2/3 rounded-full opacity-90"
+          style={{ backgroundColor: palette[2] }}
+        />
+        <span
+          className="h-3 w-5/6 rounded-full opacity-55"
+          style={{ backgroundColor: palette[3] }}
+        />
+        <span
+          className="mt-1 h-8 rounded-lg opacity-35"
+          style={{ backgroundColor: palette[1] }}
+        />
+      </div>
+    </div>
+  )
+}
 
 function formatRelativeTime(timestamp: number): string {
   const now = Date.now()
@@ -123,22 +188,6 @@ function writeCachedSource(urlPath: string, text: string) {
   } catch {
     // ignore storage quota / serialization issues
   }
-}
-
-function buildAbsoluteAssetUrl(relativePath: string) {
-  const basePath = relativePath.startsWith('/')
-    ? relativePath
-    : `/${relativePath}`
-  if (typeof window === 'undefined') {
-    return new URL(basePath, PRODUCTION_ORIGIN).toString()
-  }
-
-  const currentOrigin = window.location.origin
-  const shouldForceProduction =
-    currentOrigin.includes('localhost') || currentOrigin.includes('127.0.0.1')
-
-  const origin = shouldForceProduction ? PRODUCTION_ORIGIN : currentOrigin
-  return new URL(basePath, origin).toString()
 }
 
 function DiscordThemesRoute() {
@@ -249,7 +298,10 @@ function DiscordThemesRoute() {
 
   const absoluteAssetUrl = useMemo(() => {
     if (!activeAsset) return null
-    return buildAbsoluteAssetUrl(activeAsset.urlPath)
+    return buildHostedAssetUrl(
+      activeAsset.urlPath,
+      typeof window === 'undefined' ? undefined : window.location.origin,
+    )
   }, [activeAsset])
 
   const handleCopyUrl = async () => {
@@ -276,69 +328,85 @@ function DiscordThemesRoute() {
     }
   }
 
-  const latestMtime = themeAssets.reduce(
-    (max, item) => Math.max(max, item.mtime ?? 0),
-    0,
-  )
-
   // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
       <PageLayout>
         <PageContent>
-          <PageHeader>
-            <RepoBreadcrumb segments={[{ label: 'themes' }]} />
-            <PageTitle
-              icon={<Palette className="size-5 sm:size-6" />}
-              iconClassName="bg-primary/10 text-primary"
-              title="Discord Themes"
-              description="Custom CSS themes for BetterDiscord, Vencord, and Equicord"
-            />
-          </PageHeader>
+          <PageHero
+            label="Hosted CSS collection"
+            title="Discord themes"
+            description="Curated themes for Vencord, Equicord, and BetterDiscord—ready to preview, inspect, and use from a stable hosted URL."
+          />
 
           <PageGrid>
             <PageMain>
-              <FileListCard
-                header={
-                  <>
-                    <span className="text-sm font-medium">
-                      {themeAssets.length} theme
-                      {themeAssets.length !== 1 ? 's' : ''}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      Updated {formatRelativeTime(latestMtime)}
-                    </span>
-                  </>
-                }
-              >
+              <div>
+                <h2 className="text-xl font-semibold">Hosted themes</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Preview a theme, inspect its CSS, or copy its hosted URL.
+                </p>
+              </div>
+              <div className="grid gap-5 md:grid-cols-2">
                 {themeAssets.map((item) => (
-                  <Link
+                  <Card
                     key={item.urlPath}
-                    to="/discord-themes"
-                    search={{ file: item.urlPath }}
-                    className="group flex items-center gap-3 sm:gap-4 px-3 sm:px-5 py-3 sm:py-3.5 transition-colors hover:bg-muted/50"
+                    className="gap-0 overflow-hidden py-0"
                   >
-                    <FileIcon
-                      filename={item.name}
-                      extension={item.extension}
-                      size="sm"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <span className="font-medium text-foreground group-hover:text-primary transition-colors truncate block text-sm sm:text-base">
-                        {item.name}
-                      </span>
-                      {item.description && (
-                        <p className="mt-0.5 truncate text-xs sm:text-sm text-muted-foreground hidden sm:block">
-                          {item.description}
-                        </p>
-                      )}
+                    <div className="bg-muted/40 p-3">
+                      <ThemePreview name={item.name} />
                     </div>
-                    <span className="shrink-0 text-xs tabular-nums text-muted-foreground hidden xs:block">
-                      {formatRelativeTime(item.mtime)}
-                    </span>
-                  </Link>
+                    <CardHeader className="gap-2 px-5 pt-5 pb-4">
+                      <CardTitle className="text-lg">
+                        {getThemePresentation(item.name).label}
+                      </CardTitle>
+                      <CardDescription className="line-clamp-2 leading-relaxed">
+                        {item.description ??
+                          'Hosted custom CSS for Vencord-family Discord clients.'}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex flex-wrap gap-2 px-5 pb-4">
+                      <Badge variant="secondary">Vencord</Badge>
+                      <Badge variant="secondary">Equicord</Badge>
+                      <span className="ml-auto self-center text-xs text-muted-foreground">
+                        Updated {formatRelativeTime(item.mtime)}
+                      </span>
+                    </CardContent>
+                    <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
+                      <Button asChild size="sm">
+                        <Link
+                          {...getCollectionDetailLocation(
+                            'themes',
+                            item.urlPath,
+                          )}
+                        >
+                          View CSS
+                        </Link>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={async () => {
+                          try {
+                            await navigator.clipboard.writeText(
+                              buildHostedAssetUrl(
+                                item.urlPath,
+                                window.location.origin,
+                              ),
+                            )
+                            toast.success('Raw theme URL copied')
+                          } catch {
+                            toast.error('Failed to copy raw theme URL')
+                          }
+                        }}
+                      >
+                        <Link2 data-icon="inline-start" />
+                        Copy URL
+                      </Button>
+                    </CardFooter>
+                  </Card>
                 ))}
-              </FileListCard>
+              </div>
             </PageMain>
 
             <PageSidebar>
@@ -351,14 +419,6 @@ function DiscordThemesRoute() {
                   Custom CSS themes for Discord clients. Compatible with
                   BetterDiscord, Vencord, and Equicord.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="rounded-full border border-purple-500/20 bg-purple-500/5 px-2.5 py-0.5 text-xs font-medium text-purple-600 dark:text-purple-400">
-                    CSS
-                  </span>
-                  <span className="rounded-full border border-blue-500/20 bg-blue-500/5 px-2.5 py-0.5 text-xs font-medium text-blue-600 dark:text-blue-400">
-                    themes
-                  </span>
-                </div>
               </SidebarCard>
 
               <SidebarCard>
@@ -366,7 +426,7 @@ function DiscordThemesRoute() {
                   icon={<Code className="size-4" />}
                   title="How to use"
                 />
-                <ol className="text-sm leading-relaxed text-muted-foreground space-y-2">
+                <ol className="flex flex-col gap-2 text-sm leading-relaxed text-muted-foreground">
                   <li className="flex gap-2">
                     <span className="font-mono text-xs text-primary">1.</span>
                     Click on any theme to view source
@@ -388,132 +448,70 @@ function DiscordThemesRoute() {
     )
   }
 
-  // Show file viewer when a file is selected
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-      <main className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col overflow-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
-        <div className="flex min-h-0 flex-1 flex-col gap-4 sm:gap-5">
-          {/* Header */}
-          <header className="flex items-center gap-3 sm:gap-4">
-            <Button
-              asChild
-              variant="ghost"
-              size="sm"
-              className="h-8 gap-1.5 text-muted-foreground hover:text-foreground shrink-0"
-            >
-              <Link to="/discord-themes" search={{ file: undefined }}>
-                <ArrowLeft className="size-4" />
-                <span className="hidden sm:inline">Back</span>
-              </Link>
-            </Button>
-            <div className="h-5 w-px bg-border shrink-0" />
-            <div className="min-w-0 flex-1">
-              <RepoBreadcrumb
-                segments={[
-                  {
-                    label: 'themes',
-                    href: '/discord-themes',
-                    search: { file: undefined },
-                  },
-                  {
-                    label: activeAsset?.name || '',
-                    isFile: true,
-                    filename: activeAsset?.name,
-                  },
-                ]}
-              />
-            </div>
-          </header>
-
-          {/* File viewer card */}
-          <div className="flex min-h-0 max-h-full flex-col overflow-hidden rounded-lg border bg-card shadow-sm">
-            {/* File header */}
-            <div className="flex shrink-0 items-center justify-between border-b bg-muted/30 px-3 sm:px-5 py-2.5 sm:py-3">
-              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                <FileIcon
-                  filename={activeAsset?.name || ''}
-                  extension={activeAsset?.extension}
+    <CollectionDetailShell
+      backTo="/discord-themes"
+      collectionLabel="Themes"
+      fileName={activeAsset?.name ?? ''}
+      fileMeta={
+        activeAsset
+          ? `${assetSource ? `${assetSource.split('\n').length} lines · ` : ''}${formatFileSize(activeAsset.size)}`
+          : undefined
+      }
+      fileIcon={
+        <FileIcon
+          filename={activeAsset?.name ?? ''}
+          extension={activeAsset?.extension}
+          size="sm"
+        />
+      }
+      actions={
+        <>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="inline-flex">
+                <Button
+                  variant="ghost"
                   size="sm"
-                />
-                <div className="min-w-0">
-                  <span className="font-medium truncate block text-sm sm:text-base">
-                    {activeAsset?.name}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {assetSource
-                      ? `${assetSource.split('\n').length} lines`
-                      : ''}
-                    {activeAsset && ` · ${formatFileSize(activeAsset.size)}`}
-                  </span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span className="inline-flex">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleCopyRaw}
-                        disabled={!canCopyRaw}
-                        className="h-8 gap-1.5 text-xs px-2 sm:px-3"
-                        aria-label="Copy file contents"
-                      >
-                        <Copy className="size-3.5" />
-                        <span className="hidden sm:inline">Copy</span>
-                      </Button>
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" sideOffset={6}>
-                    Copy file contents
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={handleCopyUrl}
-                      className="h-8 gap-1.5 text-xs px-2 sm:px-3"
-                      aria-label="Copy raw file URL"
-                    >
-                      <Link2 className="size-3.5" />
-                      <span className="hidden sm:inline">URL</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" sideOffset={6}>
-                    Copy raw URL for CSS import
-                  </TooltipContent>
-                </Tooltip>
-                <Button asChild variant="ghost" size="sm" className="h-8 px-2">
-                  <a
-                    href={activeAsset?.urlPath}
-                    download
-                    aria-label="Download file"
-                  >
-                    <Download className="size-3.5" />
-                  </a>
+                  onClick={handleCopyRaw}
+                  disabled={!canCopyRaw}
+                  aria-label="Copy file contents"
+                >
+                  <Copy />
+                  <span className="hidden sm:inline">Copy CSS</span>
                 </Button>
-              </div>
-            </div>
-
-            {/* Code viewer */}
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-              {activeAsset ? (
-                <CodeFileViewer
-                  fileName={activeAsset.displayName}
-                  languageLabel={languageLabel}
-                  highlightLanguage={highlightLanguage}
-                  source={assetSource}
-                  sourceUrl={absoluteAssetUrl}
-                  isLoading={isLoadingSource}
-                  error={sourceError}
-                />
-              ) : null}
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+              </span>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">Copy file contents</TooltipContent>
+          </Tooltip>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleCopyUrl}
+            aria-label="Copy raw file URL"
+          >
+            <Link2 />
+            <span className="hidden sm:inline">Raw URL</span>
+          </Button>
+          <Button asChild variant="ghost" size="icon-sm">
+            <a href={activeAsset?.urlPath} download aria-label="Download file">
+              <Download />
+            </a>
+          </Button>
+        </>
+      }
+    >
+      {activeAsset ? (
+        <CodeFileViewer
+          fileName={activeAsset.displayName}
+          languageLabel={languageLabel}
+          highlightLanguage={highlightLanguage}
+          source={assetSource}
+          sourceUrl={absoluteAssetUrl}
+          isLoading={isLoadingSource}
+          error={sourceError}
+        />
+      ) : null}
+    </CollectionDetailShell>
   )
 }

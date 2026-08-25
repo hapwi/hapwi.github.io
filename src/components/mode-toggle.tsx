@@ -17,7 +17,7 @@ export function ModeToggle() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          size="icon-sm"
+          size="icon-lg"
           className="relative"
           aria-label="Toggle theme"
         >

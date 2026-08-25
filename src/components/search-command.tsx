@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { FileCode2, FolderOpen, GitBranch, Search } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
+import { Kbd } from '@/components/ui/kbd'
 import {
   CommandDialog,
   CommandEmpty,
@@ -14,6 +16,13 @@ import {
 import { curatedProjects } from '@/data/projects'
 import { useCatalog } from '@/hooks/use-catalog'
 import { codeLibrary, folderGroups } from '@/lib/library'
+
+function runNavigation(navigation: Promise<void>) {
+  void navigation.catch((error: unknown) => {
+    console.error('Search navigation failed:', error)
+    toast.error('Unable to open that result')
+  })
+}
 
 export function SearchCommand() {
   const [open, setOpen] = useState(false)
@@ -43,23 +52,35 @@ export function SearchCommand() {
         if (!project) return
 
         if (project.to === '/repos/$repo' && project.repo) {
-          void navigate({
-            to: '/repos/$repo',
-            params: { repo: project.repo },
-            search: { file: undefined, path: undefined },
-          })
+          runNavigation(
+            navigate({
+              to: '/repos/$repo',
+              params: { repo: project.repo },
+              search: { file: undefined, path: undefined },
+            }),
+          )
           return
         }
         if (project.to === '/discord-themes') {
-          void navigate({ to: '/discord-themes', search: { file: undefined } })
+          runNavigation(
+            navigate({
+              to: '/discord-themes',
+              search: { file: undefined },
+            }),
+          )
           return
         }
         if (project.to === '/tampermonkey') {
-          void navigate({ to: '/tampermonkey', search: { file: undefined } })
+          runNavigation(
+            navigate({
+              to: '/tampermonkey',
+              search: { file: undefined },
+            }),
+          )
           return
         }
         if (project.to === '/') {
-          void navigate({ to: '/' })
+          runNavigation(navigate({ to: '/' }))
           return
         }
         const href = project.href ?? project.githubUrl
@@ -70,8 +91,20 @@ export function SearchCommand() {
       if (value.startsWith('folder:')) {
         const folderId = value.replace('folder:', '')
         const folder = folderGroups.find((item) => item.id === folderId)
-        if (folder?.href) {
-          void navigate({ to: folder.href })
+        if (folder?.href === '/discord-themes') {
+          runNavigation(
+            navigate({
+              to: '/discord-themes',
+              search: { file: undefined },
+            }),
+          )
+        } else if (folder?.href === '/tampermonkey') {
+          runNavigation(
+            navigate({
+              to: '/tampermonkey',
+              search: { file: undefined },
+            }),
+          )
         }
         return
       }
@@ -86,8 +119,22 @@ export function SearchCommand() {
             ? folderGroups.find((folder) => folder.id === topFolderId)
             : null) ?? null
 
-        const targetPath = targetFolder?.href ?? '/discord-themes'
-        void navigate({ to: targetPath, search: { file: filePath } })
+        if (targetFolder?.href === '/tampermonkey') {
+          runNavigation(
+            navigate({
+              to: '/tampermonkey',
+              search: { file: filePath },
+            }),
+          )
+          return
+        }
+
+        runNavigation(
+          navigate({
+            to: '/discord-themes',
+            search: { file: filePath },
+          }),
+        )
       }
     },
     [catalog, navigate],
@@ -96,12 +143,19 @@ export function SearchCommand() {
   return (
     <>
       <Button
-        variant="ghost"
-        size="icon-sm"
+        variant="outline"
+        size="lg"
         onClick={() => setOpen(true)}
         aria-label="Search"
+        className="size-10 justify-center border-transparent px-0 text-muted-foreground shadow-none lg:w-auto lg:min-w-64 lg:justify-start lg:border-border lg:bg-muted/35 lg:px-3"
       >
         <Search />
+        <span className="hidden flex-1 text-left text-xs font-normal lg:inline">
+          Search library
+        </span>
+        <Kbd className="hidden h-5 border bg-background px-1.5 text-[11px] lg:inline-flex">
+          Ctrl K
+        </Kbd>
       </Button>
       <CommandDialog
         open={open}

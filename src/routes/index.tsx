@@ -3,10 +3,8 @@ import { AlertCircle, FolderGit2 } from 'lucide-react'
 
 import { ProjectPreviewCard } from '@/components/project-preview-card'
 import { StarOnGitHub } from '@/components/star-on-github'
-import { PageContent, PageLayout } from '@/components/page-layout'
+import { PageContent, PageHero, PageLayout } from '@/components/page-layout'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import {
   Empty,
   EmptyDescription,
@@ -14,15 +12,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty'
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemMedia,
-  ItemTitle,
-} from '@/components/ui/item'
-import { Separator } from '@/components/ui/separator'
+import { getWorkProjects } from '@/data/projects'
 import { useCatalog } from '@/hooks/use-catalog'
 import { GITHUB_OWNER } from '@/lib/github'
 
@@ -32,34 +22,22 @@ export const Route = createFileRoute('/')({
 
 function HomeRoute() {
   const { projects, error } = useCatalog()
+  const workProjects = getWorkProjects(projects)
 
   return (
     <PageLayout>
-      <PageContent className="flex flex-col gap-10 space-y-0 sm:space-y-0">
-        <Item variant="outline" className="items-start sm:items-center">
-          <ItemMedia>
-            <Avatar className="size-12 rounded-md">
-              <AvatarImage
-                src={`https://github.com/${GITHUB_OWNER}.png?size=96`}
-                alt=""
-              />
-              <AvatarFallback className="rounded-md">ha</AvatarFallback>
-            </Avatar>
-          </ItemMedia>
-          <ItemContent className="min-w-0">
-            <ItemTitle>hapwi</ItemTitle>
-            <ItemDescription className="line-clamp-none">
-              Linux, macOS, and Discord tools I actually run. Source lives on
-              GitHub.
-            </ItemDescription>
-          </ItemContent>
-          <ItemActions className="max-sm:mt-1 max-sm:w-full max-sm:basis-full">
+      <PageContent>
+        <PageHero
+          label="Open-source portfolio"
+          title="Tools, themes, and source."
+          description="A working collection of Linux, macOS, browser, and Discord projects. Everything here links back to its source."
+          actions={
             <StarOnGitHub
               className="max-sm:w-full"
               href={`https://github.com/${GITHUB_OWNER}`}
             />
-          </ItemActions>
-        </Item>
+          }
+        />
 
         {error ? (
           <Alert>
@@ -73,12 +51,17 @@ function HomeRoute() {
         ) : null}
 
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-2xl font-semibold tracking-tight">
-            Projects
-          </h2>
-          {projects.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2">
-              {projects.map((project) => (
+          <div>
+            <h2 className="font-display text-2xl font-semibold tracking-tight">
+              Selected work
+            </h2>
+            <p className="mt-1 text-base text-muted-foreground">
+              Explore each project or go directly to its source.
+            </p>
+          </div>
+          {workProjects.length > 0 ? (
+            <div className="grid gap-6 lg:grid-cols-2">
+              {workProjects.map((project) => (
                 <ProjectPreviewCard key={project.id} project={project} />
               ))}
             </div>
@@ -97,24 +80,6 @@ function HomeRoute() {
           )}
         </section>
       </PageContent>
-
-      <Separator className="mt-10" />
-      <Item size="sm" className="items-start sm:items-center">
-        <ItemContent>
-          <ItemTitle>{GITHUB_OWNER}/github.io</ItemTitle>
-        </ItemContent>
-        <ItemActions className="max-sm:basis-full">
-          <Button asChild variant="link" size="sm">
-            <a
-              href={`https://github.com/${GITHUB_OWNER}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
-            </a>
-          </Button>
-        </ItemActions>
-      </Item>
     </PageLayout>
   )
 }
