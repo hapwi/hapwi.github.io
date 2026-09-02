@@ -23,7 +23,7 @@ export function BottomNav() {
   })
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t bg-background/95 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-md md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 overflow-hidden rounded-t-[1.5rem] border-t bg-background pb-[env(safe-area-inset-bottom,0px)] shadow-[0_-8px_24px_-16px_rgb(0_0_0/0.25)] md:hidden dark:shadow-none">
       <nav
         aria-label="Primary"
         className="grid min-h-[3.75rem] w-full grid-cols-4"
