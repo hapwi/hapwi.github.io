@@ -143,17 +143,16 @@ export function SearchCommand() {
   return (
     <>
       <Button
-        variant="outline"
-        size="lg"
+        variant="ghost"
         onClick={() => setOpen(true)}
         aria-label="Search"
-        className="size-10 justify-center border-transparent px-0 text-muted-foreground shadow-none lg:w-auto lg:min-w-64 lg:justify-start lg:border-border lg:bg-muted/35 lg:px-3"
+        className="size-9 justify-center px-0 text-muted-foreground lg:h-9 lg:w-56 lg:justify-start lg:border lg:border-border lg:bg-muted/40 lg:px-2.5 lg:hover:bg-muted"
       >
         <Search />
-        <span className="hidden flex-1 text-left text-xs font-normal lg:inline">
-          Search library
+        <span className="hidden flex-1 text-left text-[0.8125rem] font-normal lg:inline">
+          Search
         </span>
-        <Kbd className="hidden h-5 border bg-background px-1.5 text-[11px] lg:inline-flex">
+        <Kbd className="hidden h-5 min-w-0 border-0 bg-background px-1.5 font-mono text-[11px] shadow-none lg:inline-flex">
           Ctrl K
         </Kbd>
       </Button>

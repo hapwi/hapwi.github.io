@@ -150,6 +150,7 @@ export default defineConfig({
     host: true,
     port: 3000,
     allowedHosts: [
+      'haplinux',
       'haplinux.taild451ec.ts.net',
       '.taild451ec.ts.net',
       '.ts.net',

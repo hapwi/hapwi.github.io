@@ -1,6 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
+import { ArrowLeft } from 'lucide-react'
 
 import { GitHubRepoBrowser } from '@/components/github-repo-browser'
+import { Button } from '@/components/ui/button'
 import { isValidRepoName } from '@/data/projects'
 
 export const Route = createFileRoute('/repos/$repo')({
@@ -19,15 +21,23 @@ function RepoRoute() {
 
   if (!isValidRepoName(repo)) {
     return (
-      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-16">
-        <h1 className="font-display text-2xl font-semibold">
-          Unknown repository
-        </h1>
-        <p className="mt-2 text-muted-foreground">
-          Repository names can only contain letters, numbers, dots, underscores,
-          and hyphens.
-        </p>
-      </div>
+      <main className="site-container flex-1 py-16">
+        <div className="max-w-xl">
+          <h1 className="font-display text-3xl font-semibold tracking-[-0.03em]">
+            Unknown repository
+          </h1>
+          <p className="mt-3 leading-7 text-muted-foreground">
+            Repository names can only contain letters, numbers, dots,
+            underscores, and hyphens.
+          </p>
+          <Button asChild variant="outline" className="mt-6">
+            <Link to="/repos">
+              <ArrowLeft data-icon="inline-start" />
+              All repositories
+            </Link>
+          </Button>
+        </div>
+      </main>
     )
   }
 

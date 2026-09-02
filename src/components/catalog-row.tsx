@@ -1,8 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowUpRight, Check, Copy } from 'lucide-react'
 import {
-  Children,
-  Fragment,
   forwardRef,
   useState,
   type ComponentPropsWithoutRef,
@@ -10,25 +8,10 @@ import {
 } from 'react'
 import { toast } from 'sonner'
 
+import { Button } from '@/components/ui/button'
 import type { CatalogProject } from '@/data/projects'
 import { formatRelativeTime } from '@/lib/format'
 import { cn } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from '@/components/ui/input-group'
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemDescription,
-  ItemGroup,
-  ItemSeparator,
-  ItemTitle,
-} from '@/components/ui/item'
 
 export const ProjectLink = forwardRef<
   HTMLAnchorElement,
@@ -119,6 +102,60 @@ export const ProjectLink = forwardRef<
   )
 })
 
+export function InstallCommand({
+  command,
+  className,
+}: {
+  command: string
+  className?: string
+}) {
+  const [copied, setCopied] = useState(false)
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(command)
+      toast.success('Install command copied')
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1500)
+    } catch {
+      toast.error('Failed to copy install command')
+    }
+  }
+
+  return (
+    <div
+      className={cn(
+        'flex min-h-10 min-w-0 items-start gap-1.5 rounded-lg border bg-code-surface py-1 pr-1 pl-3 font-mono text-xs leading-5',
+        className,
+      )}
+    >
+      <span aria-hidden="true" className="py-1.5 select-none text-brand">
+        $
+      </span>
+      <code
+        className="min-w-0 flex-1 py-1.5 whitespace-pre-wrap [overflow-wrap:anywhere] text-foreground select-all"
+        aria-label="Install command"
+      >
+        {command}
+      </code>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon-sm"
+        className="shrink-0 text-muted-foreground hover:text-foreground"
+        aria-label={copied ? 'Copied' : 'Copy install command'}
+        onClick={(event) => {
+          event.preventDefault()
+          event.stopPropagation()
+          void copy()
+        }}
+      >
+        {copied ? <Check className="text-brand" /> : <Copy />}
+      </Button>
+    </div>
+  )
+}
+
 export function CatalogRow({
   project,
   source,
@@ -129,99 +166,72 @@ export function CatalogRow({
   const isExternal = !project.to
 
   return (
-    <div className="flex flex-col gap-2">
-      <Item asChild size="sm">
-        <ProjectLink project={project} source={source}>
-          <ItemContent>
-            <ItemTitle>
-              {project.name}
-              {isExternal ? <ArrowUpRight /> : null}
-            </ItemTitle>
-            <ItemDescription>{project.description}</ItemDescription>
-          </ItemContent>
-          <ItemActions className="max-sm:basis-full">
-            {project.updatedAt ? (
-              <Badge variant="outline">
-                {formatRelativeTime(project.updatedAt)}
-              </Badge>
+    <li className="flex flex-col">
+      <ProjectLink
+        project={project}
+        source={source}
+        className="group grid gap-x-4 gap-y-1 px-4 py-3.5 outline-none transition-colors hover:bg-muted/60 focus-visible:bg-muted/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
+      >
+        <span className="min-w-0">
+          <span className="flex items-center gap-1.5 font-medium">
+            <span className="truncate">{project.name}</span>
+            {isExternal ? (
+              <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground" />
             ) : null}
-          </ItemActions>
-        </ProjectLink>
-      </Item>
+          </span>
+          <span className="mt-0.5 block text-sm text-muted-foreground">
+            {project.description}
+          </span>
+        </span>
+        <span className="flex items-center gap-4 font-mono text-xs tabular-nums text-muted-foreground">
+          {project.language ? <span>{project.language}</span> : null}
+          {project.updatedAt ? (
+            <span>{formatRelativeTime(project.updatedAt)}</span>
+          ) : null}
+        </span>
+      </ProjectLink>
       {project.installCommand ? (
-        <div className="px-4 pb-3">
+        <div className="px-4 pb-4">
           <InstallCommand command={project.installCommand} />
         </div>
       ) : null}
-    </div>
-  )
-}
-
-export function InstallCommand({ command }: { command: string }) {
-  const [copied, setCopied] = useState(false)
-
-  return (
-    <InputGroup>
-      <InputGroupInput
-        readOnly
-        value={command}
-        aria-label="Install command"
-        className="min-w-0 font-mono text-xs"
-        onClick={(event) => {
-          event.currentTarget.select()
-        }}
-      />
-      <InputGroupAddon align="inline-end">
-        <InputGroupButton
-          size="icon-xs"
-          aria-label="Copy install command"
-          onClick={async (event) => {
-            event.preventDefault()
-            event.stopPropagation()
-            await navigator.clipboard.writeText(command)
-            toast.success('Install command copied')
-            setCopied(true)
-            window.setTimeout(() => setCopied(false), 1500)
-          }}
-        >
-          {copied ? <Check /> : <Copy />}
-        </InputGroupButton>
-      </InputGroupAddon>
-    </InputGroup>
+    </li>
   )
 }
 
 export function CatalogSection({
-  path,
+  title,
   description,
+  count,
   children,
   className,
 }: {
-  path: string
+  title: string
   description?: string
+  count?: number
   children: ReactNode
   className?: string
 }) {
-  const items = Children.toArray(children)
-
   return (
-    <section className={cn('flex min-w-0 flex-col gap-2', className)}>
-      <Item size="sm">
-        <ItemContent>
-          <ItemTitle>{path}</ItemTitle>
+    <section className={cn('flex min-w-0 flex-col gap-3', className)}>
+      <div className="flex items-baseline justify-between gap-4">
+        <div>
+          <h2 className="font-display text-lg font-semibold">{title}</h2>
           {description ? (
-            <ItemDescription>{description}</ItemDescription>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              {description}
+            </p>
           ) : null}
-        </ItemContent>
-      </Item>
-      <ItemGroup className="overflow-hidden rounded-md border">
-        {items.map((child, index) => (
-          <Fragment key={index}>
-            {child}
-            {index < items.length - 1 ? <ItemSeparator /> : null}
-          </Fragment>
-        ))}
-      </ItemGroup>
+        </div>
+        {typeof count === 'number' ? (
+          <span className="font-mono text-xs tabular-nums text-muted-foreground">
+            {count} {count === 1 ? 'repo' : 'repos'}
+          </span>
+        ) : null}
+      </div>
+      <ul className="divide-y overflow-hidden rounded-xl border bg-card">
+        {children}
+      </ul>
     </section>
   )
 }

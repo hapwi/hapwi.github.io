@@ -8,20 +8,23 @@
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-    <meta name="theme-color" content="#0f1720" />
+    <meta
+      name="theme-color"
+      content="#fbfbfc"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#111318"
+      media="(prefers-color-scheme: dark)"
+    />
     <meta
       name="description"
-      content="Previews of hapwi open-source tools, with GitHub repos and install commands."
+      content="Open-source tools by hapwi for working across macOS and Linux, with one-line installers, hosted Discord themes, and userscripts."
     />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <title>hapwi · projects</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <title>hapwi — open-source tools</title>
   </head>
   <body>
     <script>
@@ -36,11 +39,11 @@
         if (isDark) {
           d.classList.add('dark')
           d.style.colorScheme = 'dark'
-          d.style.backgroundColor = '#12141a'
+          d.style.backgroundColor = '#111318'
         } else {
           d.classList.add('light')
           d.style.colorScheme = 'light'
-          d.style.backgroundColor = '#f3f5f7'
+          d.style.backgroundColor = '#fbfbfc'
         }
       })()
     </script>

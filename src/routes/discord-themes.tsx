@@ -6,18 +6,10 @@ import { toast } from 'sonner'
 import { CodeFileViewer } from '@/components/code-file-viewer'
 import { CollectionDetailShell } from '@/components/collection-detail-shell'
 import { FileIcon } from '@/components/file-icon'
-import { PageContent, PageLayout } from '@/components/page-layout'
-import { formatFileSize } from '@/components/library/meta-columns'
-import { Badge } from '@/components/ui/badge'
+import { copyHostedUrl } from '@/components/hosted-files'
+import { PageContent, PageHeader, PageLayout } from '@/components/page-layout'
+import { SiteFooter } from '@/components/site-footer'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import {
   Tooltip,
   TooltipContent,
@@ -27,7 +19,9 @@ import {
   buildHostedAssetUrl,
   getCollectionDetailLocation,
 } from '@/lib/collection-links'
+import { formatFileSize, formatRelativeTime } from '@/lib/format'
 import { folderGroups } from '@/lib/library'
+import { getThemePresentation } from '@/lib/theme-presentation'
 
 export const Route = createFileRoute('/discord-themes')({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -41,35 +35,12 @@ const THEMES_FOLDER_ID = 'discord/themes'
 const SOURCE_CACHE_PREFIX = 'discord-themes:raw-source:v1:'
 const SOURCE_CACHE_MAX_ENTRIES = 25
 
-function getThemePresentation(name: string) {
-  const normalized = name.toLowerCase()
-
-  if (normalized.includes('puccin')) {
-    return {
-      label: 'Catppuccin',
-      palette: ['#1e1e2e', '#313244', '#cba6f7', '#89b4fa'],
-    }
-  }
-
-  if (normalized.includes('charcoal')) {
-    return {
-      label: 'Charcoal',
-      palette: ['#17191c', '#25282d', '#8e949e', '#d7dae0'],
-    }
-  }
-
-  return {
-    label: 'Equicord',
-    palette: ['#17192b', '#25284a', '#8b7cf6', '#67d4d0'],
-  }
-}
-
 function ThemePreview({ name }: { name: string }) {
   const { palette } = getThemePresentation(name)
 
   return (
     <div
-      className="grid h-28 grid-cols-[3.5rem_1fr] overflow-hidden rounded-xl border"
+      className="grid aspect-[16/9] grid-cols-[3rem_1fr] overflow-hidden sm:grid-cols-[3.5rem_1fr]"
       style={{ backgroundColor: palette[0] }}
       aria-hidden="true"
     >
@@ -78,49 +49,38 @@ function ThemePreview({ name }: { name: string }) {
         style={{ backgroundColor: palette[1] }}
       >
         <span
-          className="size-7 rounded-full"
+          className="size-6 rounded-full sm:size-7"
           style={{ backgroundColor: palette[2] }}
         />
         <span
-          className="size-7 rounded-full opacity-60"
+          className="size-6 rounded-full opacity-60 sm:size-7"
+          style={{ backgroundColor: palette[3] }}
+        />
+        <span
+          className="size-6 rounded-full opacity-30 sm:size-7"
           style={{ backgroundColor: palette[3] }}
         />
       </div>
       <div className="flex flex-col justify-end gap-2 p-4">
         <span
-          className="h-3 w-2/3 rounded-full opacity-90"
+          className="h-2.5 w-2/3 rounded-full opacity-90"
           style={{ backgroundColor: palette[2] }}
         />
         <span
-          className="h-3 w-5/6 rounded-full opacity-55"
+          className="h-2.5 w-5/6 rounded-full opacity-55"
           style={{ backgroundColor: palette[3] }}
         />
         <span
-          className="mt-1 h-8 rounded-lg opacity-35"
+          className="h-2.5 w-1/2 rounded-full opacity-40"
+          style={{ backgroundColor: palette[3] }}
+        />
+        <span
+          className="mt-1 h-8 rounded-md opacity-40"
           style={{ backgroundColor: palette[1] }}
         />
       </div>
     </div>
   )
-}
-
-function formatRelativeTime(timestamp: number): string {
-  const now = Date.now()
-  const diff = now - timestamp
-
-  const seconds = Math.floor(diff / 1000)
-  const minutes = Math.floor(seconds / 60)
-  const hours = Math.floor(minutes / 60)
-  const days = Math.floor(hours / 24)
-  const months = Math.floor(days / 30)
-  const years = Math.floor(days / 365)
-
-  if (years > 0) return `${years}y ago`
-  if (months > 0) return `${months}mo ago`
-  if (days > 0) return `${days}d ago`
-  if (hours > 0) return `${hours}h ago`
-  if (minutes > 0) return `${minutes}m ago`
-  return 'now'
 }
 
 type CachedSource = {
@@ -322,67 +282,100 @@ function DiscordThemesRoute() {
   // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
-      <PageLayout className="py-0 sm:py-0 lg:py-0">
-        <PageContent className="gap-0">
-          <section
-            aria-label="Hosted themes"
-            className="grid gap-5 py-7 md:grid-cols-2 xl:grid-cols-3"
-          >
-            {themeAssets.map((item) => (
-              <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
-                <div className="bg-muted/40 p-3">
-                  <ThemePreview name={item.name} />
-                </div>
-                <CardHeader className="gap-2 px-5 pt-5 pb-4">
-                  <CardTitle className="text-lg">
-                    {getThemePresentation(item.name).label}
-                  </CardTitle>
-                  <CardDescription className="line-clamp-2 leading-relaxed">
-                    {item.description ??
-                      'Hosted custom CSS for Vencord-family Discord clients.'}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-wrap gap-2 px-5 pb-4">
-                  <Badge variant="secondary">Vencord</Badge>
-                  <Badge variant="secondary">Equicord</Badge>
-                  <span className="ml-auto self-center text-xs text-muted-foreground">
-                    Updated {formatRelativeTime(item.mtime)}
-                  </span>
-                </CardContent>
-                <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
-                  <Button asChild size="sm">
-                    <Link
-                      {...getCollectionDetailLocation('themes', item.urlPath)}
-                    >
-                      View CSS
-                    </Link>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={async () => {
-                      try {
-                        await navigator.clipboard.writeText(
-                          buildHostedAssetUrl(
-                            item.urlPath,
-                            window.location.origin,
-                          ),
-                        )
-                        toast.success('Raw theme URL copied')
-                      } catch {
-                        toast.error('Failed to copy raw theme URL')
-                      }
-                    }}
+      <>
+        <PageLayout>
+          <PageContent>
+            <PageHeader
+              title="Discord themes"
+              description="Custom CSS for Vencord, Equicord, and other client mods. Paste a raw URL into your client's online themes list and it stays in sync with this repository."
+              aside={
+                <span className="font-mono text-xs tabular-nums text-muted-foreground">
+                  {themeAssets.length}{' '}
+                  {themeAssets.length === 1 ? 'file' : 'files'}
+                </span>
+              }
+            />
+
+            <ul
+              aria-label="Hosted themes"
+              className="grid gap-5 md:grid-cols-2 xl:grid-cols-3"
+            >
+              {themeAssets.map((item) => {
+                const presentation = getThemePresentation(item.name)
+                const rawUrl = buildHostedAssetUrl(
+                  item.urlPath,
+                  typeof window === 'undefined'
+                    ? undefined
+                    : window.location.origin,
+                )
+                return (
+                  <li
+                    key={item.urlPath}
+                    className="flex flex-col overflow-hidden rounded-2xl border bg-card"
                   >
-                    <Link2 data-icon="inline-start" />
-                    Copy URL
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </section>
-        </PageContent>
-      </PageLayout>
+                    <ThemePreview name={item.name} />
+                    <div className="flex flex-1 flex-col gap-4 p-5">
+                      <div>
+                        <h2 className="font-display text-lg font-semibold">
+                          {item.displayName}
+                        </h2>
+                        <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                          {item.description}
+                        </p>
+                      </div>
+                      <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1 font-mono text-xs tabular-nums text-muted-foreground">
+                        <dt>File</dt>
+                        <dd className="truncate text-foreground">
+                          {item.name}
+                        </dd>
+                        <dt>Base</dt>
+                        <dd className="text-foreground">
+                          {presentation.label}
+                        </dd>
+                        <dt>Size</dt>
+                        <dd className="text-foreground">
+                          {formatFileSize(item.size)}
+                        </dd>
+                        <dt>Updated</dt>
+                        <dd className="text-foreground">
+                          {formatRelativeTime(item.mtime)}
+                        </dd>
+                      </dl>
+                      <code
+                        className="block truncate rounded-md border bg-code-surface px-2.5 py-1.5 font-mono text-xs text-muted-foreground select-all"
+                        title={rawUrl}
+                      >
+                        {rawUrl}
+                      </code>
+                    </div>
+                    <div className="mt-auto flex flex-wrap items-center gap-2 border-t bg-muted/40 px-5 py-3">
+                      <Button asChild size="sm">
+                        <Link
+                          {...getCollectionDetailLocation(
+                            'themes',
+                            item.urlPath,
+                          )}
+                        >
+                          View CSS
+                        </Link>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => void copyHostedUrl(item.urlPath)}
+                      >
+                        <Link2 data-icon="inline-start" />
+                        Copy URL
+                      </Button>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </PageContent>
+        </PageLayout>
+        <SiteFooter />
+      </>
     )
   }
 

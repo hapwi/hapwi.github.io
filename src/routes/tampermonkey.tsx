@@ -6,16 +6,10 @@ import { toast } from 'sonner'
 import { CodeFileViewer } from '@/components/code-file-viewer'
 import { CollectionDetailShell } from '@/components/collection-detail-shell'
 import { FileIcon } from '@/components/file-icon'
-import { PageContent, PageLayout } from '@/components/page-layout'
-import { formatFileSize } from '@/components/library/meta-columns'
+import { copyHostedUrl } from '@/components/hosted-files'
+import { PageContent, PageHeader, PageLayout } from '@/components/page-layout'
+import { SiteFooter } from '@/components/site-footer'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import {
   Tooltip,
   TooltipContent,
@@ -27,6 +21,7 @@ import {
   getCollectionDetailLocation,
   USERSCRIPT_SOURCE_URL,
 } from '@/lib/collection-links'
+import { formatFileSize, formatRelativeTime } from '@/lib/format'
 import { folderGroups } from '@/lib/library'
 
 export const Route = createFileRoute('/tampermonkey')({
@@ -97,6 +92,82 @@ function writeCachedSource(urlPath: string, text: string) {
   } catch {
     // ignore storage quota / serialization issues
   }
+}
+
+const HEADER_KEYS = ['name', 'version', 'description', 'match'] as const
+
+function parseUserscriptHeader(source: string) {
+  const block = source.split('// ==/UserScript==')[0] ?? ''
+  const entries: Array<{ key: string; value: string }> = []
+  for (const line of block.split('\n')) {
+    const match = line.match(/^\/\/\s*@(\w+)\s+(.+?)\s*$/)
+    if (!match) continue
+    const [, key, value] = match
+    if (
+      key &&
+      value &&
+      (HEADER_KEYS as readonly string[]).includes(key) &&
+      !entries.some((entry) => entry.key === key)
+    ) {
+      entries.push({ key, value })
+    }
+  }
+  return entries
+}
+
+/** Renders the script's real `==UserScript==` metadata block. */
+function UserscriptHeader({ urlPath }: { urlPath: string }) {
+  const [entries, setEntries] = useState<Array<{
+    key: string
+    value: string
+  }> | null>(() => {
+    const cached = readCachedSource(urlPath)
+    return cached ? parseUserscriptHeader(cached.text) : null
+  })
+
+  useEffect(() => {
+    if (entries) return
+    const controller = new AbortController()
+    fetch(
+      buildFetchAssetUrl(
+        urlPath,
+        typeof window === 'undefined' ? undefined : window.location.origin,
+      ),
+      { signal: controller.signal },
+    )
+      .then((response) => (response.ok ? response.text() : null))
+      .then((text) => {
+        if (text == null) return
+        writeCachedSource(urlPath, text)
+        setEntries(parseUserscriptHeader(text))
+      })
+      .catch(() => undefined)
+    return () => controller.abort()
+  }, [entries, urlPath])
+
+  const width = Math.max(...HEADER_KEYS.map((key) => key.length)) + 1
+
+  return (
+    <pre className="m-0 flex flex-col justify-center overflow-x-auto border-b bg-code-surface px-5 py-5 font-mono text-xs leading-6 text-muted-foreground md:border-r md:border-b-0 sm:px-6">
+      <span>// ==UserScript==</span>
+      {entries
+        ? entries.map((entry) => (
+            <span key={entry.key} className="block">
+              <span>// </span>
+              <span className="text-brand">@{entry.key}</span>
+              {' '.repeat(Math.max(1, width - entry.key.length))}
+              <span className="text-foreground">{entry.value}</span>
+            </span>
+          ))
+        : HEADER_KEYS.map((key) => (
+            <span key={key} className="block">
+              <span>// </span>
+              <span className="text-brand">@{key}</span>
+            </span>
+          ))}
+      <span className="block">// ==/UserScript==</span>
+    </pre>
+  )
 }
 
 function TampermonkeyRoute() {
@@ -241,74 +312,103 @@ function TampermonkeyRoute() {
   // Show file list view when no file is selected
   if (!selectedAssetPath) {
     return (
-      <PageLayout className="py-0 sm:py-0 lg:py-0">
-        <PageContent className="gap-0">
-          <section
-            aria-label="Available userscripts"
-            className="grid gap-5 py-7 md:grid-cols-2 xl:grid-cols-3"
-          >
-            {scripts.map((item) => (
-              <Card key={item.urlPath} className="gap-0 overflow-hidden py-0">
-                <div className="bg-muted/40 p-3">
-                  <div className="flex h-28 flex-col justify-center gap-2 overflow-hidden rounded-xl border bg-background px-5 font-mono text-xs sm:h-32">
-                    <span className="text-muted-foreground">
-                      // ==UserScript==
-                    </span>
-                    <span>
-                      <span className="text-primary">@name</span>{' '}
-                      {item.displayName}
-                    </span>
-                    <span>
-                      <span className="text-primary">@match</span>{' '}
-                      https://github.com/*
-                    </span>
-                  </div>
-                </div>
-                <CardHeader className="gap-2 px-5 pt-5 pb-4">
-                  <CardTitle className="text-xl">{item.displayName}</CardTitle>
-                  <CardDescription className="text-base leading-relaxed">
-                    {item.description ??
-                      'A focused userscript for improving everyday browsing workflows.'}
-                  </CardDescription>
-                </CardHeader>
-                <CardFooter className="mt-auto flex-wrap justify-end gap-2 border-t px-5 py-4">
-                  <Button asChild size="sm">
-                    <Link
-                      {...getCollectionDetailLocation('scripts', item.urlPath)}
-                    >
-                      View code
-                    </Link>
-                  </Button>
-                  <Button asChild variant="secondary" size="sm">
-                    <a
-                      href={buildHostedAssetUrl(
-                        item.urlPath,
-                        typeof window === 'undefined'
-                          ? undefined
-                          : window.location.origin,
-                      )}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <ExternalLink data-icon="inline-start" />
-                      Install
-                    </a>
-                  </Button>
-                  <Button asChild variant="outline" size="sm">
-                    <a
-                      href={USERSCRIPT_SOURCE_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Source
-                    </a>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </section>
-        </PageContent>
-      </PageLayout>
+      <>
+        <PageLayout>
+          <PageContent>
+            <PageHeader
+              title="Userscripts"
+              description="Tampermonkey scripts for small browsing fixes. With Tampermonkey or Violentmonkey installed, opening a raw .user.js URL prompts the install and keeps the script updated from here."
+              aside={
+                <Button asChild variant="outline" size="sm">
+                  <a
+                    href={USERSCRIPT_SOURCE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ExternalLink data-icon="inline-start" />
+                    Source repository
+                  </a>
+                </Button>
+              }
+            />
+
+            <ul
+              aria-label="Available userscripts"
+              className="flex flex-col gap-5"
+            >
+              {scripts.map((item) => {
+                const rawUrl = buildHostedAssetUrl(
+                  item.urlPath,
+                  typeof window === 'undefined'
+                    ? undefined
+                    : window.location.origin,
+                )
+                return (
+                  <li
+                    key={item.urlPath}
+                    className="grid overflow-hidden rounded-2xl border bg-card md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]"
+                  >
+                    <UserscriptHeader urlPath={item.urlPath} />
+                    <div className="flex flex-col">
+                      <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
+                        <div>
+                          <h2 className="font-display text-xl font-semibold tracking-[-0.02em]">
+                            {item.displayName}
+                          </h2>
+                          <p className="mt-1.5 text-[0.9375rem] leading-6 text-muted-foreground">
+                            {item.description}
+                          </p>
+                        </div>
+                        <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1 font-mono text-xs tabular-nums text-muted-foreground">
+                          <dt>File</dt>
+                          <dd className="truncate text-foreground">
+                            {item.name}
+                          </dd>
+                          <dt>Size</dt>
+                          <dd className="text-foreground">
+                            {formatFileSize(item.size)}
+                          </dd>
+                          <dt>Updated</dt>
+                          <dd className="text-foreground">
+                            {formatRelativeTime(item.mtime)}
+                          </dd>
+                        </dl>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2 border-t bg-muted/40 px-5 py-3 sm:px-6">
+                        <Button asChild size="sm">
+                          <a href={rawUrl} target="_blank" rel="noreferrer">
+                            <ExternalLink data-icon="inline-start" />
+                            Install
+                          </a>
+                        </Button>
+                        <Button asChild variant="outline" size="sm">
+                          <Link
+                            {...getCollectionDetailLocation(
+                              'scripts',
+                              item.urlPath,
+                            )}
+                          >
+                            View code
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => void copyHostedUrl(item.urlPath)}
+                        >
+                          <Link2 data-icon="inline-start" />
+                          Copy URL
+                        </Button>
+                      </div>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </PageContent>
+        </PageLayout>
+        <SiteFooter />
+      </>
     )
   }
 

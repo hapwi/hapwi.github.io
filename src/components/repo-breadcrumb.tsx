@@ -22,16 +22,16 @@ export function RepoBreadcrumb({ segments, className }: RepoBreadcrumbProps) {
   return (
     <nav
       className={cn(
-        'flex min-w-0 items-center gap-1.5 overflow-x-auto rounded-md border bg-card px-3 py-2',
+        'flex min-w-0 items-center gap-1 overflow-x-auto font-mono text-[0.8125rem]',
         className,
       )}
       aria-label="Breadcrumb"
     >
       <Link
         to="/"
-        className="flex shrink-0 items-center gap-1.5 font-mono text-sm text-muted-foreground transition-colors hover:text-primary"
+        className="flex shrink-0 items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
       >
-        <Folder className="size-4 text-primary" />
+        <Folder className="size-3.5" aria-hidden="true" />
         <span>hapwi</span>
       </Link>
 
@@ -41,24 +41,28 @@ export function RepoBreadcrumb({ segments, className }: RepoBreadcrumbProps) {
         return (
           <div
             key={`${segment.label}-${index}`}
-            className="flex min-w-0 items-center gap-1.5"
+            className="flex min-w-0 items-center gap-1"
           >
-            <ChevronRight className="size-4 shrink-0 text-muted-foreground/50" />
+            <ChevronRight
+              className="size-3.5 shrink-0 text-muted-foreground/60"
+              aria-hidden="true"
+            />
             {segment.href && !isLast ? (
               <Link
                 to={segment.href}
                 params={segment.params as never}
                 search={segment.search as never}
-                className="truncate font-mono text-sm text-foreground transition-colors hover:text-primary"
+                className="truncate text-muted-foreground transition-colors hover:text-foreground"
               >
                 {segment.label}
               </Link>
             ) : (
               <span
                 className={cn(
-                  'flex min-w-0 items-center gap-1.5 text-sm',
+                  'flex min-w-0 items-center gap-1.5',
                   isLast ? 'font-medium text-foreground' : 'text-foreground',
                 )}
+                aria-current={isLast ? 'page' : undefined}
               >
                 {segment.isFile && segment.filename ? (
                   <FileIcon
@@ -67,16 +71,7 @@ export function RepoBreadcrumb({ segments, className }: RepoBreadcrumbProps) {
                     className="shrink-0"
                   />
                 ) : null}
-                <span
-                  className={cn(
-                    'truncate',
-                    isLast && segment.isFile
-                      ? 'text-muted-foreground'
-                      : 'font-mono',
-                  )}
-                >
-                  {segment.label}
-                </span>
+                <span className="truncate">{segment.label}</span>
               </span>
             )}
           </div>

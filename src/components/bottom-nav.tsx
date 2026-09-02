@@ -2,14 +2,17 @@ import { Link, useRouterState } from '@tanstack/react-router'
 import {
   BookOpen01Icon,
   CodeSquareIcon,
+  FolderLibraryIcon,
   PaintBoardIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 
+import { isNavActive } from '@/components/Header'
 import { cn } from '@/lib/utils'
 
 const navItems = [
   { path: '/', label: 'Work', icon: BookOpen01Icon },
+  { path: '/repos', label: 'Repos', icon: FolderLibraryIcon },
   { path: '/discord-themes', label: 'Themes', icon: PaintBoardIcon },
   { path: '/tampermonkey', label: 'Scripts', icon: CodeSquareIcon },
 ] as const
@@ -19,19 +22,14 @@ export function BottomNav() {
     select: (state) => state.location.pathname,
   })
 
-  const isActive = (path: (typeof navItems)[number]['path']) => {
-    if (path === '/') return pathname === '/'
-    return pathname.startsWith(path)
-  }
-
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 overflow-hidden rounded-t-3xl border-t bg-background pb-[env(safe-area-inset-bottom,0px)]">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t bg-background/95 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-md md:hidden">
       <nav
         aria-label="Primary"
-        className="grid min-h-[3.75rem] w-full grid-cols-3 sm:min-h-16"
+        className="grid min-h-[3.75rem] w-full grid-cols-4"
       >
         {navItems.map(({ path, label, icon: Icon }) => {
-          const active = isActive(path)
+          const active = isNavActive(pathname, path)
 
           return (
             <Link
@@ -39,18 +37,22 @@ export function BottomNav() {
               to={path}
               aria-current={active ? 'page' : undefined}
               className={cn(
-                'group relative flex min-h-[3.75rem] min-w-0 flex-col items-center justify-center gap-1 px-0 py-3 text-[0.6875rem] leading-none text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring sm:min-h-16',
-                active && 'text-primary',
+                'relative flex min-h-[3.75rem] min-w-0 flex-col items-center justify-center gap-1 px-0 py-2.5 text-[0.6875rem] font-medium leading-none text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring',
+                active && 'text-foreground',
               )}
             >
-              <span className="relative grid size-6 shrink-0 place-items-center">
-                <HugeiconsIcon
-                  icon={Icon}
-                  strokeWidth={2}
-                  className="size-6"
+              {active ? (
+                <span
                   aria-hidden="true"
+                  className="absolute inset-x-6 top-0 h-0.5 rounded-b-full bg-brand"
                 />
-              </span>
+              ) : null}
+              <HugeiconsIcon
+                icon={Icon}
+                strokeWidth={1.75}
+                className="size-[1.375rem]"
+                aria-hidden="true"
+              />
               <span className="truncate">{label}</span>
             </Link>
           )
